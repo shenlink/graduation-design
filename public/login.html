@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../lib/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container">
+        <form action="checkLogin.php" method="post">
+            <div class="form-group">
+                <label for="username">用户名：</label>
+                <input type="text" class="form-control" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" class="form-control" placeholder="请输入密码">
+                <p class="message">请输入6~16位密码</p>
+            </div>
+            <button type="reset" class="btn btn-primary">重置</button>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+    <script>
+        let password = document.querySelector("#password");
+        password.onblur = function () {
+            if (password.value.length < 6 || password.value.length > 16) {
+                message.className = "message wrong";
+                message.innerHTML = "输入的密码位数不符，要求是6到16位";
+            } else {
+                message.className = "message right";
+                message.innerHTML = "密码正确";
+            }
+        }
+    </script>
+</body>
+
+</html>

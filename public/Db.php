@@ -5,7 +5,7 @@
 
 class Db
 {
-    private $filed = '*';
+    private $field = '*';
     private $order = '';
     private $where = array();
     /**
@@ -46,8 +46,8 @@ class Db
      * @return:object
      * @msg:
      */
-    public function field($filed){
-        $this->field=$filed;
+    public function field($field){
+        $this->field=$field;
         return $this;
     }
     /**
@@ -95,6 +95,48 @@ class Db
     }
     /**
      * @access:public
+     * @name:
+     * @param $
+     * @return:
+     * @msg:
+     */
+    public function insert($data)
+    {
+        $sql = $this->fixSql('insert', $data);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $this->pdo->lastInsertId();
+    }
+    /**
+     * @access:public
+     * @name:
+     * @param
+     * @return:
+     * @msg:
+     */
+    public function update($data)
+    {
+        $sql = $this->fixSql('update', $data);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    /**
+     * @access:public
+     * @name:
+     * @param
+     * @return:
+     * @msg:
+     */
+    public function delete()
+    {
+        $sql = $this->fixSql('delete');
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+    /**
+     * @access:public
      * @name:field
      * @param
      * @return:
@@ -117,6 +159,18 @@ class Db
     }
     /**
      * @access:public
+     * @name:order
+     * @param:$order
+     * @return:object
+     * @msg:
+     */
+    public function order($order)
+    {
+        $this->order = $order;
+        return $this->order;
+    }
+    /**
+     * @access:public
      * @name:
      * @param
      * @return:
@@ -125,13 +179,28 @@ class Db
     public function fixSql($type,$data=null){
         $sql='';
         if($type === 'select'){
+            $where = $this->fixWhere();
             $sql = "select {$this->field} from {$this->table} where {$this->where}";
+            if($this->order){
+                $sql .= " order by {this->order}";
+            }
+            if($this->limit){
+                $sql .= " limit {$this->limit}";
+            }
         }
         if($type === 'insert'){
-            $slq = "insert into {$this->table} {$this->field}";
+            $sql = "insert into {$this->table}";
+            $fields = $values = [];
+            foreach ($data as $key => $val) {
+                $fields[] = $key;
+                $values[] = is_string($val) ? "'" . $val . "'" : $val;
+            }
+            $sql .= "(" . implode(',', $fields) . ")values(" . implode(',', $values) . ")";
         }
         if($type === 'delete'){
-            $sql = "delete from {$this->table} {$this->where}";
+            // $sql = "delete from {$this->table} {$this->where}";
+            $where = $this->fixWhere();
+            $sql = "delete from {$this->table} {$where}";
         }
 
     }
@@ -142,7 +211,7 @@ class Db
      * @return:
      * @msg:
      */
-    public function fixWhere(){
+    private function fixWhere(){
         $where = '';
         if(is_array($this->where)){
             foreach($this->where as $key => $value){
@@ -156,46 +225,5 @@ class Db
         $where = rtrim($where, 'and ');
         $where = $where = '' ? '' : "where {$where}";
         return $where;
-    }
-    /**
-     * @access:public
-     * @name:order
-     * @param:$order
-     * @return:object
-     * @msg:
-     */
-    public function order($order){
-        $this->order = $order;
-        return $this->order;
-    }
-    /**
-     * @access:public
-     * @name:
-     * @param $
-     * @return:
-     * @msg:
-     */
-    public function insert(){
-
-    }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:
-     * @msg:
-     */
-    public function update(){
-
-    }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:
-     * @msg:
-     */
-    public function delete(){
-
     }
 }
