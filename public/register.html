@@ -18,9 +18,12 @@
                 </label>
                 <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username>
             </div>
+            <div class="form-group">
+                <button class="btn-light" id="checkname">检测用户名</button>
+            </div>
             <div class="form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"> Remember me
+                    <input class="form-check-input" type="checkbox"> 七天免登录
                 </label>
             </div>
             <div class="form-group">
@@ -63,13 +66,41 @@
                 flag = false;
             }
         }
-        password.onblur=function(){
-            if(password.value.length<6 || password.value.length>16){
+        password.onblur = function () {
+            if (password.value.length < 6 || password.value.length > 16) {
                 message.className = "message wrong";
-                message.innerHTML= "输入的密码位数不符，要求是6到16位";
-            }else{
-                message.className="message right";
-                message.innerHTML="密码正确";
+                message.innerHTML = "输入的密码位数不符，要求是6到16位";
+            } else {
+                message.className = "message right";
+                message.innerHTML = "密码正确";
+            }
+        }
+        let check = document.querySelector('#checkname');
+        let name = document.getElementById("checkname").value;
+        check.onclick = function () {
+            // 1.创建XMLHttpRequest对象
+            let xhr = new XMLHttpRequest();
+
+            // 2.请求行
+            xhr.open("POST", "./checkname.php");
+
+            // 3.请求头
+            xhr.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+
+            // 4.设置数据
+            xhr.send("name=" + name);
+
+            // 5.监听服务器响应
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == '1') {
+                        //如果服务器传回的内容为y，则表示用户名已经被占用
+                        alert('该用户名已被他人使用！');
+                    } else {
+                        //不为y，则表明用户名未被占用
+                        alert('恭喜，该用户名未被使用！');
+                    }
+                }
             }
         }
     </script>
