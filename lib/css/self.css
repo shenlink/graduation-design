@@ -1,0 +1,33 @@
+.password{
+    position: relative;
+}
+#password-eye{
+    position: absolute;
+    left: 1000px;
+    bottom: -2px;
+    display: block;
+    z-index: 2;
+}
+.confirm-password {
+    position: relative;
+}
+
+#confirm-password-eye {
+    position: absolute;
+    left: 1000px;
+    bottom: -2px;
+    display: block;
+    z-index: 2;
+}
+a{
+    color: black;
+}
+a:focus{
+    text-decoration: none;
+}
+a:hover{
+
+    text-decoration: none;
+    color: red;
+}
+

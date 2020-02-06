@@ -7,45 +7,71 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../lib/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/css/self.css">
 </head>
 
 <body>
     <div class="container">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h3>用户注册:</h3>
+                </div>
+            </div>
+        </div>
         <form action="checkRegister.php" method="post">
             <div class="form-group">
-                <label for="username">用户名：
-                    <img src="../lib/images/close.png" alt="" id="eye">
-                </label>
+                <label for="username">用户名：</label>
                 <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username>
+                <small class="form-text text-muted" id="userMessage">
+                    请输入用户名
+                </small>
+                <!-- 要用ajax替换上面的内容 -->
+                <div class="valid-feedback" data-index="1" id="userInfo">
+                    Looks good!
+                </div>
             </div>
             <div class="form-group">
-                <button class="btn-light" id="checkname">检测用户名</button>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"> 七天免登录
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="password">密码：
-                    <img src="../lib/images/close.png" alt="" id="eye">
-                </label>
-                <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password">
-                <p class="message">请输入6~16位密码</p>
+                <label for="password">密码：</label>
+                <input type="password" class="form-control is-invalid" placeholder="请输入密码" name="password" id="password">
+                <span class="password">
+                    <img src="../lib/image/close.png" alt="隐藏密码 " id="password-eye">
+                </span>
+                <small class="form-text text-muted" id="passwordTip">
+                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
+                    spaces, special characters, or emoji.
+                </small>
+                <!-- 要用ajax替换上面的内容 -->
+                <div class="invalid-feedback" data-index="2" id="passwordInfo">
+                    You must agree before submitting.
+                </div>
             </div>
             <span><img src="" class="eye"></span>
             <div class="form-group">确认密码：
-                <label for="confirm-password">
-                    <img src="images/close.png" alt="" id="eye">
-                </label>
-                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirm-password"
-                    id="confirm-password">
+                <label for="confirm-password"></label>
+                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirm-password" id="confirm-password">
+                <span class="confirm-password">
+                    <img src="../lib/image/close.png" alt="隐藏密码" id="confirm-password-eye">
+                </span>
+                <small class="form-text text-muted" id="conPasswordTip">
+                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
+                    spaces, special characters, or emoji.
+                </small>
+                <!-- 要用ajax替换上面的内容 -->
+                <div class="invalid-feedback" data-index="3" id="conPasswordInfo">
+                    You must agree before submitting.
+                </div>
             </div>
-            <span><img src="" class="eye"></span>
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"> 七天内自动登录
-                </label>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                    <label class="form-check-label" for="invalidCheck3">
+                        七天内自动登录
+                    </label>
+                    <div class="invalid-feedback" data-index="4">
+                        You must agree before submitting.
+                    </div>
+                </div>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
             <button type="submit" class="btn btn-primary">提交</button>
@@ -54,6 +80,8 @@
     <script>
         let eye = document.querySelector('.eye');
         let password = document.querySelector('#password');
+        let passwordTip = document.querySelector('#passwordTip');
+        let passwordInfo = document.querySelector('#passwordInfo');
         let flag = false;
         eye.onclick = function () {
             if (flag == false) {
@@ -68,37 +96,56 @@
         }
         password.onblur = function () {
             if (password.value.length < 6 || password.value.length > 16) {
-                message.className = "message wrong";
-                message.innerHTML = "输入的密码位数不符，要求是6到16位";
+                password.className = "form-control is-invalid";
+                passwordTip.style.display='none';
+                passwordInfo.innerHTML = "输入的密码位数不符，要求是6到16位";
             } else {
-                message.className = "message right";
-                message.innerHTML = "密码正确";
+                password.className = "form-control is-valid";
+                passwordTip.style.display='none';
+                passwordInfo.innerHTML = "密码位数符合要求";
             }
         }
-        let check = document.querySelector('#checkname');
-        let name = document.getElementById("checkname").value;
-        check.onclick = function () {
+        let username = document.querySelector('#username');
+        // 提示信息
+        let usermessage = document.querySelector('#userMessage');
+        // ajax信息
+        let userinfo = document.querySelector('#userInfo');
+        check.onblur = function () {
             // 1.创建XMLHttpRequest对象
-            let xhr = new XMLHttpRequest();
+            let request = null
+            if (XMLHttpRequest) {
+                request = new XMLHttpRequest;
+                return request;
+            } else {
+                //兼容老IE浏览器
+                request = new ActiveXObject("Msxml2.XMLHTTP");
+                return request;
+            }
 
             // 2.请求行
-            xhr.open("POST", "./checkname.php");
+            request.open("POST", "./checkUsername.php");
 
             // 3.请求头
-            xhr.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
 
             // 4.设置数据
-            xhr.send("name=" + name);
+            request.send("username=" + username);
 
             // 5.监听服务器响应
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
                     if (xhr.responseText == '1') {
                         //如果服务器传回的内容为y，则表示用户名已经被占用
-                        alert('该用户名已被他人使用！');
+                        // alert('该用户名已被他人使用！');
+                        usermessage,style.display='none';
+                        userinfo.innerHTML = '用户名已注册';
+                        username.className="form-control is-invalid";
+
                     } else {
                         //不为y，则表明用户名未被占用
-                        alert('恭喜，该用户名未被使用！');
+                        usermessage,style.display='none';
+                        userinfo.innerHTML = '用户名已注册';
+                        username.className="form-control is-invalid"
                     }
                 }
             }

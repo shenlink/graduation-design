@@ -7,33 +7,75 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../lib/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/css/self.css">
 </head>
 
 <body>
     <div class="container">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="text-center">
+                    <h3>用户登录:</h3>
+                </div>
+            </div>
+        </div>
         <form action="checkLogin.php" method="post">
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control" placeholder="请输入用户名">
+                <input type="text" class="form-control is-valid" placeholder="请输入用户名">
+                <small class="form-text text-muted">
+                    请输入用户名
+                </small>
+                <!-- 要用ajax替换上面的内容 -->
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="password" class="form-control" placeholder="请输入密码">
-                <p class="message">请输入6~16位密码</p>
+                <input type="password" class="form-control is-invalid" placeholder="请输入密码">
+                <span class="password">
+                    <img src="../lib/image/close.png" alt="隐藏密码 " id="password-eye">
+                </span>
+                <small class="form-text text-muted" id="passwordTip">
+                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
+                    spaces, special characters, or emoji.
+                </small>
+                <!-- 要用ajax替换上面的内容 -->
+                <div class="invalid-feedback" id="passwordInfo">
+                    You must agree before submitting.
+                </div>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
             <button type="submit" class="btn btn-primary">提交</button>
         </form>
     </div>
     <script>
-        let password = document.querySelector("#password");
+        let eye = document.querySelector('.eye');
+        let password = document.querySelector('#password');
+        let passwordTip = document.querySelector('#passwordTip');
+        let passwordInfo = document.querySelector('#passwordInfo');
+        let flag = false;
+        eye.onclick = function () {
+            if (flag == false) {
+                password.type = 'text';
+                eye.src = '../lib/image/open.png';
+                flag = true;
+            } else {
+                password.type = 'password';
+                eye.src = '../lib/image/close.png';
+                flag = false;
+            }
+        }
         password.onblur = function () {
             if (password.value.length < 6 || password.value.length > 16) {
-                message.className = "message wrong";
-                message.innerHTML = "输入的密码位数不符，要求是6到16位";
+                password.className = "form-control is-invalid";
+                passwordTip.style.display = 'none';
+                passwordInfo.innerHTML = "输入的密码位数不符，要求是6到16位";
             } else {
-                message.className = "message right";
-                message.innerHTML = "密码正确";
+                password.className = "form-control is-valid";
+                passwordTip.style.display = 'none';
+                passwordInfo.innerHTML = "密码位数符合要求";
             }
         }
     </script>
