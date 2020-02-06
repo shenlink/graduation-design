@@ -8,6 +8,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="lib/css/bootstrap.css">
     <link rel="stylesheet" href="lib/css/self.css">
+    <script src="lib/js/jquery.js"></script>
+    <script src="lib/js/popper.js"></script>
+    <script src="lib/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -27,7 +30,15 @@
                 <li class="nav-item login">
                     <a class="nav-link" href="#">登录</a>
                 </li>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">操作</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">分类</a>
+                        <a class="dropdown-item" href="#">博文</a>
+                        <a class="dropdown-item" href="#">用户</a>
+                        <a class="dropdown-item" href="#">退出登录</a>
+                    </div>
+                </div>
             </ul>
         </div>
     </div>
-
