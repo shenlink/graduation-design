@@ -23,9 +23,13 @@
             <div class="form-group">
                 <label for="username">用户名：</label>
                 <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username>
+                <!-- 提示信息 -->
                 <small class="form-text text-muted" id="userMessage">
+                    <!-- 用户输入正确时提示 -->
                     <img src="../lib/image/right.png" id="userRight">
+                    <!-- 用户输入错误时提示 -->
                     <img src="../lib/image/wrong.png" id="userWrong">
+                    <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
@@ -41,8 +45,11 @@
                     <img src="../lib/image/close.png" alt="隐藏密码" id="passwordEye">
                 </span>
                 <small class="form-text text-muted" id="passwordTip">
+                    <!-- 用户密码符合要求时提示 -->
                     <img src="../lib/image/right.png" id="passwordRight">
+                    <!-- 用户密码不符合要求时提示 -->
                     <img src="../lib/image/wrong.png" id="passwordWrong">
+                    <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" alt="" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符
                 </small>
@@ -58,8 +65,11 @@
                     <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye">
                 </span>
                 <small class="form-text text-muted" id="conPasswordTip">
+                    <!-- 用户两次密码一样时提示 -->
                     <img src="../lib/image/right.png" id="conPasswordRight">
-                    <img src="../lib/image/wrong.png" id="passwordWrong">
+                    <!-- 用户两次密码不一样时提示 -->
+                    <img src="../lib/image/wrong.png" id="conpasswordWrong">
+                    <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" id="conPasswordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     确认密码

@@ -24,6 +24,8 @@
                 <label for="username">用户名：</label>
                 <input type="text" class="form-control" placeholder="请输入用户名">
                 <small class="form-text text-muted" id="userMessage">
+                    <!-- 用户输入密码，提交表单后，根据服务端信息，密码错误时显示 -->
+                    <img src="../lib/image/wrong.png" id="passwordWrong">
                     <img src="../lib/image/mess.png" alt="" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
@@ -35,8 +37,8 @@
             <div class="form-group">
                 <label for="password">密码：</label>
                 <input type="password" class="form-control" placeholder="请输入密码">
-                <span class="password">
-                    <img src="../lib/image/close.png" alt="隐藏密码 " id="password-eye">
+                <span id="password">
+                    <img src="../lib/image/close.png" alt="隐藏密码 " id="passwordEye">
                 </span>
                 <small class="form-text text-muted" id="passwordTip">
                     <img src="../lib/image/mess.png" alt="" id="passwordImg">
@@ -53,7 +55,6 @@
                     <label for="validCheck">
                         七天内自动登录
                     </label>
-
                 </div>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
