@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息修改</title>
+    <link href="lib/css/bootstrap.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!--导航栏开始-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <a class="navbar-brand" href="/">shen的博客</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- 导航栏明细 -->
+                                <li class="nav-item active">
+                                    <a class="nav-link active" href="#">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">php</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">mysql</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">javaScript</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">html</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">python</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">java</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">运维</a>
+                                </li>
+                                <!-- 下拉菜单开始  -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        计算机基础
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">数据结构与算法</a>
+                                        <a class="dropdown-item" href="#">操作系统</a>
+                                        <a class="dropdown-item" href="#">计算机网络</a>
+                                        <a class="dropdown-item" href="#">计算机组成原理</a>
+                                    </div>
+                                </li>
+                                <!-- 下拉菜单结束 -->
+                                <!-- 公告开始 -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">公告</a>
+                                </li>
+                                <!-- 公告结束 -->
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- 搜索框开始 -->
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                        aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                                </form>
+
+                                <!-- 搜索框结束 -->
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">写博客</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">注册</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">登录</a>
+                                </li>
+
+                                <!-- 下拉菜单 管理员操作 -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        操作
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">分类管理</a>
+                                        <a class="dropdown-item" href="#">博文管理</a>
+                                        <a class="dropdown-item" href="#">用户管理</a>
+                                        <a class="dropdown-item" href="#">公告管理</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">退出登录</a>
+                                    </div>
+                                </li>
+
+                                <!-- 下拉菜单结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--导航栏结束-->
+
+    <!-- 公告开始 -->
+    <marquee behavior="scroll" direction="right">
+        网站公告
+    </marquee>
+    <!-- 公告结束 -->
+
+    <!-- 页头开始 -->
+    <!-- <div class="container-fluid">
+        <div class="col-md-12"> -->
+    <!-- row类确保两列布局 -->
+    <!-- <div class="row">
+                <div class="col-md-8">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        修改个人信息
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- 页头结束 -->
+
+    <!-- 主体内容开始 -->
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <!-- row类确保两列布局 -->
+            <div class="row">
+                <div class="col-md-9">
+                    <span>修改个人信息</span>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                                aria-controls="contact" aria-selected="false">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <form action="" method="post">
+                                <!-- 开始 -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                        email with
+                                        anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <!-- 结束 -->
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <form action="" method="post">
+                                <!-- 开始 -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                        email with
+                                        anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <!-- 结束 -->
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <form action="" method="post">
+                                <!-- 开始 -->
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control form-control-sm" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your
+                                        email with
+                                        anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control form-control-sm"
+                                        id="exampleInputPassword1">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <!-- 结束 -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 博主信息开始 -->
+                <div class="col-md-3">
+                    <div class="container">
+                        <!-- 个人信息列开始 -->
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">shenlink</h5>
+                                <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
+                                </h6>
+                                <p class="card-text"></p>
+                                <div class="text-dark d-flex justify-content-between">
+                                    <dl class="text-center">
+                                        <dt>
+                                            原创
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            粉丝
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            获赞
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            评论
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <a href="#" class="btn btn-info card-link">关注</a>
+                                <a href="#" class="btn btn-danger card-link">私信</a>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">最新文章</h5>
+                                <div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">文章分类汇总</h6>
+                                <div>
+                                    <div class="justify-content-between d-flex">
+                                        Dapibus ac facilisis in
+                                        <span>4篇</span>
+                                    </div>
+                                    <div class="justify-content-between d-flex">
+                                        Dapibus ac facilisis in
+                                        <span>4篇</span>
+                                    </div>
+                                    <div class="justify-content-between d-flex">
+                                        Dapibus ac facilisis in
+                                        <span>4篇</span>
+                                    </div>
+                                    <div class="justify-content-between d-flex">
+                                        Dapibus ac facilisis in
+                                        <span>4篇</span>
+                                    </div>
+                                    <div class="justify-content-between d-flex">
+                                        Dapibus ac facilisis in
+                                        <span>4篇</span>
+                                    </div>
+
+                                    <!-- 展开开始 -->
+                                    <div class="text-center">
+                                        <a>展开</a>
+                                    </div>
+
+                                    <!-- 展开结束 -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">热门文章</h6>
+                                <div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">最新评论</h6>
+                                <div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 个人信息列结束 -->
+                    </div>
+                </div>
+                <!-- 博主信息结束 -->
+            </div>
+        </div>
+    </div>
+    <!-- 主体内容结束 -->
+
+    <!-- 公共底部开始-->
+    <div class="container-fluid">
+        <div class="row" id="footer">
+            <div class="col-md-12">
+                <div class="text-center bg-info">Fixed bottom</div>
+            </div>
+        </div>
+    </div>
+    <!-- 公告底部结束 -->
+
+
+    <!-- 链接jquery3.2.1 -->
+    <script src="lib/js/jquery.js"></script>
+    <!-- 链接popper1.12.5 -->
+    <script src="lib/js/popper.js"></script>
+    <!-- 链接bootstrap4.1.0 -->
+    <script src="lib/js/bootstrap.js"></script>
+
+</body>
+
+</html>
