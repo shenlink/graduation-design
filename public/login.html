@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>登录</title>
     <link rel="stylesheet" href="../lib/css/bootstrap.css">
     <link rel="stylesheet" href="../lib/css/self.css">
 </head>
@@ -22,28 +22,38 @@
         <form action="checkLogin.php" method="post">
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control is-valid" placeholder="请输入用户名">
-                <small class="form-text text-muted">
-                    请输入用户名
+                <input type="text" class="form-control" placeholder="请输入用户名">
+                <small class="form-text text-muted" id="userMessage">
+                    <img src="../lib/image/mess.png" alt="" id="userImg">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
                 <!-- 要用ajax替换上面的内容 -->
                 <div class="valid-feedback">
-                    Looks good!
+
                 </div>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="password" class="form-control is-invalid" placeholder="请输入密码">
+                <input type="password" class="form-control" placeholder="请输入密码">
                 <span class="password">
                     <img src="../lib/image/close.png" alt="隐藏密码 " id="password-eye">
                 </span>
                 <small class="form-text text-muted" id="passwordTip">
-                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
-                    spaces, special characters, or emoji.
+                    <img src="../lib/image/mess.png" alt="" id="passwordImg">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
                 </small>
                 <!-- 要用ajax替换上面的内容 -->
                 <div class="invalid-feedback" id="passwordInfo">
-                    You must agree before submitting.
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input is-valid" type="checkbox" name="isChecked" id="validCheck" required>
+                    <label for="validCheck">
+                        七天内自动登录
+                    </label>
+
                 </div>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
@@ -65,17 +75,6 @@
                 password.type = 'password';
                 eye.src = '../lib/image/close.png';
                 flag = false;
-            }
-        }
-        password.onblur = function () {
-            if (password.value.length < 6 || password.value.length > 16) {
-                password.className = "form-control is-invalid";
-                passwordTip.style.display = 'none';
-                passwordInfo.innerHTML = "输入的密码位数不符，要求是6到16位";
-            } else {
-                password.className = "form-control is-valid";
-                passwordTip.style.display = 'none';
-                passwordInfo.innerHTML = "密码位数符合要求";
             }
         }
     </script>

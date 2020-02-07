@@ -1,33 +1,132 @@
-.password{
-    position: relative;
-}
-#password-eye{
-    position: absolute;
-    left: 1000px;
-    bottom: -2px;
-    display: block;
-    z-index: 2;
-}
-.confirm-password {
+#userMessage {
     position: relative;
 }
 
-#confirm-password-eye {
+#userRight {
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+
+}
+
+#userWrong{
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+}
+
+#passwordTip {
+    position: relative;
+}
+
+#passwordRight {
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+}
+#passwordWrong {
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+}
+
+#conPasswordTip {
+    position: relative;
+}
+
+#conPasswordRight {
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+}
+#conPasswordWrong {
+    position: absolute;
+    left: 1070px;
+    bottom: 35px;
+    display: block;
+    z-index: 2;
+    display: none;
+}
+#password {
+    position: relative;
+}
+
+#passwordEye {
     position: absolute;
     left: 1000px;
     bottom: -2px;
     display: block;
     z-index: 2;
 }
-a{
+
+#confirmPassword {
+    position: relative;
+}
+
+#conPasswordEye {
+    position: absolute;
+    left: 1000px;
+    bottom: -2px;
+    display: block;
+    z-index: 2;
+}
+
+a {
     color: black;
 }
-a:focus{
+
+a:focus {
     text-decoration: none;
 }
-a:hover{
+
+a:hover {
 
     text-decoration: none;
     color: red;
 }
 
+#userMessage {
+    position: relative;
+    display: block;
+}
+
+#userImg {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+
+#passwordTip {
+    position: relative;
+}
+
+#passwordImg {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+
+#conPasswordTip {
+    position: relative;
+}
+
+#conPasswordImg {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}

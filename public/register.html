@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>注册</title>
     <link rel="stylesheet" href="../lib/css/bootstrap.css">
     <link rel="stylesheet" href="../lib/css/self.css">
 </head>
@@ -24,92 +24,63 @@
                 <label for="username">用户名：</label>
                 <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username>
                 <small class="form-text text-muted" id="userMessage">
-                    请输入用户名
+                    <img src="../lib/image/right.png" id="userRight">
+                    <img src="../lib/image/wrong.png" id="userWrong">
+                    <img src="../lib/image/mess.png" id="userImg">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
                 <!-- 要用ajax替换上面的内容 -->
-                <div class="valid-feedback" data-index="1" id="userInfo">
-                    Looks good!
-                </div>
+                <small class="valid-feedback" id="userInfo">
+
+                </small>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="password" class="form-control is-invalid" placeholder="请输入密码" name="password" id="password">
-                <span class="password">
-                    <img src="../lib/image/close.png" alt="隐藏密码 " id="password-eye">
+                <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                <span id="password">
+                    <img src="../lib/image/close.png" alt="隐藏密码" id="passwordEye">
                 </span>
                 <small class="form-text text-muted" id="passwordTip">
-                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
-                    spaces, special characters, or emoji.
+                    <img src="../lib/image/right.png" id="passwordRight">
+                    <img src="../lib/image/wrong.png" id="passwordWrong">
+                    <img src="../lib/image/mess.png" alt="" id="passwordImg">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符
                 </small>
                 <!-- 要用ajax替换上面的内容 -->
-                <div class="invalid-feedback" data-index="2" id="passwordInfo">
-                    You must agree before submitting.
+                <div class="invalid-feedback" id="passwordInfo">
+
                 </div>
             </div>
-            <span><img src="" class="eye"></span>
             <div class="form-group">确认密码：
                 <label for="confirm-password"></label>
-                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirm-password" id="confirm-password">
-                <span class="confirm-password">
-                    <img src="../lib/image/close.png" alt="隐藏密码" id="confirm-password-eye">
+                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword">
+                <span id="confirmPassword">
+                    <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye">
                 </span>
                 <small class="form-text text-muted" id="conPasswordTip">
-                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain
-                    spaces, special characters, or emoji.
+                    <img src="../lib/image/right.png" id="conPasswordRight">
+                    <img src="../lib/image/wrong.png" id="passwordWrong">
+                    <img src="../lib/image/mess.png" id="conPasswordImg">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    确认密码
                 </small>
                 <!-- 要用ajax替换上面的内容 -->
-                <div class="invalid-feedback" data-index="3" id="conPasswordInfo">
-                    You must agree before submitting.
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-                    <label class="form-check-label" for="invalidCheck3">
-                        七天内自动登录
-                    </label>
-                    <div class="invalid-feedback" data-index="4">
-                        You must agree before submitting.
-                    </div>
-                </div>
+                <small class="invalid-feedback" id="conPasswordInfo">
+
+                </small>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
             <button type="submit" class="btn btn-primary">提交</button>
         </form>
     </div>
     <script>
-        let eye = document.querySelector('.eye');
-        let password = document.querySelector('#password');
-        let passwordTip = document.querySelector('#passwordTip');
-        let passwordInfo = document.querySelector('#passwordInfo');
-        let flag = false;
-        eye.onclick = function () {
-            if (flag == false) {
-                password.type = 'text';
-                eye.src = '../lib/image/open.png';
-                flag = true;
-            } else {
-                password.type = 'password';
-                eye.src = '../lib/image/close.png';
-                flag = false;
-            }
-        }
-        password.onblur = function () {
-            if (password.value.length < 6 || password.value.length > 16) {
-                password.className = "form-control is-invalid";
-                passwordTip.style.display='none';
-                passwordInfo.innerHTML = "输入的密码位数不符，要求是6到16位";
-            } else {
-                password.className = "form-control is-valid";
-                passwordTip.style.display='none';
-                passwordInfo.innerHTML = "密码位数符合要求";
-            }
-        }
         let username = document.querySelector('#username');
         // 提示信息
         let usermessage = document.querySelector('#userMessage');
         // ajax信息
         let userinfo = document.querySelector('#userInfo');
+        let userRight = document.querySelector('#userRight');
+        let userWrong = document.querySelector('#userWrong');
         check.onblur = function () {
             // 1.创建XMLHttpRequest对象
             let request = null
@@ -135,19 +106,125 @@
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
                     if (xhr.responseText == '1') {
-                        //如果服务器传回的内容为y，则表示用户名已经被占用
-                        // alert('该用户名已被他人使用！');
-                        usermessage,style.display='none';
+                        usermessage.style.display = 'none';
                         userinfo.innerHTML = '用户名已注册';
-                        username.className="form-control is-invalid";
+                        username.className = "form-control is-invalid";
+                        userWrong.style.display = block;
 
                     } else {
-                        //不为y，则表明用户名未被占用
-                        usermessage,style.display='none';
-                        userinfo.innerHTML = '用户名已注册';
-                        username.className="form-control is-invalid"
+                        usermessage.style.display = 'none';
+                        userinfo.innerHTML = '用户名未被注册';
+                        username.className = "form-control is-valid"
+                        userRight.style.display = block;
+
                     }
                 }
+            }
+        }
+        let eye = document.querySelector('.eye');
+        let password = document.querySelector('#password');
+        let passwordTip = document.querySelector('#passwordTip');
+        let passwordInfo = document.querySelector('#passwordInfo');
+        let passwordValue = password.value;
+        let passwordRight = document.querySelector('#passwordRight');
+        let passwordWrong = document.querySelector('#passwordWrong');
+        let flag = false;
+        eye.onclick = function () {
+            if (flag == false) {
+                password.type = 'text';
+                eye.src = '../lib/image/open.png';
+                flag = true;
+            } else {
+                password.type = 'password';
+                eye.src = '../lib/image/close.png';
+                flag = false;
+            }
+        }
+        // 验证密码强度
+        password.addEventListener(blur, function () {
+            let numAscii = 0;
+            let charAscii = 0;
+            let otherAscii = 0;
+            if (password.length == 0) {
+                password.className = "form-control is-invalid";
+                passwordTip.style.display = 'none';
+                passwordInfo.innerHTML = "密码不能为空";
+                passwordWrong.style.display = block;
+
+            } else if (passwordValue.length < 6 || passwordValue.length > 16) {
+                password.className = "form-control is-valid";
+                passwordTip.style.display = 'none';
+                passwordInfo.innerHTML = "密码位数不符合要求,要求6到16位";
+                passwordWrong.style.display = block;
+
+            } else {
+                for (let i = 0; i < passwordValue.length; i++) {
+                    let asciiNumber = passwordValue.substr(i, 1).charCodeAt();
+                    if (asciiNumber >= 48 && asciiNumber <= 57) {
+                        numAscii += 1;
+                    }
+                    if ((asciiNumber >= 65 && asciiNumber <=
+                            90) || (asciiNumber >= 97 && asciiNumber <= 122)) {
+                        charAscii += 1;
+                    }
+                    if ((asciiNumber >= 33 && asciiNumber <= 47) || (asciiNumber >= 58 &&
+                            asciiNumber <= 64) || (asciiNumber >= 91 && asciiNumber <= 96) || (
+                            asciiNumber >= 123 &&
+                            asciiNumber <= 126)) {
+                        otherAscii += 1;
+                    }
+                }
+            }
+            if (numAscii == 0) {
+                passwordWrong.style.display = block;
+                return "密码必须含有数字";
+
+            } else if (charAscii == 0) {
+                passwordWrong.style.display = block;
+                return "密码必须含有字母";
+
+            } else if (otherAscii == 0) {
+                passwordWrong.style.display = block;
+                return "密码必须含有特殊字符";
+
+            } else {
+                passwordWRight.style.display = block;
+                return true;
+            }
+
+        })
+        // 确认密码
+        let eye = document.querySelector('.eye');
+        let conpassword = document.querySelector('#conpassword');
+        let conPasswordTip = document.querySelector('#conpasswordTip');
+        let conPasswordInfo = document.querySelector('#conpasswordInfo');
+        let conPasswordValue = conpassword.value;
+        let conPasswordRight = document.querySelector('#conPasswordRight');
+        let conPasswordWrong = document.querySelector('#conPasswordWrong');
+        let conflag = false;
+        eye.onclick = function () {
+            if (conflag == false) {
+                password.type = 'text';
+                eye.src = '../lib/image/open.png';
+                conflag = true;
+            } else {
+                password.type = 'password';
+                eye.src = '../lib/image/close.png';
+                conflag = false;
+            }
+        }
+        conpassword.onblur = function () {
+            if (passwordValue === conpasswordValue) {
+                conpassword.style.display = 'none';
+                conpassword.className = "form-control is-valid";
+                conpasswordRight.style.display = block;
+
+            } else {
+                conpassword.style.display = 'none';
+                conpasswordTip.innerHTML = '两次密码不一致';
+                conpassword.className = "form-control is-invalid";
+                conpasswordWRong.style.display = block;
+
             }
         }
     </script>
