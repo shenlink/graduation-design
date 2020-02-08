@@ -11,6 +11,122 @@
 </head>
 
 <body>
+    <!--导航栏开始-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <a class="navbar-brand" href="/">shen的博客</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- 导航栏明细 -->
+                                <li class="nav-item active">
+                                    <a class="nav-link active" href="#">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">php</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">mysql</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">javaScript</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">html</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">python</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">java</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">运维</a>
+                                </li>
+                                <!-- 下拉菜单开始  -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        计算机基础
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">数据结构与算法</a>
+                                        <a class="dropdown-item" href="#">操作系统</a>
+                                        <a class="dropdown-item" href="#">计算机网络</a>
+                                        <a class="dropdown-item" href="#">计算机组成原理</a>
+                                    </div>
+                                </li>
+                                <!-- 下拉菜单结束 -->
+                                <!-- 公告开始 -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">公告</a>
+                                </li>
+                                <!-- 公告结束 -->
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- 搜索框开始 -->
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                        aria-label="Search">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+                                </form>
+
+                                <!-- 搜索框结束 -->
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">写博客</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">注册</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">登录</a>
+                                </li>
+
+                                <!-- 下拉菜单 管理员操作 -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        操作
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">分类管理</a>
+                                        <a class="dropdown-item" href="#">博文管理</a>
+                                        <a class="dropdown-item" href="#">用户管理</a>
+                                        <a class="dropdown-item" href="#">公告管理</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">退出登录</a>
+                                    </div>
+                                </li>
+
+                                <!-- 下拉菜单结束 -->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--导航栏结束-->
+
+    <!-- 公告开始 -->
+    <marquee behavior="scroll" direction="right">
+        网站公告
+    </marquee>
+    <!-- 公告结束 -->
+
+    <!-- 主体内容开始 -->
     <div class="container">
         <div class="container">
             <div class="col-md-12">
@@ -78,6 +194,17 @@
         </form>
         <!-- 表单结束 -->
     </div>
+    <!-- 主体内容结束 -->
+
+    <!-- 公共底部开始-->
+    <footer class="container-fluid fixed-bottom">
+        <div class="row" id="footer">
+            <div class="col-md-12">
+                <div class="text-center bg-info">Fixed bottom</div>
+            </div>
+        </div>
+    </footer>
+    <!-- 公告底部结束 -->
     <script>
         // 确认用户名
         function checkUsername() {
@@ -95,7 +222,7 @@
                 return false;
             }
             // ajax验证用户名是否被注册
-            if(usernameValue.length > 0){
+            if (usernameValue.length > 0) {
                 // 调试
                 console.log(123);
                 // 1.创建XMLHttpRequest对象
