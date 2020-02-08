@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <input type="text" onblur="check1()" onfocus="check3()" id="user">
+        <div id="pass">
+            small
+        </div>
+        <input type="text" onblur="check2()" onfocus="check4()" id="conuser">
+        <div id="conpass">
+            small
+        </div>
+    </div>
+
+    <script>
+        function check1() {
+            let user = document.querySelector('#user');
+            let pass = document.querySelector('#pass');
+            pass.innerHTML = 'check1';
+        }
+
+        function check3() {
+            let pass = document.querySelector('#pass');
+            pass.innerHTML = 'check3';
+        }
+        function check2(){
+            // let pass = document.querySelector('#pass');
+            user.innerHTML = 'pass';
+
+        }
+    </script>
+
+</body>
+
+</html>

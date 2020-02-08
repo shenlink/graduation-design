@@ -22,61 +22,109 @@
         <form action="checkLogin.php" method="post">
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control" placeholder="请输入用户名">
+                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
+                    onblur="checkUsername()" onfocus="userOriginal()">
+                <!-- 提示信息 -->
                 <small class="form-text text-muted" id="userMessage">
-                    <!-- 用户输入密码，提交表单后，根据服务端信息，密码错误时显示 -->
-                    <img src="../lib/image/wrong.png" id="passwordWrong">
+                    <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" alt="" id="userImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
-                <!-- 要用ajax替换上面的内容 -->
-                <div class="valid-feedback">
-
-                </div>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="password" class="form-control" placeholder="请输入密码">
-                <span id="password">
-                    <img src="../lib/image/close.png" alt="隐藏密码 " id="passwordEye">
+                <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
+                    onblur="checkPassword()" onfocus="passwordOriginal()">
+                <span id="rePassword">
+                    <img src="../lib/image/close.png" alt="隐藏密码 " id="passwordEye" onclick="clickEye()">
                 </span>
                 <small class="form-text text-muted" id="passwordTip">
                     <img src="../lib/image/mess.png" alt="" id="passwordImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
                 </small>
-                <!-- 要用ajax替换上面的内容 -->
-                <div class="invalid-feedback" id="passwordInfo">
-
-                </div>
             </div>
             <div class="form-group">
                 <div class="form-check">
-                    <input class="form-check-input is-valid" type="checkbox" name="isChecked" id="validCheck" required>
-                    <label for="validCheck">
+                    <input class="form-check-input" type="checkbox" name="sevenCheck" id="sevenCheck">
+                    <label for="sevenCheck">
                         七天内自动登录
                     </label>
                 </div>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onclick="return check()">提交</button>
         </form>
     </div>
     <script>
-        let eye = document.querySelector('.eye');
-        let password = document.querySelector('#password');
-        let passwordTip = document.querySelector('#passwordTip');
-        let passwordInfo = document.querySelector('#passwordInfo');
+        function checkUsername() {
+            let username = document.querySelector('#username');
+            let usernameValue = username.value;
+            // 提示信息
+            let userMessage = document.querySelector('#userMessage');
+            if (usernameValue.length === 0) {
+                username.className = "form-control is-invalid"
+                userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
+                return false;
+            }
+        }
+
+        function checkPassword() {
+            // 获取密码输入框元素
+            let password = document.querySelector('#password');
+            // 获取输入的密码的值
+            let passwordValue = password.value;
+            // 获取提示用户注意的信息
+            let passwordTip = document.querySelector('#passwordTip');
+            if (passwordValue.length === 0) {
+                password.className = "form-control is-invalid"
+                passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
+                return false;
+            }
+        }
+
+        function userOriginal() {
+            // 其实这两条语句是不用加的，但是感觉怪怪的，就加上了
+            let username = document.querySelector('#username');
+            // 提示信息
+            let userMessage = document.querySelector('#userMessage');
+            username.className = "form-control"
+            userMessage.innerHTML = `<img src="../lib/image/mess.png" id="userImg">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
+        }
+
+        function passwordOriginal() {
+            let password = document.querySelector('#password');
+            // 获取提示用户注意的信息
+            let passwordTip = document.querySelector('#passwordTip');
+            password.className = "form-control"
+            passwordTip.innerHTML = `<img src="../lib/image/mess.png" id="passwordImg">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码`;
+        }
+
+        // 获取眼睛图案
+        let passwordEye = document.querySelector('#passwordEye');
         let flag = false;
-        eye.onclick = function () {
+
+        function clickEye() {
             if (flag == false) {
+                // 把密码输入的框变成文本输入框
                 password.type = 'text';
-                eye.src = '../lib/image/open.png';
+                // 切换成睁眼的图片
+                passwordEye.src = '../lib/image/open.png';
+                // flag置true,下次再点击就切换成闭眼的图片
                 flag = true;
             } else {
+                // 把密码输入的框变成文本输入框
                 password.type = 'password';
-                eye.src = '../lib/image/close.png';
+                // 切换成睁眼的图片
+                passwordEye.src = '../lib/image/close.png';
+                // flag置false,下次再点击就切换成睁眼的图片
                 flag = false;
             }
+        }
+
+        function check() {
+            return checkUsername() && checkPassword();
         }
     </script>
 </body>

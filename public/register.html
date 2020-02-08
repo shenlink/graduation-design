@@ -40,14 +40,14 @@
                 </div>
                 <small class="form-text text-muted" id="passwordTip">
                     <!-- 提示用户注意 -->
-                    <img src="../lib/image/mess.png" alt="" id="passwordImg">
+                    <img src="../lib/image/mess.png" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
                 </small>
             </div>
             <div class="form-group">
                 <label for="confirm-password">确认密码：</label>
                 <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword"
-                    id="confirmPassword" onblur="checkConPassword()">
+                    id="confirmPassword" onblur="checkConPassword()" onfocus="conPasswordOriginal()">
                 <span id="reConPassword">
                     <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye" onclick="clickConEye()">
                 </span>
@@ -69,6 +69,7 @@
             // 提示信息
             let userMessage = document.querySelector('#userMessage');
             if (usernameValue.length == 0) {
+                username.className = "form-control is-invalid"
                 userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
                 return false;
             } else {
@@ -104,22 +105,6 @@
             }
         }
 
-
-
-        function userOriginal() {
-            userMessage.innerHTML = `<img src="../lib/image/mess.png" id="userImg">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
-        }
-
-        function passwordOriginal() {
-            passwordTip.innerHTML = `<img src="../lib/image/mess.png" alt="" id="passwordImg">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符`;
-        }
-
-
-
-
-
         function checkPassword() {
             // 获取密码输入框元素
             let password = document.querySelector('#password');
@@ -128,6 +113,7 @@
             // 获取提示用户注意的信息
             let passwordTip = document.querySelector('#passwordTip');
             if (passwordValue.length === 0) {
+                password.className = "form-control is-invalid"
                 passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
                 return false;
             } else if (passwordValue.length < 6 || passwordValue.length > 16) {
@@ -137,7 +123,7 @@
                 let reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,16}/;
                 if (!reg.test(passwordValue)) {
                     passwordTip.innerHTML = `<span style="color:red;">密码不符合要求</span>`;
-                    return true;
+                    return false;
                 } else {
                     passwordTip.innerHTML = `<span style="color:green;">密码符合要求</span>`;
                     return true;
@@ -146,25 +132,54 @@
         }
 
 
-
         function checkConPassword() {
             // 获取确认密码输入框元素
             let confirmPassword = document.querySelector('#confirmPassword');
             // 获取确认密码的值
             let conPasswordValue = confirmPassword.value;
             // 获取提示用户注意的信息
-            let conPasswordTip = document.querySelector('#conpasswordTip');
+            let conPasswordTip = document.querySelector('#conPasswordTip');
             if (conPasswordValue.length === 0) {
+                confirmPassword.className = "form-control is-invalid"
                 conPasswordTip.innerHTML = `<span style="color:red;">确认密码不能为空</span>`;
                 return false;
             }
             if (conPasswordValue !== conPasswordValue) {
-                conPasswordTip.innerHTML = '两次密码不一致';
+                conPasswordTip.innerHTML = `<span style="color:red;">两次密码不一致</span>`;
                 return false;
             } else {
-                conPasswordTip.innerHTML = '两次密码一致';
+                conPasswordTip.innerHTML = `<span style="color:green;">两次密码不一致</span>`;
                 return true;
             }
+        }
+
+        function userOriginal() {
+            // 其实这两条语句是不用加的，但是感觉怪怪的，就加上了
+            let username = document.querySelector('#username');
+            // 提示信息
+            let userMessage = document.querySelector('#userMessage');
+            username.className = "form-control"
+            userMessage.innerHTML = `<img src="../lib/image/mess.png" id="userImg">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
+        }
+
+        function passwordOriginal() {
+            let confirmPassword = document.querySelector('#confirmPassword');
+            // 获取提示用户注意的信息
+            let conPasswordTip = document.querySelector('#conPasswordTip');
+            password.className = "form-control"
+            passwordTip.innerHTML = `<img src="../lib/image/mess.png" id="passwordImg">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符`;
+        }
+
+        function conPasswordOriginal() {
+            // 获取确认密码输入框元素
+            let confirmPassword = document.querySelector('#confirmPassword');
+            // 获取提示用户注意的信息
+            let conPasswordTip = document.querySelector('#conPasswordTip');
+            confirmPassword.className = "form-control"
+            conPasswordTip.innerHTML = `<img src="../lib/image/mess.png" id="conPasswordImg">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认密码`;
         }
 
         // 获取眼睛图案
