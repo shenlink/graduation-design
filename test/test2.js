@@ -34,10 +34,18 @@
 
 // let a = 2;
 // var a = 2;
-function check() {
-    // var a = 3;
-    let a = 3;
-    console.log(a);
+// function check() {
+//     // var a = 3;
+//     let a = 3;
+//     console.log(a);
+// }
+// console.log(a);
+// check();
+
+let a = 5;
+if (true) {
+    a = 10;
+} else {
+    a = 15;
 }
 console.log(a);
-check();

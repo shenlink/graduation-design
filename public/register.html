@@ -89,32 +89,33 @@
             // 获取提示用户注意的信息的节点元素
             let userMessage = document.querySelector('#userMessage');
             // 用户名输入框为空时
-            if (usernameValue.length == 0) {
+            if (usernameValue.length === 0) {
                 username.className = "form-control is-invalid"
                 userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
                 return false;
-            } else {
+            }
+            // ajax验证用户名是否被注册
+            if(usernameValue.length > 0){
+                // 调试
+                console.log(123);
                 // 1.创建XMLHttpRequest对象
-                let request = null
+                let request = null;
                 if (XMLHttpRequest) {
-                    request = new XMLHttpRequest;
+                    request = new XMLHttpRequest();
                 } else {
                     //兼容老IE浏览器
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
                 request.open("POST", "./checkUsername.php");
-
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-
                 // 4.设置数据
-                request.send("username=" + username);
-
+                request.send("usernameValue=" + usernameValue);
                 // 5.监听服务器响应
                 request.onreadystatechange = function () {
                     if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == '1') {
+                        if (request.responseText == "1") {
                             userMessage.innerHTML = `<span style="color:red;">用户名已被注册</span>`;
                             return false;
                         } else {
@@ -203,7 +204,7 @@
             // 还原输入框的初始样式
             password.className = "form-control"
             passwordTip.innerHTML = `<img src="../lib/image/mess.png" id="passwordImg">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符`;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
         }
 
         // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
