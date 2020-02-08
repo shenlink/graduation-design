@@ -1,5 +1,7 @@
+/* 用户开始 */
 #userMessage {
     position: relative;
+    display: block;
 }
 
 #userRight {
@@ -20,6 +22,25 @@
     z-index: 2;
     display: none;
 }
+#userImg {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+/* 用户结束 */
+
+/* 密码开始 */
+#rePassword {
+    position: relative;
+}
+
+#passwordEye {
+    position: absolute;
+    left: 1000px;
+    bottom: -2px;
+    display: block;
+    z-index: 2;
+}
 
 #passwordTip {
     position: relative;
@@ -33,6 +54,7 @@
     z-index: 2;
     display: none;
 }
+
 #passwordWrong {
     position: absolute;
     left: 1070px;
@@ -40,6 +62,26 @@
     display: block;
     z-index: 2;
     display: none;
+}
+
+#passwordImg {
+    position: absolute;
+    left: 2px;
+    top: 3px;
+}
+/* 密码结束 */
+
+/* 确认密码开始 */
+#reConPassword {
+    position: relative;
+}
+
+#conPasswordEye {
+    position: absolute;
+    left: 1000px;
+    bottom: -2px;
+    display: block;
+    z-index: 2;
 }
 
 #conPasswordTip {
@@ -54,6 +96,7 @@
     z-index: 2;
     display: none;
 }
+
 #conPasswordWrong {
     position: absolute;
     left: 1070px;
@@ -62,30 +105,14 @@
     z-index: 2;
     display: none;
 }
-#password {
-    position: relative;
-}
-
-#passwordEye {
+#conPasswordImg {
     position: absolute;
-    left: 1000px;
-    bottom: -2px;
-    display: block;
-    z-index: 2;
+    left: 2px;
+    top: 3px;
 }
+/* 确认密码结束 */
 
-#confirmPassword {
-    position: relative;
-}
-
-#conPasswordEye {
-    position: absolute;
-    left: 1000px;
-    bottom: -2px;
-    display: block;
-    z-index: 2;
-}
-
+/* 对a标签的设置开始 */
 a {
     color: black;
 }
@@ -95,38 +122,8 @@ a:focus {
 }
 
 a:hover {
-
     text-decoration: none;
     color: red;
 }
 
-#userMessage {
-    position: relative;
-    display: block;
-}
-
-#userImg {
-    position: absolute;
-    left: 2px;
-    top: 3px;
-}
-
-#passwordTip {
-    position: relative;
-}
-
-#passwordImg {
-    position: absolute;
-    left: 2px;
-    top: 3px;
-}
-
-#conPasswordTip {
-    position: relative;
-}
-
-#conPasswordImg {
-    position: absolute;
-    left: 2px;
-    top: 3px;
-}
+/* 对a标签的设置开始 */

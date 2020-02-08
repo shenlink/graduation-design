@@ -22,222 +22,202 @@
         <form action="checkRegister.php" method="post">
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username>
+                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id=username
+                    onblur="checkUsername()" onfocus="userOriginal()">
                 <!-- 提示信息 -->
                 <small class="form-text text-muted" id="userMessage">
-                    <!-- 用户输入正确时提示 -->
-                    <img src="../lib/image/right.png" id="userRight">
-                    <!-- 用户输入错误时提示 -->
-                    <img src="../lib/image/wrong.png" id="userWrong">
                     <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" id="userImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
-                </small>
-                <!-- 要用ajax替换上面的内容 -->
-                <small class="valid-feedback" id="userInfo">
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>
-                <input type="password" class="form-control" placeholder="请输入密码" name="password">
-                <span id="password">
-                    <img src="../lib/image/close.png" alt="隐藏密码" id="passwordEye">
-                </span>
+                <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
+                    onblur="checkPassword()" onfocus="passwordOriginal()">
+                <div id="rePassword">
+                    <img src="../lib/image/close.png" alt="隐藏密码" id="passwordEye" onclick="clickEye()">
+                </div>
                 <small class="form-text text-muted" id="passwordTip">
-                    <!-- 用户密码符合要求时提示 -->
-                    <img src="../lib/image/right.png" id="passwordRight">
-                    <!-- 用户密码不符合要求时提示 -->
-                    <img src="../lib/image/wrong.png" id="passwordWrong">
                     <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" alt="" id="passwordImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
                 </small>
-                <!-- 要用ajax替换上面的内容 -->
-                <div class="invalid-feedback" id="passwordInfo">
-
-                </div>
             </div>
-            <div class="form-group">确认密码：
-                <label for="confirm-password"></label>
-                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword">
-                <span id="confirmPassword">
-                    <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye">
+            <div class="form-group">
+                <label for="confirm-password">确认密码：</label>
+                <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword"
+                    id="confirmPassword" onblur="checkConPassword()">
+                <span id="reConPassword">
+                    <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye" onclick="clickConEye()">
                 </span>
                 <small class="form-text text-muted" id="conPasswordTip">
-                    <!-- 用户两次密码一样时提示 -->
-                    <img src="../lib/image/right.png" id="conPasswordRight">
-                    <!-- 用户两次密码不一样时提示 -->
-                    <img src="../lib/image/wrong.png" id="conpasswordWrong">
                     <!-- 提示用户注意 -->
                     <img src="../lib/image/mess.png" id="conPasswordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     确认密码
                 </small>
-                <!-- 要用ajax替换上面的内容 -->
-                <small class="invalid-feedback" id="conPasswordInfo">
-
-                </small>
             </div>
             <button type="reset" class="btn btn-primary">重置</button>
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onclick="return check()">提交</button>
         </form>
     </div>
     <script>
-        let username = document.querySelector('#username');
-        // 提示信息
-        let usermessage = document.querySelector('#userMessage');
-        // ajax信息
-        let userinfo = document.querySelector('#userInfo');
-        let userRight = document.querySelector('#userRight');
-        let userWrong = document.querySelector('#userWrong');
-        check.onblur = function () {
-            // 1.创建XMLHttpRequest对象
-            let request = null
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest;
-                return request;
+        function checkUsername() {
+            let username = document.querySelector('#username');
+            let usernameValue = username.value;
+            // 提示信息
+            let userMessage = document.querySelector('#userMessage');
+            if (usernameValue.length == 0) {
+                userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
+                return false;
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-                return request;
-            }
+                // 1.创建XMLHttpRequest对象
+                let request = null
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest;
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "./checkUsername.php");
 
-            // 2.请求行
-            request.open("POST", "./checkUsername.php");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
 
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("username=" + username);
 
-            // 4.设置数据
-            request.send("username=" + username);
-
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (xhr.responseText == '1') {
-                        usermessage.style.display = 'none';
-                        userinfo.innerHTML = '用户名已注册';
-                        username.className = "form-control is-invalid";
-                        userWrong.style.display = block;
-
-                    } else {
-                        usermessage.style.display = 'none';
-                        userinfo.innerHTML = '用户名未被注册';
-                        username.className = "form-control is-valid"
-                        userRight.style.display = block;
-
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == '1') {
+                            userMessage.innerHTML = `<small style="color:red;">用户名已被注册</small>`;
+                            return false;
+                        } else {
+                            userMessage.innerHTML = '用户名未被注册';
+                            return true;
+                        }
                     }
                 }
             }
         }
-        let eye = document.querySelector('.eye');
-        let password = document.querySelector('#password');
-        let passwordTip = document.querySelector('#passwordTip');
-        let passwordInfo = document.querySelector('#passwordInfo');
-        let passwordValue = password.value;
-        let passwordRight = document.querySelector('#passwordRight');
-        let passwordWrong = document.querySelector('#passwordWrong');
+
+
+
+        function userOriginal() {
+            userMessage.innerHTML = `<img src="../lib/image/mess.png" id="userImg">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
+        }
+
+        function passwordOriginal() {
+            passwordTip.innerHTML = `<img src="../lib/image/mess.png" alt="" id="passwordImg">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，字母和特殊字符`;
+        }
+
+
+
+
+
+        function checkPassword() {
+            // 获取密码输入框元素
+            let password = document.querySelector('#password');
+            // 获取输入的密码的值
+            let passwordValue = password.value;
+            // 获取提示用户注意的信息
+            let passwordTip = document.querySelector('#passwordTip');
+            if (passwordValue.length === 0) {
+                passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
+                return false;
+            } else if (passwordValue.length < 6 || passwordValue.length > 16) {
+                passwordTip.innerHTML = `<span style="color:red;">密码位数不符合要求,要求6到16位</span>`;
+                return false;
+            } else {
+                let reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,16}/;
+                if (!reg.test(passwordValue)) {
+                    passwordTip.innerHTML = `<span style="color:red;">密码不符合要求</span>`;
+                    return true;
+                } else {
+                    passwordTip.innerHTML = `<span style="color:green;">密码符合要求</span>`;
+                    return true;
+                }
+            }
+        }
+
+
+
+        function checkConPassword() {
+            // 获取确认密码输入框元素
+            let confirmPassword = document.querySelector('#confirmPassword');
+            // 获取确认密码的值
+            let conPasswordValue = confirmPassword.value;
+            // 获取提示用户注意的信息
+            let conPasswordTip = document.querySelector('#conpasswordTip');
+            if (conPasswordValue.length === 0) {
+                conPasswordTip.innerHTML = `<span style="color:red;">确认密码不能为空</span>`;
+                return false;
+            }
+            if (conPasswordValue !== conPasswordValue) {
+                conPasswordTip.innerHTML = '两次密码不一致';
+                return false;
+            } else {
+                conPasswordTip.innerHTML = '两次密码一致';
+                return true;
+            }
+        }
+
+        // 获取眼睛图案
+        let passwordEye = document.querySelector('#passwordEye');
+        // 这个变量的声明不能放在函数内
         let flag = false;
-        eye.onclick = function () {
+
+        function clickEye() {
             if (flag == false) {
+                // 把密码输入的框变成文本输入框
                 password.type = 'text';
-                eye.src = '../lib/image/open.png';
+                // 切换成睁眼的图片
+                passwordEye.src = '../lib/image/open.png';
+                // flag置true,下次再点击就切换成闭眼的图片
                 flag = true;
             } else {
+                // 把密码输入的框变成文本输入框
                 password.type = 'password';
-                eye.src = '../lib/image/close.png';
+                // 切换成睁眼的图片
+                passwordEye.src = '../lib/image/close.png';
+                // flag置false,下次再点击就切换成睁眼的图片
                 flag = false;
             }
         }
-        // 验证密码强度
-        password.addEventListener(blur, function () {
-            let numAscii = 0;
-            let charAscii = 0;
-            let otherAscii = 0;
-            if (password.length == 0) {
-                password.className = "form-control is-invalid";
-                passwordTip.style.display = 'none';
-                passwordInfo.innerHTML = "密码不能为空";
-                passwordWrong.style.display = block;
 
-            } else if (passwordValue.length < 6 || passwordValue.length > 16) {
-                password.className = "form-control is-valid";
-                passwordTip.style.display = 'none';
-                passwordInfo.innerHTML = "密码位数不符合要求,要求6到16位";
-                passwordWrong.style.display = block;
-
-            } else {
-                for (let i = 0; i < passwordValue.length; i++) {
-                    let asciiNumber = passwordValue.substr(i, 1).charCodeAt();
-                    if (asciiNumber >= 48 && asciiNumber <= 57) {
-                        numAscii += 1;
-                    }
-                    if ((asciiNumber >= 65 && asciiNumber <=
-                            90) || (asciiNumber >= 97 && asciiNumber <= 122)) {
-                        charAscii += 1;
-                    }
-                    if ((asciiNumber >= 33 && asciiNumber <= 47) || (asciiNumber >= 58 &&
-                            asciiNumber <= 64) || (asciiNumber >= 91 && asciiNumber <= 96) || (
-                            asciiNumber >= 123 &&
-                            asciiNumber <= 126)) {
-                        otherAscii += 1;
-                    }
-                }
-            }
-            if (numAscii == 0) {
-                passwordWrong.style.display = block;
-                return "密码必须含有数字";
-
-            } else if (charAscii == 0) {
-                passwordWrong.style.display = block;
-                return "密码必须含有字母";
-
-            } else if (otherAscii == 0) {
-                passwordWrong.style.display = block;
-                return "密码必须含有特殊字符";
-
-            } else {
-                passwordWRight.style.display = block;
-                return true;
-            }
-
-        })
-        // 确认密码
-        let eye = document.querySelector('.eye');
-        let conpassword = document.querySelector('#conpassword');
-        let conPasswordTip = document.querySelector('#conpasswordTip');
-        let conPasswordInfo = document.querySelector('#conpasswordInfo');
-        let conPasswordValue = conpassword.value;
-        let conPasswordRight = document.querySelector('#conPasswordRight');
-        let conPasswordWrong = document.querySelector('#conPasswordWrong');
+        // 获取眼睛图案
+        let conPasswordEye = document.querySelector('#conPasswordEye');
+        // 这个变量的声明不能放在函数内
         let conflag = false;
-        eye.onclick = function () {
+
+        function clickConEye() {
             if (conflag == false) {
-                password.type = 'text';
-                eye.src = '../lib/image/open.png';
+                // 把密码输入的框变成文本输入框
+                confirmPassword.type = 'text';
+                // 切换成睁眼的图片
+                conPasswordEye.src = '../lib/image/open.png';
+                // conflag置true,下次再点击就切换成闭眼的图片
                 conflag = true;
             } else {
-                password.type = 'password';
-                eye.src = '../lib/image/close.png';
+                // 把密码输入的框变成文本输入框
+                confirmPassword.type = 'password';
+                // 切换成睁眼的图片
+                conPasswordEye.src = '../lib/image/close.png';
+                // conflag置false,下次再点击就切换成睁眼的图片
                 conflag = false;
             }
         }
-        conpassword.onblur = function () {
-            if (passwordValue === conpasswordValue) {
-                conpassword.style.display = 'none';
-                conpassword.className = "form-control is-valid";
-                conpasswordRight.style.display = block;
-
-            } else {
-                conpassword.style.display = 'none';
-                conpasswordTip.innerHTML = '两次密码不一致';
-                conpassword.className = "form-control is-invalid";
-                conpasswordWRong.style.display = block;
-
-            }
+        // 表单提交验证
+        function check() {
+            return checkUsername() && checkPassword() && checkConPassword();
         }
     </script>
+
 </body>
 
 </html>
