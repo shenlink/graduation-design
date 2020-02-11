@@ -1,4 +1,5 @@
 <?php
+
 namespace core\lib;
 /*
  * @Descripttion:数据库操作类
@@ -16,18 +17,18 @@ class Db
      * @return:
      * @msg:
      */
-    public function __construct()
+    public function __construct($dsn, $username, $password, $charset)
     {
-        try{
+        try {
             $this->pdo = new \PDO(
-            'mysql:host=127.0.0.1;dbname=xbk',
-            'xbk',
-            'xbk1004'
-        );
-        }catch(\PDOException $e){
+                $dsn,
+                $username,
+                $password,
+                $charset
+            );
+        } catch (\PDOException $e) {
             $e->getMessage();
         }
-
     }
     /**
      * @access:public
@@ -36,8 +37,9 @@ class Db
      * @return:object
      * @msg:
      */
-    public function table($table){
-        $this->table=$table;
+    public function table($table)
+    {
+        $this->table = $table;
         return $this;
     }
     /**
@@ -47,8 +49,9 @@ class Db
      * @return:object
      * @msg:
      */
-    public function field($field){
-        $this->field=$field;
+    public function field($field)
+    {
+        $this->field = $field;
         return $this;
     }
     /**
@@ -58,8 +61,9 @@ class Db
      * @return:object
      * @msg:
      */
-    public function where($where){
-        $this->where=$where;
+    public function where($where)
+    {
+        $this->where = $where;
         return $this;
     }
     /**
@@ -69,7 +73,8 @@ class Db
      * @return:object
      * @msg:
      */
-    public function select(){
+    public function select()
+    {
         // select * from article where id=1 and title='php' limit 1;
         // $sql='select * from ${$table} where $where limit = $limit';
         $sql = $this->fixsql('select') . ' limit 1';
@@ -78,7 +83,6 @@ class Db
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         //获取多条数据后，截取一条
         return isset($res[0]) ? $res[0] : false;
-
     }
     /**
      * @access:public
@@ -87,12 +91,12 @@ class Db
      * @return:
      * @msg:
      */
-    public function selectAll(){
+    public function selectAll()
+    {
         $sql = $this->fixSql('select');
         $stmt = $this->pdo->prepare($sql);
-        $stmt -> execute();
+        $stmt->execute();
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
     }
     /**
      * @access:public
@@ -143,8 +147,8 @@ class Db
      * @return:
      * @msg:
      */
-    public function count(){
-
+    public function count()
+    {
     }
     /**
      * @access:public
@@ -153,10 +157,10 @@ class Db
      * @return:object
      * @msg:
      */
-    public function limit($limit = 1){
+    public function limit($limit = 1)
+    {
         $this->limit = $limit;
         return $this;
-
     }
     /**
      * @access:public
@@ -177,19 +181,20 @@ class Db
      * @return:
      * @msg:
      */
-    public function fixSql($type,$data=null){
-        $sql='';
-        if($type === 'select'){
+    public function fixSql($type, $data = null)
+    {
+        $sql = '';
+        if ($type === 'select') {
             $where = $this->fixWhere();
             $sql = "select {$this->field} from {$this->table} where {$this->where}";
-            if($this->order){
+            if ($this->order) {
                 $sql .= " order by {this->order}";
             }
-            if($this->limit){
+            if ($this->limit) {
                 $sql .= " limit {$this->limit}";
             }
         }
-        if($type === 'insert'){
+        if ($type === 'insert') {
             $sql = "insert into {$this->table}";
             $fields = $values = [];
             foreach ($data as $key => $val) {
@@ -198,12 +203,11 @@ class Db
             }
             $sql .= "(" . implode(',', $fields) . ")values(" . implode(',', $values) . ")";
         }
-        if($type === 'delete'){
+        if ($type === 'delete') {
             // $sql = "delete from {$this->table} {$this->where}";
             $where = $this->fixWhere();
             $sql = "delete from {$this->table} {$where}";
         }
-
     }
     /**
      * @access:
@@ -212,15 +216,16 @@ class Db
      * @return:
      * @msg:
      */
-    private function fixWhere(){
+    private function fixWhere()
+    {
         $where = '';
-        if(is_array($this->where)){
-            foreach($this->where as $key => $value){
+        if (is_array($this->where)) {
+            foreach ($this->where as $key => $value) {
                 $value = is_string($value) ? "'" . $value . "'" : $value;
                 //还不能确定有几个条件
                 $where .= "`{$key}` = {$value} and ";
             }
-        }else{
+        } else {
             $where = $this->where;
         }
         $where = rtrim($where, 'and ');

@@ -14,7 +14,7 @@ class Model extends Db
 
     public function __construct()
     {
-        $option = Config::all('database');
-        parent::__construct($option);
+        $config = Config::all('database');
+        parent::__construct($config['dsn'],$config['username'],$config['password'],$config['charset']);
     }
 }

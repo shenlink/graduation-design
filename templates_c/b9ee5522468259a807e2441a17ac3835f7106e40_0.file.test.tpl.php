@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-02-11 20:35:20
+/* Smarty version 3.1.34-dev-7, created on 2020-02-11 23:53:40
   from 'D:\phpstudy_pro\WWW\graduation-design\app\view\test.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5e429f887e51b6_27605602',
+  'unifunc' => 'content_5e42ce041cc5b9_93342250',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b9ee5522468259a807e2441a17ac3835f7106e40' => 
     array (
       0 => 'D:\\phpstudy_pro\\WWW\\graduation-design\\app\\view\\test.tpl',
-      1 => 1581424517,
+      1 => 1581436409,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5e429f887e51b6_27605602 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5e42ce041cc5b9_93342250 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,9 +32,9 @@ function content_5e429f887e51b6_27605602 (Smarty_Internal_Template $_smarty_tpl)
     <h2>
         视图文件
     </h2>
-    <h3><?php echo $_smarty_tpl->tpl_vars['name']->value;?>
+    <h3><?php echo $_smarty_tpl->tpl_vars['name3']->value;?>
 </h3>
-    <h3><?php echo $_smarty_tpl->tpl_vars['name2']->value;?>
+    <h3><?php echo $_smarty_tpl->tpl_vars['name4']->value;?>
 </h3>
 
 

@@ -24,6 +24,7 @@ class file{
             mkdir($this->path.date('Ymd'), 0777, true);
         }
         $message = date('Y-m-d H:i:s') . json_encode($message).PHP_EOL;
+        
         return file_put_contents($this->path.date('Ymd').'/'.$file.'.php', $message, FILE_APPEND);
     }
 }

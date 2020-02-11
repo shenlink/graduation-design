@@ -22,9 +22,10 @@ class Start{
             $controller->beforeAction($action);
             $controller->$action();
             $controller->afterAction($action);
-            Log::log('controller:' . $controllerClass . 'action:' . $action);
+            // action前有空格
+            Log::log('controller:' . $controllerClass . ' action:' . $action);
         } else {
-            Log: log('找不到控制器' . $controllerClass);
+            Log::log('找不到控制器' . $controllerClass);
             throw new \Exception('找不到控制器' . $controllerClass);
         }
     }

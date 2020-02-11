@@ -4,7 +4,7 @@ namespace core\lib;
 
 use core\lib\Config;
 
-class log
+class Log
 {
 
     public static $class;

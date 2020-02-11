@@ -2,7 +2,8 @@
 
 
 //定义根目录
-define('Shen', $_SERVER['DOCUMENT_ROOT']);
+// define('Shen', $_SERVER['DOCUMENT_ROOT']);
+define('Shen',str_replace('\\','/',dirname(realpath(__FILE__))));
 define('CORE',Shen.'/core');
 define('APP',Shen.'/app');
 define('MODULE', 'app');

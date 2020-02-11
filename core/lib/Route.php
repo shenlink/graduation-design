@@ -17,23 +17,18 @@ class Route
     public function __construct()
     {
         // xxx.com/index.php/index/index
-        if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != '/') {
+        if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] != '/') {
             // 解析 /index/index
-            $path = $_SERVER['PATH_INFO'];
+            $path = $_SERVER['REQUEST_URI'];
             $patharr = explode('/', trim($path, '/'));
             if (isset($patharr[0])) {
                 $this->controller = $patharr[0];
+                // unset($patharr[0]);
             }
-            unset($patharr[0]);
             if (isset($patharr[1])) {
                 $this->action = $patharr[1];
-                unset($patharr[1]);
+                // unset($patharr[1]);
             }
-            // else {
-            //     $this->action = Config::get('DEFAULT_ACTION', 'route');
-            // }
-            //url多余部分转换成 GET
-            //id/1/str/2
             $count = count($patharr) + 2;
             $i = 2;
             while ($i < $count) {
