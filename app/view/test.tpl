@@ -9,7 +9,7 @@
     <h2>
         视图文件
     </h2>
-    <h3><?php echo $data; ?></h3>
+    <h3>{$name}</h3>
 
 </body>
 </html>

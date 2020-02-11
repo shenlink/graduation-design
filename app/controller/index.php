@@ -10,9 +10,9 @@ class index extends Controller
 {
     public function index()
     {
-        $data = 'Hello World';
+        $value = 'Hello World';
         $view = new View();
-        $view->assign('data',$data);
-        $view->display('test.html');
+        $view->assign('name',$value);
+        $view->display('test.tpl');
     }
 }

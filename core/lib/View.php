@@ -2,24 +2,9 @@
 
 namespace core\lib;
 
-// include_once Shen . '/core/common/smarty/Smarty.class.php';
+include_once Shen . '/core/common/smarty/Smarty.class.php';
 class View
 {
-
-    // public function __construct()
-    // {
-    //     $smarty = new \Smarty();
-    //     //五配置
-    //     $smarty->left_delimiter = "{";
-    //     $smarty->right_delimiter = "}";
-    //     $smarty->template_dir = "tpl";
-    //     $smarty->compile_dir = "template_c";
-    //     $smarty->cache_dir = "cache";
-    //     //开启缓存的另两个配置
-    //     $smarty->caching = true;
-    //     $smarty->cache_lifetime = 120;
-    //     $smarty->display($this->assign);
-    // }
     public $assign = array();
     public function assign($name, $value)
     {
@@ -29,8 +14,16 @@ class View
     {
         $file = APP . '/view/' . $file;
         if (is_file($file)) {
-            extract($this->assign);
-            include $file;
+            $smarty = new \Smarty(); 
+            $smarty->caching = false;
+            $smarty->template_dir = APP.'/view';
+            $smarty->compile_dir = "./templates_c";
+            $smarty->cache_dir = "./cache";
+            $smarty->cache_lifetime = 60;
+            $smarty->left_delimiter = "{";
+            $smarty->right_delimiter = "}";
+            $smarty->assign($this->assign);
+            $smarty->display($file);
         }
     }
 }
