@@ -2,6 +2,6 @@
 return array(
     'DRIVER' => 'file',
     'OPTION' => array(
-    'PATH' => Shen . 'runtime/log/'
+    'PATH' => Shen . '/runtime/log/'
     )
 );

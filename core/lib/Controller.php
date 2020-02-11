@@ -2,8 +2,9 @@
 
 namespace core\lib;
 
-use core\lib\log;
+use core\lib\Log;
 use core\common\Response;
+
 
 /**
  * 控制器基类
@@ -19,14 +20,14 @@ class Controller
      */
     public function beforeAction($action)
     {
-        log::log('beforeAction:' . $action);
+        Log::log('beforeAction:' . $action);
     }
     /**
      * 执行后调用
      */
     public function afterAction($action)
     {
-        log::log('afterAction:' . $action);
+        Log::log('afterAction:' . $action);
     }
 
     /**
@@ -43,19 +44,22 @@ class Controller
     {
         $file = APP . '/view/' . $fileName;
         if (is_file($file)) {
-            $smarty = new \Smarty();
-            //五配置
-            $smarty->left_delimiter = "{";
-            $smarty->right_delimiter = "}";
-            $smarty->template_dir = "tpl";
-            $smarty->compile_dir = "template_c";
-            $smarty->cache_dir = "cache";
-            //开启缓存的另两个配置
-            $smarty->caching = true;
-            $smarty->cache_lifetime = 120;
-            $smarty->display($this->assign);
+            // $smarty = new \Smarty();
+            // //五配置
+            // $smarty->left_delimiter = "{";
+            // $smarty->right_delimiter = "}";
+            // $smarty->template_dir = "tpl";
+            // $smarty->compile_dir = "template_c";
+            // $smarty->cache_dir = "cache";
+            // //开启缓存的另两个配置
+            // $smarty->caching = true;
+            // $smarty->cache_lifetime = 120;
+            // $smarty->display($this->assign);
+            // extract($this->assign);
+            // $this->display($this->assign);
         }
     }
+
     /**
      * 返回json数据
      */
