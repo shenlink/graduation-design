@@ -2,8 +2,22 @@
 
 
 //定义根目录
-define('Shen', __DIR__);
-// 引入自动加载类
-include Shen.'/core/Loader.php';
+define('Shen', $_SERVER['DOCUMENT_ROOT']);
+define('CORE',Shen.'/core');
+define('APP',Shen.'/app');
+define('MODULE', 'app');
+define('DEBUG', true);
 
-spl_autoload_register('\\IMooc\\Loader::autoload');
+if (DEBUG) {
+    ini_set('display_error', 'On');
+} else {
+    ini_set('display_error', 'Off');
+}
+include CORE . '/common/function.php';
+// 引入自动加载类
+include CORE.'/common/Loader.php';
+
+
+spl_autoload_register('\core\common\Loader::autoload');
+
+\core\common\Start::run();
