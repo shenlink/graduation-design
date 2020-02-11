@@ -11,8 +11,7 @@ class file{
 
     public function __construct(){
         $config = Config::get('OPTION', 'log');
-        $this->path = $config = Config::get('OPTION', 'log');
-        ['PATH'];
+        $this->path = $config['PATH'];
     }
 
     public function log($message, $file = 'log'){

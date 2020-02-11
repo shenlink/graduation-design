@@ -14,18 +14,18 @@ class Start{
         $route = new Route();
         $controller = $route->controller;
         $action = $route->action;
-        $ctrollerFile = APP . '/controller/' . $controller . '.php';
-        $ctrollerClass = '\\' . MODULE . '\controller\\' . $controller;
-        if (is_file($ctrollerFile)) {
-            include $ctrollerFile;
-            $ctrl = new $ctrollerClass();
-            $ctrl->beforeAction($action);
-            $ctrl->$action();
-            $ctrl->afterAction($action);
-            log::log('controller:' . $ctrollerClass . 'action:' . $action);
+        $controllerFile = APP . '/controller/' . $controller . '.php';
+        $controllerClass = '\\' . MODULE . '\controller\\' . $controller;
+        if (is_file($controllerFile)) {
+            include $controllerFile;
+            $controller = new $controllerClass();
+            $controller->beforeAction($action);
+            $controller->$action();
+            $controller->afterAction($action);
+            Log::log('controller:' . $controllerClass . 'action:' . $action);
         } else {
-            log: log('找不到控制器' . $ctrollerClass);
-            throw new \Exception('找不到控制器' . $ctrollerClass);
+            Log: log('找不到控制器' . $controllerClass);
+            throw new \Exception('找不到控制器' . $controllerClass);
         }
     }
 }

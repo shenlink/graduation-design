@@ -17,7 +17,6 @@ class Route
     public function __construct()
     {
         // xxx.com/index.php/index/index
-        //教程中使用$_SERVER['REQUEST_URI']
         if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != '/') {
             // 解析 /index/index
             $path = $_SERVER['PATH_INFO'];
@@ -29,9 +28,10 @@ class Route
             if (isset($patharr[1])) {
                 $this->action = $patharr[1];
                 unset($patharr[1]);
-            } else {
-                $this->action = Config::get('DEFAULT_ACTION', 'route');
             }
+            // else {
+            //     $this->action = Config::get('DEFAULT_ACTION', 'route');
+            // }
             //url多余部分转换成 GET
             //id/1/str/2
             $count = count($patharr) + 2;

@@ -43,14 +43,17 @@ class Controller
     {
         $file = APP . '/view/' . $fileName;
         if (is_file($file)) {
-            \Twig_Autoloader::register();
-            $loader = new \Twig_Loader_Filesystem(APP . '/views');
-            $twig = new \Twig_Environment($loader, array(
-                'cache' => KFW . '/log/twig',
-                'debug' => DEBUG
-            ));
-            $template = $twig->loadTemplate($fileName);
-            $template->display($this->assign);
+            $smarty = new \Smarty();
+            //五配置
+            $smarty->left_delimiter = "{";
+            $smarty->right_delimiter = "}";
+            $smarty->template_dir = "tpl";
+            $smarty->compile_dir = "template_c";
+            $smarty->cache_dir = "cache";
+            //开启缓存的另两个配置
+            $smarty->caching = true;
+            $smarty->cache_lifetime = 120;
+            $smarty->display($this->assign);
         }
     }
     /**

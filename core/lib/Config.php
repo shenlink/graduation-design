@@ -27,7 +27,7 @@ class Config
                     self::$config[$file] = $config;
                     return $config[$name];
                 } else {
-                    throw new \Exception('没有这个配置项' . $config[$name]);
+                    throw new \Exception('没有这个配置项'.$config[$name]);
                 }
             } else {
                 throw new \Exception('找不到配置文件' . $file);
