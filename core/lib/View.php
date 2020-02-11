@@ -14,11 +14,11 @@ class View
     {
         $file = APP . '/view/' . $file;
         if (is_file($file)) {
-            $smarty = new \Smarty(); 
+            $smarty = new \Smarty();
             $smarty->caching = false;
             $smarty->template_dir = APP.'/view';
             $smarty->compile_dir = "./templates_c";
-            $smarty->cache_dir = "./cache";
+            $smarty->cache_dir = Shen."/runtime/smarty/cache";
             $smarty->cache_lifetime = 60;
             $smarty->left_delimiter = "{";
             $smarty->right_delimiter = "}";
