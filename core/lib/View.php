@@ -17,7 +17,7 @@ class View
             $smarty = new \Smarty();
             $smarty->caching = false;
             $smarty->template_dir = APP.'/view';
-            $smarty->compile_dir = "./templates_c";
+            $smarty->compile_dir = Shen.'/runtime/smarty/templates_c';
             $smarty->cache_dir = Shen."/runtime/smarty/cache";
             $smarty->cache_lifetime = 60;
             $smarty->left_delimiter = "{";
