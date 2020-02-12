@@ -2,13 +2,16 @@
 
 namespace core\lib;
 
+use core\lib\Config;
 use \PDO, \PDOException;
+
 /*
  * @Descripttion:数据库操作类
  */
 
 class Db
 {
+    private static $db;
     private $table;
     private $field = '*';
     private $order = '';
@@ -20,23 +23,25 @@ class Db
      * @return:
      * @msg:
      */
-    public function __construct($config)
+    // 单例模式
+    private function __construct()
     {
-        $type = $config['type'];
-        $host = $config['host'];
-        $username = $config['username'];
-        $password = $config['password'];
-        $dbname = $config['dbname'];
-        $charset = $config['charset'];
-        $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
-        try {
-            // mysql:host=localhost;port=3306;charset=utf8;dbname=stu
-            $this->pdo = new PDO($dsn, $username, $password);
-        } catch (PDOException $e) {
-            $e->getMessage();
-        }
-        return $this->pdo;
+
     }
+    private function __clone()
+    {
+
+    }
+    public static function getInstance()
+    {
+        if (self::$db) {
+            return self::$db;
+        } else {
+            self::$db = new self;
+            return self::$db;
+        }
+    }
+
     /**
      * @access:public
      * @name:table
@@ -46,6 +51,19 @@ class Db
      */
     public function table($table)
     {
+        $config = Config::all('database');
+        $type = $config['type'];
+        $host = $config['host'];
+        $username = $config['username'];
+        $password = $config['password'];
+        $dbname = $config['dbname'];
+        $charset = $config['charset'];
+        $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
+        try {
+            $this->pdo = new PDO($dsn, $username, $password);
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
         $this->table = $table;
         return $this;
     }
@@ -82,8 +100,6 @@ class Db
      */
     public function select()
     {
-        // select * from article where id=1 and title='php' limit 1;
-        // $sql='select * from ${$table} where $where limit = $limit';
         $sql = $this->fixsql('select') . ' limit 1';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -194,9 +210,9 @@ class Db
         $sql = '';
         if ($type === 'select') {
             $where = $this->fixWhere();
-            if($where != ''){
+            if ($where != '') {
                 $sql = "select {$this->field} from {$this->table} {$this->where}";
-            }else{
+            } else {
                 $sql = "select {$this->field} from {$this->table}";
             }
 

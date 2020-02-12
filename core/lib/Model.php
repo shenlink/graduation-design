@@ -2,8 +2,6 @@
 
 namespace core\lib;
 
-use core\lib\Config;
-
 use core\lib\Db;
 
 /**
@@ -11,11 +9,9 @@ use core\lib\Db;
  */
 class Model extends Db
 {
-
-    // public $pdo;
     public function __construct()
     {
-        $config = Config::all('database');
-        parent::__construct($config);
+        return Db::getInstance();
+
     }
 }
