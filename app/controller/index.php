@@ -3,8 +3,8 @@
 namespace app\controller;
 
 use core\lib\Controller;
+use core\lib\Factory;
 use core\lib\View;
-// use app\model\User;
 
 class Index extends Controller
 {

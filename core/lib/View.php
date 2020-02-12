@@ -1,11 +1,29 @@
 <?php
 
 namespace core\lib;
+use core\lib\Factory;
 
 include_once Shen . '/core/common/smarty/Smarty.class.php';
 class View
 {
+    // private static $view = null;
     public $assign = array();
+    public function __construct()
+    {
+        return Factory::createView();
+    }
+    // private function __clone()
+    // {
+
+    // }
+    // public static function getInstance()
+    // {
+    //     // if (self::$view == null) {
+    //     //     self::$view = new self();
+    //     // }
+    //     // return self::$view;
+    // }
+
     public function assign($name, $value)
     {
         $this->assign[$name] = $value;
