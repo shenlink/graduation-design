@@ -11,7 +11,8 @@ class Model extends Db
 {
     public function __construct()
     {
-        return Db::getInstance();
+        // 工厂模式
+        return Factory::createDatabase();
 
     }
 }
