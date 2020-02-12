@@ -4,7 +4,7 @@ namespace app\controller;
 
 use core\lib\Controller;
 use core\lib\View;
-use core\lib\Model;
+// use app\model\User;
 
 class Index extends Controller
 {
@@ -19,11 +19,11 @@ class Index extends Controller
     }
     public function test(){
         $view = new View();
-        $model = new Model();
+        $model = new \app\model\Index();
         $value = 'success';
         $value2 = 'wrong';
-        $res = $model->table('user')->select();
-        if($res == 1){
+        $res = $model->user();
+        if($res){
             $view->assign('name', $value);
             $view->display('test.tpl');
         }else{

@@ -12,6 +12,7 @@ use core\lib\Db;
 class Model extends Db
 {
 
+    // public $pdo;
     public function __construct()
     {
         $config = Config::all('database');

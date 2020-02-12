@@ -4,7 +4,7 @@ namespace app\model;
 
 use core\lib\Model;
 
-class index extends Model
+class Index extends Model
 {
     public function user(){
         return $this->table('user')->select();

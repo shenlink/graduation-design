@@ -9,6 +9,7 @@ use \PDO, \PDOException;
 
 class Db
 {
+    private $table;
     private $field = '*';
     private $order = '';
     private $where = array();
@@ -19,14 +20,6 @@ class Db
      * @return:
      * @msg:
      */
-    // public function __construct($dsn, $username, $password, $charset)
-    // {
-    //     try {
-    //         $this->pdo = new \PDO($dsn, $username, $password, $charset);
-    //     } catch (\PDOException $e) {
-    //         $e->getMessage();
-    //     }
-    // }
     public function __construct($config)
     {
         $type = $config['type'];
@@ -40,7 +33,7 @@ class Db
             // mysql:host=localhost;port=3306;charset=utf8;dbname=stu
             $this->pdo = new PDO($dsn, $username, $password);
         } catch (PDOException $e) {
-            die("数据库连接失败：{$e->getMessage()} in line {$e->getLine()}");
+            $e->getMessage();
         }
         return $this->pdo;
     }
@@ -94,7 +87,7 @@ class Db
         $sql = $this->fixsql('select') . ' limit 1';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //获取多条数据后，截取一条
         return isset($res[0]) ? $res[0] : false;
     }
@@ -110,7 +103,8 @@ class Db
         $sql = $this->fixSql('select');
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
     }
     /**
      * @access:public
@@ -200,7 +194,12 @@ class Db
         $sql = '';
         if ($type === 'select') {
             $where = $this->fixWhere();
-            $sql = "select {$this->field} from {$this->table} where {$this->where}";
+            if($where != ''){
+                $sql = "select {$this->field} from {$this->table} {$this->where}";
+            }else{
+                $sql = "select {$this->field} from {$this->table}";
+            }
+
             if ($this->order) {
                 $sql .= " order by {this->order}";
             }
@@ -222,6 +221,7 @@ class Db
             $where = $this->fixWhere();
             $sql = "delete from {$this->table} {$where}";
         }
+        return $sql;
     }
     /**
      * @access:
