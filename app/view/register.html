@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>注册</title>
-    <link rel="stylesheet" href="../lib/css/bootstrap.css">
-    <link rel="stylesheet" href="../lib/css/self.css">
+    <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="static/css/self.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -145,7 +145,7 @@
                     onblur="checkUsername()" onfocus="userOriginal()">
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="userMessage">
-                    <img src="../lib/image/mess.png" id="userImg">
+                    <img src="static/image/mess.png" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
             </div>
@@ -160,11 +160,11 @@
                 <!-- rePassword是定位父级，相对定位 -->
                 <div id="rePassword">
                     <!-- 显示隐藏密码 -->
-                    <img src="../lib/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
+                    <img src="static/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
                 </div>
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="passwordTip">
-                    <img src="../lib/image/mess.png" id="passwordImg">
+                    <img src="static/image/mess.png" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
                 </small>
             </div>
@@ -179,11 +179,11 @@
                 <!-- reCOnPassword是定位父级，相对定位 -->
                 <span id="reConPassword">
                     <!-- 显示隐藏密码 -->
-                    <img src="../lib/image/close.png" alt="隐藏密码" id="conPasswordEye" onclick="clickConEye()">
+                    <img src="static/image/close.png" alt="隐藏密码" id="conPasswordEye" onclick="clickConEye()">
                 </span>
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="conPasswordTip">
-                    <img src="../lib/image/mess.png" id="conPasswordImg">
+                    <img src="static/image/mess.png" id="conPasswordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     确认密码
                 </small>
@@ -209,7 +209,7 @@
         // 这个fixed-bottom值适合于注册页面和登录页面，因为底部是多个页面共用一份的
         let footer = document.querySelector('footer');
         footer.className = "container-fluid fixed-bottom";
-        
+
         // 确认用户名
         function checkUsername() {
             // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
@@ -322,7 +322,7 @@
             let userMessage = document.querySelector('#userMessage');
             // 还原输入框的初始样式
             username.className = "form-control"
-            userMessage.innerHTML = `<img src="../lib/image/mess.png" id="userImg">
+            userMessage.innerHTML = `<img src="static/image/mess.png" id="userImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
         }
 
@@ -334,7 +334,7 @@
             let conPasswordTip = document.querySelector('#conPasswordTip');
             // 还原输入框的初始样式
             password.className = "form-control"
-            passwordTip.innerHTML = `<img src="../lib/image/mess.png" id="passwordImg">
+            passwordTip.innerHTML = `<img src="static/image/mess.png" id="passwordImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
         }
 
@@ -346,7 +346,7 @@
             let conPasswordTip = document.querySelector('#conPasswordTip');
             // 还原输入框的初始样式
             confirmPassword.className = "form-control"
-            conPasswordTip.innerHTML = `<img src="../lib/image/mess.png" id="conPasswordImg">
+            conPasswordTip.innerHTML = `<img src="static/image/mess.png" id="conPasswordImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认密码`;
         }
 
@@ -360,7 +360,7 @@
                 // 把密码输入的框变成文本输入框
                 password.type = 'text';
                 // 切换成睁眼的图片
-                passwordEye.src = '../lib/image/open.png';
+                passwordEye.src = 'static/image/open.png';
                 // 改变图片的alt值
                 passwordEye.alt = '隐藏密码';
                 // flag置true,下次再点击就切换成闭眼的图片
@@ -369,7 +369,7 @@
                 // 把密码输入的框变成文本输入框
                 password.type = 'password';
                 // 切换成睁眼的图片
-                passwordEye.src = '../lib/image/close.png';
+                passwordEye.src = 'static/image/close.png';
                 // 改变图片的alt值
                 passwordEye.alt = '显示密码';
                 // flag置false,下次再点击就切换成睁眼的图片
@@ -387,14 +387,14 @@
                 // 把密码输入的框变成文本输入框
                 confirmPassword.type = 'text';
                 // 切换成睁眼的图片
-                conPasswordEye.src = '../lib/image/open.png';
+                conPasswordEye.src = 'static/image/open.png';
                 // conflag置true,下次再点击就切换成闭眼的图片
                 conFlag = true;
             } else {
                 // 把密码输入的框变成文本输入框
                 confirmPassword.type = 'password';
                 // 切换成睁眼的图片
-                conPasswordEye.src = '../lib/image/close.png';
+                conPasswordEye.src = 'static/image/close.png';
                 // conflag置false,下次再点击就切换成睁眼的图片
                 conFlag = false;
             }
