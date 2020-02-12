@@ -7,6 +7,6 @@ use core\lib\Model;
 class index extends Model
 {
     public function user(){
-        return $this->table('user');
+        return $this->table('user')->select();
     }
 }

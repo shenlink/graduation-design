@@ -18,12 +18,18 @@ class Index extends Controller
         $view->display('test.tpl');
     }
     public function test(){
-        $value3 = 'Hello World3';
-        $value4 = 'Hello World4';
         $view = new View();
-        $view->assign('name3', $value3);
-        $view->assign('name4', $value4);
-        $view->display('test.tpl');
+        $model = new Model();
+        $value = 'success';
+        $value2 = 'wrong';
+        $res = $model->table('user')->select();
+        if($res == 1){
+            $view->assign('name', $value);
+            $view->display('test.tpl');
+        }else{
+            $view->assign('name2', $value2);
+            $view->display('test2.tpl');
+        }
 
     }
 }

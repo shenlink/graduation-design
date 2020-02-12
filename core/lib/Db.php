@@ -1,6 +1,8 @@
 <?php
 
 namespace core\lib;
+
+use \PDO, \PDOException;
 /*
  * @Descripttion:数据库操作类
  */
@@ -17,18 +19,30 @@ class Db
      * @return:
      * @msg:
      */
-    public function __construct($dsn, $username, $password, $charset)
+    // public function __construct($dsn, $username, $password, $charset)
+    // {
+    //     try {
+    //         $this->pdo = new \PDO($dsn, $username, $password, $charset);
+    //     } catch (\PDOException $e) {
+    //         $e->getMessage();
+    //     }
+    // }
+    public function __construct($config)
     {
+        $type = $config['type'];
+        $host = $config['host'];
+        $username = $config['username'];
+        $password = $config['password'];
+        $dbname = $config['dbname'];
+        $charset = $config['charset'];
+        $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
         try {
-            $this->pdo = new \PDO(
-                $dsn,
-                $username,
-                $password,
-                $charset
-            );
-        } catch (\PDOException $e) {
-            $e->getMessage();
+            // mysql:host=localhost;port=3306;charset=utf8;dbname=stu
+            $this->pdo = new PDO($dsn, $username, $password);
+        } catch (PDOException $e) {
+            die("数据库连接失败：{$e->getMessage()} in line {$e->getLine()}");
         }
+        return $this->pdo;
     }
     /**
      * @access:public
