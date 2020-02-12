@@ -4,6 +4,7 @@
 namespace core\lib;
 
 use core\lib\Db;
+use core\lib\View;
 use core\lib\RegisterTree;
 
 
@@ -28,7 +29,7 @@ class Factory
         $key = 'view';
         $view = RegisterTree::get($key);
         if (!$view) {
-            $db = Db::getInstance();
+            $view = View::getInstance();
             //注册树模式
             RegisterTree::set('view', $view);
         }

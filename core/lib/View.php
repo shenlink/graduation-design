@@ -6,24 +6,26 @@ use core\lib\Factory;
 include_once Shen . '/core/common/smarty/Smarty.class.php';
 class View
 {
-    // private static $view = null;
+    private static $view;
     public $assign = array();
-    public function __construct()
+    private function __construct()
     {
-        return Factory::createView();
+
     }
-    // private function __clone()
-    // {
+    private function __clone()
+    {
 
-    // }
-    // public static function getInstance()
-    // {
-    //     // if (self::$view == null) {
-    //     //     self::$view = new self();
-    //     // }
-    //     // return self::$view;
-    // }
+    }
 
+    public static function getInstance()
+    {
+        if (self::$view) {
+            return self::$view;
+        } else {
+            self::$view = new self;
+            return self::$view;
+        }
+    }
     public function assign($name, $value)
     {
         $this->assign[$name] = $value;

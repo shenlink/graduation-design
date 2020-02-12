@@ -4,7 +4,6 @@ namespace app\controller;
 
 use core\lib\Controller;
 use core\lib\Factory;
-use core\lib\View;
 
 class Index extends Controller
 {
@@ -12,21 +11,18 @@ class Index extends Controller
     {
         $value = 'Hello World';
         $value2 = 'Hello World';
-        $view = new View();
+        $view = Factory::createView();
         $view->assign('name', $value);
         $view->assign('name2', $value2);
         $view->display('test.tpl');
     }
     public function test()
     {
-        $view = new View();
-        // $model = new \app\model\Index();
-        $model = new \app\model\Test();
+        $view = Factory::createView();
+        $test = new \app\model\Test();
         $value = 'success';
         $value2 = 'wrong';
-        $res = $model->query();
-        // echo '<pre>';
-        // var_dump($res);
+        $res = $test->query();
         if ($res) {
             $view->assign('name', $value);
             $view->display('test.tpl');

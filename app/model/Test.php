@@ -9,7 +9,6 @@ class Test extends Model{
     public $sex;
     public function query(){
         return $this->table('test')->where(['id'=>1])->select();
-
     }
     public function execute(){
         // update,insert,delete
