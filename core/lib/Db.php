@@ -15,7 +15,8 @@ class Db
     private $table;
     private $field = '*';
     private $order = '';
-    private $where = array();
+    private $where='';
+    private $pdo;
     /**
      * @access:public
      * @name:__construct
@@ -26,11 +27,9 @@ class Db
     // 单例模式
     private function __construct()
     {
-
     }
     private function __clone()
     {
-
     }
     public static function getInstance()
     {
@@ -49,21 +48,30 @@ class Db
      * @return:object
      * @msg:
      */
+    public function init()
+    {
+        if ($this->pdo) {
+            return $this->pdo;
+        } else {
+            $config = Config::all('database');
+            $type = $config['type'];
+            $host = $config['host'];
+            $username = $config['username'];
+            $password = $config['password'];
+            $dbname = $config['dbname'];
+            $charset = $config['charset'];
+            $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
+            try {
+                $this->pdo = new PDO($dsn, $username, $password);
+            } catch (PDOException $e) {
+                $e->getMessage();
+            }
+            return $this->pdo;
+        }
+    }
     public function table($table)
     {
-        $config = Config::all('database');
-        $type = $config['type'];
-        $host = $config['host'];
-        $username = $config['username'];
-        $password = $config['password'];
-        $dbname = $config['dbname'];
-        $charset = $config['charset'];
-        $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
-        try {
-            $this->pdo = new PDO($dsn, $username, $password);
-        } catch (PDOException $e) {
-            $e->getMessage();
-        }
+        $this->init();
         $this->table = $table;
         return $this;
     }
@@ -104,7 +112,7 @@ class Db
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        //获取多条数据后，截取一条
+        // 获取多条数据后，截取一条
         return isset($res[0]) ? $res[0] : false;
     }
     /**
@@ -208,14 +216,9 @@ class Db
     public function fixSql($type, $data = null)
     {
         $sql = '';
+        $where = $this->fixWhere();
         if ($type === 'select') {
-            $where = $this->fixWhere();
-            if ($where != '') {
-                $sql = "select {$this->field} from {$this->table} {$this->where}";
-            } else {
-                $sql = "select {$this->field} from {$this->table}";
-            }
-
+            $sql = "select {$this->field} from {$this->table} {$where}";
             if ($this->order) {
                 $sql .= " order by {this->order}";
             }
@@ -232,9 +235,19 @@ class Db
             }
             $sql .= "(" . implode(',', $fields) . ")values(" . implode(',', $values) . ")";
         }
+        if ($type == 'update') {
+            // $where = $this->fixWhere();
+            $str = '';
+            foreach ($data as $key => $val) {
+                $val = is_string($val) ? "'" . $val . "'" : $val;
+                $str .= "{$key}={$val},";
+            }
+            $str = rtrim($str, ',');
+            $str = $str ? " set {$str}" : '';
+            $sql = "update {$this->table} {$str} {$where}";
+        }
         if ($type === 'delete') {
-            // $sql = "delete from {$this->table} {$this->where}";
-            $where = $this->fixWhere();
+            // $where = $this->fixWhere();
             $sql = "delete from {$this->table} {$where}";
         }
         return $sql;
@@ -252,14 +265,19 @@ class Db
         if (is_array($this->where)) {
             foreach ($this->where as $key => $value) {
                 $value = is_string($value) ? "'" . $value . "'" : $value;
-                //还不能确定有几个条件
                 $where .= "`{$key}` = {$value} and ";
             }
         } else {
             $where = $this->where;
         }
         $where = rtrim($where, 'and ');
-        $where = $where = '' ? '' : "where {$where}";
+        // $where = $where = '' ? '' : "where {$where}";
+        $where = $where == '' ? '' : "where {$where}";
+        // if($where == ''){
+        //     $where = '';
+        // }else{
+        //     $where = $where;
+        // }
         return $where;
     }
 }

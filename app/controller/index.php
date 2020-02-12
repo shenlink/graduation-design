@@ -13,23 +13,26 @@ class Index extends Controller
         $value = 'Hello World';
         $value2 = 'Hello World';
         $view = new View();
-        $view->assign('name',$value);
-        $view->assign('name2',$value2);
+        $view->assign('name', $value);
+        $view->assign('name2', $value2);
         $view->display('test.tpl');
     }
-    public function test(){
+    public function test()
+    {
         $view = new View();
-        $model = new \app\model\Index();
+        // $model = new \app\model\Index();
+        $model = new \app\model\Test();
         $value = 'success';
         $value2 = 'wrong';
-        $res = $model->user();
-        if($res){
+        $res = $model->query();
+        // echo '<pre>';
+        // var_dump($res);
+        if ($res) {
             $view->assign('name', $value);
             $view->display('test.tpl');
-        }else{
+        } else {
             $view->assign('name2', $value2);
             $view->display('test2.tpl');
         }
-
     }
 }
