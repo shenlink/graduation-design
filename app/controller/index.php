@@ -14,7 +14,7 @@ class Index extends Controller
         $view = Factory::createView();
         $view->assign('name', $value);
         $view->assign('name2', $value2);
-        $view->display('test.tpl');
+        $view->display('test.html');
     }
     public function test()
     {
@@ -25,10 +25,17 @@ class Index extends Controller
         $res = $test->query();
         if ($res) {
             $view->assign('name', $value);
-            $view->display('test.tpl');
+            $view->display('test.html');
         } else {
             $view->assign('name2', $value2);
-            $view->display('test2.tpl');
+            $view->display('test2.html');
         }
+    }
+    public function register()
+    {
+        $view = Factory::createView();
+        $value = 'Hello';
+        $view->assign('name3', $value);
+        $view->display('register.html');
     }
 }

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>登录</title>
-    <link href="static/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="static/css/self.css" type="text/css" rel="stylesheet">
+    <link href="../../app/view/static/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="../../app/view/static/css/self.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -145,7 +145,7 @@
                     onblur="checkUsername()" onfocus="userOriginal()">
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="userMessage">
-                    <img src="static/image/mess.png" alt="" id="userImg">
+                    <img src="../../app/view/static/image/mess.png" alt="" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
             </div>
@@ -157,11 +157,11 @@
                 <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
                     onblur="checkPassword()" onfocus="passwordOriginal()">
                 <span id="rePassword">
-                    <img src="static/image/close.png" alt="显示密码 " id="passwordEye" onclick="clickEye()">
+                    <img src="../../app/view/static/image/close.png" alt="显示密码 " id="passwordEye" onclick="clickEye()">
                 </span>
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="passwordTip">
-                    <img src="static/image/mess.png" alt="" id="passwordImg">
+                    <img src="../../app/view/static/image/mess.png" alt="" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
                 </small>
             </div>
@@ -239,7 +239,7 @@
             let userMessage = document.querySelector('#userMessage');
             // 还原输入框的初始样式
             username.className = "form-control"
-            userMessage.innerHTML = `<img src="static/image/mess.png" id="userImg">
+            userMessage.innerHTML = `<img src="../../app/view/static/image/mess.png" id="userImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
         }
 
@@ -251,7 +251,7 @@
             let passwordTip = document.querySelector('#passwordTip');
             // 还原输入框的初始样式
             password.className = "form-control"
-            passwordTip.innerHTML = `<img src="static/image/mess.png" id="passwordImg">
+            passwordTip.innerHTML = `<img src="../../app/view/static/image/mess.png" id="passwordImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码`;
         }
 
@@ -265,7 +265,7 @@
                 // 把密码输入的框变成文本输入框
                 password.type = 'text';
                 // 切换成睁眼的图片
-                passwordEye.src = 'static/image/open.png';
+                passwordEye.src = '../../app/view/static/image/open.png';
                 // 改变图片的alt值
                 passwordEye.alt = '隐藏密码';
                 // flag置true,下次再点击就切换成闭眼的图片
@@ -274,7 +274,7 @@
                 // 把密码输入的框变成文本输入框
                 password.type = 'password';
                 // 切换成睁眼的图片
-                passwordEye.src = 'static/image/close.png';
+                passwordEye.src = '../../app/view/static/image/close.png';
                 // 改变图片的alt值
                 passwordEye.alt = '显示密码';
                 // flag置false,下次再点击就切换成睁眼的图片
