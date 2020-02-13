@@ -9,7 +9,7 @@ class Loader
         // require Shen . '/' . str_replace('\\', '/', $class) . '.php';
 
         $class = str_replace('\\', '/', $class);
-        $file = Shen . '/' . $class . '.php';
+        $file = SHEN . '/' . $class . '.php';
         if (is_file($file)) {
             include $file;
             self::$classMap[$class] = $class;

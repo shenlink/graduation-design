@@ -3,7 +3,7 @@
 namespace core\lib;
 use core\lib\Factory;
 
-include_once Shen . '/core/common/smarty/Smarty.class.php';
+include_once SHEN . '/core/common/smarty/Smarty.class.php';
 class View
 {
     private static $view;
@@ -37,8 +37,8 @@ class View
             $smarty = new \Smarty();
             $smarty->caching = false;
             $smarty->template_dir = APP.'/view';
-            $smarty->compile_dir = Shen.'/runtime/smarty/templates_c';
-            $smarty->cache_dir = Shen."/runtime/smarty/cache";
+            $smarty->compile_dir = SHEN.'/runtime/smarty/templates_c';
+            $smarty->cache_dir = SHEN."/runtime/smarty/cache";
             $smarty->cache_lifetime = 60;
             $smarty->left_delimiter = "{";
             $smarty->right_delimiter = "}";

@@ -20,7 +20,7 @@ class Config
         if (isset(self::$config[$file])) {
             return self::$config[$file][$name];
         } else {
-            $path = Shen . '/config/' . $file . '.php';
+            $path = SHEN . '/config/' . $file . '.php';
             if (is_file($path)) {
                 $config = include $path;
                 if (isset($config[$name])) {
@@ -40,7 +40,7 @@ class Config
         if (isset(self::$config[$file])) {
             return self::$config[$file];
         } else {
-            $path = Shen . '/config/' . $file . '.php';
+            $path = SHEN . '/config/' . $file . '.php';
             if (is_file($path)) {
                 $config = include $path;
                 self::$config[$file] = $config;
