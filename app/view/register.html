@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>注册</title>
-    <!-- 当前路径是app\controller\index -->
+    <!-- 当前路径是app\controller\index控制器 -->
     <link href="../../app/view/static/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="../../app/view/static/css/self.css" rel="stylesheet" type="text/css">
 </head>
@@ -137,7 +137,7 @@
             </div>
         </div>
         <!-- 表单开始 -->
-        <form action="checkRegister.php" method="post">
+        <form action="../user/register" method="post">
             <!-- 用户名开始 -->
             <div class="form-group">
                 <label for="username">用户名：</label>
@@ -208,6 +208,18 @@
     </footer>
     <!-- 公告底部结束 -->
     <script src="../../app/view/static/js/register.js"></script>
+    <!-- 链接jquery3.2.1 -->
+    <script src="../../app/view/static/js/jquery.js"></script>
+    <!-- 链接popper1.12.5 -->
+    <script src="../../app/view/static/js/popper.js"></script>
+    <!-- 链接bootstrap4.1.0 -->
+    <script src="../../app/view/static/js/bootstrap.js"></script>
+    <!--添加富文本编辑器wangEditor-->
+    <script src="../../app/view/static/wangeditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var editor = new wangEditor('editor');
+        editor.create();
+    </script>
 
 </body>
 

@@ -6,22 +6,19 @@ use core\lib\Model;
 
 class User extends Model
 {
-    public function checkName()
+    public function checkUsername($username)
     {
-        header("Content-type:text/html;charset=utf-8");
-        $username = $_POST['usernameValue'];
+        // $_POST变量是超全局变量，可以直接在模型类获取表单提交的数据，但是，不提倡这么做，因为本来表单是提交到控制器的，表单传过来的值应该由控制器传到模型类中
         return $this->table('user')->where(array('username' => "{$username}"))->select();
     }
-    public function register()
+    
+    public function register($username, $password)
     {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
+        return $this->table('user')->insert(array('username' => "{$username}", 'password' => "{$password}"));
     }
-    public function login()
+
+    public function login($username, $password)
     {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
         return $this->table('users')->where(array('username' => "{$username}", 'password' => '{$password}'))->select();
     }
 }

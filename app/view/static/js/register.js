@@ -30,7 +30,7 @@ function checkUsername() {
             request = new ActiveXObject("Msxml2.XMLHTTP");
         }
         // 2.请求行
-        request.open("POST", "./checkUsername.php");
+        request.open("POST", "../user/checkUsername");
         // 3.请求头
         request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
         // 4.设置数据
@@ -84,6 +84,10 @@ function checkPassword() {
 // 确认密码
 function checkConPassword() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
+    // 获取密码输入框元素
+    let password = document.querySelector('#password');
+    // 获取输入的密码的值
+    let passwordValue = password.value;
     // 获取确认密码输入框元素
     let confirmPassword = document.querySelector('#confirmPassword');
     // 获取确认密码的值
@@ -96,12 +100,12 @@ function checkConPassword() {
         conPasswordTip.innerHTML = `<span style="color:red;">确认密码不能为空</span>`;
         return false;
     }
-    if (conPasswordValue !== conPasswordValue) {
-        conPasswordTip.innerHTML = `<span style="color:red;">两次密码不一致</span>`;
-        return false;
-    } else {
+    if (passwordValue === conPasswordValue) {
         conPasswordTip.innerHTML = `<span style="color:green;">两次密码一致</span>`;
         return true;
+    } else {
+        conPasswordTip.innerHTML = `<span style="color:red;">两次密码不一致</span>`;
+        return false;
     }
 }
 
@@ -114,20 +118,20 @@ function userOriginal() {
     let userMessage = document.querySelector('#userMessage');
     // 还原输入框的初始样式
     username.className = "form-control"
-    userMessage.innerHTML = `<img src="static/image/mess.png" id="userImg">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
+    userMessage.innerHTML = `<img src="../../app/view/static/image/mess.png" id="userImg">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
 }
 
 // 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
     // 获取密码输入框元素
-    let confirmPassword = document.querySelector('#confirmPassword');
+    let password = document.querySelector('#password');
     // 获取提示用户注意的信息的节点元素
-    let conPasswordTip = document.querySelector('#conPasswordTip');
+    let passwordTip = document.querySelector('#passwordTip');
     // 还原输入框的初始样式
     password.className = "form-control"
-    passwordTip.innerHTML = `<img src="static/image/mess.png" id="passwordImg">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
+    passwordTip.innerHTML = `<img src="../../app/view/static/image/mess.png" id="passwordImg">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
 }
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
@@ -138,8 +142,8 @@ function conPasswordOriginal() {
     let conPasswordTip = document.querySelector('#conPasswordTip');
     // 还原输入框的初始样式
     confirmPassword.className = "form-control"
-    conPasswordTip.innerHTML = `<img src="static/image/mess.png" id="conPasswordImg">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认密码`;
+    conPasswordTip.innerHTML = `<img src="../../app/view/static/image/mess.png" id="conPasswordImg">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认密码`;
 }
 
 // 获取眼睛图案
@@ -152,7 +156,7 @@ function clickEye() {
         // 把密码输入的框变成文本输入框
         password.type = 'text';
         // 切换成睁眼的图片
-        passwordEye.src = 'static/image/open.png';
+        passwordEye.src = '../../app/view/static/image/open.png';
         // 改变图片的alt值
         passwordEye.alt = '隐藏密码';
         // flag置true,下次再点击就切换成闭眼的图片
@@ -161,7 +165,7 @@ function clickEye() {
         // 把密码输入的框变成文本输入框
         password.type = 'password';
         // 切换成睁眼的图片
-        passwordEye.src = 'static/image/close.png';
+        passwordEye.src = '../../app/view/static/image/close.png';
         // 改变图片的alt值
         passwordEye.alt = '显示密码';
         // flag置false,下次再点击就切换成睁眼的图片
@@ -179,14 +183,14 @@ function clickConEye() {
         // 把密码输入的框变成文本输入框
         confirmPassword.type = 'text';
         // 切换成睁眼的图片
-        conPasswordEye.src = 'static/image/open.png';
+        conPasswordEye.src = '../../app/view/static/image/open.png';
         // conflag置true,下次再点击就切换成闭眼的图片
         conFlag = true;
     } else {
         // 把密码输入的框变成文本输入框
         confirmPassword.type = 'password';
         // 切换成睁眼的图片
-        conPasswordEye.src = 'static/image/close.png';
+        conPasswordEye.src = '../../app/view/static/image/close.png';
         // conflag置false,下次再点击就切换成睁眼的图片
         conFlag = false;
     }
