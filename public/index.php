@@ -6,7 +6,6 @@
 define('SHEN',str_replace('\\','/',dirname(dirname(realpath(__FILE__)))));
 define('CORE',SHEN.'/core');
 define('APP',SHEN.'/app');
-// define('MODULE', 'app');
 define('DEBUG', true);
 
 if (DEBUG) {
