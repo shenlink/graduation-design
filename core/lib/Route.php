@@ -17,7 +17,7 @@ class Route
      */
     public function __construct()
     {
-        // xxx.com/index.php/index/index
+        // shen.io/index.php/index/index
         if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] != '/') {
             // 解析 /index/index
             $path = $_SERVER['REQUEST_URI'];
