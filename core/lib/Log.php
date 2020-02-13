@@ -17,7 +17,7 @@ class Log
         //确定存储方式
         $driver = Config::get('DRIVER', 'log');
         $class = '\core\lib\driver\log\\' . $driver;
-        self::$class = new $class;
+        self::$class = new $class();
     }
 
     public static function log($name, $file = 'log')

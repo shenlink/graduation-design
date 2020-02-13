@@ -5,6 +5,7 @@ namespace core\lib;
 
 use core\lib\Db;
 use core\lib\View;
+// use core\lib\
 use core\lib\RegisterTree;
 
 
@@ -34,6 +35,18 @@ class Factory
             RegisterTree::set('view', $view);
         }
         return $view;
+    }
+    public static function createUser()
+    {
+        // 单例模式
+        $key = 'user';
+        $user = RegisterTree::get($key);
+        if (!$user) {
+            $view = User::getInstance();
+            //注册树模式
+            RegisterTree::set('user', $user);
+        }
+        return $user;
     }
 
 }

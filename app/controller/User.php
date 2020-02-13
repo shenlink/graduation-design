@@ -12,7 +12,7 @@ class User extends Controller
     {
         header("Content-type:text/html;charset=utf-8");
         $username = $_POST['usernameValue'];
-        $user = new \app\model\User();
+        $user = Factory::createUser();
         $res =  $user->checkUsername($username);
         if ($res) {
             echo "1";
@@ -47,7 +47,7 @@ class User extends Controller
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $user = new \app\model\User();
+        $user = Factory::createUser();
         $res = $user->register($username, $password);
         $view = Factory::createView();
         $view->display('register.html');

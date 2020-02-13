@@ -1,7 +1,6 @@
 <?php
 
 namespace core\lib;
-use core\lib\Factory;
 
 include_once SHEN . '/core/common/smarty/Smarty.class.php';
 class View
@@ -22,7 +21,7 @@ class View
         if (self::$view) {
             return self::$view;
         } else {
-            self::$view = new self;
+            self::$view = new self();
             return self::$view;
         }
     }
