@@ -12,21 +12,7 @@ class Index extends Controller
         $view = Factory::createView();
         $view->display('index.html');
     }
-    public function register()
-    {
-        $view = Factory::createView();
-        $view->display('register.html');
-    }
-    public function login()
-    {
-        $view = Factory::createView();
-        $view->display('login.html');
-    }
-    public function manage()
-    {
-        $view = Factory::createView();
-        $view->display('manage.html');
-    }
+    
     public function redirect()
     {
         $this->redirect('/');

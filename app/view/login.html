@@ -29,29 +29,27 @@
                             <ul class="navbar-nav mr-auto">
                                 <!-- 导航栏明细 -->
                                 <li class="nav-item active">
-                                    <a class="nav-link active" href="#">首页</a>
+                                    <a class="nav-link active" href="/">首页</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">php</a>
+                                    <a class="nav-link" href="/category/php">php</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">mysql</a>
+                                    <a class="nav-link" href="/category/mysql">mysql</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">javaScript</a>
+                                    <a class="nav-link" href="/category/javaScript">javaScript</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">html</a>
+                                    <a class="nav-link" href="/category/html">html</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">python</a>
+                                    <a class="nav-link" href="/category/python">python</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">java</a>
+                                    <a class="nav-link" href="/category/java">java</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">运维</a>
-                                </li>
+
                                 <!-- 下拉菜单开始  -->
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -66,11 +64,7 @@
                                     </div>
                                 </li>
                                 <!-- 下拉菜单结束 -->
-                                <!-- 公告开始 -->
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">公告</a>
-                                </li>
-                                <!-- 公告结束 -->
+
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -85,13 +79,13 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">写博客</a>
+                                    <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">注册</a>
+                                    <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">登录</a>
+                                    <a class="nav-link" href="/user/login">登录</a>
                                 </li>
 
                                 <!-- 下拉菜单 管理员操作 -->
@@ -281,10 +275,21 @@
                 flag = false;
             }
         }
-
         function check() {
             return checkUsername() && checkPassword();
         }
+    </script>
+    <!-- 链接jquery3.2.1 -->
+    <script src="../../app/view/static/js/jquery.js"></script>
+    <!-- 链接popper1.12.5 -->
+    <script src="../../app/view/static/js/popper.js"></script>
+    <!-- 链接bootstrap4.1.0 -->
+    <script src="../../app/view/static/js/bootstrap.js"></script>
+    <!--添加富文本编辑器wangEditor-->
+    <script src="../../app/view/static/wangeditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var editor = new wangEditor('editor');
+        editor.create();
     </script>
 </body>
 

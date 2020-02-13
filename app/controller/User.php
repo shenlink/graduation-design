@@ -20,20 +20,46 @@ class User extends Controller
             echo "0";
         }
     }
+
+
     public function register()
+    {
+        $view = Factory::createView();
+        $view->display('register.html');
+    }
+
+
+    public function login()
+    {
+        $view = Factory::createView();
+        $view->display('login.html');
+    }
+
+
+    public function manage()
+    {
+        $view = Factory::createView();
+        $view->display('manage.html');
+    }
+
+
+    public function chekRegister()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        // $view = Factory::createView();
         $user = new \app\model\User();
         $res = $user->register($username, $password);
+        $view = Factory::createView();
+        $view->display('register.html');
         if ($res) {
             echo '注册成功';
         } else {
             echo '注册失败';
         }
     }
-    public function login()
+
+
+    public function checkLogin()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -44,5 +70,11 @@ class User extends Controller
         } else {
             echo '登录失败';
         }
+    }
+
+    public function write()
+    {
+        $view = Factory::createView();
+        $view->display('write.html');
     }
 }
