@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>注册</title>
-    <!-- 当前路径是app\controller\index控制器 -->
-    <link href="../../app/view/static/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../../app/view/static/css/self.css" rel="stylesheet" type="text/css">
+    <link href=/public/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/public/static/css/self.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -140,7 +139,7 @@
                     onblur="checkUsername()" onfocus="userOriginal()">
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="userMessage">
-                    <img src="../../app/view/static/image/mess.png" id="userImg">
+                    <img src="/public/static/image/mess.png" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
                 </small>
             </div>
@@ -155,11 +154,11 @@
                 <!-- rePassword是定位父级，相对定位 -->
                 <div id="rePassword">
                     <!-- 显示隐藏密码 -->
-                    <img src="../../app/view/static/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
+                    <img src="/public/static/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
                 </div>
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="passwordTip">
-                    <img src="../../app/view/static/image/mess.png" id="passwordImg">
+                    <img src="/public/static/image/mess.png" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
                 </small>
             </div>
@@ -174,12 +173,12 @@
                 <!-- reCOnPassword是定位父级，相对定位 -->
                 <span id="reConPassword">
                     <!-- 显示隐藏密码 -->
-                    <img src="../../app/view/static/image/close.png" alt="隐藏密码" id="conPasswordEye"
+                    <img src="/public/static/image/close.png" alt="隐藏密码" id="conPasswordEye"
                         onclick="clickConEye()">
                 </span>
                 <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="conPasswordTip">
-                    <img src="../../app/view/static/image/mess.png" id="conPasswordImg">
+                    <img src="/public/static/image/mess.png" id="conPasswordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     确认密码
                 </small>
@@ -201,15 +200,15 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
-    <script src="../../app/view/static/js/register.js"></script>
+    <script src="/public/static/js/register.js"></script>
     <!-- 链接jquery3.2.1 -->
-    <script src="../../app/view/static/js/jquery.js"></script>
+    <script src="/public/static/js/jquery.js"></script>
     <!-- 链接popper1.12.5 -->
-    <script src="../../app/view/static/js/popper.js"></script>
+    <script src="/public/static/js/popper.js"></script>
     <!-- 链接bootstrap4.1.0 -->
-    <script src="../../app/view/static/js/bootstrap.js"></script>
+    <script src="/public/static/js/bootstrap.js"></script>
     <!--添加富文本编辑器wangEditor-->
-    <script src="../../app/view/static/wangeditor/dist/js/wangEditor.min.js"></script>
+    <script src="/public/static/wangeditor/dist/js/wangEditor.min.js"></script>
     <script type="text/javascript">
         var editor = new wangEditor('editor');
         editor.create();
