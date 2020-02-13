@@ -5,7 +5,8 @@ namespace core\common;
 use core\lib\Route;
 use core\lib\Log;
 
-class Start{
+class Start
+{
     /**
      * 启动框架
      */

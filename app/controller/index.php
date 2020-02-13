@@ -9,12 +9,8 @@ class Index extends Controller
 {
     public function index()
     {
-        $value = 'Hello World';
-        $value2 = 'Hello World';
         $view = Factory::createView();
-        $view->assign('name', $value);
-        $view->assign('name2', $value2);
-        $view->display('test.html');
+        $view->display('index.html');
     }
     public function test()
     {
@@ -34,8 +30,8 @@ class Index extends Controller
     public function register()
     {
         $view = Factory::createView();
-        $value = 'Hello';
-        $view->assign('name3', $value);
+        // $value = 'Hello';
+        // $view->assign('name3', $value);
         $view->display('register.html');
     }
 }

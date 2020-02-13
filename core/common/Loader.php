@@ -4,7 +4,7 @@ namespace core\common;
 class Loader
 {
     public static $classMap = array();
-    static function autoload($class)
+    public static function autoload($class)
     {
         // require Shen . '/' . str_replace('\\', '/', $class) . '.php';
 

@@ -1,43 +1,45 @@
 <?php
 
-function post($name, $default=false, $fitt=false){
-    if(isset($_POST[$name])){
-        if($fitt){
-            switch($fitt){
+function post($name, $default = false, $fitt = false)
+{
+    if (isset($_POST[$name])) {
+        if ($fitt) {
+            switch ($fitt) {
                 case 'int':
-                    if(is_numeric($_POST[$name])){
+                    if (is_numeric($_POST[$name])) {
                         return $_POST[$name];
-                    }else{
+                    } else {
                         return $default;
                     }
-                break;
-                default: ;
+                    break;
+                default:;
             }
-        }else{
+        } else {
             return $_POST[$name];
         }
-    }else{
+    } else {
         return $default;
     }
 }
 
-function get($name, $default=false, $fitt=false){
-    if(isset($_GET[$name])){
-        if($fitt){
-            switch($fitt){
+function get($name, $default = false, $fitt = false)
+{
+    if (isset($_GET[$name])) {
+        if ($fitt) {
+            switch ($fitt) {
                 case 'int':
-                    if(is_numeric($_GET[$name])){
+                    if (is_numeric($_GET[$name])) {
                         return $_GET[$name];
-                    }else{
+                    } else {
                         return $default;
                     }
-                break;
-                default: ;
+                    break;
+                default:;
             }
-        }else{
+        } else {
             return $_GET[$name];
         }
-    }else{
+    } else {
         return $default;
     }
 }

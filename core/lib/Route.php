@@ -3,6 +3,7 @@
 namespace core\lib;
 
 use core\lib\Config;
+
 class Route
 {
 

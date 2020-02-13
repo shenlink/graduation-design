@@ -1,7 +1,8 @@
 <?php
 namespace core\lib;
 
-class RegisterTree{
+class RegisterTree
+{
     private static $objects=array();
     // 与工厂模式共用
     public static function get($name)

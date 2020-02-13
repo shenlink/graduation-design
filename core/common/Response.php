@@ -1,8 +1,9 @@
 <?php
 namespace core\common;
 
-class Response {
-    
+class Response
+{
+
 	const JSON = "json";
 	/**
 	* 按综合方式输出通信数据
@@ -12,7 +13,8 @@ class Response {
 	* @param string $type 数据类型
 	* return string
 	*/
-	public static function show($code, $message = '', $data = array(), $type = self::JSON) {
+	public static function show($code, $message = '', $data = array(), $type = self::JSON)
+	{
 		if(!is_numeric($code)) {
 			return '';
 		}
@@ -44,8 +46,9 @@ class Response {
 	* @param array $data 数据
 	* return string
 	*/
-	public static function json($code, $message = '', $data = array()) {
-		
+	public static function json($code, $message = '', $data = array())
+	{
+
 		if(!is_numeric($code)) {
 			return '';
 		}
@@ -67,7 +70,8 @@ class Response {
 	* @param array $data 数据
 	* return string
 	*/
-	public static function xmlEncode($code, $message, $data = array()) {
+	public static function xmlEncode($code, $message, $data = array())
+	{
 		if(!is_numeric($code)) {
 			return '';
 		}
@@ -88,7 +92,8 @@ class Response {
 		echo $xml;
 	}
 
-	public static function xmlToEncode($data) {
+	public static function xmlToEncode($data)
+	{
 
 		$xml = $attr = "";
 		foreach($data as $key => $value) {
