@@ -27,5 +27,9 @@ class Index extends Controller
         $view = Factory::createView();
         $view->display('manage.html');
     }
+    public function redirect()
+    {
+        $this->redirect('/');
+    }
 
 }
