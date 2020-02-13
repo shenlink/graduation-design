@@ -3,7 +3,7 @@
 namespace core\lib;
 
 use core\lib\Log;
-
+use core\lib\Route;
 /**
  * 控制器基类
  */
@@ -22,5 +22,27 @@ class Controller
     public function afterAction($action)
     {
         Log::log('afterAction:' . $action);
+    }
+
+    public static function check()
+    {
+        $route = new Route();
+        $controller = $route->controller;
+        $action = $route->action;
+        $controllerFile = APP . '/controller/' . $controller . '.php';
+        // 反斜杠究竟要用一个还是两个？
+        $controllerClass = '\\app' . '\\controller\\' . $controller;
+        if (is_file($controllerFile)) {
+            include $controllerFile;
+            $controller = new $controllerClass();
+            $controller->beforeAction($action);
+            $controller->$action();
+            $controller->afterAction($action);
+            // action前有空格
+            Log::log('controller:' . $controllerClass . ' action:' . $action);
+        } else {
+            Log::log('找不到控制器' . $controllerClass);
+            throw new \Exception('找不到控制器' . $controllerClass);
+        }
     }
 }
