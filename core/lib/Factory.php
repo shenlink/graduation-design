@@ -5,6 +5,7 @@ namespace core\lib;
 
 use core\lib\Db;
 use core\lib\View;
+use app\model\User;
 // use core\lib\
 use core\lib\RegisterTree;
 
@@ -42,7 +43,7 @@ class Factory
         $key = 'user';
         $user = RegisterTree::get($key);
         if (!$user) {
-            $view = User::getInstance();
+            $user = User::getInstance();
             //注册树模式
             RegisterTree::set('user', $user);
         }
