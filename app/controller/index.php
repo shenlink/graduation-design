@@ -12,10 +12,10 @@ class Index extends Controller
         $view = Factory::createView();
         $view->display('index.html');
     }
-    
-    public function redirect()
+    public function test()
     {
-        $this->redirect('/');
+        $view = Factory::createView();
+        $view->display('test.html');
     }
 
 }
