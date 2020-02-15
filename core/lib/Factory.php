@@ -6,6 +6,7 @@ namespace core\lib;
 use core\lib\Db;
 use core\lib\View;
 use app\model\User;
+use core\lib\Pagination;
 // use core\lib\
 use core\lib\RegisterTree;
 
@@ -48,6 +49,18 @@ class Factory
             RegisterTree::set('user', $user);
         }
         return $user;
+    }
+    public static function createPagination()
+    {
+        // 单例模式
+        $key = 'pagination';
+        $pagination = RegisterTree::get($key);
+        if (!$pagination) {
+            $pagination = Pagination::getInstance();
+            //注册树模式
+            RegisterTree::set('pagination', $pagination);
+        }
+        return $pagination;
     }
 
 }
