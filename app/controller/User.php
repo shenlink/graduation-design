@@ -45,6 +45,7 @@ class User extends Controller
 
     public function checkRegister()
     {
+        header("Content-type:text/html;charset=utf-8");
         $username = $_POST['username'];
         $password = $_POST['password'];
         $user = Factory::createUser();
@@ -61,14 +62,17 @@ class User extends Controller
 
     public function checkLogin()
     {
+        header("Content-type:text/html;charset=utf-8");
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $user = new \app\model\User();
+        $user = Factory::createUser();
         $res = $user->login($username, $password);
         if ($res) {
-            echo '登录成功';
+            echo '1';
+            // session_start();
+
         } else {
-            echo '登录失败';
+            echo '0';
         }
     }
 

@@ -120,7 +120,7 @@
         </div>
 
         <!-- 表单开始 -->
-        <form action="checkLogin.php" method="post">
+        <form>
             <!-- 用户名输入框开始 -->
             <div class="form-group">
                 <label for="username">用户名：</label>
@@ -162,14 +162,14 @@
             <!-- 七天免登录单选框开始 -->
 
             <button type="reset" class="btn btn-primary">重置</button>
-            <button type="submit" class="btn btn-primary" onclick="return check()">提交</button>
+            <button type="button" class="btn btn-primary" id="test">提交</button>
         </form>
         <!-- 表单结束 -->
     </div>
     <!-- 主体内容结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row" id="footer">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>
@@ -177,13 +177,11 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
-    <script src="/static/js/login.js"></script>
+
     <!-- 链接jquery3.2.1 -->
     <script src="/static/js/jquery.js"></script>
-    <!-- 链接popper1.12.5 -->
-    <script src="/static/js/popper.js"></script>
-    <!-- 链接bootstrap4.1.0 -->
-    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
+    <script src="/static/js/login.js"></script>
 </body>
 
 </html>

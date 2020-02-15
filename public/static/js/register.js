@@ -233,11 +233,16 @@ $('#test').on('click', function () {
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
                 if (request.responseText == "1") {
-                    layer.msg('hello', {
+                    layer.msg('注册成功', {
+                        time: 1000
+                    }, function (index, layero) {
+                        location.href = '/user/login';
+                        layero.close(index);
+                    });
+                } else {
+                    layer.msg('注册失败', {
                         time: 1000
                     })
-                } else {
-                    alert('不通过测试');
                 }
             }
         }

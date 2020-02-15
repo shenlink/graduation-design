@@ -31,6 +31,6 @@ class User extends Model
 
     public function login($username, $password)
     {
-        return $this->table('users')->where(array('username' => "{$username}", 'password' => '{$password}'))->select();
+        return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
     }
 }

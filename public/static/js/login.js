@@ -1,7 +1,3 @@
-// 这个fixed-bottom值适合于注册页面和登录页面，因为底部是多个页面共用一份的
-let footer = document.querySelector('footer');
-footer.className = "container-fluid fixed-bottom";
-
 function checkUsername() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
     // 获取用户名输入框元素
@@ -15,6 +11,8 @@ function checkUsername() {
         username.className = "form-control is-invalid"
         userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
         return false;
+    } else {
+        return true;
     }
 }
 
@@ -31,6 +29,8 @@ function checkPassword() {
         password.className = "form-control is-invalid"
         passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
         return false;
+    } else {
+        return true;
     }
 }
 
@@ -60,7 +60,6 @@ function passwordOriginal() {
 
 // 获取眼睛图案
 let passwordEye = document.querySelector('#passwordEye');
-// 这个变量的声明不能放在函数内，若放在函数内，那每次点击调用函数时，均会flag = false
 let flag = false;
 // 这个变量的声明不能放在函数内，若放在函数内，那每次点击调用函数时，均会flag = false
 function clickEye() {
@@ -88,3 +87,46 @@ function clickEye() {
 function check() {
     return checkUsername() && checkPassword();
 }
+$('#test').on('click', function () {
+    // 获取用户名输入框元素
+    let username = document.querySelector('#username');
+    // 获取输入的用户名的值
+    let usernameValue = username.value;
+    // 获取密码输入框元素
+    let password = document.querySelector('#password');
+    // 获取输入的密码的值
+    let passwordValue = password.value;
+    if (check()) {
+        // 1.创建XMLHttpRequest对象
+        let request = null;
+        if (XMLHttpRequest) {
+            request = new XMLHttpRequest();
+        } else {
+            //兼容老IE浏览器
+            request = new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        // 2.请求行
+        request.open("POST", "/user/checkLogin");
+        // 3.请求头
+        request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+        // 4.设置数据
+        request.send("username=" + usernameValue + "&password=" + passwordValue);
+        // request.send("username="+userval+"&age="+ageval+"&timp"+new Date().getTime());
+        // 5.监听服务器响应
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                if (request.responseText == "1") {
+                    layer.msg('登录成功', {
+                        time: 1000
+                    }, function (index, layero) {
+                        location.href = '/';
+                        layero.close(index);
+                    });
+                }
+                if (request.responseText == "0") {
+                    layer.msg('登录失败');
+                }
+            }
+        }
+    }
+});
