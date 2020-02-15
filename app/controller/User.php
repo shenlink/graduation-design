@@ -11,7 +11,7 @@ class User extends Controller
     public function checkUsername()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = $_POST['usernameValue'];
+        $username = $_POST['username'];
         $user = Factory::createUser();
         $res =  $user->checkUsername($username);
         if ($res) {
@@ -49,12 +49,12 @@ class User extends Controller
         $password = $_POST['password'];
         $user = Factory::createUser();
         $res = $user->register($username, $password);
-        $view = Factory::createView();
-        $view->display('register.html');
+        // $view = Factory::createView();
+        // $view->display('register.html');
         if ($res) {
-            echo '注册成功';
+            echo '1';
         } else {
-            echo '注册失败';
+            echo '0';
         }
     }
 

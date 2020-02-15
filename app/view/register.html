@@ -119,7 +119,7 @@
             </div>
         </div>
         <!-- 表单开始 -->
-        <form action="/user/checkRegister" method="post">
+        <form>
             <!-- 用户名开始 -->
             <div class="form-group">
                 <label for="username">用户名：</label>
@@ -174,7 +174,7 @@
             </div>
             <!-- 确认密码结束 -->
             <button type="reset" class="btn btn-primary">重置</button>
-            <button type="submit" class="btn btn-primary" onclick="return check()">提交</button>
+            <button type="button" class="btn btn-primary" id="test">提交</button>
         </form>
         <!-- 表单结束 -->
     </div>
@@ -189,13 +189,11 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
-    <script src="/static/js/register.js"></script>
+
     <!-- 链接jquery3.2.1 -->
     <script src="/static/js/jquery.js"></script>
-    <!-- 链接popper1.12.5 -->
-    <script src="/static/js/popper.js"></script>
-    <!-- 链接bootstrap4.1.0 -->
-    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
+    <script src="/static/js/register.js"></script>
 </body>
 
 </html>
