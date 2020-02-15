@@ -43,7 +43,7 @@ class User extends Controller
     }
 
 
-    public function chekRegister()
+    public function checkRegister()
     {
         $username = $_POST['username'];
         $password = $_POST['password'];

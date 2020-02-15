@@ -19,8 +19,6 @@ function checkUsername() {
     }
     // ajax验证用户名是否被注册
     if (usernameValue.length > 0) {
-        // 调试
-        console.log(123);
         // 1.创建XMLHttpRequest对象
         let request = null;
         if (XMLHttpRequest) {
