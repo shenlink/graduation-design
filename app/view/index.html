@@ -154,6 +154,31 @@
                                     <!-- 发布日期 阅读数量 评论数量开始 -->
                                 </td>
                             </tr>
+                            {{foreach from=$data key=ky item=dataIndex}}
+                            <tr>
+                                <td>
+                                    <a href="">{{$dataIndex.title}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>{{$dataIndex.content}}</p>
+                                    <div class="justify-content-start text-dark">
+                                        <span>
+                                            {{$dataIndex.created_at}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            收藏数
+                                            {{$dataIndex.collect_count}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            评论数
+                                            {{$dataIndex.comment_count}}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/foreach}}
                             <tr>
                                 <td>
                                     <a href="">

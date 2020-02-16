@@ -2,10 +2,69 @@
 
 namespace app\controller;
 
-class Article
+use core\lib\Controller;
+use core\lib\Factory;
+
+class Article extends Controller
 {
     public function Search()
     {
-        
+
+    }
+    public function index()
+    {
+        $index = Factory::createArticle();
+        $data = $index->index();
+        return $data;
+
+    }
+    public function php()
+    {
+        $php = Factory::createArticle();
+        $data = $php->php();
+        return $data;
+
+    }
+    public function mysql()
+    {
+        $mysql = Factory::createArticle();
+        $data = $mysql->mysql();
+        return $data;
+
+    }
+    public function javaScript()
+    {
+        $javaScript = Factory::createArticle();
+        $data = $javaScript->javaScript();
+        return $data;
+
+    }
+
+    public function html()
+    {
+        $html = Factory::createArticle();
+        $data = $html->html();
+        return $data;
+    }
+
+    public function python()
+    {
+        $python = Factory::createArticle();
+        $data = $python->python();
+        return $data;
+    }
+
+    public function java()
+    {
+        $java = Factory::createArticle();
+        $data = $java->java();
+        return $data;
+    }
+
+    public function foundation()
+    {
+        $foundation = Factory::createArticle();
+        $data = $foundation->foundation();
+        return $data;
     }
 }

@@ -8,6 +8,8 @@ use core\lib\View;
 use app\model\User;
 use core\lib\Pagination;
 use app\model\Admin;
+use app\model\Article;
+use app\model\Category;
 use core\lib\RegisterTree;
 
 
@@ -73,6 +75,30 @@ class Factory
             RegisterTree::set('admin', $admin);
         }
         return $admin;
+    }
+    public static function createArticle()
+    {
+        // 单例模式
+        $key = 'article';
+        $article = RegisterTree::get($key);
+        if (!$article) {
+            $article = Article::getInstance();
+            //注册树模式
+            RegisterTree::set('article', $article);
+        }
+        return $article;
+    }
+    public static function createCategory()
+    {
+        // 单例模式
+        $key = 'category';
+        $category = RegisterTree::get($key);
+        if (!$category) {
+            $category = Category::getInstance();
+            //注册树模式
+            RegisterTree::set('category', $category);
+        }
+        return $category;
     }
 
 }

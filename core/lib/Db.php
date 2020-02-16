@@ -82,6 +82,7 @@ class Db
      * @return:object
      * @msg:
      */
+    // 注意，传入多个字段时，应这样：'username,user_id';
     public function field($field)
     {
         $this->field = $field;
