@@ -7,10 +7,16 @@ use core\lib\Factory;
 
 class Article extends Controller
 {
-    public function Search()
+    public function search()
     {
-
+        $query = $_POST['search'];
+        $article = Factory::createArticle();
+        $data = $article->search($query);
+        $view = Factory::createView();
+        $view->assign('data',$data);
+        $view->display('search.html');
     }
+
     public function index()
     {
         $index = Factory::createArticle();
@@ -18,6 +24,7 @@ class Article extends Controller
         return $data;
 
     }
+
     public function php()
     {
         $php = Factory::createArticle();
@@ -25,6 +32,7 @@ class Article extends Controller
         return $data;
 
     }
+
     public function mysql()
     {
         $mysql = Factory::createArticle();
@@ -32,6 +40,7 @@ class Article extends Controller
         return $data;
 
     }
+    
     public function javaScript()
     {
         $javaScript = Factory::createArticle();

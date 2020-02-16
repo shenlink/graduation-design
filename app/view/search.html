@@ -8,6 +8,8 @@
     <title>博客</title>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <!--引入wangeditor的css文件-->
+    <link href="/static/wangeditor/dist/css/wangEditor.min.css" type="text/css" rel="stylesheet">
     <link href="/static/css/self.css" type="text/css" rel="stylesheet">
 
 </head>
@@ -30,8 +32,8 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <!-- 导航栏明细 -->
-                                <li class="nav-item active">
-                                    <a class="nav-link active" href="/">首页</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">首页</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/php">php</a>
@@ -51,7 +53,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/java">java</a>
                                 </li>
-
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/foundation">计算机基础</a>
                                 </li>
@@ -84,7 +85,6 @@
                                     <a class="nav-link" href="/admin/manage">管理</a>
                                 </li>
                                 <!-- 管理菜单结束 -->
-
                             </ul>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                 <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                 <div class="container">
                     <div class="navbar-header">
-                        <h2>javascript</h2>
+                        <h2>搜索结果</h2>
                     </div>
                 </div>
             </div>
@@ -130,31 +130,6 @@
                     <div>
                         <!-- 左边文章列表开始 -->
                         <table class="table table-striped table-bordered">
-                            {{foreach from=$data key=ky item=dataIndex}}
-                            <tr>
-                                <td>
-                                    <a href="">{{$dataIndex.title}}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>{{$dataIndex.content}}</p>
-                                    <div class="justify-content-start text-dark">
-                                        <span>
-                                            {{$dataIndex.created_at}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            收藏数
-                                            {{$dataIndex.collect_count}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            评论数
-                                            {{$dataIndex.comment_count}}
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            {{/foreach}}
                             <tr>
                                 <td>
                                     <a href="">
@@ -182,6 +157,31 @@
                                     <!-- 发布日期 阅读数量 评论数量开始 -->
                                 </td>
                             </tr>
+                            {{foreach from=$data key=ky item=dataIndex}}
+                            <tr>
+                                <td>
+                                    <a href="">{{$dataIndex.title}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>{{$dataIndex.content}}</p>
+                                    <div class="justify-content-start text-dark">
+                                        <span>
+                                            {{$dataIndex.created_at}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            收藏数
+                                            {{$dataIndex.collect_count}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            评论数
+                                            {{$dataIndex.comment_count}}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/foreach}}
                             <tr>
                                 <td>
                                     <a href="">
@@ -370,6 +370,8 @@
     </footer>
     <!-- 公告底部结束 -->
 
+    <!-- 链接jquery3.2.1 -->
+    <script src="/static/js/jquery.js"></script>
 </body>
 
 </html>
