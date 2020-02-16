@@ -35,14 +35,6 @@ class User extends Controller
         $view->display('login.html');
     }
 
-
-    public function manage()
-    {
-        $view = Factory::createView();
-        $view->display('manage.html');
-    }
-
-
     public function checkRegister()
     {
         header("Content-type:text/html;charset=utf-8");

@@ -84,7 +84,7 @@
                                     <a class="nav-link" href="/user/manage">管理</a>
                                 </li>
                                 <!-- 管理菜单结束 -->
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -144,6 +144,15 @@
                             <td><a>shen</a></td>
                             <td>正常</td>
                             <td><a href="">拉黑</a><a href="">删除</a></td>
+                        </tr>
+                        {{foreach from=$user item=userIndex}}
+                        <tr>
+                            {{foreach from=$userIndex item=userContent}}
+                            <td>
+                                {{$userContent}}
+                            </td>
+                            {{/foreach}}
+                            {{/foreach}}
                         </tr>
                     </tbody>
                 </table>
@@ -219,6 +228,15 @@
                             <td>去阅读</td>
                             <td><a href="">拉黑</a><a href="">删除</a></td>
                         </tr>
+                        {{foreach from=$article item=articleIndex}}
+                        <tr>
+                            {{foreach from=$articleIndex item=articleContent}}
+                            <td>
+                                {{$articleContent}}
+                            </td>
+                            {{/foreach}}
+                            {{/foreach}}
+                        </tr>
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
@@ -278,6 +296,15 @@
                             <td>正常</td>
                             <td>2</td>
                             <td><a href="">新增</a><a href="">删除</a></td>
+                        </tr>
+                        {{foreach from=$category item=categoryIndex}}
+                        <tr>
+                            {{foreach from=$categoryIndex item=categoryContent}}
+                            <td>
+                                {{$categoryContent}}
+                            </td>
+                            {{/foreach}}
+                            {{/foreach}}
                         </tr>
                     </tbody>
                 </table>
@@ -343,6 +370,15 @@
                             <td>shen</td>
                             <td><a href="">拉黑</a><a href="">删除</a></td>
                         </tr>
+                        {{foreach from=$comment item=commentIndex}}
+                        <tr>
+                            {{foreach from=$commentIndex item=commentContent}}
+                            <td>
+                                {{$commentContent}}
+                            </td>
+                            {{/foreach}}
+                            {{/foreach}}
+                        </tr>
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
@@ -404,6 +440,15 @@
                             <td>2020-02-15</td>
                             <td>正常</td>
                             <td><a href="">新增</a><a href="">不显示</a></td>
+                        </tr>
+                        {{foreach from=$annoucement item=annoucementIndex}}
+                        <tr>
+                            {{foreach item=annoucementContent from=$annoucementIndex}}
+                            <td>
+                                {{$annoucementContent}}
+                            </td>
+                            {{/foreach}}
+                            {{/foreach}}
                         </tr>
                     </tbody>
                 </table>

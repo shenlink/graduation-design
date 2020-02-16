@@ -45,7 +45,10 @@ class Category extends Controller
     }
     public function foundation()
     {
+        $category = new \app\model\Category;
+        $data = $category->foundation();
         $view = Factory::createView();
+        $view->assign('data',$data);
         $view->display('foundation.html');
     }
     public function write()
@@ -53,5 +56,4 @@ class Category extends Controller
         $view = Factory::createView();
         $view->display('write.html');
     }
-    
 }

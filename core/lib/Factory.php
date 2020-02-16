@@ -7,7 +7,7 @@ use core\lib\Db;
 use core\lib\View;
 use app\model\User;
 use core\lib\Pagination;
-// use core\lib\
+use app\model\Admin;
 use core\lib\RegisterTree;
 
 
@@ -61,6 +61,18 @@ class Factory
             RegisterTree::set('pagination', $pagination);
         }
         return $pagination;
+    }
+    public static function createAdmin()
+    {
+        // 单例模式
+        $key = 'admin';
+        $admin = RegisterTree::get($key);
+        if (!$admin) {
+            $admin = Admin::getInstance();
+            //注册树模式
+            RegisterTree::set('admin', $admin);
+        }
+        return $admin;
     }
 
 }
