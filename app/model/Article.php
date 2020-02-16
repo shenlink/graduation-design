@@ -17,11 +17,15 @@ class Article extends Model
         }
     }
 
-    public function search($query)
+    public function search($search, $name)
     {
-        $result1 = $this->table('article')->where(['title' => 1])->select();
-        $result2 = $this->table('article')->where(['title' => 1])->select();
-        return $result1 . $result2;
+        $search = '%' . $search . '%';
+        if ($name == '1') {
+            $data = $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$search}\"")->selectAll();
+        } else {
+            $data = $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where("content like \"{$search}\" or title like \"{$search}\"")->selectAll();
+        }
+        return $data;
     }
 
     public function index()

@@ -130,6 +130,8 @@ class Db
         $stmt->execute();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $res;
+        // 测试，用于返回所执行的sql语句
+        // return $stmt;
     }
     /**
      * @access:public

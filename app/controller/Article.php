@@ -9,10 +9,19 @@ class Article extends Controller
 {
     public function search()
     {
-        $query = $_POST['search'];
+        $search = $_POST['search'];
+        $name = $_POST['name'];
         $article = Factory::createArticle();
-        $data = $article->search($query);
+        $data = $article->search($search,$name);
+        if($name == '1'){
+            $name = '用户名查询结果';
+        }else{
+            $name = '文章查询结果';
+        }
+        // echo '<pre>';
+        // var_dump($data);
         $view = Factory::createView();
+        $view->assign('name',$name);
         $view->assign('data',$data);
         $view->display('search.html');
     }
@@ -40,7 +49,7 @@ class Article extends Controller
         return $data;
 
     }
-    
+
     public function javaScript()
     {
         $javaScript = Factory::createArticle();
