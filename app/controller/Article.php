@@ -18,8 +18,6 @@ class Article extends Controller
         }else{
             $name = '文章查询结果';
         }
-        // echo '<pre>';
-        // var_dump($data);
         $view = Factory::createView();
         $view->assign('name',$name);
         $view->assign('data',$data);
@@ -84,5 +82,9 @@ class Article extends Controller
         $foundation = Factory::createArticle();
         $data = $foundation->foundation();
         return $data;
+    }
+    public function personal()
+    {
+        
     }
 }

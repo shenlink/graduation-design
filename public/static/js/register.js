@@ -76,12 +76,12 @@ function checkPassword() {
     } else {
         // 正则表达式正向预查，匹配含数字，小写字母，大写字母和特殊字符的字符串
         let reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,16}/;
-        if (!reg.test(passwordValue)) {
-            passwordTip.innerHTML = `<span style="color:red;">密码不符合要求</span>`;
-            return false;
-        } else {
+        if (reg.test(passwordValue)) {
             passwordTip.innerHTML = `<span style="color:green;">密码符合要求</span>`;
             return true;
+        } else {
+            passwordTip.innerHTML = `<span style="color:red;">密码不符合要求</span>`;
+            return false;
         }
     }
 }
@@ -148,7 +148,8 @@ function conPasswordOriginal() {
     // 还原输入框的初始样式
     confirmPassword.className = "form-control"
     conPasswordTip.innerHTML = `<img src="/static/image/mess.png" id="conPasswordImg">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确认密码`;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    确认密码 `;
 }
 
 // 获取眼睛图案
