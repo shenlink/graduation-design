@@ -14,9 +14,17 @@ class Validate extends Controller
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
             $validate = new \app\model\Validate();
-            $access = $validate->checkValidate($username);
-            $access = $access['access_id'];
-            self::$access = $access;
+            $urls = $validate->checkValidate($username);
+            $urls = explode(',', $urls);
+            foreach ($urls as $key => $value) {
+                if ($value == '/admin/manage') {
+                    self::$access = '1';
+                    break;
+                } else if ($value == '/user/write') {
+                    self::$access = '2';
+                    break;
+                }
+            }
         } else {
             self::$access = '3';
         }

@@ -5,3 +5,4 @@
 3.manage页面
 /,/category/php,/category/mysql,/category/javaScript,/category/html,/category/python,/category/java,/category/foundation,/user/register,/user/login,/user/write,/user/personal,/user/information,/admin/manage
 4.其它页面（方法），不管是谁都能访问，如checkUsername方法 404
+/
