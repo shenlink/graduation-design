@@ -115,6 +115,8 @@ class Db
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // 获取多条数据后，截取一条
         return isset($res[0]) ? $res[0] : false;
+        // return $res;
+        // return $stmt;
     }
     /**
      * @access:public
@@ -130,8 +132,6 @@ class Db
         $stmt->execute();
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $res;
-        // 测试，用于返回所执行的sql语句
-        // return $stmt;
     }
     /**
      * @access:public
@@ -145,7 +145,9 @@ class Db
         $sql = $this->fixSql('insert', $data);
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        return $this->pdo->lastInsertId();
+        $res = $stmt->rowCount();
+        // return $this->pdo->lastInsertId();
+        return $res;
     }
     /**
      * @access:public
@@ -158,8 +160,8 @@ class Db
     {
         $sql = $this->fixSql('update', $data);
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->rowCount();
+        $res = $stmt->execute();
+        return $res;
     }
     /**
      * @access:public
@@ -172,8 +174,8 @@ class Db
     {
         $sql = $this->fixSql('delete');
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        return $stmt->rowCount();
+        $res = $stmt->execute();
+        return $res;
     }
     /**
      * @access:public
@@ -234,7 +236,7 @@ class Db
                 $fields[] = $key;
                 $values[] = is_string($val) ? "'" . $val . "'" : $val;
             }
-            $sql .= "(" . implode(',', $fields) . ")values(" . implode(',', $values) . ")";
+            $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
         }
         if ($type == 'update') {
             // $where = $this->fixWhere();

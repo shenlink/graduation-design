@@ -29,7 +29,6 @@ class Article extends Controller
         $index = Factory::createArticle();
         $data = $index->index();
         return $data;
-
     }
 
     public function php()
@@ -85,6 +84,6 @@ class Article extends Controller
     }
     public function personal()
     {
-        
+
     }
 }

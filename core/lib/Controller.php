@@ -4,6 +4,7 @@ namespace core\lib;
 
 use core\lib\Log;
 use core\lib\Route;
+
 /**
  * 控制器基类
  */
@@ -42,6 +43,7 @@ class Controller
             Log::log('controller:' . $controllerClass . ' action:' . $action);
         } else {
             Log::log('找不到控制器' . $controllerClass);
+            // 这里应该报404错误
             throw new \Exception('找不到控制器' . $controllerClass);
         }
     }

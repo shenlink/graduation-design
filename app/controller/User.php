@@ -4,6 +4,7 @@ namespace app\controller;
 
 use core\lib\Controller;
 use core\lib\Factory;
+use app\controller\Validate;
 
 
 class User extends Controller
@@ -37,10 +38,12 @@ class User extends Controller
     public function checkRegister()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = trim($_POST['username']);
+        $password = md5(trim($_POST['password']));
         $user = Factory::createUser();
-        $res = $user->register($username, $password);
+        if (isset($username) && isset($password)) {
+            $res = $user->register($username, $password);
+        }
         if ($res) {
             echo '1';
         } else {
@@ -51,13 +54,15 @@ class User extends Controller
     public function checkLogin()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = trim($_POST['username']);
+        $password = md5(trim($_POST['password']));
         $sevenCheck = $_POST['sevenCheck'];
         $user = Factory::createUser();
-        $res = $user->login($username, $password);
+        if(isset($username) && isset($password)){
+            $res = $user->login($username, $password);
+        }
         if ($res) {
-            if($sevenCheck){
+            if ($sevenCheck) {
                 setcookie('username', $username, time() + 604800);
             }
             session_start();
@@ -70,11 +75,12 @@ class User extends Controller
 
     public function write()
     {
+        $access = Validate::checkAccess();
         $view = Factory::createView();
-        if(!isset($_SESSION['username'])){
-            $view->display('nologin.html');
-        }else{
+        if ($access == '1' || $access == '2') {
             $view->display('write.html');
+        } else {
+            $view->display('nologin.html');
         }
     }
 
@@ -83,12 +89,33 @@ class User extends Controller
         $title = $_POST['title'];
         $content = $_POST['content'];
         $user = Factory::createUser();
-        $res = $user->checkWrite($title,$content);
-        if($res){
+        $res = $user->checkWrite($title, $content);
+        if ($res) {
             echo '1';
-        }else{
+        } else {
             echo '0';
         }
+    }
 
+    public function personal()
+    {
+        $access = Validate::checkAccess();
+        $view = Factory::createView();
+        if ($access == '1' || $access == '2') {
+            $view->disolay('personal.html');
+        } else {
+            $view->display('nologin.html');
+        }
+    }
+
+    public function information()
+    {
+        $access = Validate::checkAccess();
+        $view = Factory::createView();
+        if ($access == '1' || $access == '2') {
+            $view->disolay('information.html');
+        } else {
+            $view->display('nologin.html');
+        }
     }
 }
