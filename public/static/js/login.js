@@ -87,7 +87,7 @@ function clickEye() {
 function check() {
     return checkUsername() && checkPassword();
 }
-$('#test').on('click', function () {
+$('#login').on('click', function () {
     // 获取用户名输入框元素
     let username = document.querySelector('#username');
     // 获取输入的用户名的值

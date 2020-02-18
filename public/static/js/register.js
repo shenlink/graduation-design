@@ -205,7 +205,7 @@ function clickConEye() {
 function check() {
     return checkUsername() && checkAjax() && checkPassword() && checkConPassword();
 }
-$('#test').on('click', function () {
+$('#register').on('click', function () {
     // 获取用户名输入框元素
     let username = document.querySelector('#username');
     // 获取输入的用户名的值

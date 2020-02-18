@@ -34,4 +34,9 @@ class User extends Model
     {
         return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
     }
+
+    public function checkWrite($title, $content)
+    {
+        return $this->table('article')->insert(['$title'=>"{$title}",'content'=>"{$content}"]);
+    }
 }

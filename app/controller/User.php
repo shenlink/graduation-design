@@ -21,7 +21,6 @@ class User extends Controller
         }
     }
 
-
     public function register()
     {
         $view = Factory::createView();
@@ -51,18 +50,21 @@ class User extends Controller
         }
     }
 
-
     public function checkLogin()
     {
         header("Content-type:text/html;charset=utf-8");
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $sevenCheck = $_POST['sevenCheck'];
         $user = Factory::createUser();
         $res = $user->login($username, $password);
         if ($res) {
+            if($sevenCheck){
+                setcookie('username', $username, time() + 604800);
+            }
+            session_start();
+            $_SESSION['username'] = $username;
             echo '1';
-            // session_start();
-
         } else {
             echo '0';
         }
@@ -72,5 +74,19 @@ class User extends Controller
     {
         $view = Factory::createView();
         $view->display('write.html');
+    }
+
+    public function checkWrite()
+    {
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $user = Factory::createUser();
+        $res = $user->checkWrite($title,$content);
+        if($res){
+            echo '1';
+        }else{
+            echo '0';
+        }
+
     }
 }

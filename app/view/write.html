@@ -115,11 +115,11 @@
                 </h3>
                 <!-- 页头说明结束 -->
 
-                <form action="/" method="post">
+                <form action="/user/checkWrite" method="post">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="博文标题" name="title" autofocus>
+                        <input type="text" class="form-control" placeholder="博文标题" name="title" id="title" autofocus>
                     </div>
-                    <div id="editor">
+                    <div id="content">
 
                     </div>
                     <br>
@@ -134,7 +134,8 @@
                             <option value="7">计算机基础</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info btn-sm btn-block">发布</button><br><br>
+                    <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
+                        onclick="return check()">发布</button><br><br>
                 </form>
             </div>
         </div>
@@ -160,9 +161,9 @@
     <script src="/static/js/jquery.js"></script>
     <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="/static/wangeditor/wangEditor.js"></script>
-    <script type="text/javascript">
+    <script>
         let E = window.wangEditor
-        let editor = new E('#editor')
+        let editor = new E('#content')
         // 或者 var editor = new E( document.getElementById('editor') )
         editor.create()
         document.getElementById('editor').addEventListener('click', function () {
@@ -171,6 +172,7 @@
             let content = editor.txt.html
         }, false)
     </script>
+    <script src="/static/js/write.js"></script>
 </body>
 
 
