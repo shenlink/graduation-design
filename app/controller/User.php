@@ -4,7 +4,7 @@ namespace app\controller;
 
 use core\lib\Controller;
 use core\lib\Factory;
-// 优化建议：把user的实例化挂在注册树上，因为user被多次实例化了
+
 
 class User extends Controller
 {
@@ -41,8 +41,6 @@ class User extends Controller
         $password = $_POST['password'];
         $user = Factory::createUser();
         $res = $user->register($username, $password);
-        // $view = Factory::createView();
-        // $view->display('register.html');
         if ($res) {
             echo '1';
         } else {
@@ -73,7 +71,11 @@ class User extends Controller
     public function write()
     {
         $view = Factory::createView();
-        $view->display('write.html');
+        if(!isset($_SESSION['username'])){
+            $view->display('nologin.html');
+        }else{
+            $view->display('write.html');
+        }
     }
 
     public function checkWrite()
