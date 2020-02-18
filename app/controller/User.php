@@ -12,13 +12,17 @@ class User extends Controller
     public function checkUsername()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = $_POST['username'];
-        $user = Factory::createUser();
-        $res =  $user->checkUsername($username);
-        if ($res) {
-            echo "1";
+        if (isset($_POST['username'])) {
+            $username = $_POST['username'];
+            $user = Factory::createUser();
+            $res =  $user->checkUsername($username);
+            if ($res) {
+                echo "1";
+            } else {
+                echo "0";
+            }
         } else {
-            echo "0";
+            echo '404';
         }
     }
 
@@ -38,38 +42,46 @@ class User extends Controller
     public function checkRegister()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = trim($_POST['username']);
-        $password = md5(trim($_POST['password']));
-        $user = Factory::createUser();
-        if (isset($username) && isset($password)) {
-            $res = $user->register($username, $password);
-        }
-        if ($res) {
-            echo '1';
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $username = trim($_POST['username']);
+            $password = md5(trim($_POST['password']));
+            $user = Factory::createUser();
+            if (isset($username) && isset($password)) {
+                $res = $user->register($username, $password);
+            }
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
         } else {
-            echo '0';
+            echo '404';
         }
     }
 
     public function checkLogin()
     {
         header("Content-type:text/html;charset=utf-8");
-        $username = trim($_POST['username']);
-        $password = md5(trim($_POST['password']));
-        $sevenCheck = $_POST['sevenCheck'];
-        $user = Factory::createUser();
-        if(isset($username) && isset($password)){
-            $res = $user->login($username, $password);
-        }
-        if ($res) {
-            if ($sevenCheck) {
-                setcookie('username', $username, time() + 604800);
+        if (isset($_POST['username']) && isset($_POST['password'])) {
+            $username = trim($_POST['username']);
+            $password = md5(trim($_POST['password']));
+            $sevenCheck = $_POST['sevenCheck'];
+            $user = Factory::createUser();
+            if (isset($username) && isset($password)) {
+                $res = $user->login($username, $password);
             }
-            session_start();
-            $_SESSION['username'] = $username;
-            echo '1';
+            if ($res) {
+                if ($sevenCheck) {
+                    setcookie('username', $username, time() + 604800);
+                }
+                session_start();
+                $_SESSION['username'] = $username;
+                echo '1';
+            } else {
+                echo '0';
+            }
         } else {
-            echo '0';
+            echo '404';
         }
     }
 
@@ -86,14 +98,18 @@ class User extends Controller
 
     public function checkWrite()
     {
-        $title = $_POST['title'];
-        $content = $_POST['content'];
-        $user = Factory::createUser();
-        $res = $user->checkWrite($title, $content);
-        if ($res) {
-            echo '1';
-        } else {
-            echo '0';
+        if (isset($_POST['title']) && isset($_POST['content'])) {
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $user = Factory::createUser();
+            $res = $user->checkWrite($title, $content);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        }else{
+            echo '404';
         }
     }
 

@@ -15,15 +15,4 @@ class Index extends Controller
         $view->assign('data',$data);
         $view->display('index.html');
     }
-    public function test()
-    {
-        $index = new \app\model\Index();
-        $data = $index->test();
-        // $view = Factory::createView();
-        // $view->assign()
-        // $view->display('test.html');
-        echo '<pre>';
-        var_dump($data);
-    }
-
 }

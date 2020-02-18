@@ -9,19 +9,23 @@ class Article extends Controller
 {
     public function search()
     {
-        $search = $_POST['search'];
-        $name = $_POST['name'];
-        $article = Factory::createArticle();
-        $data = $article->search($search,$name);
-        if($name == '1'){
-            $name = '用户名查询结果';
+        if (isset($_POST['search']) && isset($_POST['name'])) {
+            $search = $_POST['search'];
+            $name = $_POST['name'];
+            $article = Factory::createArticle();
+            $data = $article->search($search, $name);
+            if ($name == '1') {
+                $name = '用户名查询结果';
+            } else {
+                $name = '文章查询结果';
+            }
+            $view = Factory::createView();
+            $view->assign('name', $name);
+            $view->assign('data', $data);
+            $view->display('search.html');
         }else{
-            $name = '文章查询结果';
+            echo '404';
         }
-        $view = Factory::createView();
-        $view->assign('name',$name);
-        $view->assign('data',$data);
-        $view->display('search.html');
     }
 
     public function index()
@@ -36,7 +40,6 @@ class Article extends Controller
         $php = Factory::createArticle();
         $data = $php->php();
         return $data;
-
     }
 
     public function mysql()
@@ -44,7 +47,6 @@ class Article extends Controller
         $mysql = Factory::createArticle();
         $data = $mysql->mysql();
         return $data;
-
     }
 
     public function javaScript()
@@ -52,7 +54,6 @@ class Article extends Controller
         $javaScript = Factory::createArticle();
         $data = $javaScript->javaScript();
         return $data;
-
     }
 
     public function html()
@@ -84,6 +85,5 @@ class Article extends Controller
     }
     public function personal()
     {
-
     }
 }
