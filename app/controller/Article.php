@@ -86,4 +86,9 @@ class Article extends Controller
     public function personal()
     {
     }
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
+    }
 }

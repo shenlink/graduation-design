@@ -31,4 +31,10 @@ class Admin extends Controller
             $view->display('nologin.html');
         }
     }
+
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
+    }
 }

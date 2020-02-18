@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use core\lib\Controller;
+use core\lib\Factory;
 
 
 class Validate extends Controller
@@ -28,6 +29,15 @@ class Validate extends Controller
         } else {
             self::$access = '3';
         }
+        if ($_SERVER['REQUEST_URI'] == '/validate/checkaccess') {
+            $view = Factory::createView();
+            $view->display('noadmin.html');
+        }
         return self::$access;
+    }
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
     }
 }

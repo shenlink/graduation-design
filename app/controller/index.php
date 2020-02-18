@@ -15,4 +15,9 @@ class Index extends Controller
         $view->assign('data',$data);
         $view->display('index.html');
     }
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
+    }
 }

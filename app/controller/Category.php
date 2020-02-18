@@ -65,4 +65,10 @@ class Category extends Controller
         $view->assign('data',$data);
         $view->display('foundation.html');
     }
+
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
+    }
 }

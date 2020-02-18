@@ -4,6 +4,7 @@ namespace core\lib;
 
 use core\lib\Log;
 use core\lib\Route;
+use core\lib\Factory;
 
 /**
  * 控制器基类
@@ -44,7 +45,10 @@ class Controller
         } else {
             Log::log('找不到控制器' . $controllerClass);
             // 这里应该报404错误
-            throw new \Exception('找不到控制器' . $controllerClass);
+            // throw new \Exception('找不到控制器' . $controllerClass);
+            $view = Factory::createView();
+            $view->display('notfound.html');
+            // 优化建议：php中在类中调用一个不存在的方法是自动执行某方法
         }
     }
 }

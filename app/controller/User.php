@@ -108,7 +108,7 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        }else{
+        } else {
             echo '404';
         }
     }
@@ -133,5 +133,11 @@ class User extends Controller
         } else {
             $view->display('nologin.html');
         }
+    }
+
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
     }
 }
