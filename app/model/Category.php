@@ -18,50 +18,50 @@ class Category extends Model
     }
     public function php()
     {
-        $php = Factory::createArticle();
-        $data = $php->php();
+        $article = Factory::createArticle();
+        $data = $article->php();
         return $data;
     }
 
     public function mysql()
     {
-        $mysql = Factory::createArticle();
-        $data = $mysql->mysql();
+        $article = Factory::createArticle();
+        $data = $article->mysql();
         return $data;
     }
 
     public function javaScript()
     {
-        $javaScript = Factory::createArticle();
-        $data = $javaScript->javaScript();
+        $article = Factory::createArticle();
+        $data = $article->javaScript();
         return $data;
     }
 
     public function html()
     {
-        $html = Factory::createArticle();
-        $data = $html->html();
+        $article = Factory::createArticle();
+        $data = $article->html();
         return $data;
     }
 
     public function python()
     {
-        $python = Factory::createArticle();
-        $data = $python->python();
+        $article = Factory::createArticle();
+        $data = $article->python();
         return $data;
     }
 
     public function java()
     {
-        $java = Factory::createArticle();
-        $data = $java->java();
+        $article = Factory::createArticle();
+        $data = $article->java();
         return $data;
     }
 
     public function foundation()
     {
-        $foundation = Factory::createArticle();
-        $data = $foundation->foundation();
+        $article = Factory::createArticle();
+        $data = $article->foundation();
         return $data;
     }
 }

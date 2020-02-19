@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客</title>
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/self.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!--导航栏开始-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <a class="navbar-brand" href="/">shen的博客</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <!-- 导航栏明细 -->
+                                <li class="nav-item active">
+                                    <a class="nav-link active" href="/">首页</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/php">php</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/mysql">mysql</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/javaScript">javaScript</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/html">html</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/python">python</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/java">java</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/category/foundation">计算机基础</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+
+                                <!-- 搜索框开始 -->
+                                <form action="/article/search" method="POST" class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="搜索用户或文章"
+                                        name="search">
+                                    <select name="name" class="btn btn-outline-success my-1 my-sm-0">
+                                        <option value="1">用户</option>
+                                        <option value="2">文章</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">搜索</button>
+                                </form>
+                                <!-- 搜索框结束 -->
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/write">写博客</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/register">注册</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/login">登录</a>
+                                </li>
+
+                                <!-- 管理菜单 -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/manage">管理</a>
+                                </li>
+                                <!-- 管理菜单结束 -->
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--导航栏结束-->
+
+    <!-- 公告开始 -->
+    <marquee behavior="scroll" direction="right">
+        网站公告
+    </marquee>
+    <!-- 公告结束 -->
+
+    <!--页头说明 开始-->
+    <div class="container-fluid">
+        <nav class="row">
+            <div class="col-md-8">
+                <!-- 不加这container时,需要在最新博文前面加两个空格 -->
+                <div class="container">
+                    <div class="navbar-header">
+                        <h2>{{$data['title']}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="navbar-header">
+                    <h2 class="d-flex justify-content-center">推荐</h2>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- 页头说明结束 -->
+
+    <!-- 主体内容开始 -->
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <!-- row类确保两列布局 -->
+            <div class="row">
+                <!-- 左边文章列表和分页开始 -->
+                <div class="col-md-8">
+                    <div>
+                        <!-- 文章开始 -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span>
+                                    作者：{{$data['username']}}&nbsp;
+                                </span>
+                                <span>
+                                    发布于：{{$data['created_at']}}&nbsp;
+                                </span>
+                                <span>
+                                    分类：{{$category}}&nbsp;
+                                </span>
+                                <span>
+                                    评论：{{$data['comment_count']}}&nbsp;
+                                </span>
+                                <span>
+                                    点赞：{{$data['praise_count']}}&nbsp;
+                                </span>
+                                <span>
+                                    收藏：{{$data['collect_count']}}&nbsp;
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    {{$data['content']}}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                分享
+                            </div>
+                        </div>
+                        <!-- 文章结束 -->
+                    </div>
+                </div>
+
+
+                <!--右边推荐列表开始-->
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#">JavaScript中有关数组常见操作技</a>
+                            <span class=" badge badge-primary badge-pill">1</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class=" badge badge-primary badge-pill">2</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class="badge badge-primary badge-pill">3</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class=" badge badge-primary badge-pill">4</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class=" badge badge-primary badge-pill">5</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class=" badge badge-primary badge-pill">6</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class="badge badge-primary badge-pill">7</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class="badge badge-primary badge-pill">8</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class="badge badge-primary badge-pill">9</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="">JavaScript中有关数组常见操作技</a>
+                            <span class="badge badge-primary badge-pill">10</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 右边推荐列表结束 -->
+            </div>
+        </div>
+    </div>
+    <!-- 主体内容结束 -->
+
+    <!-- 空行开始 -->
+    <br>
+    <br>
+    <!-- 空行结束 -->
+
+    <!-- 公共底部开始-->
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center bg-info">Fixed bottom</div>
+            </div>
+        </div>
+    </footer>
+    <!-- 公告底部结束 -->
+
+</body>
+
+</html>

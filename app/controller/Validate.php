@@ -17,7 +17,7 @@ class Validate extends Controller
             $validate = new \app\model\Validate();
             $urls = $validate->checkValidate($username);
             $urls = explode(',', $urls);
-            foreach ($urls as $key => $value) {
+            foreach ($urls as $value) {
                 if ($value == '/admin/manage') {
                     self::$access = '1';
                     break;

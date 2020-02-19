@@ -39,4 +39,9 @@ class User extends Model
     {
         return $this->table('article')->insert(['$title'=>"{$title}",'content'=>"{$content}"]);
     }
+
+    public function getUsername($username)
+    {
+        return $this->table('user')->field('username')->where(['username'=>"{$username}"])->select();
+    }
 }

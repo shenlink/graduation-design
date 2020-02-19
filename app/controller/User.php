@@ -137,7 +137,15 @@ class User extends Controller
 
     public function __call($method, $args)
     {
+        $username = $method;
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $user = Factory::createUser();
+        $username = $user->getUsername($username);
+        if($username){
+            $view->assign('username', $username);
+            $view->display('personal.html');
+        }else{
+            $view->display('notfound.html');
+        }
     }
 }

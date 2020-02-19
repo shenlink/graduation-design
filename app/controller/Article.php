@@ -23,69 +23,71 @@ class Article extends Controller
             $view->assign('name', $name);
             $view->assign('data', $data);
             $view->display('search.html');
-        }else{
+        } else {
             echo '404';
         }
     }
 
     public function index()
     {
-        $index = Factory::createArticle();
-        $data = $index->index();
+        $article = Factory::createArticle();
+        $data = $article->index();
         return $data;
     }
 
     public function php()
     {
-        $php = Factory::createArticle();
-        $data = $php->php();
+        $article = Factory::createArticle();
+        $data = $article->php();
         return $data;
     }
 
     public function mysql()
     {
-        $mysql = Factory::createArticle();
-        $data = $mysql->mysql();
+        $article = Factory::createArticle();
+        $data = $article->mysql();
         return $data;
     }
 
     public function javaScript()
     {
-        $javaScript = Factory::createArticle();
-        $data = $javaScript->javaScript();
+        $article = Factory::createArticle();
+        $data = $article->javaScript();
         return $data;
     }
 
     public function html()
     {
-        $html = Factory::createArticle();
-        $data = $html->html();
+        $article = Factory::createArticle();
+        $data = $article->html();
         return $data;
     }
 
     public function python()
     {
-        $python = Factory::createArticle();
-        $data = $python->python();
+        $article = Factory::createArticle();
+        $data = $article->python();
         return $data;
     }
 
     public function java()
     {
-        $java = Factory::createArticle();
-        $data = $java->java();
+        $article = Factory::createArticle();
+        $data = $article->java();
         return $data;
     }
 
     public function foundation()
     {
-        $foundation = Factory::createArticle();
-        $data = $foundation->foundation();
+        $article = Factory::createArticle();
+        $data = $article->foundation();
         return $data;
     }
+
     public function personal()
     {
     }
+
     public function __call($method, $args)
     {
         $view = Factory::createView();

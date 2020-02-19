@@ -62,7 +62,7 @@ class Category extends Controller
         $category = Factory::createCategory();
         $data = $category->foundation();
         $view = Factory::createView();
-        $view->assign('data',$data);
+        $view->assign('data', $data);
         $view->display('foundation.html');
     }
 

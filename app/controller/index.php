@@ -9,8 +9,8 @@ class Index extends Controller
 {
     public function index()
     {
-        $index = Factory::createArticle();
-        $data = $index->index();
+        $article = Factory::createArticle();
+        $data = $article->index();
         $view = Factory::createView();
         $view->assign('data',$data);
         $view->display('index.html');
