@@ -317,14 +317,15 @@
                         <!-- 个人信息列开始 -->
                         <div class="card" style="width: 26rem;">
                             <div class="card-body">
-                                <h5 class="card-title">shenlink</h5>
+                                <h5 class="card-title">作者：<a href="/user/{{$user['username']}}" class="text-info">
+                                        {{$user['username']}}</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
                                 </h6>
                                 <h6>
                                     个人介绍
                                 </h6>
                                 <div>
-                                    静静地写下我的想法。
+                                    {{$user['introduction']}}
                                 </div>
                                 <p class="card-text"></p>
                                 <div class="text-dark d-flex justify-content-between">
@@ -333,7 +334,7 @@
                                             原创
                                         </dt>
                                         <dd>
-                                            179
+                                            {{$user['article_count']}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -341,7 +342,7 @@
                                             粉丝
                                         </dt>
                                         <dd>
-                                            179
+                                            {{$user['fans_count']}}
                                         </dd>
                                     </dl>
                                     <dl>

@@ -7,8 +7,19 @@ use core\lib\Factory;
 
 class Article extends Controller
 {
+    public function prevent()
+    {
+        $pattern = '/(article)|php|mysql|javascript|html|python|java|foundation/i';
+        $url = $_SERVER['REQUEST_URI'];
+        if (preg_match($pattern, $url)) {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+            exit();
+        }
+    }
     public function search()
     {
+        $view = Factory::createView();
         if (isset($_POST['search']) && isset($_POST['name'])) {
             $search = $_POST['search'];
             $name = $_POST['name'];
@@ -19,17 +30,17 @@ class Article extends Controller
             } else {
                 $name = '文章查询结果';
             }
-            $view = Factory::createView();
             $view->assign('name', $name);
             $view->assign('data', $data);
             $view->display('search.html');
         } else {
-            echo '404';
+            $view->display('notfound.html');
         }
     }
 
     public function index()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->index();
         return $data;
@@ -37,6 +48,7 @@ class Article extends Controller
 
     public function php()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->php();
         return $data;
@@ -44,6 +56,7 @@ class Article extends Controller
 
     public function mysql()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->mysql();
         return $data;
@@ -51,6 +64,7 @@ class Article extends Controller
 
     public function javaScript()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->javaScript();
         return $data;
@@ -58,6 +72,7 @@ class Article extends Controller
 
     public function html()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->html();
         return $data;
@@ -65,6 +80,7 @@ class Article extends Controller
 
     public function python()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->python();
         return $data;
@@ -72,6 +88,7 @@ class Article extends Controller
 
     public function java()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->java();
         return $data;
@@ -79,13 +96,18 @@ class Article extends Controller
 
     public function foundation()
     {
+        $this->prevent();
         $article = Factory::createArticle();
         $data = $article->foundation();
         return $data;
     }
 
-    public function personal()
+    public function personal($username)
     {
+        $this->prevent();
+        $article = Factory::createArticle();
+        $data = $article->personal($username);
+        return $data;
     }
 
     public function __call($method, $args)

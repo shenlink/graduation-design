@@ -7,28 +7,13 @@ use core\lib\Factory;
 
 class Post extends Controller
 {
-    public function url()
-    {
-        $article = Factory::createArticle();
-        // 返回结果是一个二维数组
-        $url = $article->url();
-        foreach ($url as $key => $value) {
-            foreach ($url[$key] as $value) {
-                return $value . ' ';
-            }
-        }
-        $view = Factory::createView();
-        if ($_GET['post'] == 1) {
-            $view->display('1.html');
-        }
-    }
     public function __call($method, $args)
     {
         $view = Factory::createView();
         if (is_numeric($method)) {
             $article_id = $method;
             $post = new \app\model\Post();
-            $data = $post->test($article_id);
+            $data = $post->getArticle($article_id);
             if ($data) {
                 $category = $data['category_id'];
                 switch($category){

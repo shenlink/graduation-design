@@ -67,4 +67,9 @@ class Article extends Model
     {
         return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 7])->selectAll();
     }
+
+    public function personal($username)
+    {
+        return $this->table('article')->field('title,content,username,created_at,category_id,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();
+    }
 }

@@ -55,7 +55,8 @@ class User extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 
@@ -81,7 +82,8 @@ class User extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 
@@ -109,7 +111,8 @@ class User extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 
@@ -118,21 +121,37 @@ class User extends Controller
         $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
-            $view->disolay('personal.html');
+            $username = $_SESSION['username'];
+            $article = new \app\controller\Article();
+            $data = $article->personal($username);
+            $user = Factory::createUser();
+            $user = $user->personal($username);
+            $view->assign('data', $data);
+            $view->assign('user', $user);
+            $view->display('personal.html');
         } else {
             $view->display('nologin.html');
         }
     }
 
-    public function information()
+    public function change()
     {
         $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
-            $view->disolay('information.html');
+            $username = $_SESSION['username'];
+            $user = Factory::createUser();
+            $user = $user->personal($username);
+            $view->assign('user', $user);
+            $view->display('change.html');
         } else {
             $view->display('nologin.html');
         }
+    }
+
+    public function checkChange()
+    {
+
     }
 
     public function __call($method, $args)
@@ -141,10 +160,10 @@ class User extends Controller
         $view = Factory::createView();
         $user = Factory::createUser();
         $username = $user->getUsername($username);
-        if($username){
+        if ($username) {
             $view->assign('username', $username);
             $view->display('personal.html');
-        }else{
+        } else {
             $view->display('notfound.html');
         }
     }

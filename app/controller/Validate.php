@@ -31,10 +31,11 @@ class Validate extends Controller
         }
         if ($_SERVER['REQUEST_URI'] == '/validate/checkaccess') {
             $view = Factory::createView();
-            $view->display('noadmin.html');
+            $view->display('notfound.html');
         }
         return self::$access;
     }
+    
     public function __call($method, $args)
     {
         $view = Factory::createView();
