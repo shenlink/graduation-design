@@ -362,10 +362,14 @@
                                         </dd>
                                     </dl>
                                 </div>
+                                {{if $_SESSION['{{$username}}'] eq $username }}
                                 <a href="#" class="btn btn-info card-link">关注</a>
                                 <a href="#" class="btn btn-success card-link">私信</a>
                                 <a href="#" class="btn btn-primary card-link">管理文章</a>
-                                <a href="#" class="btn btn-danger card-link">更改密码</a>
+                                {{else}}
+                                <a href="#" class="btn btn-info card-link">关注</a>
+                                <a href="#" class="btn btn-success card-link">私信</a>
+                                {{/if}}
                             </div>
                         </div>
                         <div class="card" style="width: 26rem;">

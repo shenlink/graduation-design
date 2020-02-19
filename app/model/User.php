@@ -49,4 +49,5 @@ class User extends Model
     {
         return $this->table('user')->field('username,created_at,introduction,article_count,follows_count,fans_count')->where(['username'=>"{$username}"])->select();
     }
+
 }

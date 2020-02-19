@@ -134,37 +134,28 @@ class User extends Controller
         }
     }
 
-    public function change()
-    {
-        $access = Validate::checkAccess();
-        $view = Factory::createView();
-        if ($access == '1' || $access == '2') {
-            $username = $_SESSION['username'];
-            $user = Factory::createUser();
-            $user = $user->personal($username);
-            $view->assign('user', $user);
-            $view->display('change.html');
-        } else {
-            $view->display('nologin.html');
-        }
-    }
-
-    public function checkChange()
-    {
-
-    }
-
     public function __call($method, $args)
     {
         $username = $method;
         $view = Factory::createView();
         $user = Factory::createUser();
         $username = $user->getUsername($username);
-        if ($username) {
-            $view->assign('username', $username);
+        if (!$username) {
+            $view->display('notfound.html');
+            exit();
+        }
+        $access = Validate::checkAccess();
+        if ($access == '1' || $access == '2') {
+            $username = $_SESSION['username'];
+            $article = new \app\controller\Article();
+            $data = $article->personal($username);
+            $user = Factory::createUser();
+            $user = $user->personal($username);
+            $view->assign('data', $data);
+            $view->assign('user', $user);
             $view->display('personal.html');
         } else {
-            $view->display('notfound.html');
+            $view->display('nologin.html');
         }
     }
 }

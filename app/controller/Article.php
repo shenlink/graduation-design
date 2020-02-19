@@ -113,6 +113,43 @@ class Article extends Controller
     public function __call($method, $args)
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        if (is_numeric($method)) {
+            $article_id = $method;
+            $article = Factory::createArticle();
+            $data = $article->getArticle($article_id);
+            if ($data) {
+                $category = $data['category_id'];
+                switch ($category) {
+                    case "1":
+                        $category = 'php';
+                        break;
+                    case "2":
+                        $category = 'mysql';
+                        break;
+                    case "3":
+                        $category = 'javaScript';
+                        break;
+                    case "4":
+                        $category = 'html';
+                        break;
+                    case "5":
+                        $category = 'python';
+                        break;
+                    case "6":
+                        $category = 'java';
+                        break;
+                    case "7":
+                        $category = '计算机基础';
+                        break;
+                }
+                $view->assign('category', $category);
+                $view->assign('data', $data);
+                $view->display('article.html');
+            } else {
+                $view->display('notfound.httml');
+            }
+        } else {
+            $view->display('notfound.httml');
+        }
     }
 }
