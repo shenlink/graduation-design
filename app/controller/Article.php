@@ -9,7 +9,7 @@ class Article extends Controller
 {
     public function prevent()
     {
-        $pattern = '/(article)|php|mysql|javascript|html|python|java|foundation/i';
+        $pattern = '/(article)|php|mysql|javascript|html|python|java|foundation|prevent/i';
         $url = $_SERVER['REQUEST_URI'];
         if (preg_match($pattern, $url)) {
             $view = Factory::createView();

@@ -10,11 +10,14 @@ class Validate extends Model
     {
         // 判断出这个role有哪些权限，返回即可
         $role = $this->table('user_role')->field('role_id')->where(['username'=>"{$username}"])->select();
+
         $role = $role['role_id'];
         $access = $this->table('role_access')->field('access_id')->where(['role_id'=>"{$role}"])->select();
+
         $access = $access['access_id'];
         $urls = $this->table('access')->field('urls')->where(['access_id' => "{$access}"])->select();
         $urls = $urls['urls'];
+
         return $urls;
     }
 }

@@ -8,7 +8,6 @@
     <title>博客</title>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="/static/css/manage.css" type="text/css" rel="stylesheet">
 
 </head>
 
@@ -109,92 +108,9 @@
             <div class="col-md-2">
                 <!-- 列表组开始 -->
                 <ul class="list-group manage-list">
-                    <li class="list-group-item">用户管理</li>
                     <li class="list-group-item">文章管理</li>
-                    <li class="list-group-item">分类管理</li>
-                    <li class="list-group-item">评论管理</li>
-                    <li class="list-group-item">公告管理</li>
                 </ul>
                 <!-- 列表组结束 -->
-            </div>
-            <div class="col-md-9 manage-item" style="display: block;">
-                <table class="table table-hover table-bordered text-center">
-                    <fieldset>
-                        <legend class="text-center">用户管理</legend>
-                    </fieldset>
-                    <thead>
-                        <tr>
-                            <th scope="col">用户id</th>
-                            <th scope="col">用户名</th>
-                            <th scope="col">角色</th>
-                            <th scope="col">文章数</th>
-                            <th scope="col">关注数</th>
-                            <th scope="col">粉丝数</th>
-                            <th scope="col">注册时间</th>
-                            <th scope="col">个人主页</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>shen</td>
-                            <td>管理员</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2020-02-15</td>
-                            <td><a>shen</a></td>
-                            <td>正常</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
-                        {{foreach from=$user item=userIndex}}
-                        <tr>
-                            {{foreach from=$userIndex item=userContent}}
-                            <td>
-                                {{$userContent}}
-                            </td>
-                            {{/foreach}}
-                            {{/foreach}}
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 分页开始 -->
-                <div>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
-                    </ul>
-                </div>
-                <!-- 分页结束 -->
             </div>
             <div class="col-md-9 manage-item">
                 <table class="table table-hover table-bordered text-center">
@@ -203,13 +119,10 @@
                     </fieldset>
                     <thead>
                         <tr>
-                            <th scope="col">文章id</th>
-                            <th scope="col">作者</th>
                             <th scope="col">文章标题</th>
                             <th scope="col">文章状态</th>
                             <th scope="col">创建时间</th>
                             <th scope="col">更新时间</th>
-                            <th scope="col">分类</th>
                             <th scope="col">评论数</th>
                             <th scope="col">点赞数</th>
                             <th scope="col">收藏数</th>
@@ -218,286 +131,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{foreach from=$data item=dataIndex}}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>shen</td>
-                            <td>php数组...</td>
-                            <td>正常</td>
-                            <td>2020-02-15</td>
-                            <td>2020-02-15</td>
-                            <td>php</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>去阅读</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
-                        {{foreach from=$article item=articleIndex}}
-                        <tr>
-                            {{foreach from=$articleIndex item=articleContent}}
+                            {{foreach from=$dataIndex item=dataContent}}
                             <td>
-                                {{$articleContent}}
+                                {{$dataContent}}
                             </td>
                             {{/foreach}}
                             {{/foreach}}
                         </tr>
                     </tbody>
                 </table>
-                <!-- 分页开始 -->
-                <div>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
-                    </ul>
-                </div>
-                <!-- 分页结束 -->
             </div>
-            <div class="col-md-9 manage-item">
-                <table class="table table-hover table-bordered text-center">
-                    <fieldset>
-                        <legend class="text-center">分类管理</legend>
-                    </fieldset>
-                    <thead>
-                        <tr>
-                            <th scope="col">分类id</th>
-                            <th scope="col">分类名称</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">文章数量</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>php</td>
-                            <td>正常</td>
-                            <td>2</td>
-                            <td><a href="">新增</a><a href="">删除</a></td>
-                        </tr>
-                        {{foreach from=$category item=categoryIndex}}
-                        <tr>
-                            {{foreach from=$categoryIndex item=categoryContent}}
-                            <td>
-                                {{$categoryContent}}
-                            </td>
-                            {{/foreach}}
-                            {{/foreach}}
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 分页开始 -->
-                <div>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
-                    </ul>
-                </div>
-                <!-- 分页结束 -->
-            </div>
-            <div class="col-md-9 manage-item">
-                <table class="table table-hover table-bordered text-center">
-                    <fieldset>
-                        <legend class="text-center">评论管理</legend>
-                    </fieldset>
-                    <thead>
-                        <tr>
-                            <th scope="col">评论id</th>
-                            <th scope="col">评论内容</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">评论时间</th>
-                            <th scope="col">文章</th>
-                            <th scope="col">用户</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>不错...</td>
-                            <td>正常</td>
-                            <td>2020-02-15</td>
-                            <td>php数组...</td>
-                            <td>shen</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
-                        {{foreach from=$comment item=commentIndex}}
-                        <tr>
-                            {{foreach from=$commentIndex item=commentContent}}
-                            <td>
-                                {{$commentContent}}
-                            </td>
-                            {{/foreach}}
-                            {{/foreach}}
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 分页开始 -->
-                <div>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
-                    </ul>
-                </div>
-                <!-- 分页结束 -->
-            </div>
-            <div class="col-md-9 manage-item">
-                <table class="table table-hover table-bordered text-center">
-                    <fieldset>
-                        <legend class="text-center">公告管理</legend>
-                    </fieldset>
-                    <thead>
-                        <tr>
-                            <th scope="col">公告id</th>
-                            <th scope="col">公告内容</th>
-                            <th scope="col">创建时间</th>
-                            <th scope="col">更新时间</th>
-                            <th scope="col">状态</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>请注意...</td>
-                            <td>2020-02-15</td>
-                            <td>2020-02-15</td>
-                            <td>正常</td>
-                            <td><a href="">新增</a><a href="">不显示</a></td>
-                        </tr>
-                        {{foreach from=$annoucement item=annoucementIndex}}
-                        <tr>
-                            {{foreach item=annoucementContent from=$annoucementIndex}}
-                            <td>
-                                {{$annoucementContent}}
-                            </td>
-                            {{/foreach}}
-                            {{/foreach}}
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 分页开始 -->
-                <div>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
-                    </ul>
-                </div>
-                <!-- 分页结束 -->
-            </div>
-
         </div>
     </div>
-
-
-
 
     <!-- 空行开始 -->
     <br>

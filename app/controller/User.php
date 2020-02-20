@@ -9,6 +9,18 @@ use app\controller\Validate;
 
 class User extends Controller
 {
+
+    public static function prevent()
+    {
+        $pattern = '/(user)|prevent|checkUsername|checkDisplay|checkRegister|checkLogin|checkWrite/i';
+        $url = $_SERVER['REQUEST_URI'];
+        if (preg_match($pattern, $url)) {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+            exit();
+        }
+    }
+
     public function checkUsername()
     {
         header("Content-type:text/html;charset=utf-8");
@@ -26,16 +38,32 @@ class User extends Controller
         }
     }
 
+    public function checkDisplay()
+    {
+        return  Validate::checkAccess();
+    }
+
+
     public function register()
     {
+        $access = $this->checkDisplay();
+        if ($access == 1 || $access == 2) {
+            $username = $_SESSION['username'];
+        }
         $view = Factory::createView();
+        $view->assign('username', $username);
         $view->display('register.html');
     }
 
 
     public function login()
     {
+        $access = $this->checkDisplay();
+        if ($access == 1 || $access == 2) {
+            $username = $_SESSION['username'];
+        }
         $view = Factory::createView();
+        $view->assign('username', $username);
         $view->display('login.html');
     }
 
@@ -89,9 +117,11 @@ class User extends Controller
 
     public function write()
     {
-        $access = Validate::checkAccess();
+        $access = $this->checkDisplay();
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
+            $username = $_SESSION['username'];
+            $view->assign('username', $username);
             $view->display('write.html');
         } else {
             $view->display('nologin.html');
@@ -118,17 +148,34 @@ class User extends Controller
 
     public function personal()
     {
-        $access = Validate::checkAccess();
+        $access = $this->checkDisplay();
         $view = Factory::createView();
-        if ($access == '1' || $access == '2') {
+        if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = new \app\controller\Article();
             $data = $article->personal($username);
             $user = Factory::createUser();
             $user = $user->personal($username);
+            $view->assign('username', $username);
             $view->assign('data', $data);
             $view->assign('user', $user);
             $view->display('personal.html');
+        } else {
+            $view->display('nologin.html');
+        }
+    }
+
+    public function manage()
+    {
+        $access = $this->checkDisplay();
+        $view = Factory::createView();
+        if ($access == 1 || $access == 2) {
+            $username = $_SESSION['username'];
+            $user = Factory::createUser();
+            $data = $user->manage($username);
+            $view->assign('username', $username);
+            $view->assign('data', $data);
+            $view->display('manage.html');
         } else {
             $view->display('nologin.html');
         }
@@ -139,18 +186,19 @@ class User extends Controller
         $username = $method;
         $view = Factory::createView();
         $user = Factory::createUser();
-        $username = $user->getUsername($username);
-        if (!$username) {
+        $realUsername = $user->getUsername($username);
+        if (!$realUsername) {
             $view->display('notfound.html');
             exit();
         }
-        $access = Validate::checkAccess();
-        if ($access == '1' || $access == '2') {
+        $access = $this->checkDisplay();
+        if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = new \app\controller\Article();
             $data = $article->personal($username);
             $user = Factory::createUser();
             $user = $user->personal($username);
+            $view->assign('username', $username);
             $view->assign('data', $data);
             $view->assign('user', $user);
             $view->display('personal.html');

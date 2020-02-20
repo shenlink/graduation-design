@@ -2,3 +2,4 @@
 2.write页面刚打开时，底部的按钮在中间。
 3.通过GET参数设置url,对于url中article后面用article_id，以标识文章
 4.过滤url非法字符
+5.注意user控制器中的方法可能与用户的注册名相同
