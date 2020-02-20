@@ -8,6 +8,7 @@
     <title>博客</title>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/admin.css" type="text/css" rel="stylesheet">
 
 </head>
 
@@ -88,14 +89,20 @@
                                     <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/login">登录</a>
+                                    <a class="nav-link" href="/user/logi">登录</a>
                                 </li>
                                 {{/if}}
 
                                 <!-- 管理菜单 -->
+                                {{if $username == 'shen'}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/admin/manage">管理</a>
                                 </li>
+                                {{else}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/manage">管理</a>
+                                </li>
+                                {{/if}}
                                 <!-- 管理菜单结束 -->
 
                             </ul>
@@ -119,39 +126,130 @@
                 <!-- 列表组开始 -->
                 <ul class="list-group manage-list">
                     <li class="list-group-item">文章管理</li>
+                    <li class="list-group-item">评论管理</li>
+                    <li class="list-group-item">管理员私信</li>
                 </ul>
                 <!-- 列表组结束 -->
             </div>
-            <div class="col-md-9 manage-item">
+            <div class="col-md-10 manage-item" style="display: block;">
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">文章管理</legend>
                     </fieldset>
                     <thead>
                         <tr>
-                            <th scope="col">文章标题</th>
-                            <th scope="col">文章状态</th>
+                            <th scope="col">标题</th>
+                            <th scope="col">状态</th>
                             <th scope="col">创建时间</th>
                             <th scope="col">更新时间</th>
+                            <th scope="col">分类</th>
                             <th scope="col">评论数</th>
                             <th scope="col">点赞数</th>
                             <th scope="col">收藏数</th>
-                            <th scope="col">文章链接</th>
+                            <th scope="col">分享数</th>
+                            <th scope="col">去阅读</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$data item=dataIndex}}
+                        {{foreach from=$articles item=articlesIndex}}
                         <tr>
-                            {{foreach from=$dataIndex item=dataContent}}
                             <td>
-                                {{$dataContent}}
+                                {{$articlesIndex.title}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.status}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.created_at}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.updated_at}}
+                            </td>
+                            <td>
+                                {{$category}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.comment_count}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.praise_count}}
+                            </td>
+                            <td>
+                                {{$articlesIndex.collect_count}}
+                            </td>
+                            <td>{{$articlesIndex.share_count}}</td>
+                            <td><a href="/article/{{$articlesIndex.article_id}}">文章链接</a> </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" id="edit" data-edit={{$articlesIndex.article_id}} onclick="edit()">
+                                    编辑
+                                </button>
+                                <button class="btn btn-primary btn-sm" data-del={{$articlesIndex.article_id}} id="del">
+                                    删除
+                                </button>
                             </td>
                             {{/foreach}}
-                            {{/foreach}}
                         </tr>
+
                     </tbody>
                 </table>
+
+                <!-- 分页开始 -->
+
+                <!-- 分页结束 -->
+            </div>
+            <div class="col-md-10 manage-item">
+                <table class="table table-hover table-bordered text-center">
+                    <fieldset>
+                        <legend class="text-center">评论管理</legend>
+                    </fieldset>
+                    <thead>
+                        <tr>
+                            <th scope="col">评论内容</th>
+                            <th scope="col">评论时间</th>
+                            <th scope="col">文章</th>
+                            <th scope="col">用户</th>
+                            <th scope="col">去阅读</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$comment item=commentIndex}}
+                        <tr>
+                            {{foreach from=$commentIndex item=commentContent}}
+                            <td>
+                                {{$commentContent}}
+                            </td>
+                            {{/foreach}}
+                            <td>1</td>
+                            <td>2</td>
+                            {{/foreach}}
+                        </tr>
+
+                    </tbody>
+                </table>
+                <!-- 分页开始 -->
+
+                <!-- 分页结束 -->
+            </div>
+            <div class="col-md-10 manage-item">
+                <table class="table table-hover table-bordered text-center">
+                    <fieldset>
+                        <legend class="text-center">管理员私信</legend>
+                    </fieldset>
+                    <thead>
+                        <tr>
+                            <th scope="col">私信内容</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <!-- 分页开始 -->
+
+                <!-- 分页结束 -->
             </div>
         </div>
     </div>
@@ -170,6 +268,9 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
     <script src="/static/js/manage.js"></script>
 
 </body>

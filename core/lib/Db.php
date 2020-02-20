@@ -115,8 +115,6 @@ class Db
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // 获取多条数据后，截取一条
         return isset($res[0]) ? $res[0] : false;
-        // return $res;
-        // return $stmt;
     }
     /**
      * @access:public
@@ -146,7 +144,6 @@ class Db
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $res = $stmt->rowCount();
-        // return $this->pdo->lastInsertId();
         return $res;
     }
     /**
@@ -199,7 +196,7 @@ class Db
     public function order($order)
     {
         $this->order = $order;
-        return $this->order;
+        return $this;
     }
     /**
      * @access:public
@@ -215,7 +212,7 @@ class Db
         if ($type === 'select') {
             $sql = "select {$this->field} from {$this->table} {$where}";
             if ($this->order) {
-                $sql .= " order by {this->order}";
+                $sql .= " order by {$this->order}";
             }
             if ($this->limit) {
                 $sql .= " limit {$this->limit}";
@@ -238,8 +235,8 @@ class Db
             }
             $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
         }
+
         if ($type == 'update') {
-            // $where = $this->fixWhere();
             $str = '';
             foreach ($data as $key => $val) {
                 $val = is_string($val) ? "'" . $val . "'" : $val;
@@ -249,8 +246,8 @@ class Db
             $str = $str ? " set {$str}" : '';
             $sql = "update {$this->table} {$str} {$where}";
         }
+
         if ($type === 'delete') {
-            // $where = $this->fixWhere();
             $sql = "delete from {$this->table} {$where}";
         }
         return $sql;
@@ -274,13 +271,7 @@ class Db
             $where = $this->where;
         }
         $where = rtrim($where, 'and ');
-        // $where = $where = '' ? '' : "where {$where}";
         $where = $where == '' ? '' : "where {$where}";
-        // if($where == ''){
-        //     $where = '';
-        // }else{
-        //     $where = $where;
-        // }
         return $where;
     }
 }

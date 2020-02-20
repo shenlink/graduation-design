@@ -44,8 +44,6 @@ function checkUsername() {
 }
 
 function checkAjax() {
-    // 获取用户名输入框元素
-    let username = document.querySelector('#username');
     // 获取提示用户注意的信息的节点元素
     let userMessage = document.querySelector('#userMessage');
     if (userMessage.style.color == 'red') {

@@ -30,8 +30,8 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <!-- 导航栏明细 -->
-                                <li class="nav-item active">
-                                    <a class="nav-link active" href="/">首页</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">首页</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/php">php</a>
@@ -46,14 +46,16 @@
                                     <a class="nav-link" href="/category/html">html</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/category/foundation">python</a>
+                                    <a class="nav-link" href="/category/python">python</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/java">java</a>
                                 </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/foundation">计算机基础</a>
                                 </li>
+
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -72,7 +74,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/register">写博客</a>
+                                    <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -118,118 +120,39 @@
     </marquee>
     <!-- 公告结束 -->
 
-    <!--页头说明 开始-->
-    <div class="container-fluid">
-        <nav class="row">
-            <div class="col-md-8">
-                <!-- 不加这container时,需要在最新博文前面加两个空格 -->
-                <div class="container">
-                    <div class="navbar-header">
-                        <h2>计算机基础</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="navbar-header">
-                    <h2 class="d-flex justify-content-center">推荐</h2>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- 页头说明结束 -->
-
     <!-- 主体内容开始 -->
     <div class="container-fluid">
-        <div class="col-md-12">
-            <!-- row类确保两列布局 -->
-            <div class="row">
-                <!-- 左边文章列表和分页开始 -->
-                <div class="col-md-8">
-                    <div>
-                        <!-- 左边文章列表开始 -->
-                        <table class="table table-striped table-bordered">
-                            {{foreach from=$data item=dataIndex}}
-                            <tr>
-                                <td>
-                                    <a href="">{{$dataIndex.title}}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>{{$dataIndex.content}}</p>
-                                    <div class="justify-content-start text-dark">
-                                        <span>
-                                            {{$dataIndex.created_at}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            收藏数
-                                            {{$dataIndex.collect_count}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            评论数
-                                            {{$dataIndex.comment_count}}
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </table>
-                        <!-- 左边文章列表结束 -->
-                    </div>
-                    <!-- 分页开始 -->
-                    <div>
-                        {{$pageHtml}}
-                    </div>
-                    <!-- 分页结束 -->
-                </div>
-                <!-- 左边文章列表和分页结束 -->
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
 
-                <!--右边推荐列表开始-->
-                <div class="col-md-4">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="#">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">1</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">3</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">4</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">6</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">7</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">9</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">10</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- 右边推荐列表结束 -->
+                <!-- 页头说明开始 -->
+                <h3 class="text-center">
+                    编辑文章
+                </h3>
+                <!-- 页头说明结束 -->
+
+                <form action="/user/checkWrite" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" id="title" value="{{$article['title']}}" autofocus>
+                    </div>
+                    <div id="content">
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <select class="form-control" name="category">
+                            <option value="1" {{if $category == 'php'}}selected{{/if}}>php</option>
+                            <option value="2" {{if $category == 'mysql'}}selected{{/if}}>mysql</option>
+                            <option value="3" {{if $category == 'javaScript'}}selected{{/if}}>javaScript</option>
+                            <option value="4" {{if $category == 'html'}}selected{{/if}}>html</option>
+                            <option value="5" {{if $category == 'python'}}selected{{/if}}>python</option>
+                            <option value="6" {{if $category == 'java'}}selected{{/if}}>java</option>
+                            <option value="7" {{if $category == 'foundation'}}selected{{/if}}>计算机基础</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
+                        onclick="return check()">发布</button><br><br>
+                </form>
             </div>
         </div>
     </div>
@@ -250,6 +173,19 @@
     </footer>
     <!-- 公告底部结束 -->
 
+    <!-- 链接jquery3.2.1 -->
+    <script src="/static/js/jquery.js"></script>
+    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+    <script type="text/javascript" src="/static/wangeditor/wangEditor.js"></script>
+    <script>
+        let E = window.wangEditor
+        let editor = new E('#content')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
+        editor.txt.html("{{$article['content']}}")
+    </script>
+    <script src="/static/js/write.js"></script>
 </body>
+
 
 </html>

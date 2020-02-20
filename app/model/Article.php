@@ -77,4 +77,14 @@ class Article extends Model
     {
         return $this->table('article')->field('title,content,username,created_at,category_id,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();
     }
+
+    public function manage($username)
+    {
+        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category_id,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
+    }
+
+    public function deleteArticle($article_id)
+    {
+        return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
+    }
 }

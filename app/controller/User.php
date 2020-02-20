@@ -28,7 +28,7 @@ class User extends Controller
             } else {
                 echo "0";
             }
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -82,7 +82,7 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -108,7 +108,7 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -129,6 +129,7 @@ class User extends Controller
     public function checkWrite()
     {
         if (isset($_POST['title']) && isset($_POST['content'])) {
+            // 还有category
             $title = $_POST['title'];
             $content = $_POST['content'];
             $user = Factory::createUser();
@@ -138,7 +139,7 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -173,9 +174,9 @@ class User extends Controller
             $view->assign('username', $username);
             $view->assign('user', $user);
             $view->display('change.html');
-        } else if($access == '3'){
+        } else if ($access == '3') {
             $view->display('nologin.html');
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -189,7 +190,7 @@ class User extends Controller
             $introduction = trim($_POST['introduction']);
             $user = Factory::createUser();
             if (isset($username) && isset($password) && isset($introduction)) {
-                $res = $user->checkChange($username, $password,$introduction);
+                $res = $user->checkChange($username, $password, $introduction);
             }
             if ($res) {
                 echo '1';
@@ -201,19 +202,90 @@ class User extends Controller
         }
     }
 
+    public function getCategory($category)
+    {
+        switch ($category) {
+            case "1":
+                $category = 'php';
+                break;
+            case "2":
+                $category = 'mysql';
+                break;
+            case "3":
+                $category = 'javaScript';
+                break;
+            case "4":
+                $category = 'html';
+                break;
+            case "5":
+                $category = 'python';
+                break;
+            case "6":
+                $category = 'java';
+                break;
+            case "7":
+                $category = '计算机基础';
+                break;
+        }
+        return $category;
+    }
+
     public function manage()
     {
         $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $user = Factory::createUser();
-            $data = $user->manage($username);
+            $article = Factory::createArticle();
+            $articles = $article->manage($username);
+            $comment = new \app\model\Comment();
+            $comment = $comment->manage($username);
+            $category = $this->getCategory($articles[0]['category_id']);
+            $view->assign('category', $category);
             $view->assign('username', $username);
-            $view->assign('data', $data);
+            $view->assign('articles', $articles);
+            $view->assign('comment', $comment);
             $view->display('manage.html');
         } else {
             $view->display('nologin.html');
+        }
+    }
+
+    public function edit()
+    {
+        if (isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
+            $view = Factory::createView();
+            $article = Factory::createArticle();
+            $article = $article->getArticle($article_id);
+            $category = $article['category'];
+            $category = $this->getCategory($category);
+            $view->assign('category',$category);
+            $view->assign('article', $article);
+            $view->display('edit.html');
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function checkEdit()
+    {
+        
+    }
+
+    public function deleteArticle()
+    {
+        if (isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
+            $article = Factory::createArticle();
+            $res = $article->deleteArticle($article_id);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
         }
     }
 
@@ -227,7 +299,7 @@ class User extends Controller
             $view->display('notfound.html');
             exit();
         }
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = new \app\controller\Article();
