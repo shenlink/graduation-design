@@ -81,14 +81,15 @@
                                     <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/login">退出登录</a>
+                                    <a class="nav-link" href="/user/logout"
+                                        onclick="return confirm('确定退出登录?');">退出登录</a>
                                 </li>
                                 {{else}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/login">登录</a>
+                                    <a class="nav-link" href="/user/logi">登录</a>
                                 </li>
                                 {{/if}}
 

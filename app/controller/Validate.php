@@ -9,7 +9,6 @@ use core\lib\Factory;
 class Validate extends Controller
 {
     private static $access;
-
     public static function prevent()
     {
         $pattern = '/(validate)|prevent|checkAccess/i';

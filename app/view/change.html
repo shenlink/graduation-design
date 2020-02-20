@@ -7,7 +7,7 @@
     <title>个人信息修改</title>
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="/static/css/self.css" type="text/css" rel="stylesheet">
-
+    <link href="/static/css/change.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -72,12 +72,22 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
+                                {{if $username}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/logout"
+                                        onclick="return confirm('确定退出登录?');">退出登录</a>
+                                </li>
+                                {{else}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/login">登录</a>
                                 </li>
+                                {{/if}}
 
                                 <!-- 管理菜单 -->
                                 <li class="nav-item">
@@ -109,30 +119,68 @@
                 <!-- 左边修改信息主体内容开始 -->
                 <div class="col-md-8">
                     <span class="text-danger">修改个人信息</span>
-                    <form action="/user/checkChange" method="post">
-                        <!-- 开始 -->
+                    <form>
+                        <!-- 用户名开始 -->
                         <div class="form-group">
-                            <label for="username">用户名</label>
-                            <input type="text" class="form-control form-control" id="username" name="username" readonly
-                                value="{{$user['username']}}">
-                            <small class="form-text text-muted">用户名不能修改</small>
+                            <label for="username">用户名：</label>
+                            <!-- userOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
+                            <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
+                                value="{{$user['username']}}" onblur="checkUsername()" onfocus="userOriginal()"
+                                readonly>
+                            <!-- 提示用户注意的信息 -->
+                            <small class="form-text text-muted">
+                                用户名不能修改
+                            </small>
                         </div>
+                        <!-- 用户名结束 -->
+
+                        <!-- 密码开始 -->
                         <div class="form-group">
-                            <label for="password">新密码</label>
-                            <input type="password" class="form-control form-control" id="password" name="password">
+                            <label for="password">新密码：</label>
+                            <!-- passwordOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
+                            <input type="password" class="form-control" placeholder="请输入密码" name="password"
+                                id="password" onblur="checkPassword()" onfocus="passwordOriginal()">
+                            <!-- rePassword是定位父级，相对定位 -->
+                            <div id="rePassword">
+                                <!-- 显示隐藏密码 -->
+                                <img src="/static/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
+                            </div>
+                            <!-- 提示用户注意的信息 -->
+                            <small class="form-text text-muted" id="passwordTip">
+                                <img src="/static/image/mess.png" id="passwordImg">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
+                            </small>
                         </div>
+                        <!-- 密码结束 -->
+
+                        <!-- 确认密码开始 -->
                         <div class="form-group">
-                            <label for="confirmPassword">确认密码</label>
-                            <input type="password" class="form-control form-control" id="confirmPassword" onblur="checkPassword()">
+                            <label for="confirm-password">确认密码：</label>
+                            <!-- conPasswordOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
+                            <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword"
+                                id="confirmPassword" onblur="checkConPassword()" onfocus="conPasswordOriginal()">
+                            <!-- reCOnPassword是定位父级，相对定位 -->
+                            <span id="reConPassword">
+                                <!-- 显示隐藏密码 -->
+                                <img src="/static/image/close.png" alt="隐藏密码" id="conPasswordEye"
+                                    onclick="clickConEye()">
+                            </span>
+                            <!-- 提示用户注意的信息 -->
+                            <small class="form-text text-muted" id="conPasswordTip">
+                                <img src="/static/image/mess.png" id="conPasswordImg">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                确认密码
+                            </small>
                         </div>
+                        <!-- 确认密码结束 -->
                         <div class="form-group">
                             <label for="introduction">个人介绍</label>
-                            <input type="text" class="form-control form-control" id="introduction" name="introduction" value="{{$user['introduction']}}" maxlength="20">
+                            <input type="text" class="form-control form-control" id="introduction" name="introduction"
+                                value="{{$user['introduction']}}" maxlength="20">
                             <small class="form-text text-muted">最多20个字</small>
                         </div>
                         <button type="reset" class="btn btn-primary">重置</button>
                         <button type="button" class="btn btn-primary" id="change">提交</button>
-                        <!-- 结束 -->
                     </form>
                 </div>
                 <!-- 博主信息开始 -->

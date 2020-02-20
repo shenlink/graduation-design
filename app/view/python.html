@@ -60,7 +60,7 @@
                         </div>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
-                                
+
                                 <!-- 搜索框开始 -->
                                 <form action="/article/search" method="POST" class="form-inline my-2 my-lg-0">
                                     <input class="form-control mr-sm-2" type="search" placeholder="搜索用户或文章"
@@ -76,12 +76,22 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
+                                {{if $username}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/logout"
+                                        onclick="return confirm('确定退出登录?');">退出登录</a>
+                                </li>
+                                {{else}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/login">登录</a>
                                 </li>
+                                {{/if}}
 
                                 <!-- 管理菜单 -->
                                 <li class="nav-item">

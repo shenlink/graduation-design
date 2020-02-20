@@ -10,15 +10,10 @@ use app\controller\Validate;
 class User extends Controller
 {
 
-    public static function prevent()
+    public function displayNone()
     {
-        $pattern = '/(user)|prevent|checkUsername|checkDisplay|checkRegister|checkLogin|checkWrite/i';
-        $url = $_SERVER['REQUEST_URI'];
-        if (preg_match($pattern, $url)) {
-            $view = Factory::createView();
-            $view->display('notfound.html');
-            exit();
-        }
+        $view = Factory::createView();
+        $view->display('notfound.html');
     }
 
     public function checkUsername()
@@ -33,16 +28,10 @@ class User extends Controller
             } else {
                 echo "0";
             }
-        } else {
-            echo '404';
+        }else{
+            $this->displayNone();
         }
     }
-
-    public function checkDisplay()
-    {
-        return  Validate::checkAccess();
-    }
-
 
     public function register()
     {
@@ -55,16 +44,27 @@ class User extends Controller
         $view->display('register.html');
     }
 
-
     public function login()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
         $view = Factory::createView();
         $view->assign('username', $username);
         $view->display('login.html');
+    }
+
+    public function logout()
+    {
+        $access = Validate::checkAccess();
+        if ($access == 1 || $access == 2) {
+            unset($_SESSION['username']);
+            echo "<script>window.location.href='/'</script>";
+        } else {
+            $view = Factory::createView();
+            $view->display('nologin.html');
+        }
     }
 
     public function checkRegister()
@@ -82,9 +82,8 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+        }else{
+            $this->displayNone();
         }
     }
 
@@ -109,15 +108,14 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+        }else{
+            $this->displayNone();
         }
     }
 
     public function write()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
@@ -140,15 +138,14 @@ class User extends Controller
             } else {
                 echo '0';
             }
-        } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+        }else{
+            $this->displayNone();
         }
     }
 
     public function personal()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
@@ -165,9 +162,48 @@ class User extends Controller
         }
     }
 
+    public function change()
+    {
+        $access = Validate::checkAccess();
+        $view = Factory::createView();
+        if ($access == '1' || $access == '2') {
+            $username = $_SESSION['username'];
+            $user = Factory::createUser();
+            $user = $user->personal($username);
+            $view->assign('username', $username);
+            $view->assign('user', $user);
+            $view->display('change.html');
+        } else if($access == '3'){
+            $view->display('nologin.html');
+        }else{
+            $this->displayNone();
+        }
+    }
+
+    public function checkChange()
+    {
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_SESSION['introduction'])) {
+            $username = trim($_POST['username']);
+            $password = md5(trim($_POST['password']));
+            $introduction = trim($_POST['introduction']);
+            $user = Factory::createUser();
+            if (isset($username) && isset($password) && isset($introduction)) {
+                $res = $user->checkChange($username, $password,$introduction);
+            }
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     public function manage()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];

@@ -9,15 +9,9 @@ use core\lib\Factory;
 
 class Category extends Controller
 {
-
-    public function checkDisplay()
-    {
-        return  Validate::checkAccess();
-    }
-
     public function php()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if($access == 1 || $access == 2){
             $username = $_SESSION['username'];
         }
@@ -31,7 +25,7 @@ class Category extends Controller
 
     public function mysql()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
@@ -45,7 +39,7 @@ class Category extends Controller
 
     public function javaScript()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
@@ -59,7 +53,7 @@ class Category extends Controller
 
     public function html()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
@@ -72,7 +66,7 @@ class Category extends Controller
     }
     public function python()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
@@ -85,7 +79,7 @@ class Category extends Controller
     }
     public function java()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
@@ -99,7 +93,7 @@ class Category extends Controller
 
     public function foundation()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }

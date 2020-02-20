@@ -50,6 +50,11 @@ class User extends Model
         return $this->table('user')->field('username,created_at,introduction,article_count,follows_count,fans_count')->where(['username'=>"{$username}"])->select();
     }
 
+    public function checkChange($username, $password, $introduction)
+    {
+        return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
+    }
+
     public function manage($username)
     {
         return $this->table('article')->field('title,content,created_at,updated_at,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();

@@ -206,14 +206,10 @@ function check() {
     return checkUsername() && checkAjax() && checkPassword() && checkConPassword();
 }
 $('#register').on('click', function () {
-    // 获取用户名输入框元素
-    let username = document.querySelector('#username');
     // 获取输入的用户名的值
-    let usernameValue = username.value;
-    // 获取密码输入框元素
-    let password = document.querySelector('#password');
+    let username = document.querySelector('#username').value;
     // 获取输入的密码的值
-    let passwordValue = password.value;
+    let password = document.querySelector('#password').value;
     if (check()) {
         // 1.创建XMLHttpRequest对象
         let request = null;
@@ -228,8 +224,7 @@ $('#register').on('click', function () {
         // 3.请求头
         request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
         // 4.设置数据
-        request.send("username=" + usernameValue + "&password=" + passwordValue);
-        // request.send("username="+userval+"&age="+ageval+"&timp"+new Date().getTime());
+        request.send("username=" + username + "&password=" + password);
         // 5.监听服务器响应
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {

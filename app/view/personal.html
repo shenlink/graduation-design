@@ -75,12 +75,22 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
+                                {{if $username}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user/logout"
+                                        onclick="return confirm('确定退出登录?');">退出登录</a>
+                                </li>
+                                {{else}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/register">注册</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/login">登录</a>
                                 </li>
+                                {{/if}}
 
                                 <!-- 管理菜单 -->
                                 <li class="nav-item">
