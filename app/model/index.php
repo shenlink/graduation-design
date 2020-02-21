@@ -6,13 +6,13 @@ use core\lib\Model;
 
 class Index extends Model
 {
-    public function index()
+    public function pagination()
     {
-        return $this->table('article')->field('title, content,created_at,collect_count,comment_count')->selectAll();
-    }
-    public function test()
-    {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->pages(1,5);
     }
 
+    public function mutativePage($currentPage,$pageSize)
+    {
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->pages($currentPage, $pageSize);
+    }
 }

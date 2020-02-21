@@ -131,6 +131,70 @@ class Db
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
+
+    // 查询数据总数
+    public function count()
+    {
+        $sql = $this->fixSql('count');
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $count = $stmt->fetchColumn(0);
+        return $count;
+    }
+
+    // 分页
+    public function pages($currentPage, $pageSize = 10)
+    {
+        $count = $this->count();
+        $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
+        $data = $this->selectAll();
+        $pageHtml = $this->createPages($currentPage, $pageSize,$count);
+        return array('data' => $data,'pageHtml' => $pageHtml);
+    }
+
+    // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
+    private function createPages($currentPage, $pageSize, $count)
+    {
+
+        // 分页数，向上取整
+        $pageHtml = '';
+        $pageCount = ceil($count / $pageSize);
+        // 生成首页,生成上一页
+        if ($currentPage >= 1) {
+            $pageHtml .= "<li data-index='1' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+            $prePage = $currentPage - 1;
+            $pageHtml .= "<li data-index={$prePage} class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
+        }
+        // $start = $currentPage > ($pageCount - 6) ? ($pageCount - 6) : $currentPage;
+        // $start = $start - 2;
+        // $start = $start <= 0 ? 1 : $start;
+        // $end = ($currentPage + 6) > $pageCount ? $pageCount : ($currentPage + 6);
+        // $end = $end - 2;
+        // if ($end <= $start) {
+        //     $end = $pageCount;
+        // }
+        // if (($currentPage + 2) >= $end && $pageCount > 6) {
+        //     $start = $start + 2;
+        //     $end = $end + 2;
+        // }
+        // if ($end - $start <= 5) {
+        //     $end = $pageCount;
+        // }
+
+        for ($i = 1; $i <= $pageCount; $i++) {
+            $pageHtml .= $i == $currentPage ? "<li data-index={$i} class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} class='page-item '><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
+        }
+        // 生成下一页,生成尾页
+        if ($currentPage < $pageCount) {
+            $nextPage = $currentPage + 1;
+            $pageHtml .= "<li data-index={$nextPage} class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
+            $pageHtml .= "<li data-index={$pageCount} class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
+        }
+        $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
+
+        return $pageHtml;
+    }
+
     /**
      * @access:public
      * @name:

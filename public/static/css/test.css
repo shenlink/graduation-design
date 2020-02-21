@@ -1,0 +1,12 @@
+/* manage页面的css */
+.manage-item {
+    display: none;
+}
+
+.manage-list {
+    cursor: pointer;
+}
+
+.current {
+    color: red;
+}
