@@ -50,7 +50,7 @@ for (let i = 0; i < delArticles.length; i++) {
     delArticles[i].onclick = function () {
         for (let i = 0; i < delArticles.length; i++) {
             if (true) {
-                let article_id = this.getAttribute('data-del')
+                let article_id = this.getAttribute('data-delArticle')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -95,7 +95,7 @@ for (let i = 0; i < delComments.length; i++) {
     delComments[i].onclick = function () {
         for (let i = 0; i < delComments.length; i++) {
             if (true) {
-                let comment_id = this.getAttribute('data-del')
+                let comment_id = this.getAttribute('data-delComment')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {

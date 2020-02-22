@@ -8,9 +8,13 @@ use core\lib\Factory;
 
 class Admin extends Controller
 {
-    public function checkSattus()
+
+    public function displayNone()
     {
+        $view = Factory::createView();
+        $view->display('notfound.html');
     }
+
     public function manage()
     {
         $access = Validate::checkAccess();
@@ -37,35 +41,51 @@ class Admin extends Controller
         }
     }
 
-    public function defriedUser()
+    public function defriendUser()
     {
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
-            $admin = Factory::createAdmin();
-            $res = $admin->defriedUser($user_id);
+            $user = Factory::createUser();
+            $res = $user->defriendUser($user_id);
             if ($res) {
                 echo '1';
             } else {
                 echo '0';
             }
-        }else{
-            echo '404';
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function normalUser()
+    {
+        if (isset($_POST['user_id'])) {
+            $user_id = $_POST['user_id'];
+            $user = Factory::createUser();
+            $res = $user->normalUser($user_id);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
         }
     }
 
     public function delUser()
     {
-        if(isset($_POST['user_id'])){
+        if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
-            $admin = Factory::createAdmin();
-            $res = $admin->delUser($user_id);
-            if($res){
+            $user = Factory::createUser();
+            $res = $user->delUser($user_id);
+            if ($res) {
                 echo '1';
-            }else{
+            } else {
                 echo '0';
             }
-        }else{
-            echo '404';
+        } else {
+            $this->displayNone();
         }
     }
 
@@ -81,7 +101,7 @@ class Admin extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $this->displayNone();
         }
     }
 
@@ -97,23 +117,23 @@ class Admin extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $this->displayNone();
         }
     }
 
     public function delCategory()
     {
         if (isset($_POST['category'])) {
-            $category = $_POST['category'];
+            $categorys = $_POST['category'];
             $category = Factory::createCategory();
-            $res = $category->delArticle($category);
+            $res = $category->delCategory($categorys);
             if ($res) {
                 echo '1';
             } else {
                 echo '0';
             }
         } else {
-            echo '404';
+            $this->displayNone();
         }
     }
 
@@ -130,7 +150,80 @@ class Admin extends Controller
                 echo '0';
             }
         } else {
-            echo '404';
+            $this->displayNone();
+        }
+    }
+
+    public function addAnnouncement()
+    {
+        if (isset($_POST['announcement_id'])) {
+            $announcement_id = $_POST['announcement_id'];
+            $announcement  = new \app\model\Announcement();
+            $res = $announcement->addAnnouncement($announcement_id);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function delAnnouncement()
+    {
+        if (isset($_POST['announcement_id'])) {
+            $announcement_id = $_POST['announcement_id'];
+            $announcement  = new \app\model\Announcement();
+            $res = $announcement->delAnnouncement($announcement_id);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function add()
+    {
+        $view = Factory::createView();
+        if (isset($_POST['category'])) {
+            $category = $_POST['category'];
+            $view->assign('category', $category);
+            $view->display('add.html');
+        } else if (isset($_POST['announcement'])) {
+            $announcement = $_POST['announcement'];
+            $view->assign('announcement', $announcement);
+            $view->display('add.html');
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function checkAdd()
+    {
+        if (isset($_POST['announcement_id'])) {
+            $announcement_id = $_POST['announcement_id'];
+            $announcement  = new \app\model\Announcement();
+            $res = $announcement->addAnnouncement($announcement_id);
+            if ($res) {
+                echo '<script>window.location.href="/admin/manage"</script>';
+            } else {
+                echo '0';
+            }
+        } else if (isset($_POST['category'])) {
+            $categorys = $_POST['category'];
+            $category = Factory::createCategory();
+            $res = $category->addCategory($categorys);
+            if ($res) {
+                echo '<script>window.location.href="/admin/manage"</script>';
+            } else {
+                echo '0';
+            }
+        }else{
+            $this->displayNone();
         }
     }
 

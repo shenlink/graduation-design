@@ -65,6 +65,11 @@ class Category extends Model
         return $data;
     }
 
+    public function addCategory($category)
+    {
+        return $this->table('category')->insert(['category' => "{$category}"]);
+    }
+
     public function delCategory($category)
     {
         return $this->table('category')->where(['category' => "{$category}"])->delete();

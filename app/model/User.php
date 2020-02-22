@@ -60,6 +60,18 @@ class User extends Model
         return $this->table('user')->field('information')->where(['username'=>"{$username}"])->select();
     }
 
+    public function defriendUser($user_id)
+    {
+        return $this->table('user')->where(['user_id'=>"{$user_id}"])->update(['status' => 0]);
+    }
 
+    public function normalUser($user_id)
+    {
+        return $this->table('user')->where(['user_id' => "{$user_id}"])->update(['status' => 1]);
+    }
 
+    public function delUser($user_id)
+    {
+        return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
+    }
 }

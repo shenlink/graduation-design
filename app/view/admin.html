@@ -147,18 +147,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>shen</td>
-                            <td>管理员</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2020-02-15</td>
-                            <td><a>shen</a></td>
-                            <td>正常</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
                         {{foreach from=$user item=userIndex}}
                         <tr>
                             <td>
@@ -193,10 +181,17 @@
                                 {{/if}}
                             </td>
                             <td>
+                                {{if $userIndex.status == 1}}
                                 <button class="btn btn-primary btn-sm defriendUser"
                                     data-defriendUser={{$userIndex.user_id}}>
                                     拉黑
                                 </button>
+                                {{else}}
+                                <button class="btn btn-primary btn-sm normalUser"
+                                    data-normalUser={{$userIndex.user_id}}>
+                                    恢复
+                                </button>
+                                {{/if}}
                                 <button class="btn btn-primary btn-sm delUser" data-delUser={{$userIndex.user_id}}>
                                     删除
                                 </button>
@@ -231,20 +226,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>shen</td>
-                            <td>php数组...</td>
-                            <td>正常</td>
-                            <td>2020-02-15</td>
-                            <td>2020-02-15</td>
-                            <td>php</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>去阅读</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
                         {{foreach from=$article item=articleIndex}}
                         <tr>
                             <td>
@@ -257,7 +238,11 @@
                                 {{$articleIndex.title}}
                             </td>
                             <td>
-                                {{$articleIndex.status}}
+                                {{if $articleIndex.status == 1}}
+                                正常
+                                {{else}}
+                                拉黑
+                                {{/if}}
                             </td>
                             <td>
                                 {{$articleIndex.created_at}}
@@ -282,11 +267,11 @@
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm defriendArticle"
-                                    data-defriendUser={{$articleIndex.article_id}}>
+                                    data-defriendArticle={{$articleIndex.article_id}}>
                                     拉黑
                                 </button>
                                 <button class="btn btn-primary btn-sm delArticle"
-                                    data-delUser={{$articleIndex.article_id}}>
+                                    data-delArticle={{$articleIndex.article_id}}>
                                     删除
                                 </button>
                             </td>
@@ -313,13 +298,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>php</td>
-                            <td>正常</td>
-                            <td>2</td>
-                            <td><a href="">新增</a><a href="">删除</a></td>
-                        </tr>
                         {{foreach from=$category item=categoryIndex}}
                         <tr>
                             <td>
@@ -335,12 +313,9 @@
                                 {{$categoryIndex.article_count}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm defriendArticle"
-                                    data-defriendUser={{$articleIndex.article_id}}>
-                                    新增
-                                </button>
+
                                 <button class="btn btn-primary btn-sm delCategory"
-                                    data-delUser={{$categoryIndex.category}}>
+                                    data-delCategory={{$categoryIndex.category}}>
                                     删除
                                 </button>
                             </td>
@@ -348,6 +323,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <button class="btn btn-primary btn-sm addCategory" style="float: right;" onclick="addCategory()">
+                    新增
+                </button>
                 <!-- 分页开始 -->
 
                 <!-- 分页结束 -->
@@ -369,15 +347,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>不错...</td>
-                            <td>正常</td>
-                            <td>2020-02-15</td>
-                            <td>php数组...</td>
-                            <td>shen</td>
-                            <td><a href="">拉黑</a><a href="">删除</a></td>
-                        </tr>
                         {{foreach from=$comment item=commentIndex}}
                         <tr>
                             <td>
@@ -399,7 +368,10 @@
                                 {{$commentIndex.username}}
                             </td>
                             <td>
-                                操作
+                                <button class="btn btn-primary btn-sm delComment"
+                                    data-delComment={{$commentIndex.comment_id}}>
+                                    删除
+                                </button>
                             </td>
                             {{/foreach}}
                         </tr>
@@ -420,19 +392,10 @@
                             <th scope="col">公告内容</th>
                             <th scope="col">创建时间</th>
                             <th scope="col">更新时间</th>
-                            <th scope="col">状态</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>请注意...</td>
-                            <td>2020-02-15</td>
-                            <td>2020-02-15</td>
-                            <td>正常</td>
-                            <td><a href="">新增</a><a href="">不显示</a></td>
-                        </tr>
                         {{foreach from=$announcement item=announcementIndex}}
                         <tr>
                             <td>
@@ -448,15 +411,18 @@
                                 {{$announcementIndex.updated_at}}
                             </td>
                             <td>
-                                {{$announcementIndex.status}}
-                            </td>
-                            <td>
-                                操作
+                                <button class="btn btn-primary btn-sm delAnnouncement"
+                                    data-delAnnouncement={{$announcementIndex.announcement_id}}>
+                                    删除
+                                </button>
                             </td>
                             {{/foreach}}
                         </tr>
                     </tbody>
                 </table>
+                <button class="btn btn-primary btn-sm" style="float: right;" onclick="addAnnouncement()">
+                    新增
+                </button>
                 <!-- 分页开始 -->
 
                 <!-- 分页结束 -->
@@ -482,6 +448,8 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
     <script src="/static/js/admin.js"></script>
 
 </body>

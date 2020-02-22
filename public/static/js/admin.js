@@ -48,10 +48,53 @@ for (let i = 0; i < defriendUsers.length; i++) {
                             }, function (index, layero) {
                                 window.location.reload();
                                 layero.close(index);
-                            });
-
+                            })
                         } else {
                             layer.msg('拉黑失败', {
+                                time: 1000
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 恢复以后状态
+let normalUsers = document.querySelectorAll('.normalUser');
+// let check = confirm('确认删除吗？');
+for (let i = 0; i < normalUsers.length; i++) {
+    normalUsers[i].onclick = function () {
+        for (let i = 0; i < normalUsers.length; i++) {
+            if (true) {
+                let user_id = this.getAttribute('data-normalUser')
+                // 1.创建XMLHttpRequest对象
+                let request = null;
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "/admin/normalUser");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("user_id=" + user_id);
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == "1") {
+                            layer.msg('恢复成功', {
+                                time: 1000
+                            }, function (index, layero) {
+                                window.location.reload();
+                                layero.close(index);
+                            })
+                        } else {
+                            layer.msg('恢复失败', {
                                 time: 1000
                             })
                         }
@@ -70,7 +113,7 @@ for (let i = 0; i < delUsers.length; i++) {
     delUsers[i].onclick = function () {
         for (let i = 0; i < delUsers.length; i++) {
             if (true) {
-                let user_id = this.getAttribute('data-delUsers')
+                let user_id = this.getAttribute('data-delUser')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -89,7 +132,7 @@ for (let i = 0; i < delUsers.length; i++) {
                 request.onreadystatechange = function () {
                     if (request.readyState == 4 && request.status == 200) {
                         if (request.responseText == "1") {
-                            layer.msg('拉黑成功', {
+                            layer.msg('删除成功', {
                                 time: 1000
                             }, function (index, layero) {
                                 window.location.reload();
@@ -97,7 +140,7 @@ for (let i = 0; i < delUsers.length; i++) {
                             });
 
                         } else {
-                            layer.msg('拉黑失败', {
+                            layer.msg('删除失败', {
                                 time: 1000
                             })
                         }
@@ -167,7 +210,7 @@ for (let i = 0; i < delArticles.length; i++) {
     delArticles[i].onclick = function () {
         for (let i = 0; i < delArticles.length; i++) {
             if (true) {
-                let article_id = this.getAttribute('data-delArticles')
+                let article_id = this.getAttribute('data-delArticle')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -177,7 +220,7 @@ for (let i = 0; i < delArticles.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/admin/delArticles");
+                request.open("POST", "/admin/delArticle");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据
@@ -214,7 +257,7 @@ for (let i = 0; i < delCategorys.length; i++) {
     delCategorys[i].onclick = function () {
         for (let i = 0; i < delCategorys.length; i++) {
             if (true) {
-                let article_id = this.getAttribute('data-delCategorys')
+                let category = this.getAttribute('data-delCategory')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -224,7 +267,7 @@ for (let i = 0; i < delCategorys.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/admin/delCategorys");
+                request.open("POST", "/admin/delCategory");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据
@@ -233,7 +276,7 @@ for (let i = 0; i < delCategorys.length; i++) {
                 request.onreadystatechange = function () {
                     if (request.readyState == 4 && request.status == 200) {
                         if (request.responseText == "1") {
-                            layer.msg('拉黑成功', {
+                            layer.msg('删除成功', {
                                 time: 1000
                             }, function (index, layero) {
                                 window.location.reload();
@@ -241,7 +284,7 @@ for (let i = 0; i < delCategorys.length; i++) {
                             });
 
                         } else {
-                            layer.msg('拉黑失败', {
+                            layer.msg('删除失败', {
                                 time: 1000
                             })
                         }
@@ -252,6 +295,26 @@ for (let i = 0; i < delCategorys.length; i++) {
     }
 }
 
+// 新增分类
+function addCategory() {
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    //这里的addCategory值没有特殊意义，是为了控制显示添加分类或添加公告而设置的
+    let input = createInput('category', 'addCategory');
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/admin/add';
+    form.submit();
+}
+
+function createInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}
+
 
 // 删除评论
 let delComments = document.querySelectorAll('.delComment');
@@ -260,7 +323,7 @@ for (let i = 0; i < delComments.length; i++) {
     delComments[i].onclick = function () {
         for (let i = 0; i < delComments.length; i++) {
             if (true) {
-                let comment_id = this.getAttribute('data-del')
+                let comment_id = this.getAttribute('data-delComment')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -270,7 +333,7 @@ for (let i = 0; i < delComments.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/user/delComment");
+                request.open("POST", "/admin/delComment");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据
@@ -300,3 +363,69 @@ for (let i = 0; i < delComments.length; i++) {
 
 
 
+
+
+// 删除公告
+let delAnnouncements = document.querySelectorAll('.delAnnouncement');
+// let check = confirm('确认删除吗？');
+for (let i = 0; i < delAnnouncements.length; i++) {
+    delAnnouncements[i].onclick = function () {
+        for (let i = 0; i < delAnnouncements.length; i++) {
+            if (true) {
+                let announcement_id = this.getAttribute('data-delAnnouncement')
+                // 1.创建XMLHttpRequest对象
+                let request = null;
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "/admin/delAnnouncement");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("announcement_id=" + announcement_id);
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == "1") {
+                            layer.msg('删除成功', {
+                                time: 1000
+                            }, function (index, layero) {
+                                window.location.reload();
+                                layero.close(index);
+                            });
+                        } else {
+                            layer.msg('删除失败', {
+                                time: 1000
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// 新增公告
+function addAnnouncement() {
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    //这里的addCategory值没有特殊意义，是为了控制显示添加分类或添加公告而设置的
+    let input = createInput('announcement', 'announcement');
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/admin/add';
+    form.submit();
+}
+
+function createInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}
