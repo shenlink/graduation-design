@@ -8,6 +8,10 @@ use core\lib\Factory;
 
 class Admin extends Controller
 {
+    public function checkSattus()
+    {
+
+    }
     public function manage()
     {
         $access = Validate::checkAccess();

@@ -152,8 +152,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$articles item=articlesIndex}}
                         <tr>
+                            {{foreach from=$articles item=articlesIndex}}
                             <td>
                                 {{$articlesIndex.title}}
                             </td>
@@ -167,7 +167,7 @@
                                 {{$articlesIndex.updated_at}}
                             </td>
                             <td>
-                                {{$category}}
+                                {{$articlesIndex.category}}
                             </td>
                             <td>
                                 {{$articlesIndex.comment_count}}
@@ -181,10 +181,12 @@
                             <td>{{$articlesIndex.share_count}}</td>
                             <td><a href="/article/{{$articlesIndex.article_id}}">文章链接</a> </td>
                             <td>
-                                <button class="btn btn-primary btn-sm" id="edit" data-edit={{$articlesIndex.article_id}} onclick="edit()">
+                                <button class="btn btn-primary btn-sm editArticle"
+                                    data-editArticle={{$articlesIndex.article_id}} onclick="edit()">
                                     编辑
                                 </button>
-                                <button class="btn btn-primary btn-sm" data-del={{$articlesIndex.article_id}} id="del">
+                                <button class="btn btn-primary btn-sm delArticle"
+                                    data-delArticle={{$articlesIndex.article_id}}>
                                     删除
                                 </button>
                             </td>
@@ -207,22 +209,32 @@
                         <tr>
                             <th scope="col">评论内容</th>
                             <th scope="col">评论时间</th>
-                            <th scope="col">文章</th>
                             <th scope="col">用户</th>
-                            <th scope="col">去阅读</th>
+                            <th scope="col">文章链接</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$comment item=commentIndex}}
                         <tr>
-                            {{foreach from=$commentIndex item=commentContent}}
+                            {{foreach from=$comment item=commentIndex}}
                             <td>
-                                {{$commentContent}}
+                                {{$commentIndex.content}}
                             </td>
-                            {{/foreach}}
-                            <td>1</td>
-                            <td>2</td>
+                            <td>
+                                {{$commentIndex.created_at}}
+                            </td>
+                            <td>
+                                {{$commentIndex.username}}
+                            </td>
+                            <td>
+                                <a href="/article/{{$commentIndex.article_id}}">文章链接</a>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm delComment"
+                                    data-delComment={{$articlesIndex.comment_id}}>
+                                    删除
+                                </button>
+                            </td>
                             {{/foreach}}
                         </tr>
 
@@ -239,8 +251,19 @@
                     </fieldset>
                     <thead>
                         <tr>
-                            <th scope="col">私信内容</th>
+                            <th scope="col">私信</th>
                             <th scope="col">操作</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{$information.information}}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm delInformation"
+                                    data-delInformation={{$articlesIndex.user_id}}>
+                                    删除
+                                </button>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>

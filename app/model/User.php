@@ -55,6 +55,11 @@ class User extends Model
         return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
     }
 
-    
+    public function getInfo($username)
+    {
+        return $this->table('user')->field('information')->where(['username'=>"{$username}"])->select();
+    }
+
+
 
 }

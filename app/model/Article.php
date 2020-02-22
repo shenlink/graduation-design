@@ -70,7 +70,7 @@ class Article extends Model
 
     public function getArticle($article_id)
     {
-        return $this->table('article')->field('title,content,username,created_at,category_id,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
     }
 
     public function personal($username)
@@ -80,7 +80,7 @@ class Article extends Model
 
     public function manage($username)
     {
-        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category_id,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
+        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
     }
 
     public function deleteArticle($article_id)

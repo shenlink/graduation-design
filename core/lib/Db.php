@@ -165,27 +165,27 @@ class Db
             $prePage = $currentPage - 1;
             $pageHtml .= "<li data-index={$prePage} class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
         }
-        // $start = $currentPage > ($pageCount - 6) ? ($pageCount - 6) : $currentPage;
-        // $start = $start - 2;
-        // $start = $start <= 0 ? 1 : $start;
-        // $end = ($currentPage + 6) > $pageCount ? $pageCount : ($currentPage + 6);
-        // $end = $end - 2;
-        // if ($end <= $start) {
-        //     $end = $pageCount;
-        // }
-        // if (($currentPage + 2) >= $end && $pageCount > 6) {
-        //     $start = $start + 2;
-        //     $end = $end + 2;
-        // }
-        // if ($end - $start <= 5) {
-        //     $end = $pageCount;
-        // }
+        $start = $currentPage > ($pageCount - 6) ? ($pageCount - 6) : $currentPage;
+        $start = $start - 2;
+        $start = $start <= 0 ? 1 : $start;
+        $end = ($currentPage + 6) > $pageCount ? $pageCount : ($currentPage + 6);
+        $end = $end - 2;
+        if ($end <= $start) {
+            $end = $pageCount;
+        }
+        if (($currentPage + 2) >= $end && $pageCount > 6) {
+            $start = $start + 2;
+            $end = $end + 2;
+        }
+        if ($end - $start <= 5) {
+            $end = $pageCount;
+        }
 
         for ($i = 1; $i <= $pageCount; $i++) {
-            $pageHtml .= $i == $currentPage ? "<li data-index={$i} class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} class='page-item '><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
+            $pageHtml .= $i == $currentPage ? "<li data-index={$i} class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} class='page-item'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
         }
         // 生成下一页,生成尾页
-        if ($currentPage < $pageCount) {
+        if ($currentPage <= $pageCount) {
             $nextPage = $currentPage + 1;
             $pageHtml .= "<li data-index={$nextPage} class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
             $pageHtml .= "<li data-index={$pageCount} class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";

@@ -141,13 +141,13 @@
                     <br>
                     <div class="form-group">
                         <select class="form-control" name="category">
-                            <option value="1" {{if $category == 'php'}}selected{{/if}}>php</option>
-                            <option value="2" {{if $category == 'mysql'}}selected{{/if}}>mysql</option>
-                            <option value="3" {{if $category == 'javaScript'}}selected{{/if}}>javaScript</option>
-                            <option value="4" {{if $category == 'html'}}selected{{/if}}>html</option>
-                            <option value="5" {{if $category == 'python'}}selected{{/if}}>python</option>
-                            <option value="6" {{if $category == 'java'}}selected{{/if}}>java</option>
-                            <option value="7" {{if $category == 'foundation'}}selected{{/if}}>计算机基础</option>
+                            <option value="1" {{if $article['category'] == 'php'}}selected{{/if}}>php</option>
+                            <option value="2" {{if $article['category'] == 'mysql'}}selected{{/if}}>mysql</option>
+                            <option value="3" {{if $article['category'] == 'javaScript'}}selected{{/if}}>javaScript</option>
+                            <option value="4" {{if $article['category'] == 'html'}}selected{{/if}}>html</option>
+                            <option value="5" {{if $article['category'] == 'python'}}selected{{/if}}>python</option>
+                            <option value="6" {{if $article['category'] == 'java'}}selected{{/if}}>java</option>
+                            <option value="7" {{if $article['category'] == 'foundation'}}selected{{/if}}>计算机基础</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
