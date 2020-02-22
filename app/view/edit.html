@@ -178,11 +178,16 @@
     <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="/static/wangeditor/wangEditor.js"></script>
     <script>
-        let E = window.wangEditor
-        let editor = new E('#content')
+        let E = window.wangEditor;
+        let editor = new E('#content');
         // 或者 var editor = new E( document.getElementById('editor') )
-        editor.create()
-        editor.txt.html("{{$article['content']}}")
+        editor.create();
+        editor.txt.html("{{$article['content']}}");
+        document.getElementById('btn1').addEventListener('click', function () {
+        // 读取 html
+        alert(editor.txt.html())
+        }, false);
+        // editor.txt.html();
     </script>
     <script src="/static/js/write.js"></script>
 </body>

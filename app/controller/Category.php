@@ -107,6 +107,14 @@ class Category extends Controller
 
     public function __call($method, $args)
     {
+        // 优化思路：分类只用一个HTML文件即可
+        // $pattern = '/php|mysql|javaScript|html|python|java|foundation/i';
+        // $category = $method;
+        // if (preg_match($pattern, $category)) {
+        //     $view = Factory::createView();
+        //     $view->display('notfound.html');
+        //     exit();
+        // }
         $view = Factory::createView();
         $view->display('notfound.html');
     }
