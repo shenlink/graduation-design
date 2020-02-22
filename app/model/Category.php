@@ -64,4 +64,9 @@ class Category extends Model
         $data = $article->foundation();
         return $data;
     }
+
+    public function delCategory($category)
+    {
+        return $this->table('category')->where(['category' => "{$category}"])->delete();
+    }
 }

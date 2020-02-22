@@ -41,4 +41,23 @@ class Admin extends Model
     {
         return $this->table('announcement')->field('announcement_id,content,created_at,updated_at,status')->selectAll();
     }
+
+    public function defriendUser()
+    {
+        return $this->table('user')->field('status')->update(['status'=>0]);
+    }
+
+    public function delUser($user_id)
+    {
+        return $this->table('user')->where(['user_id'=>"{$user_id}"])->delete();
+    }
+
+    public function defriendArticle()
+    {
+        return $this->table('article')->field('status')->update(['status' => 0]);
+    }
+
+    
+
+
 }

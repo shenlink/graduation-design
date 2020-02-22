@@ -60,7 +60,7 @@ for (let i = 0; i < delArticles.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/user/deleteArticle");
+                request.open("POST", "/user/delArticle");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据

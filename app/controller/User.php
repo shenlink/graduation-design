@@ -35,7 +35,7 @@ class User extends Controller
 
     public function register()
     {
-        $access = $this->checkDisplay();
+        $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }

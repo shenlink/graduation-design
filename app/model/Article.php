@@ -83,7 +83,7 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
     }
 
-    public function deleteArticle($article_id)
+    public function delArticle($article_id)
     {
         return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
     }
