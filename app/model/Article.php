@@ -35,56 +35,56 @@ class Article extends Model
 
     public function php()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 1])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'php'])->selectAll();
     }
 
     public function mysql()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 2])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'mysql'])->selectAll();
     }
 
     public function javaScript()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 3])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'javaScript'])->selectAll();
     }
 
     public function html()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 4])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'html'])->selectAll();
     }
 
     public function python()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 5])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'python'])->selectAll();
     }
 
     public function java()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 6])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'java'])->selectAll();
     }
 
     public function foundation()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category_id' => 7])->selectAll();
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'foundation'])->selectAll();
     }
 
-    public function getArticle($article_id)
+    public function getArticle($article)
     {
-        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article' => "{$article}"])->select();
     }
 
     public function personal($username)
     {
-        return $this->table('article')->field('title,content,username,created_at,category_id,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();
+        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();
     }
 
     public function manage($username)
     {
-        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
+        return $this->table('article')->field('article,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article')->selectAll();
     }
 
-    public function delArticle($article_id)
+    public function delArticle($article)
     {
-        return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
+        return $this->table('article')->where(['article'=>"{$article}"])->delete();
     }
 }
