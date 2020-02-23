@@ -6,18 +6,18 @@ use core\lib\Model;
 
 class Fans extends Model
 {
-    public function checkFans($username, $article_id)
+    public function checkFans($author, $username)
     {
-        return $this->table('fans')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
+        return $this->table('fans')->where(['author' => "{$author}",'username' => "{$username}" ])->select();
     }
 
-    public function addFans($username, $article_id)
+    public function addFans($author, $username)
     {
-        return $this->table('fans')->insert(['username' => "{$username}", 'article_id' => "{$article_id}"]);
+        return $this->table('fans')->insert(['author' => "{$author}",'username' => "{$username}"]);
     }
 
-    public function cancelFans($username, $article_id)
+    public function cancelFans($author, $username)
     {
-        return $this->table('fans')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        return $this->table('fans')->where(['author' => "{$author}", 'username' => "{$username}"])->delete();
     }
 }

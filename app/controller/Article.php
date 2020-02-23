@@ -92,7 +92,6 @@ class Article extends Controller
                 }
                 // 当用户为登录时，可以点赞，当不存储，在前端完成。
                 $view->assign('username', $username);
-                $view->assign('article_id', $article_id);
                 $view->assign('article', $article);
                 $view->display('article.html');
             } else {

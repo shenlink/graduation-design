@@ -37,7 +37,7 @@ class User extends Model
 
     public function checkWrite($title, $content)
     {
-        return $this->table('article')->insert(['$title'=>"{$title}",'content'=>"{$content}"]);
+        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}"]);
     }
 
     public function getUsername($username)

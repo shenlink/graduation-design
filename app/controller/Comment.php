@@ -10,11 +10,12 @@ class Comment extends Controller
 {
     public function addComment()
     {
-        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id'])) {
+            $content = $_POST['content'];
             $username = $_POST['username'];
             $article_id = $_POST['article_id'];
             $comment = new \app\model\Comment();
-            $res = $comment->addComment($username, $article_id);
+            $res = $comment->addComment($content, $username, $article_id);
             if ($res) {
                 echo '1';
             } else {
@@ -27,7 +28,7 @@ class Comment extends Controller
     public function delComment()
     {
         if (isset($_POST['comment_id'])) {
-            // 要下判断是不是这个用户的评论
+            // 要判断是不是这个用户的评论，在HTML页面用评论的username鱼SESSION的username作比较
             $comment_id = $_POST['comment_id'];
             $comment = new \app\model\Comment();
             $res = $comment->delComment($comment_id);

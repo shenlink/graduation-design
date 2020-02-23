@@ -16,34 +16,18 @@ class Share extends Controller
             $share = new \app\model\Share();
             $res =  $share->checkShare($username, $article_id);
             if ($res) {
-
-                if ($this->cancelShare($username, $article_id)) {
-
+                $cancel = $share->cancelShare($username, $article_id);
+                if ($cancel) {
                     echo "0";
                 }
             } else {
-
-                if ($this->addShare($username, $article_id)) {
-
+                $add = $share->addShare($username, $article_id);
+                if ($add) {
                     echo "1";
                 }
             }
         } else {
+            echo '404';
         }
-    }
-
-    public function cancelShare($username, $article_id)
-    {
-
-        $share = new \app\model\Share();
-        $res =  $share->cancelShare($username, $article_id);
-        return $res;
-    }
-
-    public function addShare($username, $article_id)
-    {
-        $share = new \app\model\Share();
-        $res =  $share->addShare($username, $article_id);
-        return $res;
     }
 }

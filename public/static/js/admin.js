@@ -61,7 +61,7 @@ for (let i = 0; i < defriendUsers.length; i++) {
     }
 }
 
-// 恢复以后状态
+// 恢复正常状态
 let normalUsers = document.querySelectorAll('.normalUser');
 // let check = confirm('确认删除吗？');
 for (let i = 0; i < normalUsers.length; i++) {

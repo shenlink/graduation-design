@@ -18,33 +18,21 @@ class Praise extends Controller
             $res =  $praise->checkPraise($username, $article_id);
             if ($res) {
                 // 如果已经点赞了，返回0,顺便取消点赞
-                if ($this->cancelPraise($username, $article_id)) {
+                $res = $praise->cancelPraise($username, $article_id);
+                if ($res) {
                     // 已经取消点赞
                     echo "0";
                 }
             } else {
                 // 如果还没有点赞
-                if ($this->addPraise($username, $article_id)) {
+                $res = $praise->addPraise($username, $article_id);
+                if ($res) {
                     // 已经点赞
                     echo "1";
                 }
             }
         } else {
+            echo '404';
         }
-    }
-
-    public function cancelPraise($username, $article_id)
-    {
-
-        $praise = new \app\model\Praise();
-        $res =  $praise->addPraise($username, $article_id);
-        return $res;
-    }
-
-    public function addPraise($username, $article_id)
-    {
-        $praise = new \app\model\Praise();
-        $res =  $praise->addPraise($username, $article_id);
-        return $res;
     }
 }

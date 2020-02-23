@@ -303,6 +303,7 @@ class User extends Controller
             $data = $article->personal($username);
             $user = Factory::createUser();
             $user = $user->personal($username);
+            // $author = $user['username']
             $view->assign('username', $username);
             $view->assign('data', $data);
             $view->assign('user', $user);

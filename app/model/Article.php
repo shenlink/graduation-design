@@ -50,7 +50,7 @@ class Article extends Model
 
     public function getArticle($article_id)
     {
-        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('article_id,title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
     }
 
     public function personal($username)
