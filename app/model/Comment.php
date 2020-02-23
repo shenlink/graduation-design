@@ -15,4 +15,10 @@ class Comment extends Model
     {
         return $this->table('comment')->where(['comment_id'=>"{$comment_id}"])->delete();
     }
+
+    public function addComment($username, $article_id)
+    {
+        // insert
+        return $this->table('comment')->insert(['username'=>"{$username}",'article_id'=>"{$article_id}"]);
+    }
 }

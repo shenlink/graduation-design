@@ -48,29 +48,9 @@ class Article extends Model
         return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'javaScript'])->selectAll();
     }
 
-    public function html()
+    public function getArticle($article_id)
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'html'])->selectAll();
-    }
-
-    public function python()
-    {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'python'])->selectAll();
-    }
-
-    public function java()
-    {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'java'])->selectAll();
-    }
-
-    public function foundation()
-    {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'foundation'])->selectAll();
-    }
-
-    public function getArticle($article)
-    {
-        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article' => "{$article}"])->select();
+        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
     }
 
     public function personal($username)

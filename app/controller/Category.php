@@ -15,8 +15,8 @@ class Category extends Controller
         if($access == 1 || $access == 2){
             $username = $_SESSION['username'];
         }
-        $category = Factory::createCategory();
-        $data = $category->php();
+        $article = Factory::createArticle();
+        $data = $article->php();
         $view = Factory::createView();
         $view->assign('username',$username);
         $view->assign('data', $data);
@@ -29,8 +29,8 @@ class Category extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
-        $category = Factory::createCategory();
-        $data = $category->mysql();
+        $article = Factory::createArticle();
+        $data = $article->mysql();
         $view = Factory::createView();
         $view->assign('username', $username);
         $view->assign('data', $data);
@@ -43,78 +43,24 @@ class Category extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
         }
-        $category = Factory::createCategory();
-        $data = $category->javaScript();
+        $article = Factory::createArticle();
+        $data = $article->javaScript();
         $view = Factory::createView();
         $view->assign('username', $username);
         $view->assign('data', $data);
         $view->display('javaScript.html');
     }
 
-    public function html()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $category = Factory::createCategory();
-        $data = $category->html();
-        $view = Factory::createView();
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('html.html');
-    }
-    public function python()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $category = Factory::createCategory();
-        $data = $category->python();
-        $view = Factory::createView();
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('python.html');
-    }
-    public function java()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $category = Factory::createCategory();
-        $data = $category->java();
-        $view = Factory::createView();
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('java.html');
-    }
-
-    public function foundation()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $category = Factory::createCategory();
-        $data = $category->foundation();
-        $view = Factory::createView();
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('foundation.html');
-    }
-
     public function __call($method, $args)
     {
         // 优化思路：分类只用一个HTML文件即可
-        // $pattern = '/php|mysql|javaScript|html|python|java|foundation/i';
-        // $category = $method;
-        // if (preg_match($pattern, $category)) {
-        //     $view = Factory::createView();
-        //     $view->display('notfound.html');
-        //     exit();
-        // }
+        $pattern = '/php|mysql|javaScript/i';
+        $category = $method;
+        if (preg_match($pattern, $category)) {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+            exit();
+        }
         $view = Factory::createView();
         $view->display('notfound.html');
     }

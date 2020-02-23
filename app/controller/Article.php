@@ -70,38 +70,6 @@ class Article extends Controller
         return $data;
     }
 
-    public function html()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->html();
-        return $data;
-    }
-
-    public function python()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->python();
-        return $data;
-    }
-
-    public function java()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->java();
-        return $data;
-    }
-
-    public function foundation()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->foundation();
-        return $data;
-    }
-
     public function personal($username)
     {
         $this->prevent();
@@ -118,6 +86,13 @@ class Article extends Controller
             $article = Factory::createArticle();
             $article = $article->getArticle($article_id);
             if ($article) {
+                $access = Validate::checkAccess();
+                if ($access == 1 || $access == 2) {
+                    $username = $_SESSION['username'];
+                }
+                // 当用户为登录时，可以点赞，当不存储，在前端完成。
+                $view->assign('username', $username);
+                $view->assign('article_id', $article_id);
                 $view->assign('article', $article);
                 $view->display('article.html');
             } else {

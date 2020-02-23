@@ -16,54 +16,6 @@ class Category extends Model
             return self::$category;
         }
     }
-    public function php()
-    {
-        $article = Factory::createArticle();
-        $data = $article->php();
-        return $data;
-    }
-
-    public function mysql()
-    {
-        $article = Factory::createArticle();
-        $data = $article->mysql();
-        return $data;
-    }
-
-    public function javaScript()
-    {
-        $article = Factory::createArticle();
-        $data = $article->javaScript();
-        return $data;
-    }
-
-    public function html()
-    {
-        $article = Factory::createArticle();
-        $data = $article->html();
-        return $data;
-    }
-
-    public function python()
-    {
-        $article = Factory::createArticle();
-        $data = $article->python();
-        return $data;
-    }
-
-    public function java()
-    {
-        $article = Factory::createArticle();
-        $data = $article->java();
-        return $data;
-    }
-
-    public function foundation()
-    {
-        $article = Factory::createArticle();
-        $data = $article->foundation();
-        return $data;
-    }
 
     public function addCategory($category)
     {
