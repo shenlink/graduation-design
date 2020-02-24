@@ -207,7 +207,7 @@ class Db
         $sql = $this->fixSql('insert', $data);
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $stmt->rowCount();
+        $res = $this->pdo->lastInsertId();
         return $res;
     }
     /**

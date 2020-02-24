@@ -60,11 +60,11 @@ class Article extends Model
 
     public function manage($username)
     {
-        return $this->table('article')->field('article,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article')->selectAll();
+        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
     }
 
-    public function delArticle($article)
+    public function delArticle($article_id)
     {
-        return $this->table('article')->where(['article'=>"{$article}"])->delete();
+        return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
     }
 }

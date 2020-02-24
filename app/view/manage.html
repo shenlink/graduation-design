@@ -139,8 +139,8 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{foreach from=$articles item=articlesIndex}}
                         <tr>
-                            {{foreach from=$articles item=articlesIndex}}
                             <td>
                                 {{$articlesIndex.title}}
                             </td>
@@ -177,9 +177,8 @@
                                     删除
                                 </button>
                             </td>
-                            {{/foreach}}
                         </tr>
-
+                        {{/foreach}}
                     </tbody>
                 </table>
 
@@ -202,8 +201,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- 这个foreach得放在tr的上面 -->
+                        {{foreach from=$comment item=commentIndex}}
                         <tr>
-                            {{foreach from=$comment item=commentIndex}}
                             <td>
                                 {{$commentIndex.content}}
                             </td>

@@ -8,6 +8,13 @@ use core\lib\Factory;
 
 class Comment extends Controller
 {
+
+    public function displayNone()
+    {
+        $view = Factory::createView();
+        $view->display('notfound.html');
+    }
+
     public function addComment()
     {
         if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id'])) {
@@ -17,11 +24,12 @@ class Comment extends Controller
             $comment = new \app\model\Comment();
             $res = $comment->addComment($content, $username, $article_id);
             if ($res) {
-                echo '1';
+                echo $res;
             } else {
                 echo '0';
             }
         } else {
+            $this->displayNone();
         }
     }
 
@@ -37,6 +45,8 @@ class Comment extends Controller
             } else {
                 echo '0';
             }
+        }else{
+            $this->displayNone();
         }
     }
 }

@@ -85,12 +85,14 @@ class Article extends Controller
             $article_id = $method;
             $article = Factory::createArticle();
             $article = $article->getArticle($article_id);
+            $comment = new \app\model\Comment();
+            $comment = $comment->getComment($article_id);
             if ($article) {
                 $access = Validate::checkAccess();
                 if ($access == 1 || $access == 2) {
                     $username = $_SESSION['username'];
                 }
-                // 当用户为登录时，可以点赞，当不存储，在前端完成。
+                $view->assign('comment',$comment);
                 $view->assign('username', $username);
                 $view->assign('article', $article);
                 $view->display('article.html');

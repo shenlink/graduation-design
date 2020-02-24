@@ -108,41 +108,87 @@ $('#share').on('click', function () {
     }
 });
 
-// 评论,如果评论内容去掉空格后为空，提示不能为空
+
 let E = window.wangEditor;
 let editor = new E('#editor-toolbar2', '#editor-content2');
 editor.create();
+// 登录后才能评论，评论内容去掉标签，空格后为空的话，不能评论
 $('#comment').on('click', function () {
     let content = editor.txt.html();
+    let content_text = editor.txt.text();
     let comment = document.querySelector('#comment');
     let username = comment.getAttribute('data-comment');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
+    let comment_content = document.querySelector('#comment-content');
+    let now = new Date();
+    let created_at = now.toLocaleString();
     // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
+    if (username == '') {
+        layer.msg('请先登录', {
+            time: 1000
+        });
     } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/comment/addComment");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("content=" + content + "&username=" + username + "&article_id=" + article_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('评论成功', {
-                    time: 1000
-                });
+        if (content_text.match(/^[ ]+$/) || content_text.length == 0) {
+            layer.msg('评论内容不能为空', {
+                time: 1000
+            });
+        } else {
+            let request = null;
+            if (XMLHttpRequest) {
+                request = new XMLHttpRequest();
             } else {
-                layer.msg('评论失败', {
-                    time: 1000
-                });
+                //兼容老IE浏览器
+                request = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            // 2.请求行
+            request.open("POST", "/comment/addComment");
+            // 3.请求头
+            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+            // 4.设置数据
+            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&created_at" + created_at);
+            // 5.监听服务器响应
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    // 插入评论
+                    comment_id = request.responseText;
+                    let card = document.createElement('div');
+                    comment_content.appendChild(card);
+                    card.setAttribute('class', 'card');
+                    let card_body = document.createElement('div');
+                    card.appendChild(card_body);
+                    card_body.setAttribute('class', 'card-body');
+                    let card_title = document.createElement('h5');
+                    card_body.appendChild(card_title);
+                    card_title.setAttribute('class', 'card-title');
+                    let span_username = document.createElement('span');
+                    card_title.appendChild(span_username);
+                    span_username.innerText = username;
+                    let span_time = document.createElement('span');
+                    card_title.appendChild(span_time);
+                    let small_time = document.createElement('small');
+                    span_time.appendChild(small_time);
+                    span_time.setAttribute('class', 'offset-md-1')
+                    small_time.innerText = created_at;
+                    let del_div = document.createElement('div');
+                    card_title.appendChild(del_div);
+                    let small_del = document.createElement('small');
+                    del_div.appendChild(small_del);
+                    small_del.setAttribute('data-delCommnet', comment_id);
+                    small_del.innerHTML = '删除';
+                    let card_text = document.createElement('div');
+                    card_body.appendChild(card_text);
+                    card_text.setAttribute('class', 'card-text');
+                    card_text.innerHTML = content;
+                    comment_content.insertBefore(card, comment_content.children[0]);
+                    layer.msg('评论成功', {
+                        time: 1000
+                    });
+                } else {
+                    layer.msg('评论失败', {
+                        time: 1000
+                    });
+                }
             }
         }
     }
@@ -150,12 +196,8 @@ $('#comment').on('click', function () {
 
 
 // 删除评论
-$('#comment').on('click', function () {
-    let content = editor.txt.html();
+$('#delComment').on('click', function () {
     let comment = document.querySelector('#comment');
-    let username = comment.getAttribute('data-comment');
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -165,7 +207,7 @@ $('#comment').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/comment/addComment");
+    request.open("POST", "/comment/delComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -185,3 +227,49 @@ $('#comment').on('click', function () {
         }
     }
 });
+
+
+
+let delComments = document.querySelectorAll('.delComment');
+// let check = confirm('确认删除吗？');
+for (let i = 0; i < delComments.length; i++) {
+    delComments[i].onclick = function () {
+        for (let i = 0; i < delComments.length; i++) {
+            if (true) {
+                let comment_id = this.getAttribute('data-delComment')
+                // 1.创建XMLHttpRequest对象
+                let request = null;
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "/comment/delComment");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("comment_id=" + comment_id);
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == "1") {
+                            layer.msg('删除成功', {
+                                time: 1000
+                            }, function (index, layero) {
+                                window.location.reload();
+                                layero.close(index);
+                            })
+                            // 不推荐刷新，推荐用removeAttribute
+                        } else {
+                            layer.msg('删除失败', {
+                                time: 1000
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

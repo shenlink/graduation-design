@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use core\lib\Controller;
+use core\lib\Factory;
 
 class Follows extends Controller
 {
@@ -15,33 +16,17 @@ class Follows extends Controller
             $follows = new \app\model\Follows();
             $res =  $follows->checkFollows($author, $username);
             if ($res) {
-
-                if ($this->cancelFollows($author, $username)) {
-
+                if ($follows->cancelFollows($author, $username)) {
                     echo "0";
                 }
             } else {
-
-                if ($this->addFollows($author, $username)) {
-
+                if ($follows->addFollows($author, $username)) {
                     echo "1";
                 }
             }
         } else {
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
-    }
-
-    public function cancelFollows($author, $username)
-    {
-        $follows = new \app\model\Follows();
-        $res =  $follows->cancelFollows($author, $username);
-        return $res;
-    }
-
-    public function addFollows($author, $username)
-    {
-        $follows = new \app\model\Follows();
-        $res =  $follows->addFollows($author, $username);
-        return $res;
     }
 }

@@ -185,7 +185,8 @@
                         <div id="editor-content2" class="wang-text">
                         </div>
                         <br>
-                        <button type="button" class="btn btn-primary offset-md-11" id="comment" data-comment={{$username}}>
+                        <button type="button" class="btn btn-primary offset-md-11" id="comment"
+                            data-comment={{$username}}>
                             发布
                         </button>
                         <br>
@@ -194,13 +195,21 @@
                         <!-- 评论结束 -->
 
                         <!-- 展示评论开始 -->
-                        <div>
-                            <div class="card">
+                        <div id="comment-content">
+                            {{foreach from=$comment item=commentIndex}}
+                            <div class="card delComment">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{{{$article.username}}}}</h5>
-                                    <p class="card-text">评论内容 </p>
+                                    <h5 class="card-title">
+                                        <span>{{$commentIndex.username}}</span>
+                                        <span><small class="offset-md-1">{{$commentIndex.created_at}}</small></span>
+                                        <div><small data-delComment={{$commentIndex.comment_id}}>删除</small></div>
+                                    </h5>
+                                    <div class="card-text">
+                                        {{$commentIndex.content}}
+                                    </div>
                                 </div>
                             </div>
+                            {{/foreach}}
                         </div>
                         <!-- 展示评论结束 -->
 

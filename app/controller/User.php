@@ -241,6 +241,7 @@ class User extends Controller
 
     public function checkEdit()
     {
+
     }
 
     public function deleteArticle()
@@ -272,20 +273,6 @@ class User extends Controller
             }
         }
     }
-
-    // public function delInfo()
-    // {
-    //     if (isset($_POST['information_id'])) {
-    //         $information_id = $_POST['information_id'];
-    //         $comment  = new \app\model\Comment();
-    //         $res = $comment->delInfo($information_id);
-    //         if ($res) {
-    //             echo '1';
-    //         } else {
-    //             echo '0';
-    //         }
-    //     }
-    // }
 
     public function __call($method, $args)
     {

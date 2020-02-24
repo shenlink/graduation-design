@@ -32,7 +32,8 @@ class Praise extends Controller
                 }
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 }

@@ -21,13 +21,12 @@ class Fans extends Controller
                     echo "0";
                 }
             } else {
-
                 if ($this->addFans($author, $username)) {
-
                     echo "1";
                 }
             }
         } else {
+            
         }
     }
 

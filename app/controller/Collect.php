@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use core\lib\Controller;
+use core\lib\Factory;
 
 class Collect extends Controller
 {
@@ -26,7 +27,8 @@ class Collect extends Controller
                 }
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 }

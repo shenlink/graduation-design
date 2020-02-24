@@ -18,13 +18,16 @@ class Comment extends Model
 
     public function addComment($content, $username, $article_id)
     {
-        // insert
         return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}"]);
     }
 
     public function cancelComment($username, $article_id)
     {
-        // insert
         return $this->table('comment')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+    }
+
+    public function getComment($article_id)
+    {
+        return $this->table('comment')->field('comment_id,content,username,created_at')->where(['article_id'=>"{$article_id}"])->selectAll();
     }
 }

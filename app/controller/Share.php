@@ -3,6 +3,7 @@
 namespace app\controller;
 
 use core\lib\Controller;
+use core\lib\Factory;
 
 class Share extends Controller
 {
@@ -27,7 +28,8 @@ class Share extends Controller
                 }
             }
         } else {
-            echo '404';
+            $view = Factory::createView();
+            $view->display('notfound.html');
         }
     }
 }
