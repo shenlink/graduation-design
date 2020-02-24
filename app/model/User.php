@@ -55,11 +55,6 @@ class User extends Model
         return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
     }
 
-    public function getInfo($username)
-    {
-        return $this->table('user')->field('information')->where(['username'=>"{$username}"])->select();
-    }
-
     public function defriendUser($user_id)
     {
         return $this->table('user')->where(['user_id'=>"{$user_id}"])->update(['status' => 0]);
@@ -74,4 +69,6 @@ class User extends Model
     {
         return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
     }
+
+
 }

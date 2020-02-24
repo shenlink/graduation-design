@@ -68,7 +68,7 @@ for (let i = 0; i < normalUsers.length; i++) {
     normalUsers[i].onclick = function () {
         for (let i = 0; i < normalUsers.length; i++) {
             if (true) {
-                let user_id = this.getAttribute('data-normalUser')
+                let user_id = this.getAttribute('data-normalUser');
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {

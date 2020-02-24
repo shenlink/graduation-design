@@ -207,25 +207,25 @@ class User extends Controller
     {
         $access = Validate::checkAccess();
         $view = Factory::createView();
-        $user = Factory::createUser();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = Factory::createArticle();
             $articles = $article->manage($username);
             $comment = new \app\model\Comment();
             $comment = $comment->manage($username);
-            $information = $user->getInfo($username);
+            $information = new \app\model\Information();
+            $information = $information->getInformation($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('comment', $comment);
-            $view->assign('information',$information);
+            $view->assign('information', $information);
             $view->display('manage.html');
         } else {
             $view->display('nologin.html');
         }
     }
 
-    public function edit()
+    public function editArticle()
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
@@ -241,15 +241,28 @@ class User extends Controller
 
     public function checkEdit()
     {
-
+        if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content'])) {
+            $article_id = $_POST['article_id'];
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $article = Factory::createArticle();
+            $res = $article->editArticle($article_id, $title, $content);
+            if($res){
+                echo '1';
+            }else{
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
     }
 
-    public function deleteArticle()
+    public function delArticle()
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $article = Factory::createArticle();
-            $res = $article->deleteArticle($article_id);
+            $res = $article->delArticle($article_id);
             if ($res) {
                 echo '1';
             } else {
@@ -262,13 +275,27 @@ class User extends Controller
 
     public function delComment()
     {
-        if(isset($_POST['comment_id'])){
+        if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $comment  = new \app\model\Comment();
             $res = $comment->delComment($comment_id);
-            if($res){
+            if ($res) {
                 echo '1';
-            }else{
+            } else {
+                echo '0';
+            }
+        }
+    }
+
+    public function delInformation()
+    {
+        if (isset($_POST['information_id'])) {
+            $information_id = $_POST['information_id'];
+            $information  = new \app\model\Information();
+            $res = $information->delInformation($information_id);
+            if ($res) {
+                echo '1';
+            } else {
                 echo '0';
             }
         }

@@ -218,13 +218,12 @@
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm delComment"
-                                    data-delComment={{$articlesIndex.comment_id}}>
+                                    data-delComment={{$commentIndex.comment_id}}>
                                     删除
                                 </button>
                             </td>
-                            {{/foreach}}
                         </tr>
-
+                        {{/foreach}}
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
@@ -241,20 +240,21 @@
                             <th scope="col">私信</th>
                             <th scope="col">操作</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$information item=informationIndex}}
                         <tr>
                             <td>
-                                {{$information.information}}
+                                {{$informationIndex.content}}
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm delInformation"
-                                    data-delInformation={{$articlesIndex.user_id}}>
+                                    data-delInformation={{$informationIndex.information_id}}>
                                     删除
                                 </button>
                             </td>
                         </tr>
-                    </thead>
-                    <tbody>
-
+                        {{/foreach}}
                     </tbody>
                 </table>
                 <!-- 分页开始 -->

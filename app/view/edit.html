@@ -42,12 +42,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/category/javaScript">javaScript</a>
                                 </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/category/foundation">计算机基础</a>
-                                </li>
-
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse offset-3" id="navbarSupportedContent">
@@ -123,9 +117,9 @@
                 </h3>
                 <!-- 页头说明结束 -->
 
-                <form action="/user/checkWrite" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="title" id="title" value="{{$article['title']}}" autofocus>
+                        <input type="text" class="form-control" name="title" id="title" value="{{$article['title']}}">
                     </div>
                     <div id="content">
 
@@ -133,18 +127,19 @@
                     <br>
                     <div class="form-group">
                         <select class="form-control" name="category">
-                            <option value="1" {{if $article['category'] == 'php'}}selected{{/if}}>php</option>
-                            <option value="2" {{if $article['category'] == 'mysql'}}selected{{/if}}>mysql</option>
-                            <option value="3" {{if $article['category'] == 'javaScript'}}selected{{/if}}>javaScript</option>
-                            <option value="4" {{if $article['category'] == 'html'}}selected{{/if}}>html</option>
-                            <option value="5" {{if $article['category'] == 'python'}}selected{{/if}}>python</option>
-                            <option value="6" {{if $article['category'] == 'java'}}selected{{/if}}>java</option>
-                            <option value="7" {{if $article['category'] == 'foundation'}}selected{{/if}}>计算机基础</option>
+                            <option value="1" {{if $article.category == 'php'}}selected{{/if}}>php</option>
+                            <option value="2" {{if $article.category == 'mysql'}}selected{{/if}}>mysql</option>
+                            <option value="3" {{if $article.category == 'javaScript'}}selected{{/if}}>javaScript
+                            </option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
-                        onclick="return check()">发布</button><br><br>
+                    <button type="button" class="btn btn-info btn-sm btn-block" id="edit"
+                        data-editArticle={{$article.article_id}}>
+                        确认修改
+                    </button>
                 </form>
+                <br>
+                <br>
             </div>
         </div>
     </div>
@@ -168,20 +163,15 @@
     <!-- 链接jquery3.2.1 -->
     <script src="/static/js/jquery.js"></script>
     <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-    <script type="text/javascript" src="/static/js/wangEditor.js"></script>
+    <script src="/static/js/wangEditor.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
     <script>
         let E = window.wangEditor;
         let editor = new E('#content');
-        // 或者 var editor = new E( document.getElementById('editor') )
         editor.create();
         editor.txt.html("{{$article['content']}}");
-        document.getElementById('btn1').addEventListener('click', function () {
-        // 读取 html
-        alert(editor.txt.html())
-        }, false);
-        // editor.txt.html();
     </script>
-    <script src="/static/js/write.js"></script>
+    <script src="/static/js/edit.js"></script>
 </body>
 
 
