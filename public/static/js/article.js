@@ -125,8 +125,8 @@ $('#comment').on('click', function () {
     let created_at = now.toLocaleString();
     // 1.创建XMLHttpRequest对象
     if (username == '') {
-        layer.msg('请先登录', {
-            time: 1000
+        layer.msg('登录才能评论', {
+            time: 2000
         });
     } else {
         if (content_text.match(/^[ ]+$/) || content_text.length == 0) {

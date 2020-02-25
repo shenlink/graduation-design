@@ -17,11 +17,15 @@ class Follows extends Controller
             $res =  $follows->checkFollows($author, $username);
             if ($res) {
                 if ($follows->cancelFollows($author, $username)) {
-                    echo "0";
+                    echo "取消关注成功";
+                } else {
+                    echo '取消关注失败';
                 }
             } else {
                 if ($follows->addFollows($author, $username)) {
-                    echo "1";
+                    echo "关注成功";
+                } else {
+                    echo '关注失败';
                 }
             }
         } else {

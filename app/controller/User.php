@@ -74,9 +74,7 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $user = Factory::createUser();
-            if (isset($username) && isset($password)) {
-                $res = $user->register($username, $password);
-            }
+            $res = $user->checkRegister($username, $password);
             if ($res) {
                 echo '1';
             } else {
@@ -94,7 +92,7 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $user = Factory::createUser();
-            $res = $user->login($username, $password);
+            $res = $user->checkLogin($username, $password);
             if ($res) {
                 session_start();
                 $_SESSION['username'] = $username;
@@ -297,21 +295,33 @@ class User extends Controller
 
     public function __call($method, $args)
     {
-        $username = $method;
+        $author = $method;
         $view = Factory::createView();
         $user = Factory::createUser();
-        $realUsername = $user->getUsername($username);
+        $realUsername = $user->getUsername($author);
         if (!$realUsername) {
             $view->display('notfound.html');
             exit();
         }
         $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
+            $username = $_SESSION['username'];
             $article = new \app\controller\Article();
-            $data = $article->personal($username);
+            $data = $article->personal($author);
             $user = Factory::createUser();
-            $user = $user->personal($username);
-            // $author = $user['username']
+            $user = $user->personal($author);
+            $follows = new \app\model\Follows();
+            $follows = $follows->getFollows($author);
+            foreach ($follows as $values) {
+                foreach ($values as $value) {
+                    $allFollows .= $value . ',';
+                }
+            }
+            if (in_array($username, explode(',', $allFollows))) {
+                $follows = true;
+                $view->assign('follows', $follows);
+            }
+            // 粉丝
             $view->assign('username', $username);
             $view->assign('data', $data);
             $view->assign('user', $user);

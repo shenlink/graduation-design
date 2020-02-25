@@ -138,9 +138,8 @@
                         <div class="card" id="article" data-article-id={{$article.article_id}}>
                             <div class="card-header">
                                 <span>
-                                    作者：<a href="/user/{{$article.username}}" class="text-info" id="author"
-                                        data-author={{$article.username}}>
-                                        {{$article.username}}</a>&nbsp;
+                                    作者：<a href="/user/{{$article.author}}" class="text-info">
+                                        {{$article.author}}</a>&nbsp;
                                 </span>
                                 <span>
                                     发布于：{{$article.created_at}}&nbsp;

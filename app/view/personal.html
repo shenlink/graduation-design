@@ -63,6 +63,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/write">写博客</a>
                                 </li>
+
                                 {{if $username}}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
@@ -168,147 +169,13 @@
                             </td>
                         </tr>
                         {{/foreach}}
-                        <tr>
-                            <td>
-                                <a href="">JavaScript中有关数组常见操作技巧1</a>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    String.prototype.split()&nbsp;方法用于把一个字符串分割成字符串数组。&nbsp;split()&nbsp;方法不改变原始字符串。
-                                </p>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                                <div class="justify-content-start text-dark">
-                                    <span>
-                                        2019-10-14 08:33:44
-                                    </span>
-                                    <span class="offset-md-1">
-                                        阅读数
-                                    </span>
-                                    <span class="offset-md-1">
-                                        评论数
-                                    </span>
-                                </div>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="">
-                                    JavaScript中有关数组常见操作技巧1
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    String.prototype.split()&nbsp;方法用于把一个字符串分割成字符串数组。&nbsp;split()&nbsp;方法不改变原始字符串。
-                                </p>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                                <div class="justify-content-start text-dark">
-                                    <span>
-                                        2019-10-14 08:33:44
-                                    </span>
-                                    <span class="offset-md-1">
-                                        阅读数
-                                    </span>
-                                    <span class="offset-md-1">
-                                        评论数
-                                    </span>
-                                </div>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="">
-                                    JavaScript中有关数组常见操作技巧1
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    String.prototype.split()&nbsp;方法用于把一个字符串分割成字符串数组。&nbsp;split()&nbsp;方法不改变原始字符串。
-                                </p>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                                <div class="justify-content-start text-dark">
-                                    <span>
-                                        2019-10-14 08:33:44
-                                    </span>
-                                    <span class="offset-md-1">
-                                        阅读数
-                                    </span>
-                                    <span class="offset-md-1">
-                                        评论数
-                                    </span>
-                                </div>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="">
-                                    JavaScript中有关数组常见操作技巧1
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>
-                                    String.prototype.split()&nbsp;方法用于把一个字符串分割成字符串数组。&nbsp;split()&nbsp;方法不改变原始字符串。
-                                </p>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                                <div class="justify-content-start text-dark">
-                                    <span>
-                                        2019-10-14 08:33:44
-                                    </span>
-                                    <span class="offset-md-1">
-                                        阅读数
-                                    </span>
-                                    <span class="offset-md-1">
-                                        评论数
-                                    </span>
-                                </div>
-                                <!-- 发布日期 阅读数量 评论数量开始 -->
-                            </td>
-                        </tr>
                     </table>
                     <!-- 文章列表结束 -->
 
                     <!--分页开始-->
                     <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">5</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                        <!-- 分页跳转开始 -->
-                        <form class="form-inline">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="number" class="form-control">
-                            </div>
-                            <button type="button" class="btn btn-primary mb-2">跳转</button>
-                        </form>
-                        <!-- 分页跳转结束 -->
+
                     </ul>
                     <!-- 分页结束 -->
                 </div>
@@ -321,15 +188,15 @@
                         <!-- 个人信息列开始 -->
                         <div class="card" style="width: 26rem;">
                             <div class="card-body">
-                                <h5 class="card-title">作者：<a href="/user/{{$user['username']}}" class="text-info">
-                                        {{$user['username']}}</a></h5>
+                                <h5 class="card-title">作者：<a href="/user/{{$user.username}}" class="text-info">
+                                        {{$user.username}}</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
                                 </h6>
                                 <h6>
                                     个人介绍
                                 </h6>
                                 <div>
-                                    {{$user['introduction']}}
+                                    {{$user.introduction}}
                                 </div>
                                 <p class="card-text"></p>
                                 <div class="text-dark d-flex justify-content-between">
@@ -338,7 +205,7 @@
                                             原创
                                         </dt>
                                         <dd>
-                                            {{$user['article_count']}}
+                                            {{$user.article_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -346,7 +213,7 @@
                                             粉丝
                                         </dt>
                                         <dd>
-                                            {{$user['fans_count']}}
+                                            {{$user.fans_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -366,12 +233,20 @@
                                         </dd>
                                     </dl>
                                 </div>
-                                {{if $username != 'shen' }}
-                                <a href="#" class="btn btn-info card-link">关注</a>
-                                <a href="#" class="btn btn-primary card-link">管理文章</a>
-                                {{else}}
-                                <a href="#" class="btn btn-info card-link">关注</a>
+                                <!-- 如果没有登录呢？ -->
+                                <!-- 两个参数，一个是关注者，一个是作者 -->
+                                {{if $user.username !== $username}}
+                                <button class="btn btn-info card-link" id="follow" data-username={{$username}}
+                                    data-author={{$user.username}}>
+                                    {{if $follows}}
+                                    已关注
+                                    {{else}}
+                                    关注
+                                    {{/if}}
+                                </button>
                                 <a href="#" class="btn btn-success card-link">私信</a>
+                                {{else}}
+                                <a href="user/manage" class="btn btn-primary card-link">管理文章</a>
                                 {{/if}}
                             </div>
                         </div>
@@ -412,7 +287,7 @@
     <!-- 空行结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>
@@ -420,6 +295,10 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
+    <script src="/static/js/personal.js"></script>
 
 </body>
 

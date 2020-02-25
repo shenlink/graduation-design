@@ -28,34 +28,29 @@ class Article extends Model
         return $data;
     }
 
-    public function index()
-    {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->selectAll();
-    }
-
     public function php()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'php'])->selectAll();
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'php'])->selectAll();
     }
 
     public function mysql()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'mysql'])->selectAll();
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'mysql'])->selectAll();
     }
 
     public function javaScript()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where(['category' => 'javaScript'])->selectAll();
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'javaScript'])->selectAll();
     }
 
     public function getArticle($article_id)
     {
-        return $this->table('article')->field('article_id,title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
     }
 
-    public function personal($username)
+    public function personal($author)
     {
-        return $this->table('article')->field('title,content,username,created_at,category,comment_count,praise_count,collect_count')->where(['username'=>"{$username}"])->selectAll();
+        return $this->table('article')->field('title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['author'=>"{$author}"])->selectAll();
     }
 
     public function manage($username)

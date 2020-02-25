@@ -25,12 +25,12 @@ class User extends Model
         return $this->table('user')->where(array('username' => "{$username}"))->select();
     }
 
-    public function register($username, $password)
+    public function checkRegister($username, $password)
     {
         return $this->table('user')->insert(array('username' => "{$username}", 'password' => "{$password}"));
     }
 
-    public function login($username, $password)
+    public function checkLogin($username, $password)
     {
         return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
     }

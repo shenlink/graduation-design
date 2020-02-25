@@ -6,6 +6,12 @@ use core\lib\Model;
 
 class Follows extends Model
 {
+
+    public function getFollows($author)
+    {
+        return $this->table('follows')->field('username')->where(['author' => "{$author}"])->selectAll();
+    }
+
     public function checkFollows($author, $username)
     {
         return $this->table('follows')->where(['author' => "{$author}", 'username' => "{$username}"])->select();
