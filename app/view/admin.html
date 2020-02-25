@@ -309,7 +309,8 @@
                         {{/foreach}}
                     </tbody>
                 </table>
-                <button class="btn btn-primary btn-sm addCategory" style="float: right;" onclick="addCategory()">
+                <!-- 优化建议：局部刷新 -->
+                <button class="btn btn-primary btn-sm addCategory" style="position: relative;left: 877px;" onclick="addCategory()">
                     新增
                 </button>
                 <!-- 分页开始 -->
@@ -406,7 +407,8 @@
                         {{/foreach}}
                     </tbody>
                 </table>
-                <button class="btn btn-primary btn-sm" style="float: right;" onclick="addAnnouncement()">
+                <button class="btn btn-primary btn-sm" style="position: relative;left: 900px;"
+                    onclick="addAnnouncement()">
                     新增
                 </button>
                 <!-- 分页开始 -->
