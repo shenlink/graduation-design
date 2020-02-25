@@ -14,14 +14,15 @@ class Index extends Controller
         if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
         }
+        $article = Factory::createArticle();
+        $recommend = $article->recommend();
         if (isset($_POST['currentPage'])) {
             $currentPage = $_POST['currentPage'];
             $index = new \app\model\Index();
-            // $data['data'][0]['username']
-            // $data['data]仍是二维数组
             $data = $index->mutativePage($currentPage, 5);
             $article = $data['data'];
             $pageHtml = $data['pageHtml'];
+            $view->assign('recommend', $recommend);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
             $view->assign('article', $article);
@@ -31,6 +32,7 @@ class Index extends Controller
             $data = $index->pagination();
             $article = $data['data'];
             $pageHtml = $data['pageHtml'];
+            $view->assign('recommend', $recommend);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
             $view->assign('article', $article);

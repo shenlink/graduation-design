@@ -197,12 +197,13 @@
                         <!-- 展示评论开始 -->
                         <div id="comment-content">
                             {{foreach from=$comment item=commentIndex}}
-                            <div class="card delComment">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         <span>{{$commentIndex.username}}</span>
                                         <span><small class="offset-md-1">{{$commentIndex.created_at}}</small></span>
-                                        <div><small data-delComment={{$commentIndex.comment_id}}>删除</small></div>
+                                        <div><small class="delComment"
+                                                data-delComment={{$commentIndex.comment_id}}>删除</small></div>
                                     </h5>
                                     <div class="card-text">
                                         {{$commentIndex.content}}

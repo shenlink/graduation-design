@@ -72,4 +72,9 @@ class Article extends Model
     {
         return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
     }
+
+    public function recommend()
+    {
+        return $this->table('article')->field('article_id,title')->where(['recommend'=>1])->order('article_id')->selectAll();
+    }
 }

@@ -175,48 +175,14 @@
 
                 <!--右边推荐列表开始-->
                 <div class="col-md-4">
+                    {{foreach from=$recommend item=recommendIndex}}
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="#">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">1</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">3</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">4</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">6</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">7</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">9</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">10</span>
+                            <a href="/article/{{$recommendIndex.article_id}}">{{$recommendIndex.title}}</a>
+                            <span class=" badge badge-primary badge-pill">hot</span>
                         </li>
                     </ul>
+                    {{/foreach}}
                 </div>
                 <!-- 右边推荐列表结束 -->
             </div>
@@ -230,7 +196,7 @@
     <!-- 空行结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>

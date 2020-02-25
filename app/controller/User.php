@@ -93,15 +93,9 @@ class User extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
-            $sevenCheck = $_POST['sevenCheck'];
             $user = Factory::createUser();
-            if (isset($username) && isset($password)) {
-                $res = $user->login($username, $password);
-            }
+            $res = $user->login($username, $password);
             if ($res) {
-                if ($sevenCheck) {
-                    setcookie('username', $username, time() + 604800);
-                }
                 session_start();
                 $_SESSION['username'] = $username;
                 echo '1';
@@ -247,9 +241,9 @@ class User extends Controller
             $content = $_POST['content'];
             $article = Factory::createArticle();
             $res = $article->editArticle($article_id, $title, $content);
-            if($res){
+            if ($res) {
                 echo '1';
-            }else{
+            } else {
                 echo '0';
             }
         } else {

@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.delComment{
+    cursor: pointer;
+}
+
 .wang-toolbar {
     border: 1px solid #ccc;
 }

@@ -8,11 +8,11 @@ class Index extends Model
 {
     public function pagination()
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->pages(1,5);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->pages(1,5);
     }
 
     public function mutativePage($currentPage,$pageSize)
     {
-        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->pages($currentPage, $pageSize);
     }
 }

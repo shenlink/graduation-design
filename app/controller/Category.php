@@ -17,7 +17,9 @@ class Category extends Controller
         }
         $article = Factory::createArticle();
         $data = $article->php();
+        $recommend = $article->recommend();
         $view = Factory::createView();
+        $view->assign('recommend',$recommend);
         $view->assign('username',$username);
         $view->assign('data', $data);
         $view->display('php.html');
@@ -31,7 +33,9 @@ class Category extends Controller
         }
         $article = Factory::createArticle();
         $data = $article->mysql();
+        $recommend = $article->recommend();
         $view = Factory::createView();
+        $view->assign('recommend', $recommend);
         $view->assign('username', $username);
         $view->assign('data', $data);
         $view->display('mysql.html');
@@ -45,7 +49,9 @@ class Category extends Controller
         }
         $article = Factory::createArticle();
         $data = $article->javaScript();
+        $recommend = $article->recommend();
         $view = Factory::createView();
+        $view->assign('recommend', $recommend);
         $view->assign('username', $username);
         $view->assign('data', $data);
         $view->display('javaScript.html');
