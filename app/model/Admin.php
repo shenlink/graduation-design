@@ -46,8 +46,4 @@ class Admin extends Model
     {
         return $this->table('article')->field('status')->update(['status' => 0]);
     }
-
-
-
-
 }

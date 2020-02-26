@@ -236,7 +236,7 @@
                                 <!-- 如果没有登录呢？ -->
                                 <!-- 两个参数，一个是关注者，一个是作者 -->
                                 {{if $user.username !== $username}}
-                                <button class="btn btn-info card-link" id="follow" data-username={{$username}}
+                                <button type="button" class="btn btn-info card-link" id="follow" data-username={{$username}}
                                     data-author={{$user.username}}>
                                     {{if $follows}}
                                     已关注
@@ -244,7 +244,8 @@
                                     关注
                                     {{/if}}
                                 </button>
-                                <button class="btn btn-success card-link" onclick="addInformation()">私信</button>
+                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}} id="information"
+                                    onclick="addInformation()">私信</button>
                                 {{else}}
                                 <a href="user/manage" class="btn btn-primary card-link">管理文章</a>
                                 {{/if}}

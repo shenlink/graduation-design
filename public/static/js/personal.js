@@ -49,12 +49,14 @@ $('#follow').on('click', function () {
 });
 
 
-// 新增分类
+
 function addInformation() {
+    let information = document.querySelector('#information');
+    let author = information.getAttribute('data-author');
     let form = document.createElement("form");
     document.body.appendChild(form);
     //这里的addInformation值没有特殊意义，是为了控制显示添加分类或添加公告而设置的
-    let input = createInput('information', 'addInformation');
+    let input = createInput('author', author);
     form.appendChild(input);
     form.method = 'post';
     form.action = '/user/addInformation';

@@ -114,7 +114,7 @@
                     <div class="navbar-header">
                         <h2>
                             <!-- 挤在一起是为了消除空格 -->
-                            添加{{if $category}}分类{{else}}公告
+                            {{if $category}}添加分类{{else if $announcement}}添加公告{{else}}发送私信
                             {{/if}}
                         </h2>
                     </div>
@@ -149,7 +149,7 @@
                                 </button>
                             </div>
                         </form>
-                        {{else}}
+                        {{else if $announcement}}
                         <form action="/admin/checkAdd" method="post">
                             <div class="form-group">
                                 <br>
@@ -157,6 +157,19 @@
                                 <br>
                                 <button type="submit" class="btn btn-primary">
                                     添加
+                                </button>
+                            </div>
+                        </form>
+                        {{else}}
+                        <form action="/user/checkInformation" method="post">
+                            <div class="form-group">
+                                <br>
+                                <input type="textarea" class="form-control" placeholder="私信" name="content">
+                                <input type="text" value="{{$author}}" name="author" hidden>
+                                <input type="text" value="{{$username}}" name="username" hidden>
+                                <br>
+                                <button type="submit" class="btn btn-primary">
+                                    发送
                                 </button>
                             </div>
                         </form>

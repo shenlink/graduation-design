@@ -50,6 +50,12 @@ class User extends Model
         return $this->table('user')->field('username,created_at,introduction,article_count,follows_count,fans_count')->where(['username'=>"{$username}"])->select();
     }
 
+    // 未完成
+    public function checkInformation($author, $username, $content)
+    {
+        return $this->table('information')->insert(['author'=>"{$author}",'username'=>"{$username}",'content'=>"{$content}"]);
+    }
+
     public function checkChange($username, $password, $introduction)
     {
         return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
@@ -69,6 +75,4 @@ class User extends Model
     {
         return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
     }
-
-
 }

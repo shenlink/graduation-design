@@ -157,12 +157,31 @@ class User extends Controller
 
     public function addInformation()
     {
-        if (isset($_POST['information'])) {
-            $information = $_POST['information'];
+        if (isset($_POST['author'])) {
+            $author = $_POST['author'];
             $view = Factory::createView();
-            $view->assign('information', $information);
+            $view->assign('author', $author);
             $view->display('add.html');
         }else{
+            $this->displayNone();
+        }
+    }
+
+    public function checkInformation()
+    {
+        if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content'])) {
+            $author = $_POST['author'];
+            $username = $_POST['username'];
+            $content = $_POST['content'];
+
+            $user = Factory::createUser();
+            $res = $user->checkInformation($author, $username, $content);
+            if($res){
+                echo '1';
+            }else{
+                echo '0';
+            }
+        } else {
             $this->displayNone();
         }
     }
