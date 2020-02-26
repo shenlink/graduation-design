@@ -47,3 +47,24 @@ $('#follow').on('click', function () {
         }
     }
 });
+
+
+// 新增分类
+function addInformation() {
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    //这里的addInformation值没有特殊意义，是为了控制显示添加分类或添加公告而设置的
+    let input = createInput('information', 'addInformation');
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/user/addInformation';
+    form.submit();
+}
+
+function createInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}

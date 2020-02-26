@@ -222,7 +222,7 @@ class Admin extends Controller
             } else {
                 echo '0';
             }
-        }else{
+        } else {
             $this->displayNone();
         }
     }

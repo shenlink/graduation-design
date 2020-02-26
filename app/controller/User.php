@@ -155,6 +155,18 @@ class User extends Controller
         }
     }
 
+    public function addInformation()
+    {
+        if (isset($_POST['information'])) {
+            $information = $_POST['information'];
+            $view = Factory::createView();
+            $view->assign('information', $information);
+            $view->display('add.html');
+        }else{
+            $this->displayNone();
+        }
+    }
+
     public function change()
     {
         $access = Validate::checkAccess();
