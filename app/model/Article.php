@@ -55,7 +55,7 @@ class Article extends Model
 
     public function manage($username)
     {
-        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['username' => "{$username}"])->order('article_id')->selectAll();
+        return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
     }
 
     public function editArticle($article_id,$title,$content)
