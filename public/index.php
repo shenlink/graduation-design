@@ -2,7 +2,6 @@
 
 
 //定义根目录
-// define('Shen', $_SERVER['DOCUMENT_ROOT']);
 define('SHEN',str_replace('\\','/',dirname(dirname(realpath(__FILE__)))));
 define('CORE',SHEN.'/core');
 define('APP',SHEN.'/app');
@@ -13,7 +12,6 @@ if (DEBUG) {
 } else {
     ini_set('display_error', 'Off');
 }
-include CORE . '/common/function.php';
 // 引入自动加载类
 include CORE.'/common/Loader.php';
 

@@ -1,10 +1,8 @@
 <?php
 
 namespace core\common;
-// use core\lib\Factory;
 
 use core\lib\Controller;
-// use core\lib\Route;
 use core\lib\Log;
 
 class Start
