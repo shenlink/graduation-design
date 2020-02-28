@@ -7,6 +7,11 @@ use core\lib\Model;
 class Praise extends Model
 {
 
+    public function getPraise($username)
+    {
+        return $this->table('praise')->field('article_id,author,title,praise_at')->where(['username' => "{$username}"])->selectAll();
+    }
+
     // 处理确认点赞操作
     public function checkPraise($username,$article_id)
     {

@@ -6,6 +6,12 @@ use core\lib\Model;
 
 class Share extends Model
 {
+
+    public function getShare($username)
+    {
+        return $this->table('share')->field('article_id,author,title,share_at')->where(['username' => "{$username}"])->selectAll();
+    }
+
     // 处理确认分享操作
     public function checkShare($username, $article_id)
     {

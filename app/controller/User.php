@@ -23,8 +23,10 @@ class User extends Controller
         if (isset($_POST['username'])) {
             $username = $_POST['username'];
             $user = Factory::createUser();
-            $res =  $user->checkUsername($username);
-            if ($res) {
+            $result =  $user->checkUsername($username);
+            $pattern = '/Admin|Article|Category|index|User|Validate/i';
+            $intercept = preg_match($pattern, $username);
+            if ($result || !$intercept) {
                 echo "1";
             } else {
                 echo "0";
@@ -160,8 +162,7 @@ class User extends Controller
                 }
             }
         } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+            $this->displayNone();
         }
     }
 
@@ -225,8 +226,7 @@ class User extends Controller
                 }
             }
         } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+            $this->displayNone();
         }
     }
 
@@ -256,8 +256,7 @@ class User extends Controller
                 }
             }
         } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+            $this->displayNone();
         }
     }
 
@@ -283,8 +282,7 @@ class User extends Controller
                 }
             }
         } else {
-            $view = Factory::createView();
-            $view->display('notfound.html');
+            $this->displayNone();
         }
     }
 
@@ -295,12 +293,21 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $article = new \app\controller\Article();
-            $data = $article->personal($username);
             $user = Factory::createUser();
             $user = $user->personal($username);
+            $article = Factory::createArticle();
+            $article = $article->personal($username);
+            $collect = new \app\model\Collect();
+            $collect = $collect->getCollect($username);
+            $share = new \app\model\Share();
+            $share = $share->getShare($username);
+            $praise = new \app\model\Praise();
+            $praise = $praise->getPraise($username);
             $view->assign('username', $username);
-            $view->assign('data', $data);
+            $view->assign('article', $article);
+            $view->assign('collect', $collect);
+            $view->assign('share', $share);
+            $view->assign('praise', $praise);
             $view->assign('user', $user);
             $view->display('personal.html');
         } else {
@@ -316,7 +323,7 @@ class User extends Controller
             $view = Factory::createView();
             $view->assign('author', $author);
             $view->display('add.html');
-        }else{
+        } else {
             $this->displayNone();
         }
     }
@@ -331,9 +338,9 @@ class User extends Controller
 
             $user = Factory::createUser();
             $res = $user->checkInformation($author, $username, $content);
-            if($res){
+            if ($res) {
                 echo '1';
-            }else{
+            } else {
                 echo '0';
             }
         } else {

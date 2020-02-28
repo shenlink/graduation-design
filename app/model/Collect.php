@@ -6,6 +6,12 @@ use core\lib\Model;
 
 class Collect extends Model
 {
+
+    public function getCollect($username)
+    {
+        return $this->table('collect')->field('article_id,author,title,collect_at')->where(['username' => "{$username}"])->selectAll();
+    }
+
     // 处理确认收藏操作
     public function checkCollect($username, $article_id)
     {

@@ -1,0 +1,12 @@
+.manage-ul {
+    list-style: none;
+}
+
+.manage-ul .manage-list {
+    cursor: pointer;
+    float: left;
+}
+
+.current{
+    color: rgb(142, 142, 221);
+}

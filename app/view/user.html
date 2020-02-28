@@ -7,7 +7,6 @@
     <title>Document</title>
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="/static/css/self.css" type="text/css" rel="stylesheet">
-    <link href="/static/css/personal.css" type="text/css" rel="stylesheet">
 
 </head>
 
@@ -117,20 +116,7 @@
                     <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                     <div class="container">
                         <div class="navbar-header">
-                            <ul class="manage-ul">
-                                <li class="h4 manage-list">
-                                    文章&nbsp;&nbsp;
-                                </li>
-                                <li class="h4 manage-list">
-                                    收藏&nbsp;&nbsp;
-                                </li>
-                                <li class="h4 manage-list">
-                                    分享&nbsp;&nbsp;
-                                </li>
-                                <li class="h4 manage-list">
-                                    点赞&nbsp;&nbsp;
-                                </li>
-                            </ul>
+                            <h2>文章列表</h2>
                         </div>
                     </div>
                 </div>
@@ -157,79 +143,35 @@
                 <div class="col-md-8">
 
                     <!-- 文章列表开始 -->
-                    <div class="manage-item" style="display:block;">
-                        <table class="table table-striped table-bordered ">
-                            {{foreach from=$article item=articleIndex}}
-                            <tr>
-                                <td>
-                                    <a href="/article/{{$articleIndex.article_id}}">{{$articleIndex.title}}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p>{{$articleIndex.content}}</p>
-                                    <div class="justify-content-start text-dark">
-                                        <span>
-                                            {{$articleIndex.created_at}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            收藏数
-                                            {{$articleIndex.collect_count}}
-                                        </span>
-                                        <span class="offset-md-1">
-                                            评论数
-                                            {{$articleIndex.comment_count}}
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </table>
+                    <table class="table table-striped table-bordered">
+                        {{foreach from=$data item=dataIndex}}
+                        <tr>
+                            <td>
+                                <a href="/article/{{$dataIndex.article_id}}">{{$dataIndex.title}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>{{$dataIndex.content}}</p>
+                                <div class="justify-content-start text-dark">
+                                    <span>
+                                        {{$dataIndex.created_at}}
+                                    </span>
+                                    <span class="offset-md-1">
+                                        收藏数
+                                        {{$dataIndex.collect_count}}
+                                    </span>
+                                    <span class="offset-md-1">
+                                        评论数
+                                        {{$dataIndex.comment_count}}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/foreach}}
 
-
-                    </div>
-                    <div class="manage-item" style="display:none;">
-                        <table class="table table-striped table-bordered ">
-                            {{foreach from=$collect item=collectIndex}}
-                            <tr>
-                                <td>
-                                    <a href="/article/{{$collectIndex.article_id}}">{{$collectIndex.title}}</a>
-                                    <span class="offset-md-2">作者:{{$collectIndex.author}}</span>
-                                    <span class="offset-md-2">收藏时间:{{$collectIndex.collect_at}}</span>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </table>
-                    </div>
-
-                    <div class="manage-item" style="display:none;">
-                        <table class="table table-striped table-bordered ">
-                            {{foreach from=$share item=shareIndex}}
-                            <tr>
-                                <td>
-                                    <a href="/article/{{$shareIndex.article_id}}">{{$collectIndex.title}}</a>
-                                    <span class="offset-md-2">作者:{{$shareIndex.author}}</span>
-                                    <span class="offset-md-2">分享时间:{{$shareIndex.share_at}}</span>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </table>
-                    </div>
-
-
-                    <div class="manage-item" style="display:none;">
-                        <table class="table table-striped table-bordered ">
-                            {{foreach from=$praise item=praiseIndex}}
-                            <tr>
-                                <td>
-                                    <a href="/article/{{$praiseIndex.article_id}}">{{$praiseIndex.title}}</a>
-                                    <span class="offset-md-2">作者:{{$praiseIndex.author}}</span>
-                                    <span class="offset-md-2">点赞时间:{{$praiseIndex.praise_at}}</span>
-                                </td>
-                            </tr>
-                            {{/foreach}}
-                        </table>
-                    </div>
+                    </table>
+                    <!-- 文章列表结束 -->
 
                     <!--分页开始-->
                     <ul class="pagination justify-content-center">
@@ -294,16 +236,16 @@
                                 <!-- 如果没有登录呢？ -->
                                 <!-- 两个参数，一个是关注者，一个是作者 -->
                                 {{if $user.username !== $username}}
-                                <button type="button" class="btn btn-info card-link" id="follow"
-                                    data-username={{$username}} data-author={{$user.username}}>
+                                <button type="button" class="btn btn-info card-link" id="follow" data-username={{$username}}
+                                    data-author={{$user.username}}>
                                     {{if $follow}}
                                     已关注
                                     {{else}}
                                     关注
                                     {{/if}}
                                 </button>
-                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}}
-                                    id="information" onclick="addInformation()">私信</button>
+                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}} id="information"
+                                    onclick="addInformation()">私信</button>
                                 {{else}}
                                 <a href="/user/manage" class="btn btn-primary card-link">管理</a>
                                 {{/if}}
