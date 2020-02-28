@@ -18,6 +18,8 @@ class Index extends Controller
         }
         $article = Factory::createArticle();
         $recommend = $article->recommend();
+        $category = Factory::createCategory();
+        $category = $category->getCategory();
         if (isset($_POST['currentPage'])) {
             $currentPage = $_POST['currentPage'];
             $index = new \app\model\Index();
@@ -28,6 +30,7 @@ class Index extends Controller
             $announcement = $announcement->getAnnouncement();
             $view->assign('announcement', $announcement);
             $view->assign('recommend', $recommend);
+            $view->assign('category', $category);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
             $view->assign('article', $article);
@@ -41,6 +44,7 @@ class Index extends Controller
             $announcement = $announcement->getAnnouncement();
             $view->assign('announcement', $announcement);
             $view->assign('recommend', $recommend);
+            $view->assign('category', $category);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
             $view->assign('article', $article);

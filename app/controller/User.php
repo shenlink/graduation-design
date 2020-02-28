@@ -24,9 +24,8 @@ class User extends Controller
             $username = $_POST['username'];
             $user = Factory::createUser();
             $result =  $user->checkUsername($username);
-            $pattern = '/Admin|Article|Category|index|User|Validate/i';
-            $intercept = preg_match($pattern, $username);
-            if ($result || !$intercept) {
+            $intercept = $this->getIntercept($username);
+            if ($result || $intercept) {
                 echo "1";
             } else {
                 echo "0";
@@ -34,6 +33,13 @@ class User extends Controller
         } else {
             $this->displayNone();
         }
+    }
+
+    public function getIntercept($username)
+    {
+        $pattern = '/Admin|Article|Category|index|User|Validate|displayNone|checkUsername|register|login|logout|checkRegister|checkLogin|write|checkWrite|checkCollect|addComment|delaComment|checkFollow|checkPraise|checkShare|personal|addInformation|checkInformation|change|checkChange|manage|editArticle|checkEdit|delArticle|delComment|delInformation/i';
+        $intercept = preg_match($pattern, $username);
+        return $intercept;
     }
 
     // 显示注册页面

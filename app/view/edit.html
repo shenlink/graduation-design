@@ -33,15 +33,13 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">首页</a>
                                 </li>
+                                {{foreach from=$category item=categoryIndex}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/category/php">php</a>
+                                    <a class="nav-link"
+                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                    </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/category/mysql">mysql</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/category/javaScript">javaScript</a>
-                                </li>
+                                {{/foreach}}
                             </ul>
                         </div>
                         <div class="collapse navbar-collapse offset-3" id="navbarSupportedContent">
@@ -136,7 +134,7 @@
                             <option value="{{$categoryIndex.category}}"
                                 {{if $article.category == '$categoryIndex.category'}}selected{{/if}}>
                                 {{$categoryIndex.category}}
-                                </option>
+                            </option>
                             {{/foreach}}
                         </select>
                     </div>
