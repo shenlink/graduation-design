@@ -13,7 +13,7 @@ $('#praise').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/praise/checkPraise");
+    request.open("POST", "/user/checkPraise");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -51,7 +51,7 @@ $('#collect').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/collect/checkCollect");
+    request.open("POST", "/user/checkCollect");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -87,7 +87,7 @@ $('#share').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/share/checkShare");
+    request.open("POST", "/user/checkShare");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -142,7 +142,7 @@ $('#comment').on('click', function () {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/comment/addComment");
+            request.open("POST", "/user/addComment");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -212,7 +212,7 @@ for (let i = 0; i < delComments.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/comment/delComment");
+                request.open("POST", "/user/delaComment");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据

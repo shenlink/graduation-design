@@ -139,6 +139,155 @@ class User extends Controller
         }
     }
 
+    // 确认收藏
+    public function checkCollect()
+    {
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+            $username = $_POST['username'];
+            $article_id = $_POST['article_id'];
+            $collect = new \app\model\Collect();
+            $res =  $collect->checkCollect($username, $article_id);
+            if ($res) {
+                $cancel = $collect->cancelCollect($username, $article_id);
+                if ($cancel) {
+                    echo "0";
+                }
+            } else {
+                $add = $collect->addCollect($username, $article_id);
+                if ($add) {
+                    echo "1";
+                }
+            }
+        } else {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+        }
+    }
+
+    // 确认添加评论
+    public function addComment()
+    {
+        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id'])) {
+            $content = $_POST['content'];
+            $username = $_POST['username'];
+            $article_id = $_POST['article_id'];
+            $comment = new \app\model\Comment();
+            $res = $comment->addComment($content, $username, $article_id);
+            if ($res) {
+                echo $res;
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    // 确认删除文章的评论
+    public function delaComment()
+    {
+        if (isset($_POST['comment_id'])) {
+            // 要判断是不是这个用户的评论，在HTML页面用评论的username鱼SESSION的username作比较
+            $comment_id = $_POST['comment_id'];
+            $comment = new \app\model\Comment();
+            $res = $comment->delComment($comment_id);
+            if ($res) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    // 确认关注
+    public function checkFollow()
+    {
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['author']) && isset($_POST['username'])) {
+            $author = $_POST['author'];
+            $username = $_POST['username'];
+            $follow = new \app\model\Follow();
+            $res =  $follow->checkFollow($author, $username);
+            if ($res) {
+                if ($follow->cancelFollow($author, $username)) {
+                    echo "取消关注成功";
+                } else {
+                    echo '取消关注失败';
+                }
+            } else {
+                if ($follow->addFollow($author, $username)) {
+                    echo "关注成功";
+                } else {
+                    echo '关注失败';
+                }
+            }
+        } else {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+        }
+    }
+
+    // 确认点赞
+    public function checkPraise()
+    {
+        // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+            $username = $_POST['username'];
+            $article_id = $_POST['article_id'];
+            $praise = new \app\model\Praise();
+            $res =  $praise->checkPraise($username, $article_id);
+            if ($res) {
+                // 如果已经点赞了，返回0,顺便取消点赞
+                $res = $praise->cancelPraise($username, $article_id);
+                if ($res) {
+                    // 已经取消点赞
+                    echo "0";
+                }
+            } else {
+                // 如果还没有点赞
+                $res = $praise->addPraise($username, $article_id);
+                if ($res) {
+                    // 已经点赞
+                    echo "1";
+                }
+            }
+        } else {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+        }
+    }
+
+    // 确认分享
+    public function checkShare()
+    {
+        // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+            $username = $_POST['username'];
+            $article_id = $_POST['article_id'];
+            $share = new \app\model\Share();
+            $res =  $share->checkShare($username, $article_id);
+            if ($res) {
+                $cancel = $share->cancelShare($username, $article_id);
+                if ($cancel) {
+                    echo "0";
+                }
+            } else {
+                $add = $share->addShare($username, $article_id);
+                if ($add) {
+                    echo "1";
+                }
+            }
+        } else {
+            $view = Factory::createView();
+            $view->display('notfound.html');
+        }
+    }
+
     // 显示个人首页
     public function personal()
     {
@@ -359,16 +508,16 @@ class User extends Controller
             $data = $article->personal($author);
             $user = Factory::createUser();
             $user = $user->personal($author);
-            $follows = new \app\model\Follows();
-            $follows = $follows->getFollows($author);
-            foreach ($follows as $values) {
+            $follow = new \app\model\Follow();
+            $follow = $follow->getFollow($author);
+            foreach ($follow as $values) {
                 foreach ($values as $value) {
-                    $allFollows .= $value . ',';
+                    $allFollow .= $value . ',';
                 }
             }
-            if (in_array($username, explode(',', $allFollows))) {
-                $follows = true;
-                $view->assign('follows', $follows);
+            if (in_array($username, explode(',', $allFollow))) {
+                $follow = true;
+                $view->assign('follow', $follow);
             }
             // 粉丝
             $view->assign('username', $username);
