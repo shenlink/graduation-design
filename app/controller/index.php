@@ -7,6 +7,7 @@ use core\lib\Factory;
 
 class Index extends Controller
 {
+    // 显示首页
     public function index()
     {
         session_start();

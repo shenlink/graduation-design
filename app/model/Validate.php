@@ -6,6 +6,7 @@ use core\lib\Model;
 
 class Validate extends Model
 {
+    // 处理权限
     public function checkValidate($username)
     {
         // 判断出这个role有哪些权限，返回即可

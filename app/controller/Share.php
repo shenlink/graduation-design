@@ -7,6 +7,7 @@ use core\lib\Factory;
 
 class Share extends Controller
 {
+    // 确认分享
     public function checkShare()
     {
         // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1

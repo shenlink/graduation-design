@@ -15,6 +15,7 @@ class Comment extends Controller
         $view->display('notfound.html');
     }
 
+    // 确认添加评论
     public function addComment()
     {
         if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id'])) {
@@ -33,6 +34,7 @@ class Comment extends Controller
         }
     }
 
+    // 确认删除评论
     public function delComment()
     {
         if (isset($_POST['comment_id'])) {

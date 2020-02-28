@@ -16,6 +16,7 @@ class User extends Controller
         $view->display('notfound.html');
     }
 
+    // 确认用户名，在用户注册的时候，在用户名输入框输入后失去焦点时触发ajax，访问该方法
     public function checkUsername()
     {
         header("Content-type:text/html;charset=utf-8");
@@ -33,28 +34,21 @@ class User extends Controller
         }
     }
 
+    // 显示注册页面
     public function register()
     {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
         $view = Factory::createView();
-        $view->assign('username', $username);
         $view->display('register.html');
     }
 
+    // 显示电量页面
     public function login()
     {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
         $view = Factory::createView();
-        $view->assign('username', $username);
         $view->display('login.html');
     }
 
+    // 退出登录功能的实现
     public function logout()
     {
         $access = Validate::checkAccess();
@@ -67,6 +61,7 @@ class User extends Controller
         }
     }
 
+    // 处理注册页面提交的数据
     public function checkRegister()
     {
         header("Content-type:text/html;charset=utf-8");
@@ -85,6 +80,7 @@ class User extends Controller
         }
     }
 
+    // 处理登录页面提交的数据
     public function checkLogin()
     {
         header("Content-type:text/html;charset=utf-8");
@@ -105,6 +101,7 @@ class User extends Controller
         }
     }
 
+    // 显示写文章页面
     public function write()
     {
         $access = Validate::checkAccess();
@@ -118,6 +115,7 @@ class User extends Controller
         }
     }
 
+    // 处理写文章页面提交的数据
     public function checkWrite()
     {
         if (isset($_POST['title']) && isset($_POST['content'])) {
@@ -136,6 +134,7 @@ class User extends Controller
         }
     }
 
+    // 显示个人首页
     public function personal()
     {
         $access = Validate::checkAccess();
@@ -155,6 +154,7 @@ class User extends Controller
         }
     }
 
+    // 私信功能
     public function addInformation()
     {
         if (isset($_POST['author'])) {
@@ -167,6 +167,7 @@ class User extends Controller
         }
     }
 
+    // 处理用户发的私信数据
     public function checkInformation()
     {
         if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content'])) {
@@ -186,6 +187,7 @@ class User extends Controller
         }
     }
 
+    // 显示用户修稿密码和个人简介的页面
     public function change()
     {
         $access = Validate::checkAccess();
@@ -204,6 +206,7 @@ class User extends Controller
         }
     }
 
+    // 处理从修稿页面提交的数据
     public function checkChange()
     {
         header("Content-type:text/html;charset=utf-8");
@@ -226,6 +229,7 @@ class User extends Controller
     }
 
 
+    // 显示用户管理页面
     public function manage()
     {
         $access = Validate::checkAccess();
@@ -248,6 +252,7 @@ class User extends Controller
         }
     }
 
+    // 显示编辑文章页面
     public function editArticle()
     {
         if (isset($_POST['article_id'])) {
@@ -262,6 +267,7 @@ class User extends Controller
         }
     }
 
+    // 处理文章编辑页面提交的数据
     public function checkEdit()
     {
         if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content'])) {
@@ -280,6 +286,7 @@ class User extends Controller
         }
     }
 
+    //删除文章
     public function delArticle()
     {
         if (isset($_POST['article_id'])) {
@@ -296,6 +303,7 @@ class User extends Controller
         }
     }
 
+    // 删除评论
     public function delComment()
     {
         if (isset($_POST['comment_id'])) {
@@ -310,6 +318,7 @@ class User extends Controller
         }
     }
 
+    // 删除私信
     public function delInformation()
     {
         if (isset($_POST['information_id'])) {
@@ -324,6 +333,7 @@ class User extends Controller
         }
     }
 
+    // 当用户在URL中输入/user/之后的是用户名时，访问该用户
     public function __call($method, $args)
     {
         $author = $method;

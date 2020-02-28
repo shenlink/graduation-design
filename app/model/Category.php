@@ -17,11 +17,13 @@ class Category extends Model
         }
     }
 
+    // 处理添加分类
     public function addCategory($category)
     {
         return $this->table('category')->insert(['category' => "{$category}"]);
     }
 
+    //处理删除分类
     public function delCategory($category)
     {
         return $this->table('category')->where(['category' => "{$category}"])->delete();

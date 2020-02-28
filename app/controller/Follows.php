@@ -7,6 +7,7 @@ use core\lib\Factory;
 
 class Follows extends Controller
 {
+    // 确认关注
     public function checkFollows()
     {
         header("Content-type:text/html;charset=utf-8");

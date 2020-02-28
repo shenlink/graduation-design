@@ -7,18 +7,11 @@ use core\lib\Factory;
 
 class Article extends Controller
 {
-    public function prevent()
-    {
-        $pattern = '/(article)|php|mysql|javascript|html|python|java|foundation|prevent/i';
-        $url = $_SERVER['REQUEST_URI'];
-        if (preg_match($pattern, $url)) {
-            $view = Factory::createView();
-            $view->display('notfound.html');
-            exit();
-        }
-    }
+
+    // 搜索相关操作的方法
     public function search()
     {
+        // 用工厂类实例化View类
         $view = Factory::createView();
         if (isset($_POST['search']) && isset($_POST['name'])) {
             $search = $_POST['search'];
@@ -38,46 +31,7 @@ class Article extends Controller
         }
     }
 
-    public function index()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->index();
-        return $data;
-    }
-
-    public function php()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->php();
-        return $data;
-    }
-
-    public function mysql()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->mysql();
-        return $data;
-    }
-
-    public function javaScript()
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->javaScript();
-        return $data;
-    }
-
-    public function personal($username)
-    {
-        $this->prevent();
-        $article = Factory::createArticle();
-        $data = $article->personal($username);
-        return $data;
-    }
-
+    // 当用户在URL中输入/article/之后的是数字时调用该方法
     public function __call($method, $args)
     {
         $view = Factory::createView();

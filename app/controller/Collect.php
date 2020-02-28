@@ -7,6 +7,7 @@ use core\lib\Factory;
 
 class Collect extends Controller
 {
+    // 确认收藏
     public function checkCollect()
     {
         header("Content-type:text/html;charset=utf-8");

@@ -9,93 +9,116 @@ use core\lib\Factory;
 class Admin extends Controller
 {
 
+    // 显示404页面
     public function displayNone()
     {
         $view = Factory::createView();
         $view->display('notfound.html');
     }
 
+    // 显示管理员的管理页面
     public function manage()
     {
+        // 确认权限，为1时允许操作
         $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == '1') {
+            // 获取当前登录的用户的用户名
             $username = $_SESSION['username'];
             $admin = Factory::createAdmin();
+            // 获取user表里所有用户信息
             $user = $admin->user();
+            // 获取article表里的所有文章信息
             $article = $admin->article();
+            //获取category表里的所有分类信息
             $category = $admin->category();
+            //获取comment表里的所有评论信息
             $comment = $admin->comment();
+            //获取announcement表里的所有公告信息
             $announcement = $admin->announcement();
+            // assign赋值操作
             $view->assign('username', $username);
             $view->assign('user', $user);
             $view->assign('article', $article);
             $view->assign('category', $category);
             $view->assign('comment', $comment);
             $view->assign('announcement', $announcement);
+            // 展示admin页面
             $view->display('admin.html');
         } else if ($access == '2') {
+            // 如果权限为2，即普通用户时，提示没有权限
             $view->display('noadmin.html');
         } else {
+            // 如果权限为3，即用户未登录，提示用户未登录
             $view->display('nologin.html');
         }
     }
 
+    // 拉黑用户
     public function defriendUser()
     {
+        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $user = Factory::createUser();
-            $res = $user->defriendUser($user_id);
-            if ($res) {
+            $result = $user->defriendUser($user_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
             }
         } else {
+            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }
 
+    // 回复用户的状态为正常
     public function normalUser()
     {
+        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $user = Factory::createUser();
-            $res = $user->normalUser($user_id);
-            if ($res) {
+            $result = $user->normalUser($user_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
             }
         } else {
+            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }
 
+    // 删除用户
     public function delUser()
     {
+        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $user = Factory::createUser();
-            $res = $user->delUser($user_id);
-            if ($res) {
+            $result = $user->delUser($user_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
             }
         } else {
+            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }
 
+    // 拉黑文章
     public function defriendArticle()
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $admin = Factory::createAdmin();
-            $res = $admin->defriendArticle($article_id);
-            if ($res) {
+            $result = $admin->defriendArticle($article_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -105,13 +128,14 @@ class Admin extends Controller
         }
     }
 
+    // 删除文章
     public function delArticle()
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $article = Factory::createArticle();
-            $res = $article->delArticle($article_id);
-            if ($res) {
+            $result = $article->delArticle($article_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -121,13 +145,14 @@ class Admin extends Controller
         }
     }
 
+    // 删除分类
     public function delCategory()
     {
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $category = Factory::createCategory();
-            $res = $category->delCategory($categorys);
-            if ($res) {
+            $result = $category->delCategory($categorys);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -138,13 +163,14 @@ class Admin extends Controller
     }
 
     // 规范，model数据操作应在相应的表中
+    // 删除评论
     public function delComment()
     {
         if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $comment  = new \app\model\Comment();
-            $res = $comment->delComment($comment_id);
-            if ($res) {
+            $result = $comment->delComment($comment_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -154,13 +180,14 @@ class Admin extends Controller
         }
     }
 
+    // 添加公告
     public function addAnnouncement()
     {
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
             $announcement  = new \app\model\Announcement();
-            $res = $announcement->addAnnouncement($announcement_id);
-            if ($res) {
+            $result = $announcement->addAnnouncement($announcement_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -170,13 +197,14 @@ class Admin extends Controller
         }
     }
 
+    // 删除公告
     public function delAnnouncement()
     {
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
             $announcement  = new \app\model\Announcement();
-            $res = $announcement->delAnnouncement($announcement_id);
-            if ($res) {
+            $result = $announcement->delAnnouncement($announcement_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -186,6 +214,7 @@ class Admin extends Controller
         }
     }
 
+    // 添加页面，共有添加分类，公告功能
     public function add()
     {
         $view = Factory::createView();
@@ -202,13 +231,14 @@ class Admin extends Controller
         }
     }
 
+    // 确认添加
     public function checkAdd()
     {
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
             $announcement  = new \app\model\Announcement();
-            $res = $announcement->addAnnouncement($announcement_id);
-            if ($res) {
+            $result = $announcement->addAnnouncement($announcement_id);
+            if ($result) {
                 echo '<script>window.location.href="/admin/manage"</script>';
             } else {
                 echo '0';
@@ -216,8 +246,8 @@ class Admin extends Controller
         } else if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $category = Factory::createCategory();
-            $res = $category->addCategory($categorys);
-            if ($res) {
+            $result = $category->addCategory($categorys);
+            if ($result) {
                 echo '<script>window.location.href="/admin/manage"</script>';
             } else {
                 echo '0';
@@ -227,6 +257,7 @@ class Admin extends Controller
         }
     }
 
+    // 当用户调用Admin类中不存在的方法时，提示404页面
     public function __call($method, $args)
     {
         $view = Factory::createView();
