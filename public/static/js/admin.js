@@ -93,6 +93,7 @@ for (let i = 0; i < normalUsers.length; i++) {
                                 window.location.reload();
                                 layero.close(index);
                             })
+                            // 这里会发生一个错误，can't read close
                         } else {
                             layer.msg('恢复失败', {
                                 time: 1000
@@ -249,6 +250,95 @@ for (let i = 0; i < delArticles.length; i++) {
 }
 
 
+
+// 拉黑分类
+let defriendcategorys = document.querySelectorAll('.defriendcategory');
+// let check = confirm('确认删除吗？');
+for (let i = 0; i < defriendcategorys.length; i++) {
+    defriendcategorys[i].onclick = function () {
+        for (let i = 0; i < defriendcategorys.length; i++) {
+            if (true) {
+                let category = this.getAttribute('data-defriendcategory')
+                // 1.创建XMLHttpRequest对象
+                let request = null;
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "/admin/defriendcategory");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("category=" + category);
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == "1") {
+                            layer.msg('拉黑成功', {
+                                time: 1000
+                            }, function (index, layero) {
+                                window.location.reload();
+                                layero.close(index);
+                            })
+                        } else {
+                            layer.msg('拉黑失败', {
+                                time: 1000
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 恢复正常状态
+let normalCategorys = document.querySelectorAll('.normalCategory');
+// let check = confirm('确认删除吗？');
+for (let i = 0; i < normalCategorys.length; i++) {
+    normalCategorys[i].onclick = function () {
+        for (let i = 0; i < normalCategorys.length; i++) {
+            if (true) {
+                let category = this.getAttribute('data-normalCategory');
+                // 1.创建XMLHttpRequest对象
+                let request = null;
+                if (XMLHttpRequest) {
+                    request = new XMLHttpRequest();
+                } else {
+                    //兼容老IE浏览器
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                // 2.请求行
+                request.open("POST", "/admin/normalCategory");
+                // 3.请求头
+                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+                // 4.设置数据
+                request.send("category=" + category);
+                // 5.监听服务器响应
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4 && request.status == 200) {
+                        if (request.responseText == "1") {
+                            layer.msg('恢复成功', {
+                                time: 1000
+                            }, function (index, layero) {
+                                window.location.reload();
+                                layero.close(index);
+                            })
+                            // 不推荐刷新
+                        } else {
+                            layer.msg('恢复失败', {
+                                time: 1000
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 // 删除分类
 let delCategorys = document.querySelectorAll('.delCategory');

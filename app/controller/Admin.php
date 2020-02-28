@@ -148,6 +148,41 @@ class Admin extends Controller
         }
     }
 
+
+    // 拉黑分类
+    public function defriendcategory()
+    {
+        if (isset($_POST['category'])) {
+            $categorys = $_POST['category'];
+            $category = Factory::createCategory();
+            $result = $category->defriendcategory($categorys);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    // 恢复分类
+    public function normalCategory()
+    {
+        if (isset($_POST['category'])) {
+            $categorys = $_POST['category'];
+            $category = Factory::createCategory();
+            $result = $category->normalCategory($categorys);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     // 删除分类
     public function delCategory()
     {
@@ -165,7 +200,6 @@ class Admin extends Controller
         }
     }
 
-    // 规范，model数据操作应在相应的表中
     // 删除评论
     public function delComment()
     {

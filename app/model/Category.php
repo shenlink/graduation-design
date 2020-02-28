@@ -20,7 +20,7 @@ class Category extends Model
 
     public function getCategory()
     {
-        return $this->table('category')->field('category')->where(['status' => '正常'])->selectAll();
+        return $this->table('category')->field('category')->where(['status' => 1])->selectAll();
     }
 
     public function checkCategory($category)
@@ -33,15 +33,29 @@ class Category extends Model
         return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}"])->selectAll();
     }
 
+    //处理删除分类
+    public function delCategory($category)
+    {
+        return $this->table('category')->where(['category' => "{$category}"])->delete();
+    }
+
+    // 处理管理员拉黑分类
+    public function defriendcategory($category)
+    {
+        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 0]);
+    }
+
+    // 处理管理员恢复分类的状态到正常
+    public function normalCategory($category)
+    {
+        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 1]);
+    }
+
     // 处理添加分类
     public function addCategory($category)
     {
         return $this->table('category')->insert(['category' => "{$category}"]);
     }
 
-    //处理删除分类
-    public function delCategory($category)
-    {
-        return $this->table('category')->where(['category' => "{$category}"])->delete();
-    }
+
 }

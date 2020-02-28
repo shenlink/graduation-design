@@ -74,7 +74,7 @@ class User extends Model
         return $this->table('user')->where(['user_id'=>"{$user_id}"])->update(['status' => 0]);
     }
 
-    // 处理管理员回复用户的状态到正常
+    // 处理管理员恢复用户的状态到正常
     public function normalUser($user_id)
     {
         return $this->table('user')->where(['user_id' => "{$user_id}"])->update(['status' => 1]);
