@@ -33,10 +33,10 @@
                                 <li class="nav-item active">
                                     <a class="nav-link active" href="/">首页</a>
                                 </li>
-                                {{foreach from=$category item=categoryIndex}}
+                                {{foreach from=$categorys item=categorysIndex}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                        href="/category/{{$categorysIndex.category}}">{{$categorysIndex.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}

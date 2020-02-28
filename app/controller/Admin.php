@@ -26,6 +26,8 @@ class Admin extends Controller
             // 获取当前登录的用户的用户名
             $username = $_SESSION['username'];
             $admin = Factory::createAdmin();
+            $category = Factory::createCategory();
+            $category = $category->getCategory();
             // 获取user表里所有用户信息
             $user = $admin->user();
             // 获取article表里的所有文章信息
@@ -38,6 +40,7 @@ class Admin extends Controller
             $announcement = $admin->announcement();
             // assign赋值操作
             $view->assign('username', $username);
+            $view->assign('category', $category);
             $view->assign('user', $user);
             $view->assign('article', $article);
             $view->assign('category', $category);
@@ -218,9 +221,9 @@ class Admin extends Controller
     public function add()
     {
         $view = Factory::createView();
-        if (isset($_POST['category'])) {
-            $category = $_POST['category'];
-            $view->assign('category', $category);
+        if (isset($_POST['addCategory'])) {
+            $addCategory = $_POST['addCategory'];
+            $view->assign('addCategory', $addCategory);
             $view->display('add.html');
         } else if (isset($_POST['announcement'])) {
             $announcement = $_POST['announcement'];

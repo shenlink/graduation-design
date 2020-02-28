@@ -112,7 +112,7 @@
                     <div class="navbar-header">
                         <h2>
                             <!-- 挤在一起是为了消除空格 -->
-                            {{if $category}}添加分类{{else if $announcement}}添加公告{{else}}发送私信
+                            {{if $addCategory}}添加分类{{else if $announcement}}添加公告{{else}}发送私信
                             {{/if}}
                         </h2>
                     </div>
@@ -136,7 +136,7 @@
                 <div class="col-md-8">
                     <div>
                         <!-- 左边文章列表开始 -->
-                        {{if $category}}
+                        {{if $addCategory}}
                         <form action="/admin/checkAdd" method="post">
                             <div class="form-group">
                                 <br>

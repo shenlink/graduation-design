@@ -38,7 +38,7 @@ class Article extends Model
     // 获取个人页面的文章数据
     public function personal($author)
     {
-        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['author'=>"{$author}"])->selectAll();
+        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->selectAll();
     }
 
     // 获取用户管理页面的文章数据
@@ -48,20 +48,20 @@ class Article extends Model
     }
 
     // 处理用户编辑文章页面传来的数据
-    public function editArticle($article_id,$title,$content)
+    public function editArticle($article_id, $title, $content)
     {
-        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['article_id' => "{$article_id}",'title'=>"{$title}",'content'=>"{$content}"]);
+        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['article_id' => "{$article_id}", 'title' => "{$title}", 'content' => "{$content}"]);
     }
 
     // 处理删除文章
     public function delArticle($article_id)
     {
-        return $this->table('article')->where(['article_id'=>"{$article_id}"])->delete();
+        return $this->table('article')->where(['article_id' => "{$article_id}"])->delete();
     }
 
     // 获取所有被管理员推荐的文章
     public function recommend()
     {
-        return $this->table('article')->field('article_id,title')->where(['recommend'=>1])->order('article_id')->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['recommend' => 1])->order('article_id')->selectAll();
     }
 }

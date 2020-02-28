@@ -9,7 +9,7 @@ use core\lib\Factory;
 
 class Category extends Controller
 {
-    
+
     public function __call($method, $args)
     {
         $access = Validate::checkAccess();
@@ -24,9 +24,11 @@ class Category extends Controller
             $view->display('notfound.html');
             exit();
         }
+        $categorys = $category->getCategory();
         $article = Factory::createArticle();
         $articles = $category->getArticle($categoryName);
         $recommend = $article->recommend();
+        $view->assign('categorys', $categorys);
         $view->assign('categoryName',$categoryName);
         $view->assign('recommend', $recommend);
         $view->assign('username', $username);

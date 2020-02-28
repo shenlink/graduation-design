@@ -7,6 +7,7 @@
     <title>Document</title>
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
     <link href="/static/css/self.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/personal.css" type="text/css" rel="stylesheet">
 
 </head>
 
@@ -112,7 +113,7 @@
                     <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                     <div class="container">
                         <div class="navbar-header">
-                            <h2>文章列表</h2>
+                            <h4>文章</h4>
                         </div>
                     </div>
                 </div>
@@ -139,36 +140,33 @@
                 <div class="col-md-8">
 
                     <!-- 文章列表开始 -->
-                    <table class="table table-striped table-bordered">
-                        {{foreach from=$data item=dataIndex}}
-                        <tr>
-                            <td>
-                                <a href="/article/{{$dataIndex.article_id}}">{{$dataIndex.title}}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>{{$dataIndex.content}}</p>
-                                <div class="justify-content-start text-dark">
-                                    <span>
-                                        {{$dataIndex.created_at}}
-                                    </span>
-                                    <span class="offset-md-1">
-                                        收藏数
-                                        {{$dataIndex.collect_count}}
-                                    </span>
-                                    <span class="offset-md-1">
-                                        评论数
-                                        {{$dataIndex.comment_count}}
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        {{/foreach}}
-
-                    </table>
-                    <!-- 文章列表结束 -->
-
+                        <table class="table table-striped table-bordered ">
+                            {{foreach from=$article item=articleIndex}}
+                            <tr>
+                                <td>
+                                    <a href="/article/{{$articleIndex.article_id}}">{{$articleIndex.title}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>{{$articleIndex.content}}</p>
+                                    <div class="justify-content-start text-dark">
+                                        <span>
+                                            {{$articleIndex.created_at}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            收藏数
+                                            {{$articleIndex.collect_count}}
+                                        </span>
+                                        <span class="offset-md-1">
+                                            评论数
+                                            {{$articleIndex.comment_count}}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/foreach}}
+                        </table>
                     <!--分页开始-->
                     <ul class="pagination justify-content-center">
 
@@ -232,16 +230,16 @@
                                 <!-- 如果没有登录呢？ -->
                                 <!-- 两个参数，一个是关注者，一个是作者 -->
                                 {{if $user.username !== $username}}
-                                <button type="button" class="btn btn-info card-link" id="follow" data-username={{$username}}
-                                    data-author={{$user.username}}>
+                                <button type="button" class="btn btn-info card-link" id="follow"
+                                    data-username={{$username}} data-author={{$user.username}}>
                                     {{if $follow}}
                                     已关注
                                     {{else}}
                                     关注
                                     {{/if}}
                                 </button>
-                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}} id="information"
-                                    onclick="addInformation()">私信</button>
+                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}}
+                                    id="information" onclick="addInformation()">私信</button>
                                 {{else}}
                                 <a href="/user/manage" class="btn btn-primary card-link">管理</a>
                                 {{/if}}
@@ -295,7 +293,7 @@
 
     <script src="/static/js/jquery.js"></script>
     <script src="/static/layer-v3.1.1/layer/layer.js"></script>
-    <script src="/static/js/personal.js"></script>
+    <script src="/static/js/user.js"></script>
 
 </body>
 
