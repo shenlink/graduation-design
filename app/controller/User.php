@@ -55,7 +55,10 @@ class User extends Controller
     // 显示电量页面
     public function login()
     {
+        $category = Factory::createCategory();
+        $category = $category->getCategory();
         $view = Factory::createView();
+        $view->assign('category', $category);
         $view->display('login.html');
     }
 

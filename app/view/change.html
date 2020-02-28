@@ -60,7 +60,10 @@
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/{{$username}}">{{$username}}</a>
+                                    <a class="nav-link" href="/user/{{$username}}" title="个人中心"><img
+                                            src="/static/image/avatar.jpg" width="25px" height="25px" alt="个人中心"
+                                            style="border-radius:50%">
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/user/logout"
