@@ -29,24 +29,6 @@ class Article extends Model
         return $data;
     }
 
-    // 获取分类php的所有文章
-    public function php()
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'php'])->selectAll();
-    }
-
-    // 获取分类mysql的所有文章
-    public function mysql()
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'mysql'])->selectAll();
-    }
-
-    // 获取分类javaScript的所有文章
-    public function javaScript()
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => 'javaScript'])->selectAll();
-    }
-
     // 获取某一篇文章的数据
     public function getArticle($article_id)
     {

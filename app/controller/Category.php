@@ -9,68 +9,28 @@ use core\lib\Factory;
 
 class Category extends Controller
 {
-    // 显示分类下的php分类
-    public function php()
-    {
-        $access = Validate::checkAccess();
-        if($access == 1 || $access == 2){
-            $username = $_SESSION['username'];
-        }
-        $article = Factory::createArticle();
-        $data = $article->php();
-        $recommend = $article->recommend();
-        $view = Factory::createView();
-        $view->assign('recommend',$recommend);
-        $view->assign('username',$username);
-        $view->assign('data', $data);
-        $view->display('php.html');
-    }
-
-    // 显示分类下的mysql分类
-    public function mysql()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $article = Factory::createArticle();
-        $data = $article->mysql();
-        $recommend = $article->recommend();
-        $view = Factory::createView();
-        $view->assign('recommend', $recommend);
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('mysql.html');
-    }
-
-    // 显示分类下的javaScript分类
-    public function javaScript()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $article = Factory::createArticle();
-        $data = $article->javaScript();
-        $recommend = $article->recommend();
-        $view = Factory::createView();
-        $view->assign('recommend', $recommend);
-        $view->assign('username', $username);
-        $view->assign('data', $data);
-        $view->display('javaScript.html');
-    }
-
-    // 当用户访问不存在的分类时，提示404页面
+    
     public function __call($method, $args)
     {
-        // 优化思路：分类只用一个HTML文件即可
-        $pattern = '/php|mysql|javaScript/i';
-        $category = $method;
+        $access = Validate::checkAccess();
+        if ($access == 1 || $access == 2) {
+            $username = $_SESSION['username'];
+        }
+        $categoryName = $method;
+        $category = Factory::createCategory();
         $view = Factory::createView();
-        if (preg_match($pattern, $category)) {
+        $realCategory = $category->checkCategory($categoryName);
+        if (!$realCategory) {
             $view->display('notfound.html');
             exit();
         }
-        $view->display('notfound.html');
+        $article = Factory::createArticle();
+        $articles = $category->getArticle($categoryName);
+        $recommend = $article->recommend();
+        $view->assign('categoryName',$categoryName);
+        $view->assign('recommend', $recommend);
+        $view->assign('username', $username);
+        $view->assign('articles', $articles);
+        $view->display('category.html');
     }
 }

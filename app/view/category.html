@@ -76,6 +76,7 @@
                                     <a class="nav-link" href="/user/login">登录</a>
                                 </li>
                                 {{/if}}
+
                                 <!-- 管理菜单 -->
                                 {{if $username == 'shen'}}
                                 <li class="nav-item">
@@ -110,7 +111,7 @@
                 <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                 <div class="container">
                     <div class="navbar-header">
-                        <h2>mysql</h2>
+                        <h2>{{$categoryName}}</h2>
                     </div>
                 </div>
             </div>
@@ -133,26 +134,26 @@
                     <div>
                         <!-- 左边文章列表开始 -->
                         <table class="table table-striped table-bordered">
-                            {{foreach from=$data item=dataIndex}}
+                            {{foreach from=$articles item=articlesIndex}}
                             <tr>
                                 <td>
-                                    <a href="/article/{{$dataIndex.article_id}}">{{$dataIndex.title}}</a>
+                                    <a href="/article/{{$articlesIndex.article_id}}">{{$articlesIndex.title}}</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>{{$dataIndex.content}}</p>
+                                    <p>{{$articlesIndex.content}}</p>
                                     <div class="justify-content-start text-dark">
                                         <span>
-                                            {{$dataIndex.created_at}}
+                                            {{$articlesIndex.created_at}}
                                         </span>
                                         <span class="offset-md-1">
                                             收藏数
-                                            {{$dataIndex.collect_count}}
+                                            {{$articlesIndex.collect_count}}
                                         </span>
                                         <span class="offset-md-1">
                                             评论数
-                                            {{$dataIndex.comment_count}}
+                                            {{$articlesIndex.comment_count}}
                                         </span>
                                     </div>
                                 </td>
