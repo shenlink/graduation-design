@@ -212,7 +212,7 @@ for (let i = 0; i < delComments.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/user/delaComment");
+                request.open("POST", "/user/delArticleComment");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据

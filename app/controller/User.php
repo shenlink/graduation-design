@@ -52,7 +52,7 @@ class User extends Controller
         $view->display('register.html');
     }
 
-    // 显示电量页面
+    // 显示登录页面
     public function login()
     {
         $category = Factory::createCategory();
@@ -122,7 +122,6 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
-            // 还要获取分类
             $category = Factory::createCategory();
             $category = $category->getCategory();
             $view->assign('username', $username);
@@ -137,7 +136,6 @@ class User extends Controller
     public function checkWrite()
     {
         if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
-            // 还有category
             $title = $_POST['title'];
             $content = $_POST['content'];
             $category = $_POST['category'];
@@ -198,10 +196,9 @@ class User extends Controller
     }
 
     // 确认删除文章的评论
-    public function delaComment()
+    public function delArticleComment()
     {
         if (isset($_POST['comment_id'])) {
-            // 要判断是不是这个用户的评论，在HTML页面用评论的username鱼SESSION的username作比较
             $comment_id = $_POST['comment_id'];
             $comment = new \app\model\Comment();
             $res = $comment->delComment($comment_id);
