@@ -234,10 +234,10 @@ class Admin extends Controller
     // 确认添加
     public function checkAdd()
     {
-        if (isset($_POST['announcement_id'])) {
-            $announcement_id = $_POST['announcement_id'];
+        if (isset($_POST['content'])) {
+            $content = $_POST['content'];
             $announcement  = new \app\model\Announcement();
-            $result = $announcement->addAnnouncement($announcement_id);
+            $result = $announcement->addAnnouncement($content);
             if ($result) {
                 echo '<script>window.location.href="/admin/manage"</script>';
             } else {

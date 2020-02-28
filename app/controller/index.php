@@ -10,6 +10,7 @@ class Index extends Controller
     // 显示首页
     public function index()
     {
+        // 太冗余了
         session_start();
         $view = Factory::createView();
         if (isset($_SESSION['username'])) {
@@ -23,6 +24,9 @@ class Index extends Controller
             $data = $index->mutativePage($currentPage, 5);
             $article = $data['data'];
             $pageHtml = $data['pageHtml'];
+            $announcement = new \app\model\Announcement();
+            $announcement = $announcement->getAnnouncement();
+            $view->assign('announcement', $announcement);
             $view->assign('recommend', $recommend);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
@@ -33,6 +37,9 @@ class Index extends Controller
             $data = $index->pagination();
             $article = $data['data'];
             $pageHtml = $data['pageHtml'];
+            $announcement = new \app\model\Announcement();
+            $announcement = $announcement->getAnnouncement();
+            $view->assign('announcement', $announcement);
             $view->assign('recommend', $recommend);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);

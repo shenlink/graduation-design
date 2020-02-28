@@ -103,7 +103,9 @@
 
     <!-- 公告开始 -->
     <marquee behavior="scroll" direction="right">
-        网站公告
+        {{foreach from=$announcement item=announcementIndex}}
+        {{$announcementIndex.content}}&nbsp;&nbsp;&nbsp;
+        {{/foreach}}
     </marquee>
     <!-- 公告结束 -->
 
