@@ -17,6 +17,11 @@ class Category extends Model
         }
     }
 
+    public function getCategory()
+    {
+        return $this->table('category')->field('category')->where(['status'=>'正常'])->selectAll();
+    }
+
     // 处理添加分类
     public function addCategory($category)
     {

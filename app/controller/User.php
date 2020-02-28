@@ -108,7 +108,11 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
+            // 还要获取分类
+            $category = Factory::createCategory();
+            $category = $category->getCategory();
             $view->assign('username', $username);
+            $view->assign('category', $category);
             $view->display('write.html');
         } else {
             $view->display('nologin.html');
@@ -118,12 +122,13 @@ class User extends Controller
     // 处理写文章页面提交的数据
     public function checkWrite()
     {
-        if (isset($_POST['title']) && isset($_POST['content'])) {
+        if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
             // 还有category
             $title = $_POST['title'];
             $content = $_POST['content'];
+            $category = $_POST['category'];
             $user = Factory::createUser();
-            $res = $user->checkWrite($title, $content);
+            $res = $user->checkWrite($title, $content, $category);
             if ($res) {
                 echo '1';
             } else {
@@ -260,7 +265,10 @@ class User extends Controller
             $view = Factory::createView();
             $article = Factory::createArticle();
             $article = $article->getArticle($article_id);
+            $category = Factory::createCategory();
+            $category = $category->getCategory();
             $view->assign('article', $article);
+            $view->assign('category', $category);
             $view->display('edit.html');
         } else {
             $this->displayNone();
@@ -347,7 +355,7 @@ class User extends Controller
         $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $article = new \app\controller\Article();
+            $article = Factory::createArticle();
             $data = $article->personal($author);
             $user = Factory::createUser();
             $user = $user->personal($author);

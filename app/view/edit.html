@@ -127,10 +127,17 @@
                     <br>
                     <div class="form-group">
                         <select class="form-control" name="category">
-                            <option value="1" {{if $article.category == 'php'}}selected{{/if}}>php</option>
-                            <option value="2" {{if $article.category == 'mysql'}}selected{{/if}}>mysql</option>
-                            <option value="3" {{if $article.category == 'javaScript'}}selected{{/if}}>javaScript
+                            <option value="php" {{if $article.category == 'php'}}selected{{/if}}>php</option>
+                            <option value="mysql" {{if $article.category == 'mysql'}}selected{{/if}}>mysql</option>
+                            <option value="javaScript" {{if $article.category == 'javaScript'}}selected{{/if}}>
+                                javaScript
                             </option>
+                            {{foreach from=$category item=categoryIndex}}
+                            <option value="{{$categoryIndex.category}}"
+                                {{if $article.category == '$categoryIndex.category'}}selected{{/if}}>
+                                {{$categoryIndex.category}}
+                                </option>
+                            {{/foreach}}
                         </select>
                     </div>
                     <button type="button" class="btn btn-info btn-sm btn-block" id="edit"

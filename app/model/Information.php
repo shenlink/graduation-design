@@ -9,7 +9,7 @@ class Information extends Model
     // 获取私信信息
     public function getInformation($username)
     {
-        return $this->table('information')->field('information_id,user_id,content')->where(['username' => "{$username}"])->selectAll();
+        return $this->table('information')->field('information_id,username,content')->where(['username' => "{$username}"])->selectAll();
     }
 
     // 删除私信

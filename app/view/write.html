@@ -128,14 +128,10 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <select class="form-control" name="cat_id">
-                            <option value="1">php</option>
-                            <option value="2">mysql</option>
-                            <option value="3">javascript</option>
-                            <option value="4">html</option>
-                            <option value="5">python</option>
-                            <option value="6">java</option>
-                            <option value="7">计算机基础</option>
+                        <select class="form-control" name="category">
+                            {{foreach from=$category item=categoryIndex}}
+                            <option value="{{$categoryIndex.category}}">{{$categoryIndex.category}}</option>
+                            {{/foreach}}
                         </select>
                     </div>
                     <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
@@ -152,7 +148,7 @@
     <!-- 空行结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>
@@ -166,15 +162,9 @@
     <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
     <script type="text/javascript" src="/static/js/wangEditor.js"></script>
     <script>
-        let E = window.wangEditor
-        let editor = new E('#content')
-        // 或者 var editor = new E( document.getElementById('editor') )
-        editor.create()
-        document.getElementById('editor').addEventListener('click', function () {
-            // 读取 html
-            // alert(editor.txt.html())
-            let content = editor.txt.html();
-        }, false)
+        let E = window.wangEditor;
+        let editor = new E('#content');
+        editor.create();
     </script>
     <script src="/static/js/write.js"></script>
 </body>

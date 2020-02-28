@@ -26,7 +26,7 @@ class Admin extends Model
     // 查询article表中的数据
     public function article()
     {
-        return $this->table('article')->field('article_id,author_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count')->selectAll();
+        return $this->table('article')->field('article_id,author,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count')->selectAll();
     }
 
     // 查询category表中的数据

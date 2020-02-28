@@ -114,7 +114,7 @@
                 <ul class="list-group manage-list">
                     <li class="list-group-item">文章管理</li>
                     <li class="list-group-item">评论管理</li>
-                    <li class="list-group-item">管理员私信</li>
+                    <li class="list-group-item">私信管理</li>
                 </ul>
                 <!-- 列表组结束 -->
             </div>
@@ -233,11 +233,12 @@
             <div class="col-md-10 manage-item">
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
-                        <legend class="text-center">管理员私信</legend>
+                        <legend class="text-center">私信管理</legend>
                     </fieldset>
                     <thead>
                         <tr>
                             <th scope="col">私信</th>
+                            <th scope="col">发信人</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
@@ -246,6 +247,9 @@
                         <tr>
                             <td>
                                 {{$informationIndex.content}}
+                            </td>
+                            <td>
+                                {{$informationIndex.username}}
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm delInformation"

@@ -39,9 +39,9 @@ class User extends Model
     }
 
     // 处理用户在写文章页面提交的数据
-    public function checkWrite($title, $content)
+    public function checkWrite($title, $content, $category)
     {
-        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}"]);
+        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}",'category'=>"{$category}"]);
     }
 
     // 获取单个用户的所有信息
