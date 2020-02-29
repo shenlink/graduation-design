@@ -19,9 +19,9 @@ class Share extends Model
     }
 
     // 处理分享
-    public function addShare($username, $article_id, $author, $title)
+    public function addShare($username, $article_id, $author, $title, $share_at)
     {
-        return $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"]);
+        return $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'share_at' => "{$share_at}"]);
     }
 
     // 处理取消分享
@@ -29,5 +29,4 @@ class Share extends Model
     {
         return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
     }
-
 }

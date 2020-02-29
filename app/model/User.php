@@ -17,10 +17,10 @@ class User extends Model
         }
     }
 
-    public function search($search)
+    public function search($content)
     {
-        $search = '%' . $search . '%';
-        return $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$search}\"")->selectAll();
+        $content = '%' . $content . '%';
+        return $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$content}\"")->selectAll();
     }
 
 
@@ -33,9 +33,9 @@ class User extends Model
     }
 
     // 处理注册操作
-    public function checkRegister($username, $password)
+    public function checkRegister($username, $password, $created_at)
     {
-        return $this->table('user')->insert(array('username' => "{$username}", 'password' => "{$password}"));
+        return $this->table('user')->insert(['username' => "{$username}", 'password' => "{$password}",'created_at'=>"{$created_at}"]);
     }
 
     // 处理登录操作
@@ -45,9 +45,9 @@ class User extends Model
     }
 
     // 处理用户在写文章页面提交的数据
-    public function checkWrite($title, $content, $category)
+    public function checkWrite($title, $content, $category, $created_at)
     {
-        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}",'category'=>"{$category}"]);
+        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}",'category'=>"{$category}",'created_at'=>"{$created_at}"]);
     }
 
     // 获取单个用户的所有信息
@@ -63,9 +63,9 @@ class User extends Model
     }
 
     // 处理用户提交的私信数据
-    public function checkInformation($author, $username, $content)
+    public function checkInformation($author, $username, $content, $created_at)
     {
-        return $this->table('information')->insert(['author'=>"{$author}",'username'=>"{$username}",'content'=>"{$content}"]);
+        return $this->table('information')->insert(['author'=>"{$author}",'username'=>"{$username}",'content'=>"{$content}", 'created_at' => "{$created_at}"]);
     }
 
     // 处理用户在个人信息修改页面提交的数据

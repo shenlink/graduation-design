@@ -218,23 +218,6 @@ class Admin extends Controller
         }
     }
 
-    // 添加公告
-    public function addAnnouncement()
-    {
-        if (isset($_POST['announcement_id'])) {
-            $announcement_id = $_POST['announcement_id'];
-            $announcement  = new \app\model\Announcement();
-            $result = $announcement->addAnnouncement($announcement_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
     // 删除公告
     public function delAnnouncement()
     {
@@ -275,7 +258,9 @@ class Admin extends Controller
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
             $announcement  = new \app\model\Announcement();
-            $result = $announcement->addAnnouncement($content);
+            date_default_timezone_set('PRC');
+            $created_at = date('Y-m-d H:i:s', time());
+            $result = $announcement->addAnnouncement($content,$created_at);
             if ($result) {
                 echo '1';
             } else {

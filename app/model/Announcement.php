@@ -14,9 +14,9 @@ class Announcement extends Model
     }
 
     // 添加公告
-    public function addAnnouncement($content)
+    public function addAnnouncement($content, $created_at)
     {
-        return $this->table('announcement')->insert(['content'=>"{$content}"]);
+        return $this->table('announcement')->insert(['content'=>"{$content}", 'created_at'=>"{$created_at}"]);
     }
 
     // 删除公告

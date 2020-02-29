@@ -19,20 +19,14 @@ class Comment extends Model
     }
 
     // 处理添加评论
-    public function addComment($content, $username, $article_id)
+    public function addComment($content, $username, $article_id, $comment_at)
     {
-        return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}"]);
-    }
-
-    // 处理删除评论
-    public function cancelComment($username, $article_id)
-    {
-        return $this->table('comment')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}",'comment_at'=>"{$comment_at}"]);
     }
 
     // 处理每篇文章要获取的评论
     public function getComment($article_id)
     {
-        return $this->table('comment')->field('comment_id,content,username,created_at')->where(['article_id'=>"{$article_id}"])->selectAll();
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id'=>"{$article_id}"])->selectAll();
     }
 }

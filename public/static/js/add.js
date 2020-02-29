@@ -33,7 +33,7 @@ $('#addCategory').on('click', function () {
 
 
 $('#addAnnouncement').on('click', function () {
-    let announcement = document.querySelector('#announcement').value;
+    let content = document.querySelector('#content').value;
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -43,11 +43,11 @@ $('#addAnnouncement').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkRegister");
+    request.open("POST", "/admin/checkAdd");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("announcement=" + announcement);
+    request.send("content=" + content);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -78,7 +78,7 @@ $('#addInformation').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkRegister");
+    request.open("POST", "/user/checkInformation");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据

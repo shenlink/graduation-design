@@ -20,9 +20,9 @@ class Follow extends Model
     }
 
     // 处理关注
-    public function addFollow($author, $username)
+    public function addFollow($author, $username, $follow_at)
     {
-        return $this->table('follow')->insert(['author' => "{$author}", 'username' => "{$username}"]);
+        return $this->table('follow')->insert(['author' => "{$author}", 'username' => "{$username}", 'follow_at' => "{$follow_at}"]);
     }
 
     // 处理取消关注
@@ -30,5 +30,4 @@ class Follow extends Model
     {
         return $this->table('follow')->where(['author' => "{$author}", 'username' => "{$username}"])->delete();
     }
-
 }

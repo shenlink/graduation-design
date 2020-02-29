@@ -19,9 +19,9 @@ class Collect extends Model
     }
 
     // 添加收藏
-    public function addCollect($username, $article_id, $author, $title)
+    public function addCollect($username, $article_id, $author, $title, $collect_at)
     {
-        return $this->table('collect')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"]);
+        return $this->table('collect')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}",'collect_at'=>"{$collect_at}"]);
     }
 
     // 取消收藏

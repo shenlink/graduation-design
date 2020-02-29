@@ -26,7 +26,7 @@ class User extends Controller
             $type = $_POST['type'];
             $content = $_POST['content'];
             $article = Factory::createArticle();
-            $articles = $article->search($type, $content);
+            $articles = $article->search($content);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
             $user = Factory::createUser();
@@ -113,7 +113,9 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $user = Factory::createUser();
-            $res = $user->checkRegister($username, $password);
+            date_default_timezone_set('PRC');
+            $created_at = date('Y-m-d H:i:s', time());
+            $res = $user->checkRegister($username, $password, $created_at);
             if ($res) {
                 echo '1';
             } else {
@@ -170,7 +172,9 @@ class User extends Controller
             $content = $_POST['content'];
             $category = $_POST['category'];
             $user = Factory::createUser();
-            $res = $user->checkWrite($title, $content, $category);
+            date_default_timezone_set('PRC');
+            $created_at = date('Y-m-d H:i:s', time());
+            $res = $user->checkWrite($title, $content, $category, $created_at);
             if ($res) {
                 echo '1';
             } else {
@@ -187,12 +191,13 @@ class User extends Controller
     // 确认添加评论
     public function addComment()
     {
-        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id'])) {
+        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['comment_at'])) {
             $content = $_POST['content'];
             $username = $_POST['username'];
             $article_id = $_POST['article_id'];
+            $comment_at = $_POST['comment_at'];
             $comment = new \app\model\Comment();
-            $res = $comment->addComment($content, $username, $article_id);
+            $res = $comment->addComment($content, $username, $article_id, $comment_at);
             if ($res) {
                 echo $res;
             } else {
@@ -237,7 +242,9 @@ class User extends Controller
                     echo '取消关注失败';
                 }
             } else {
-                $add = $follow->addFollow($author, $username);
+                date_default_timezone_set('PRC');
+                $follow_at = date('Y-m-d H:i:s', time());
+                $add = $follow->addFollow($author, $username, $follow_at);
                 if ($add) {
                     echo "关注成功";
                 } else {
@@ -270,7 +277,9 @@ class User extends Controller
                 }
             } else {
                 // 如果还没有点赞
-                $add = $praise->addPraise($username, $article_id, $author, $title);
+                date_default_timezone_set('PRC');
+                $praise_at = date('Y-m-d H:i:s', time());
+                $add = $praise->addPraise($username, $article_id, $author, $title, $praise_at);
                 if ($add) {
                     // 已经点赞
                     echo "1";
@@ -297,7 +306,9 @@ class User extends Controller
                     echo "0";
                 }
             } else {
-                $add = $collect->addCollect($username, $article_id, $author, $title);
+                date_default_timezone_set('PRC');
+                $collect_at = date('Y-m-d H:i:s', time());
+                $add = $collect->addCollect($username, $article_id, $author, $title, $collect_at);
                 if ($add) {
                     echo "1";
                 }
@@ -325,7 +336,9 @@ class User extends Controller
                     echo "0";
                 }
             } else {
-                $add = $share->addShare($username, $article_id, $author, $title);
+                date_default_timezone_set('PRC');
+                $share_at = date('Y-m-d H:i:s', time());
+                $add = $share->addShare($username, $article_id, $author, $title, $share_at);
                 if ($add) {
                     echo "1";
                 }
@@ -389,9 +402,10 @@ class User extends Controller
             $author = $_POST['author'];
             $username = $_POST['username'];
             $content = $_POST['content'];
-
             $user = Factory::createUser();
-            $res = $user->checkInformation($author, $username, $content);
+            date_default_timezone_set('PRC');
+            $created_at = date('Y-m-d H:i:s', time());
+            $res = $user->checkInformation($author, $username, $content, $created_at);
             if ($res) {
                 echo '1';
             } else {
@@ -499,7 +513,9 @@ class User extends Controller
             $title = $_POST['title'];
             $content = $_POST['content'];
             $article = Factory::createArticle();
-            $res = $article->editArticle($article_id, $title, $content);
+            date_default_timezone_set('PRC');
+            $updated_at = date('Y-m-d H:i:s', time());
+            $res = $article->editArticle($article_id, $title, $content, $updated_at);
             if ($res) {
                 echo '1';
             } else {

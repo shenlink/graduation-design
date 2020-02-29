@@ -19,10 +19,10 @@ class Praise extends Model
     }
 
     // 处理点赞
-    public function addPraise($username, $article_id, $author, $title)
+    public function addPraise($username, $article_id, $author, $title, $praise_at)
     {
         // 还要有author和title
-        return $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"]);
+        return $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'praise_at' => "{$praise_at}"]);
     }
 
     // 处理取消点赞

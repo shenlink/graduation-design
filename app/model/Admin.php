@@ -44,7 +44,7 @@ class Admin extends Model
     // 查询announcement表中的数据
     public function announcement()
     {
-        return $this->table('announcement')->field('announcement_id,content,created_at,updated_at')->selectAll();
+        return $this->table('announcement')->field('announcement_id,content,created_at')->selectAll();
     }
 
     // 拉黑某篇文章

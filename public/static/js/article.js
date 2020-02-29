@@ -126,7 +126,7 @@ $('#comment').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let comment_content = document.querySelector('#comment-content');
     let now = new Date();
-    let created_at = now.toLocaleString();
+    let comment_at = now.toLocaleString();
     // 1.创建XMLHttpRequest对象
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -150,7 +150,7 @@ $('#comment').on('click', function () {
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
-            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&created_at" + created_at);
+            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&comment_at" + comment_at);
             // 5.监听服务器响应
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
@@ -173,7 +173,7 @@ $('#comment').on('click', function () {
                     let small_time = document.createElement('small');
                     span_time.appendChild(small_time);
                     span_time.setAttribute('class', 'offset-md-1')
-                    small_time.innerText = created_at;
+                    small_time.innerText = comment_at;
                     let del_div = document.createElement('div');
                     card_title.appendChild(del_div);
                     let small_del = document.createElement('small');
@@ -188,6 +188,7 @@ $('#comment').on('click', function () {
                     layer.msg('评论成功', {
                         time: 1000
                     });
+                    window.location.reload();
                 } else {
                     layer.msg('评论失败', {
                         time: 1000
@@ -227,10 +228,7 @@ for (let i = 0; i < delComments.length; i++) {
                         if (request.responseText == "1") {
                             layer.msg('删除成功', {
                                 time: 1000
-                            }, function (index, layero) {
-                                window.location.reload();
-                                layero.close(index);
-                            })
+                            });
                             // 不推荐刷新，推荐用removeAttribute
                         } else {
                             layer.msg('删除失败', {
