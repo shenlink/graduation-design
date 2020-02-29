@@ -22,19 +22,19 @@ class User extends Controller
     {
         // 用工厂类实例化View类
         $view = Factory::createView();
-        if (isset($_POST['search']) && isset($_POST['name'])) {
-            $search = $_POST['search'];
-            $name = $_POST['name'];
+        if (isset($_POST['searchType']) && isset($_POST['searchContent'])) {
+            $type = $_POST['searchType'];
+            $content = $_POST['searchContent'];
             $article = Factory::createArticle();
-            $datas = $article->search($search, $name);
+            $datas = $article->search($type, $content);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
-            if ($name == '1') {
-                $name = '用户名查询结果';
+            if ($type == '1') {
+                $type = '用户名查询结果';
             } else {
-                $name = '文章查询结果';
+                $type = '文章查询结果';
             }
-            $view->assign('name', $name);
+            $view->assign('type', $type);
             $view->assign('categorys', $categorys);
             $view->assign('datas', $datas);
             $view->display('search.html');

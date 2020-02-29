@@ -46,15 +46,14 @@
                             <ul class="navbar-nav mr-auto">
 
                                 <!-- 搜索框开始 -->
-                                <form action="/article/search" method="POST" class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="搜索用户或文章"
-                                        name="search">
-                                    <select name="name" class="btn btn-outline-success my-1 my-sm-0">
+                                <div class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" id="search-content" placeholder="搜索用户或文章" >
+                                    <select class="btn btn-outline-success my-1 my-sm-0" id="search-type">
                                         <option value="1">用户</option>
                                         <option value="2">文章</option>
                                     </select>
-                                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">搜索</button>
-                                </form>
+                                    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search">搜索</button>
+                                </div>
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
@@ -204,7 +203,7 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
-
+    <script src="/static/js/jquery.js"></script>
 </body>
 
 </html>
