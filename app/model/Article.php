@@ -48,7 +48,7 @@ class Article extends Model
     // 获取个人页面的文章数据
     public function personal($author)
     {
-        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->selectAll();
+        return $this->table('article')->field('article_id,author,title,content,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->selectAll();
     }
 
     // 获取用户管理页面的文章数据

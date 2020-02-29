@@ -546,7 +546,6 @@ class User extends Controller
             $article = $article->personal($author);
             $category = Factory::createCategory();
             $category = $category->getCategory();
-            $user = Factory::createUser();
             $user = $user->personal($author);
             $follow = new \app\model\Follow();
             $follow = $follow->getFollow($author);
