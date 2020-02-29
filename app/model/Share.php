@@ -13,21 +13,21 @@ class Share extends Model
     }
 
     // 处理确认分享操作
-    public function checkShare($username, $article_id)
+    public function checkShare($username, $article_id, $author, $title)
     {
-        return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
+        return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->select();
     }
 
     // 处理分享
-    public function addShare($username, $article_id)
+    public function addShare($username, $article_id, $author, $title)
     {
-        return $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}"]);
+        return $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"]);
     }
 
     // 处理取消分享
-    public function cancelShare($username, $article_id)
+    public function cancelShare($username, $article_id, $author, $title)
     {
-        return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
     }
 
 }

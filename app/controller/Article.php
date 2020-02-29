@@ -2,6 +2,7 @@
 
 namespace app\controller;
 
+use app\model\Comment;
 use core\lib\Controller;
 use core\lib\Factory;
 
@@ -39,29 +40,45 @@ class Article extends Controller
     public function __call($method, $args)
     {
         $view = Factory::createView();
-        if (is_numeric($method)) {
-            $article_id = $method;
-            $article = Factory::createArticle();
+        $article_id = $method;
+        if (!is_numeric($article_id)) {
+            $view->display('notfound.html');
+            exit();
+        }
+        $article = Factory::createArticle();
+        $realArticle_id = $article->checkArticleId($article_id);
+        if ($realArticle_id) {
             $article = $article->getArticle($article_id);
             $comment = new \app\model\Comment();
             $comment = $comment->getComment($article_id);
             $category = Factory::createCategory();
             $category = $category->getCategory();
-            if ($article) {
-                $access = Validate::checkAccess();
-                if ($access == 1 || $access == 2) {
-                    $username = $_SESSION['username'];
-                }
-                $view->assign('comment',$comment);
-                $view->assign('username', $username);
-                $view->assign('category', $category);
-                $view->assign('article', $article);
-                $view->display('article.html');
-            } else {
-                $view->display('notfound.httml');
+            $access = Validate::checkAccess();
+            if ($access == 1 || $access == 2) {
+                $username = $_SESSION['username'];
             }
+            $author = $article['author'];
+            $user = Factory::createUser();
+            $user = $user->personal($author);
+            $follow = new \app\model\Follow();
+            $follow = $follow->getFollow($author);
+            foreach ($follow as $values) {
+                foreach ($values as $value) {
+                    $allFollow .= $value . ',';
+                }
+            }
+            if (in_array($username, explode(',', $allFollow))) {
+                $follow = true;
+                $view->assign('follow', $follow);
+            }
+            $view->assign('comment', $comment);
+            $view->assign('username', $username);
+            $view->assign('user', $user);
+            $view->assign('category', $category);
+            $view->assign('article', $article);
+            $view->display('article.html');
         } else {
-            $view->display('notfound.httml');
+            $view->display('notfound.html');
         }
     }
 }

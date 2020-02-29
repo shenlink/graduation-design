@@ -114,13 +114,13 @@
                 <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                 <div class="container">
                     <div class="navbar-header">
-                        <h2>{{$article.title}}</h2>
+                        <h2 id="title">{{$article.title}}</h2>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="navbar-header">
-                    <h2 class="d-flex justify-content-center">推荐</h2>
+                    <h2 class="d-flex justify-content-center">作者信息</h2>
                 </div>
             </div>
         </nav>
@@ -139,14 +139,14 @@
                         <div class="card" id="article" data-article-id={{$article.article_id}}>
                             <div class="card-header">
                                 <span>
-                                    作者：<a href="/user/{{$article.author}}" class="text-info">
+                                    作者：<a href="/user/{{$article.author}}" class="text-info" id="author">
                                         {{$article.author}}</a>&nbsp;
                                 </span>
                                 <span>
                                     发布于：{{$article.created_at}}&nbsp;
                                 </span>
                                 <span>
-                                    分类：{{$category}}&nbsp;
+                                    分类：{{$article.category}}&nbsp;
                                 </span>
                                 <span>
                                     评论：{{$article.comment_count}}&nbsp;
@@ -203,10 +203,10 @@
                                         <span>{{$commentIndex.username}}</span>
                                         <span><small class="offset-md-1">{{$commentIndex.created_at}}</small></span>
                                         <div>
-                                            {{if $commentIndex.username == $username}<small class="delComment"
+                                            {{if $commentIndex.username == $username}}<small class="delComment"
                                                 data-delComment={{$commentIndex.comment_id}}>删除</small>
-                                                {{/if}}
-                                            </div>
+                                            {{/if}}
+                                        </div>
                                     </h5>
                                     <div class="card-text">
                                         {{$commentIndex.content}}
@@ -221,52 +221,101 @@
                 </div>
 
 
-                <!--右边推荐列表开始-->
+                <!-- 博主信息开始 -->
                 <div class="col-md-4">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="#">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">1</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">3</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">4</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">6</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">7</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">9</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">10</span>
-                        </li>
-                    </ul>
+                    <div class="container">
+                        <!-- 个人信息列开始 -->
+                        <div class="card" style="width: 26rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">作者：<a href="/user/{{$user.username}}" class="text-info">
+                                        {{$user.username}}</a></h5>
+                                <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
+                                </h6>
+                                <h6>
+                                    个人介绍
+                                </h6>
+                                <div>
+                                    {{$user.introduction}}
+                                </div>
+                                <p class="card-text"></p>
+                                <div class="text-dark d-flex justify-content-between">
+                                    <dl class="text-center">
+                                        <dt>
+                                            原创
+                                        </dt>
+                                        <dd>
+                                            {{$user.article_count}}
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            粉丝
+                                        </dt>
+                                        <dd>
+                                            {{$user.fans_count}}
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            获赞
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            评论
+                                        </dt>
+                                        <dd>
+                                            179
+                                        </dd>
+                                    </dl>
+                                </div>
+                                <!-- 如果没有登录呢？ -->
+                                <!-- 两个参数，一个是关注者，一个是作者 -->
+                                {{if $user.username !== $username}}
+                                <button type="button" class="btn btn-info card-link" id="follow"
+                                    data-username={{$username}} data-author={{$user.username}}>
+                                    {{if $follow}}
+                                    已关注
+                                    {{else}}
+                                    关注
+                                    {{/if}}
+                                </button>
+                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}}
+                                    id="addInformation">私信</button>
+                                {{else}}
+                                <a href="/user/manage" class="btn btn-primary card-link">管理</a>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card" style="width: 26rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">文章分类</h5>
+                                <div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                    <div>
+                                        Dapibus ac facilisis in
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 个人信息列结束 -->
+                    </div>
                 </div>
-                <!-- 右边推荐列表结束 -->
+                <!-- 博主信息结束 -->
             </div>
         </div>
     </div>

@@ -13,20 +13,21 @@ class Praise extends Model
     }
 
     // 处理确认点赞操作
-    public function checkPraise($username,$article_id)
+    public function checkPraise($username, $article_id, $author, $title)
     {
-        return $this->table('praise')->where(['username'=>"{$username}",'article_id'=>"{$article_id}"])->select();
+        return $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->select();
     }
 
     // 处理点赞
-    public function addPraise($username, $article_id)
+    public function addPraise($username, $article_id, $author, $title)
     {
-        return $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}"]);
+        // 还要有author和title
+        return $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"]);
     }
 
     // 处理取消点赞
-    public function cancelPraise($username, $article_id)
+    public function cancelPraise($username, $article_id, $author, $title)
     {
-        return $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        return $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
     }
 }

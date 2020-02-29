@@ -152,29 +152,7 @@ class User extends Controller
     }
 
     // 确认收藏
-    public function checkCollect()
-    {
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id'])) {
-            $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $collect = new \app\model\Collect();
-            $res =  $collect->checkCollect($username, $article_id);
-            if ($res) {
-                $cancel = $collect->cancelCollect($username, $article_id);
-                if ($cancel) {
-                    echo "0";
-                }
-            } else {
-                $add = $collect->addCollect($username, $article_id);
-                if ($add) {
-                    echo "1";
-                }
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
+
 
     // 确认添加评论
     public function addComment()
@@ -220,15 +198,17 @@ class User extends Controller
             $author = $_POST['author'];
             $username = $_POST['username'];
             $follow = new \app\model\Follow();
-            $res =  $follow->checkFollow($author, $username);
-            if ($res) {
-                if ($follow->cancelFollow($author, $username)) {
+            $result =  $follow->checkFollow($author, $username);
+            if ($result) {
+                $cancel = $follow->cancelFollow($author, $username);
+                if ($cancel) {
                     echo "取消关注成功";
                 } else {
                     echo '取消关注失败';
                 }
             } else {
-                if ($follow->addFollow($author, $username)) {
+                $add = $follow->addFollow($author, $username);
+                if ($add) {
                     echo "关注成功";
                 } else {
                     echo '关注失败';
@@ -244,23 +224,51 @@ class User extends Controller
     {
         // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $username = $_POST['username'];
             $article_id = $_POST['article_id'];
+            $author = $_POST['author'];
+            $title = $_POST['title'];
             $praise = new \app\model\Praise();
-            $res =  $praise->checkPraise($username, $article_id);
-            if ($res) {
+            $result =  $praise->checkPraise($username, $article_id, $author,$title);
+            if ($result) {
                 // 如果已经点赞了，返回0,顺便取消点赞
-                $res = $praise->cancelPraise($username, $article_id);
-                if ($res) {
+                $cancel = $praise->cancelPraise($username, $article_id, $author, $title);
+                if ($cancel) {
                     // 已经取消点赞
                     echo "0";
                 }
             } else {
                 // 如果还没有点赞
-                $res = $praise->addPraise($username, $article_id);
-                if ($res) {
+                $add = $praise->addPraise($username, $article_id, $author, $title);
+                if ($add) {
                     // 已经点赞
+                    echo "1";
+                }
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function checkCollect()
+    {
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
+            $username = $_POST['username'];
+            $article_id = $_POST['article_id'];
+            $author = $_POST['author'];
+            $title = $_POST['title'];
+            $collect = new \app\model\Collect();
+            $result =  $collect->checkCollect($username, $article_id, $author, $title);
+            if ($result) {
+                $cancel = $collect->cancelCollect($username, $article_id, $author, $title);
+                if ($cancel) {
+                    echo "0";
+                }
+            } else {
+                $add = $collect->addCollect($username, $article_id, $author, $title);
+                if ($add) {
                     echo "1";
                 }
             }
@@ -274,18 +282,20 @@ class User extends Controller
     {
         // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id'])) {
+        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $username = $_POST['username'];
             $article_id = $_POST['article_id'];
+            $author = $_POST['author'];
+            $title = $_POST['title'];
             $share = new \app\model\Share();
-            $res =  $share->checkShare($username, $article_id);
-            if ($res) {
-                $cancel = $share->cancelShare($username, $article_id);
+            $result =  $share->checkShare($username, $article_id, $author, $title);
+            if ($result) {
+                $cancel = $share->cancelShare($username, $article_id, $author, $title);
                 if ($cancel) {
                     echo "0";
                 }
             } else {
-                $add = $share->addShare($username, $article_id);
+                $add = $share->addShare($username, $article_id, $author, $title);
                 if ($add) {
                     echo "1";
                 }

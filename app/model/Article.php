@@ -29,6 +29,16 @@ class Article extends Model
         return $data;
     }
 
+    public function checkArticleId($article_id)
+    {
+        return $this->table('article')->field('article_id')->where(['article_id' => "{$article_id}"])->select();
+    }
+
+    public function getAuthor($article_id)
+    {
+        return $this->table('article')->field('author')->where(['article_id' => "{$article_id}"])->select();
+    }
+
     // 获取某一篇文章的数据
     public function getArticle($article_id)
     {
