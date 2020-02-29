@@ -27,10 +27,10 @@ class Category extends Controller
         $categorys = $category->getCategory();
         $article = Factory::createArticle();
         $articles = $category->getArticle($categoryName);
-        $recommend = $article->recommend();
+        $recommends = $article->recommend();
         $view->assign('categorys', $categorys);
         $view->assign('categoryName',$categoryName);
-        $view->assign('recommend', $recommend);
+        $view->assign('recommends', $recommends);
         $view->assign('username', $username);
         $view->assign('articles', $articles);
         $view->display('category.html');

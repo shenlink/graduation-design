@@ -31,10 +31,10 @@
                                 <li class="nav-item active">
                                     <a class="nav-link active" href="/">首页</a>
                                 </li>
-                                {{foreach from=$category item=categoryIndex}}
+                                {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                        href="/category/{{$categorysItem.categorys}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -120,8 +120,7 @@
                             <label for="username">用户名：</label>
                             <!-- userOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
                             <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
-                                value="{{$user['username']}}" onblur="checkUsername()" onfocus="userOriginal()"
-                                readonly>
+                                value="{{$users.username}}" onblur="checkUsername()" onfocus="userOriginal()" readonly>
                             <!-- 提示用户注意的信息 -->
                             <small class="form-text text-muted">
                                 用户名不能修改
@@ -171,7 +170,7 @@
                         <div class="form-group">
                             <label for="introduction">个人介绍</label>
                             <input type="text" class="form-control form-control" id="introduction" name="introduction"
-                                value="{{$user['introduction']}}" maxlength="20">
+                                value="{{$users.introduction}}" maxlength="20">
                             <small class="form-text text-muted">最多20个字</small>
                         </div>
                         <button type="reset" class="btn btn-primary">重置</button>
@@ -184,15 +183,15 @@
                         <!-- 个人信息列开始 -->
                         <div class="card" style="width: 26rem;">
                             <div class="card-body">
-                                <h5 class="card-title">作者：<a href="/user/{{$user['username']}}" class="text-info">
-                                        {{$user['username']}}</a></h5>
+                                <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
+                                        {{$users.username}}</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
                                 </h6>
                                 <h6>
                                     个人介绍
                                 </h6>
                                 <div>
-                                    {{$user['introduction']}}
+                                    {{$users.introduction}}
                                 </div>
                                 <p class="card-text"></p>
                                 <div class="text-dark d-flex justify-content-between">
@@ -201,7 +200,7 @@
                                             原创
                                         </dt>
                                         <dd>
-                                            {{$user['article_count']}}
+                                            {{$users.article_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -209,7 +208,7 @@
                                             粉丝
                                         </dt>
                                         <dd>
-                                            {{$user['fans_count']}}
+                                            {{$users.fans_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -229,15 +228,12 @@
                                         </dd>
                                     </dl>
                                 </div>
-                                {{if $_SESSION['{{$username}}'] eq $username }}
-                                <a href="#" class="btn btn-info card-link">关注</a>
-                                <a href="#" class="btn btn-success card-link">私信</a>
-                                <a href="#" class="btn btn-primary card-link">管理文章</a>
-                                <a href="#" class="btn btn-danger card-link">更改密码</a>
-                                {{else}}
-                                <a href="#" class="btn btn-info card-link">关注</a>
-                                <a href="#" class="btn btn-success card-link">私信</a>
-                                {{/if}}
+                                <a href="#" class="btn btn-primary card-link">
+                                    管理
+                                </a>
+                                <a href="#" class="btn btn-danger card-link">
+                                    更改信息
+                                </a>
                             </div>
                         </div>
                         <div class="card" style="width: 26rem;">

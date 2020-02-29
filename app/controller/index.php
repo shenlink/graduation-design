@@ -17,37 +17,37 @@ class Index extends Controller
             $username = $_SESSION['username'];
         }
         $article = Factory::createArticle();
-        $recommend = $article->recommend();
+        $recommends = $article->recommend();
         $category = Factory::createCategory();
-        $category = $category->getCategory();
+        $categorys = $category->getCategory();
         if (isset($_POST['currentPage'])) {
             $currentPage = $_POST['currentPage'];
             $index = new \app\model\Index();
             $data = $index->mutativePage($currentPage, 5);
-            $article = $data['data'];
+            $articles = $data['data'];
             $pageHtml = $data['pageHtml'];
             $announcement = new \app\model\Announcement();
-            $announcement = $announcement->getAnnouncement();
-            $view->assign('announcement', $announcement);
-            $view->assign('recommend', $recommend);
-            $view->assign('category', $category);
+            $announcements = $announcement->getAnnouncement();
+            $view->assign('announcements', $announcements);
+            $view->assign('recommends', $recommends);
+            $view->assign('categorys', $categorys);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
-            $view->assign('article', $article);
+            $view->assign('articles', $articles);
             $view->display('index.html');
         } else {
             $index = new \app\model\Index();
             $data = $index->pagination();
-            $article = $data['data'];
+            $articles = $data['data'];
             $pageHtml = $data['pageHtml'];
             $announcement = new \app\model\Announcement();
-            $announcement = $announcement->getAnnouncement();
-            $view->assign('announcement', $announcement);
-            $view->assign('recommend', $recommend);
-            $view->assign('category', $category);
+            $announcements = $announcement->getAnnouncement();
+            $view->assign('announcements', $announcements);
+            $view->assign('recommends', $recommends);
+            $view->assign('categorys', $categorys);
             $view->assign('pageHtml', $pageHtml);
             $view->assign('username', $username);
-            $view->assign('article', $article);
+            $view->assign('articles', $articles);
             $view->display('index.html');
         }
     }

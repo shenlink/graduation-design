@@ -33,10 +33,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">首页</a>
                                 </li>
-                                {{foreach from=$category item=categoryIndex}}
+                                {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                        href="/category/{{$categorysItem.categorys}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -139,41 +139,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$articles item=articlesIndex}}
+                        {{foreach from=$articles item=articlesItem}}
                         <tr>
                             <td>
-                                {{$articlesIndex.title}}
+                                {{$articlesItem.title}}
                             </td>
                             <td>
-                                {{$articlesIndex.status}}
+                                {{$articlesItem.status}}
                             </td>
                             <td>
-                                {{$articlesIndex.created_at}}
+                                {{$articlesItem.created_at}}
                             </td>
                             <td>
-                                {{$articlesIndex.updated_at}}
+                                {{$articlesItem.updated_at}}
                             </td>
                             <td>
-                                {{$articlesIndex.category}}
+                                {{$articlesItem.category}}
                             </td>
                             <td>
-                                {{$articlesIndex.comment_count}}
+                                {{$articlesItem.comment_count}}
                             </td>
                             <td>
-                                {{$articlesIndex.praise_count}}
+                                {{$articlesItem.praise_count}}
                             </td>
                             <td>
-                                {{$articlesIndex.collect_count}}
+                                {{$articlesItem.collect_count}}
                             </td>
-                            <td>{{$articlesIndex.share_count}}</td>
-                            <td><a href="/article/{{$articlesIndex.article_id}}">文章链接</a> </td>
+                            <td>{{$articlesItem.share_count}}</td>
+                            <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a> </td>
                             <td>
                                 <button class="btn btn-primary btn-sm editArticle"
-                                    data-editArticle={{$articlesIndex.article_id}}>
+                                    data-editArticle={{$articlesItem.article_id}}>
                                     编辑
                                 </button>
                                 <button class="btn btn-primary btn-sm delArticle"
-                                    data-delArticle={{$articlesIndex.article_id}}>
+                                    data-delArticle={{$articlesItem.article_id}}>
                                     删除
                                 </button>
                             </td>
@@ -202,23 +202,23 @@
                     </thead>
                     <tbody>
                         <!-- 这个foreach得放在tr的上面 -->
-                        {{foreach from=$comment item=commentIndex}}
+                        {{foreach from=$comments item=commentsItem}}
                         <tr>
                             <td>
-                                {{$commentIndex.content}}
+                                {{$commentsItem.content}}
                             </td>
                             <td>
-                                {{$commentIndex.created_at}}
+                                {{$commentsItem.created_at}}
                             </td>
                             <td>
-                                {{$commentIndex.username}}
+                                {{$commentsItem.username}}
                             </td>
                             <td>
-                                <a href="/article/{{$commentIndex.article_id}}">文章链接</a>
+                                <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm delComment"
-                                    data-delComment={{$commentIndex.comment_id}}>
+                                    data-delComment={{$commentsItem.comment_id}}>
                                     删除
                                 </button>
                             </td>
@@ -243,17 +243,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$information item=informationIndex}}
+                        {{foreach from=$informations item=informationsItem}}
                         <tr>
                             <td>
-                                {{$informationIndex.content}}
+                                {{$informationsItem.content}}
                             </td>
                             <td>
-                                {{$informationIndex.username}}
+                                {{$informationsItem.username}}
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm delInformation"
-                                    data-delInformation={{$informationIndex.information_id}}>
+                                    data-delInformation={{$informationsItem.information_id}}>
                                     删除
                                 </button>
                             </td>

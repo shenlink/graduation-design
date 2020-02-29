@@ -9,33 +9,6 @@ use core\lib\Factory;
 class Article extends Controller
 {
 
-    // 搜索相关操作的方法
-    // 这个方法一个放在user类中
-    public function search()
-    {
-        // 用工厂类实例化View类
-        $view = Factory::createView();
-        if (isset($_POST['search']) && isset($_POST['name'])) {
-            $search = $_POST['search'];
-            $name = $_POST['name'];
-            $article = Factory::createArticle();
-            $data = $article->search($search, $name);
-            $category = Factory::createCategory();
-            $category = $category->getCategory();
-            if ($name == '1') {
-                $name = '用户名查询结果';
-            } else {
-                $name = '文章查询结果';
-            }
-            $view->assign('name', $name);
-            $view->assign('category', $category);
-            $view->assign('data', $data);
-            $view->display('search.html');
-        } else {
-            $view->display('notfound.html');
-        }
-    }
-
     // 当用户在URL中输入/article/之后的是数字时调用该方法
     public function __call($method, $args)
     {
@@ -48,34 +21,34 @@ class Article extends Controller
         $article = Factory::createArticle();
         $realArticle_id = $article->checkArticleId($article_id);
         if ($realArticle_id) {
-            $article = $article->getArticle($article_id);
+            $articles = $article->getArticle($article_id);
             $comment = new \app\model\Comment();
-            $comment = $comment->getComment($article_id);
+            $comments = $comment->getComment($article_id);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             $access = Validate::checkAccess();
             if ($access == 1 || $access == 2) {
                 $username = $_SESSION['username'];
             }
-            $author = $article['author'];
+            $author = $articles['author'];
             $user = Factory::createUser();
-            $user = $user->personal($author);
+            $users = $user->personal($author);
             $follow = new \app\model\Follow();
-            $follow = $follow->getFollow($author);
-            foreach ($follow as $values) {
+            $follows = $follow->getFollow($author);
+            foreach ($follows as $values) {
                 foreach ($values as $value) {
-                    $allFollow .= $value . ',';
+                    $allFollows .= $value . ',';
                 }
             }
-            if (in_array($username, explode(',', $allFollow))) {
-                $follow = true;
-                $view->assign('follow', $follow);
+            if (in_array($username, explode(',', $allFollows))) {
+                $follows = true;
+                $view->assign('follows', $follows);
             }
-            $view->assign('comment', $comment);
+            $view->assign('comments', $comments);
             $view->assign('username', $username);
-            $view->assign('user', $user);
-            $view->assign('category', $category);
-            $view->assign('article', $article);
+            $view->assign('users', $users);
+            $view->assign('categorys', $categorys);
+            $view->assign('articles', $articles);
             $view->display('article.html');
         } else {
             $view->display('notfound.html');

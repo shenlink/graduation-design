@@ -16,6 +16,33 @@ class User extends Controller
         $view->display('notfound.html');
     }
 
+    // 搜索相关操作的方法
+    // 这个方法一个放在user类中
+    public function search()
+    {
+        // 用工厂类实例化View类
+        $view = Factory::createView();
+        if (isset($_POST['search']) && isset($_POST['name'])) {
+            $search = $_POST['search'];
+            $name = $_POST['name'];
+            $article = Factory::createArticle();
+            $datas = $article->search($search, $name);
+            $category = Factory::createCategory();
+            $categorys = $category->getCategory();
+            if ($name == '1') {
+                $name = '用户名查询结果';
+            } else {
+                $name = '文章查询结果';
+            }
+            $view->assign('name', $name);
+            $view->assign('categorys', $categorys);
+            $view->assign('datas', $datas);
+            $view->display('search.html');
+        } else {
+            $this->displayNone();
+        }
+    }
+
     // 确认用户名，在用户注册的时候，在用户名输入框输入后失去焦点时触发ajax，访问该方法
     public function checkUsername()
     {
@@ -46,9 +73,9 @@ class User extends Controller
     public function register()
     {
         $category = Factory::createCategory();
-        $category = $category->getCategory();
+        $categorys = $category->getCategory();
         $view = Factory::createView();
-        $view->assign('category', $category);
+        $view->assign('categorys', $categorys);
         $view->display('register.html');
     }
 
@@ -56,9 +83,9 @@ class User extends Controller
     public function login()
     {
         $category = Factory::createCategory();
-        $category = $category->getCategory();
+        $categorys = $category->getCategory();
         $view = Factory::createView();
-        $view->assign('category', $category);
+        $view->assign('categorys', $categorys);
         $view->display('login.html');
     }
 
@@ -123,9 +150,9 @@ class User extends Controller
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             $view->assign('username', $username);
-            $view->assign('category', $category);
+            $view->assign('categorys', $categorys);
             $view->display('write.html');
         } else {
             $view->display('nologin.html');
@@ -313,39 +340,39 @@ class User extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $user = Factory::createUser();
-            $user = $user->personal($username);
+            $users = $user->personal($username);
             $article = Factory::createArticle();
-            $article = $article->personal($username);
+            $articles = $article->personal($username);
             $collect = new \app\model\Collect();
-            $collect = $collect->getCollect($username);
+            $collects = $collect->getCollect($username);
             $share = new \app\model\Share();
-            $share = $share->getShare($username);
+            $shares = $share->getShare($username);
             $praise = new \app\model\Praise();
-            $praise = $praise->getPraise($username);
+            $praises = $praise->getPraise($username);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             $view->assign('username', $username);
-            $view->assign('category', $category);
-            $view->assign('article', $article);
-            $view->assign('collect', $collect);
-            $view->assign('share', $share);
-            $view->assign('praise', $praise);
-            $view->assign('user', $user);
+            $view->assign('categorys', $categorys);
+            $view->assign('articles', $articles);
+            $view->assign('collects', $collects);
+            $view->assign('shares', $shares);
+            $view->assign('praises', $praises);
+            $view->assign('users', $users);
             $view->display('personal.html');
         } else {
             $view->display('nologin.html');
         }
     }
 
-    // 私信功能
+    // 私信功能,把这个加到add方法中
     public function addInformation()
     {
         if (isset($_POST['author'])) {
             $author = $_POST['author'];
             $view = Factory::createView();
             $category = Factory::createCategory();
-            $category = $category->getCategory();
-            $view->assign('category', $category);
+            $categorys = $category->getCategory();
+            $view->assign('categorys', $categorys);
             $view->assign('author', $author);
             $view->display('add.html');
         } else {
@@ -381,12 +408,12 @@ class User extends Controller
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
             $user = Factory::createUser();
-            $user = $user->personal($username);
+            $users = $user->personal($username);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             $view->assign('username', $username);
-            $view->assign('category', $category);
-            $view->assign('user', $user);
+            $view->assign('categorys', $categorys);
+            $view->assign('users', $users);
             $view->display('change.html');
         } else if ($access == '3') {
             $view->display('nologin.html');
@@ -428,16 +455,16 @@ class User extends Controller
             $article = Factory::createArticle();
             $articles = $article->manage($username);
             $comment = new \app\model\Comment();
-            $comment = $comment->manage($username);
+            $comments = $comment->manage($username);
             $information = new \app\model\Information();
-            $information = $information->getInformation($username);
+            $informations = $information->getInformation($username);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             $view->assign('username', $username);
             $view->assign('articles', $articles);
-            $view->assign('category', $category);
-            $view->assign('comment', $comment);
-            $view->assign('information', $information);
+            $view->assign('categorys', $categorys);
+            $view->assign('comments', $comments);
+            $view->assign('informations', $informations);
             $view->display('manage.html');
         } else {
             $view->display('nologin.html');
@@ -451,11 +478,11 @@ class User extends Controller
             $article_id = $_POST['article_id'];
             $view = Factory::createView();
             $article = Factory::createArticle();
-            $article = $article->getArticle($article_id);
+            $articles = $article->getArticle($article_id);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
-            $view->assign('article', $article);
-            $view->assign('category', $category);
+            $categorys = $category->getCategory();
+            $view->assign('articles', $articles);
+            $view->assign('categorys', $categorys);
             $view->display('edit.html');
         } else {
             $this->displayNone();
@@ -543,25 +570,25 @@ class User extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = Factory::createArticle();
-            $article = $article->personal($author);
+            $articles = $article->personal($author);
             $category = Factory::createCategory();
-            $category = $category->getCategory();
-            $user = $user->personal($author);
+            $categorys = $category->getCategory();
+            $users = $user->personal($author);
             $follow = new \app\model\Follow();
-            $follow = $follow->getFollow($author);
-            foreach ($follow as $values) {
+            $follows = $follow->getFollow($author);
+            foreach ($follows as $values) {
                 foreach ($values as $value) {
-                    $allFollow .= $value . ',';
+                    $allFollows .= $value . ',';
                 }
             }
-            if (in_array($username, explode(',', $allFollow))) {
-                $follow = true;
-                $view->assign('follow', $follow);
+            if (in_array($username, explode(',', $allFollows))) {
+                $follows = true;
+                $view->assign('follows', $follows);
             }
             $view->assign('username', $username);
-            $view->assign('category', $category);
-            $view->assign('article', $article);
-            $view->assign('user', $user);
+            $view->assign('categorys', $categorys);
+            $view->assign('articles', $articles);
+            $view->assign('users', $users);
             $view->display('user.html');
         } else {
             $view->display('nologin.html');

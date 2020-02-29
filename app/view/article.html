@@ -33,10 +33,10 @@
                                 <li class="nav-item active">
                                     <a class="nav-link active" href="/">首页</a>
                                 </li>
-                                {{foreach from=$category item=categoryIndex}}
+                                {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -196,20 +196,20 @@
 
                         <!-- 展示评论开始 -->
                         <div id="comment-content">
-                            {{foreach from=$comment item=commentIndex}}
+                            {{foreach from=$comments item=commentsItem}}
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">
-                                        <span>{{$commentIndex.username}}</span>
-                                        <span><small class="offset-md-1">{{$commentIndex.created_at}}</small></span>
+                                        <span>{{$commentsItem.username}}</span>
+                                        <span><small class="offset-md-1">{{$commentsItem.created_at}}</small></span>
                                         <div>
-                                            {{if $commentIndex.username == $username}}<small class="delComment"
-                                                data-delComment={{$commentIndex.comment_id}}>删除</small>
+                                            {{if $commentsItem.username == $username}}<small class="delComment"
+                                                data-delComment={{$commentsItem.comment_id}}>删除</small>
                                             {{/if}}
                                         </div>
                                     </h5>
                                     <div class="card-text">
-                                        {{$commentIndex.content}}
+                                        {{$commentsItem.content}}
                                     </div>
                                 </div>
                             </div>
@@ -227,15 +227,15 @@
                         <!-- 个人信息列开始 -->
                         <div class="card" style="width: 26rem;">
                             <div class="card-body">
-                                <h5 class="card-title">作者：<a href="/user/{{$user.username}}" class="text-info">
-                                        {{$user.username}}</a></h5>
+                                <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
+                                        {{$users.username}}</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
                                 </h6>
                                 <h6>
                                     个人介绍
                                 </h6>
                                 <div>
-                                    {{$user.introduction}}
+                                    {{$users.introduction}}
                                 </div>
                                 <p class="card-text"></p>
                                 <div class="text-dark d-flex justify-content-between">
@@ -244,7 +244,7 @@
                                             原创
                                         </dt>
                                         <dd>
-                                            {{$user.article_count}}
+                                            {{$users.article_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -252,7 +252,7 @@
                                             粉丝
                                         </dt>
                                         <dd>
-                                            {{$user.fans_count}}
+                                            {{$users.fans_count}}
                                         </dd>
                                     </dl>
                                     <dl>
@@ -274,16 +274,16 @@
                                 </div>
                                 <!-- 如果没有登录呢？ -->
                                 <!-- 两个参数，一个是关注者，一个是作者 -->
-                                {{if $user.username !== $username}}
+                                {{if $users.username !== $username}}
                                 <button type="button" class="btn btn-info card-link" id="follow"
-                                    data-username={{$username}} data-author={{$user.username}}>
-                                    {{if $follow}}
+                                    data-username={{$username}} data-author={{$users.username}}>
+                                    {{if $follows}}
                                     已关注
                                     {{else}}
                                     关注
                                     {{/if}}
                                 </button>
-                                <button type="button" class="btn btn-success card-link" data-author={{$user.username}}
+                                <button type="button" class="btn btn-success card-link" data-author={{$users.username}}
                                     id="addInformation">私信</button>
                                 {{else}}
                                 <a href="/user/manage" class="btn btn-primary card-link">管理</a>

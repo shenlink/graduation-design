@@ -27,25 +27,26 @@ class Admin extends Controller
             $username = $_SESSION['username'];
             $admin = Factory::createAdmin();
             $category = Factory::createCategory();
-            $category = $category->getCategory();
+            $categorys = $category->getCategory();
             // 获取user表里所有用户信息
-            $user = $admin->user();
+            $users = $admin->user();
             // 获取article表里的所有文章信息
-            $article = $admin->article();
+            $articles = $admin->article();
             //获取category表里的所有分类信息
-            $category = $admin->category();
+            $AdminCategorys = $admin->category();
             //获取comment表里的所有评论信息
-            $comment = $admin->comment();
+            $comments = $admin->comment();
             //获取announcement表里的所有公告信息
-            $announcement = $admin->announcement();
+            $announcements = $admin->announcement();
             // assign赋值操作
             $view->assign('username', $username);
-            $view->assign('category', $category);
-            $view->assign('user', $user);
-            $view->assign('article', $article);
-            $view->assign('category', $category);
-            $view->assign('comment', $comment);
-            $view->assign('announcement', $announcement);
+            $view->assign('categorys', $categorys);
+            $view->assign('users', $users);
+            $view->assign('articles', $articles);
+            $view->assign('categorys', $categorys);
+            $view->assign('AdminCategorys', $AdminCategorys);
+            $view->assign('comments', $comments);
+            $view->assign('announcements', $announcements);
             // 展示admin页面
             $view->display('admin.html');
         } else if ($access == '2') {

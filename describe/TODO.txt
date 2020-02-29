@@ -18,3 +18,4 @@
 17.nologin,noadmin,notfound三个页面合而为一
 18.personal页面的收藏，分享等应该添加一个删除功能
 19.规范，所有的assign的数组均要在数组名后加上s
+20.搜索框ajax化
