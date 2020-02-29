@@ -21,12 +21,7 @@ class Article extends Model
     public function search($search, $name)
     {
         $search = '%' . $search . '%';
-        if ($name == '1') {
-            $data = $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$search}\"")->selectAll();
-        } else {
-            $data = $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where("content like \"{$search}\" or title like \"{$search}\"")->selectAll();
-        }
-        return $data;
+        return $this->table('article')->field('title,content,created_at,collect_count,comment_count')->where("content like \"{$search}\" or title like \"{$search}\"")->selectAll();
     }
 
     public function checkArticleId($article_id)

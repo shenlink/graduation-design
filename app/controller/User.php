@@ -22,21 +22,24 @@ class User extends Controller
     {
         // 用工厂类实例化View类
         $view = Factory::createView();
-        if (isset($_POST['searchType']) && isset($_POST['searchContent'])) {
-            $type = $_POST['searchType'];
-            $content = $_POST['searchContent'];
+        if (isset($_POST['type']) && isset($_POST['content'])) {
+            $type = $_POST['type'];
+            $content = $_POST['content'];
             $article = Factory::createArticle();
-            $datas = $article->search($type, $content);
+            $articles = $article->search($type, $content);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
+            $user = Factory::createUser();
+            $users = $user->search($content);
             if ($type == '1') {
                 $type = '用户名查询结果';
+                $view->assign('users',$users);
             } else {
                 $type = '文章查询结果';
+                $view->assign('articles', $articles);
             }
             $view->assign('type', $type);
             $view->assign('categorys', $categorys);
-            $view->assign('datas', $datas);
             $view->display('search.html');
         } else {
             $this->displayNone();
@@ -364,7 +367,6 @@ class User extends Controller
         }
     }
 
-    // 私信功能,把这个加到add方法中
     public function addInformation()
     {
         if (isset($_POST['author'])) {

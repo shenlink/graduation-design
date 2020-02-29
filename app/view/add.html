@@ -20,7 +20,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <button class="navbar-toggler" type="button" >
+                            <button class="navbar-toggler" type="button">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <a class="navbar-brand" href="/">shen的博客</a>
@@ -31,10 +31,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">首页</a>
                                 </li>
-                                {{foreach from=$category item=categoryIndex}}
+                                {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categoryIndex.category}}">{{$categoryIndex.category}}
+                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -113,7 +113,7 @@
                     <div class="navbar-header">
                         <h2>
                             <!-- 挤在一起是为了消除空格 -->
-                            {{if $addCategory}}添加分类{{else if $announcement}}添加公告{{else}}发送私信
+                            {{if $addCategory}}添加分类{{else if $addAnnouncement}}添加公告{{else}}发送私信
                             {{/if}}
                         </h2>
                     </div>
@@ -138,36 +138,36 @@
                     <div>
                         <!-- 左边文章列表开始 -->
                         {{if $addCategory}}
-                        <form action="/admin/checkAdd" method="post">
+                        <form>
                             <div class="form-group">
                                 <br>
-                                <input type="text" class="form-control" name="category">
+                                <input type="text" class="form-control" placeholder="分类" id="category">
                                 <br>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" id="addCategory">
                                     添加
                                 </button>
                             </div>
                         </form>
-                        {{else if $announcement}}
-                        <form action="/admin/checkAdd" method="post">
+                        {{else if $addAnnouncement}}
+                        <form>
                             <div class="form-group">
                                 <br>
-                                <input type="textarea" class="form-control" placeholder="公告" name="content">
+                                <input type="textarea" class="form-control" placeholder="公告" id="announcement">
                                 <br>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" id="addAnnouncement">
                                     添加
                                 </button>
                             </div>
                         </form>
                         {{else}}
-                        <form action="/user/checkInformation" method="post">
+                        <form>
                             <div class="form-group">
                                 <br>
-                                <input type="textarea" class="form-control" placeholder="私信" name="content">
-                                <input type="text" value="{{$author}}" name="author" hidden>
-                                <input type="text" value="{{$username}}" name="username" hidden>
+                                <input type="textarea" class="form-control" placeholder="私信" id="information">
+                                <input type="text" id="author" value="{{$author}}" name="author" hidden>
+                                <input type="text" id="username" value="{{$username}}" name="username" hidden>
                                 <br>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" id="addInformation">
                                     发送
                                 </button>
                             </div>
@@ -246,6 +246,11 @@
         </div>
     </footer>
     <!-- 公告底部结束 -->
+
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
+    <script src="/static/js/add.js"></script>
+
 
 </body>
 

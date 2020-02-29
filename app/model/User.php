@@ -17,6 +17,12 @@ class User extends Model
         }
     }
 
+    public function search($search)
+    {
+        $search = '%' . $search . '%';
+        return $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$search}\"")->selectAll();
+    }
+
 
     // 在用户注册的时候，用户输入完成后，输入框失去焦点时，执行此方法，告诉用户此用户名是否被注册了
     public function checkUsername($username)

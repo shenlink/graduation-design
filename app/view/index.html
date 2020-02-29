@@ -46,14 +46,14 @@
                             <ul class="navbar-nav mr-auto">
 
                                 <!-- 搜索框开始 -->
-                                <div class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" id="search-content" placeholder="搜索用户或文章" >
-                                    <select class="btn btn-outline-success my-1 my-sm-0" id="search-type">
+                                <form action="/user/search" method="POST" class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="搜索用户或文章" name="content">
+                                    <select class="btn btn-outline-success my-1 my-sm-0" name="type">
                                         <option value="1">用户</option>
                                         <option value="2">文章</option>
                                     </select>
-                                    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search">搜索</button>
-                                </div>
+                                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">搜索</button>
+                                </form>
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">

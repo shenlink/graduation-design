@@ -260,9 +260,9 @@ class Admin extends Controller
             $addCategory = $_POST['addCategory'];
             $view->assign('addCategory', $addCategory);
             $view->display('add.html');
-        } else if (isset($_POST['announcement'])) {
-            $announcement = $_POST['announcement'];
-            $view->assign('announcement', $announcement);
+        } else if (isset($_POST['addAnnouncement'])) {
+            $addAnnouncement = $_POST['addAnnouncement'];
+            $view->assign('addAnnouncement', $addAnnouncement);
             $view->display('add.html');
         } else {
             $this->displayNone();
@@ -277,7 +277,7 @@ class Admin extends Controller
             $announcement  = new \app\model\Announcement();
             $result = $announcement->addAnnouncement($content);
             if ($result) {
-                echo '<script>window.location.href="/admin/manage"</script>';
+                echo '1';
             } else {
                 echo '0';
             }
@@ -286,7 +286,7 @@ class Admin extends Controller
             $category = Factory::createCategory();
             $result = $category->addCategory($categorys);
             if ($result) {
-                echo '<script>window.location.href="/admin/manage"</script>';
+                echo '1';
             } else {
                 echo '0';
             }
