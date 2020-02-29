@@ -23,35 +23,33 @@ let defriendUsers = document.querySelectorAll('.defriendUser');
 for (let i = 0; i < defriendUsers.length; i++) {
     defriendUsers[i].onclick = function () {
         for (let i = 0; i < defriendUsers.length; i++) {
-            if (true) {
-                let user_id = this.getAttribute('data-defriendUser')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/defriendUser");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("user_id=" + user_id);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('拉黑成功', {
-                                time: 1000
-                            })
-                            // 改变正常到拉黑
-                        } else {
-                            layer.msg('拉黑失败', {
-                                time: 1000
-                            })
-                        }
+            let user_id = this.getAttribute('data-defriendUser')
+            // 1.创建XMLHttpRequest对象
+            let request = null;
+            if (XMLHttpRequest) {
+                request = new XMLHttpRequest();
+            } else {
+                //兼容老IE浏览器
+                request = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            // 2.请求行
+            request.open("POST", "/admin/defriendUser");
+            // 3.请求头
+            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+            // 4.设置数据
+            request.send("user_id=" + user_id);
+            // 5.监听服务器响应
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    if (request.responseText == "1") {
+                        layer.msg('拉黑成功', {
+                            time: 1000
+                        })
+                        window.location.reload();
+                    } else {
+                        layer.msg('拉黑失败', {
+                            time: 1000
+                        })
                     }
                 }
             }
@@ -86,11 +84,12 @@ for (let i = 0; i < normalUsers.length; i++) {
                     if (request.responseText == "1") {
                         layer.msg('恢复成功', {
                             time: 1000
-                        })
+                        });
+                        window.location.reload();
                     } else {
                         layer.msg('恢复失败', {
                             time: 1000
-                        })
+                        });
                     }
                 }
             }
@@ -129,11 +128,11 @@ for (let i = 0; i < delUsers.length; i++) {
                             layer.msg('删除成功', {
                                 time: 1000
                             });
-
+                            window.location.reload();
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -141,12 +140,6 @@ for (let i = 0; i < delUsers.length; i++) {
         }
     }
 }
-
-
-
-
-
-
 
 // 拉黑文章
 let defriendArticles = document.querySelectorAll('.defriendArticle');
@@ -175,10 +168,11 @@ for (let i = 0; i < defriendArticles.length; i++) {
                         layer.msg('拉黑成功', {
                             time: 1000
                         });
+                        window.location.reload();
                     } else {
                         layer.msg('拉黑失败', {
                             time: 1000
-                        })
+                        });
                     }
                 }
 
@@ -217,11 +211,11 @@ for (let i = 0; i < delArticles.length; i++) {
                             layer.msg('删除成功', {
                                 time: 1000
                             });
-
+                            window.location.reload();
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -260,11 +254,12 @@ for (let i = 0; i < defriendcategorys.length; i++) {
                         if (request.responseText == "1") {
                             layer.msg('拉黑成功', {
                                 time: 1000
-                            })
+                            });
+                            window.location.reload();
                         } else {
                             layer.msg('拉黑失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -300,12 +295,12 @@ for (let i = 0; i < normalCategorys.length; i++) {
                     if (request.responseText == "1") {
                         layer.msg('恢复成功', {
                             time: 1000
-                        })
-                        // 不推荐刷新
+                        });
+                        window.location.reload();
                     } else {
                         layer.msg('恢复失败', {
                             time: 1000
-                        })
+                        });
                     }
                 }
             }
@@ -342,11 +337,11 @@ for (let i = 0; i < delCategorys.length; i++) {
                             layer.msg('删除成功', {
                                 time: 1000
                             });
-
+                        window.location.reload();
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -404,11 +399,11 @@ for (let i = 0; i < delComments.length; i++) {
                             layer.msg('删除成功', {
                                 time: 1000
                             });
-
+                        window.location.reload();
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -416,8 +411,6 @@ for (let i = 0; i < delComments.length; i++) {
         }
     }
 }
-
-
 
 
 
@@ -450,10 +443,11 @@ for (let i = 0; i < delAnnouncements.length; i++) {
                             layer.msg('删除成功', {
                                 time: 1000
                             });
+                        window.location.reload();
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }
@@ -473,4 +467,3 @@ function addAnnouncement() {
     form.action = '/admin/add';
     form.submit();
 }
-
