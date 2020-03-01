@@ -177,7 +177,8 @@
                                     恢复
                                 </button>
                                 {{/if}}
-                                <button class="btn btn-primary btn-sm delUser" data-delUser={{$usersItem.user_id}}>
+                                <button class="btn btn-primary btn-sm delUser" onclick="delUser(this)"
+                                    data-delUser={{$usersItem.user_id}}>
                                     删除
                                 </button>
                             </td>
@@ -255,7 +256,7 @@
                                     data-defriendArticle={{$articlesItem.article_id}}>
                                     拉黑
                                 </button>
-                                <button class="btn btn-primary btn-sm delArticle"
+                                <button class="btn btn-primary btn-sm delArticle" onclick="delArticle(this)"
                                     data-delArticle={{$articlesItem.article_id}}>
                                     删除
                                 </button>
@@ -313,7 +314,7 @@
                                     恢复
                                 </button>
                                 {{/if}}
-                                <button class="btn btn-primary btn-sm delCategory"
+                                <button class="btn btn-primary btn-sm delCategory" onclick="delCategory(this)"
                                     data-delCategory={{$AdminCategorysItem.category}}>
                                     删除
                                 </button>
@@ -368,7 +369,7 @@
                                 {{$commentsItem.username}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delComment"
+                                <button class="btn btn-primary btn-sm delComment" onclick="delComment(this)"
                                     data-delComment={{$commentsItem.comment_id}}>
                                     删除
                                 </button>
@@ -411,7 +412,7 @@
                                 {{$announcementsItem.updated_at}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delAnnouncement"
+                                <button class="btn btn-primary btn-sm delAnnouncement" onclick="delAnnouncement(this)"
                                     data-delAnnouncement={{$announcementsItem.announcement_id}}>
                                     删除
                                 </button>

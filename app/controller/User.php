@@ -197,9 +197,9 @@ class User extends Controller
             date_default_timezone_set('PRC');
             $comment_at = date('Y-m-d H:i:s', time());
             $comment = new \app\model\Comment();
-            $res = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
-            if ($res) {
-                echo $res;
+            $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
+            if ($result) {
+                echo '1';
             } else {
                 echo '0';
             }

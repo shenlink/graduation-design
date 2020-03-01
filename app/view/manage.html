@@ -170,7 +170,7 @@
                                     data-editArticle={{$articlesItem.article_id}}>
                                     编辑
                                 </button>
-                                <button class="btn btn-primary btn-sm delArticle"
+                                <button class="btn btn-primary btn-sm delArticle" onclick="delArticle(this)"
                                     data-delArticle={{$articlesItem.article_id}}>
                                     删除
                                 </button>
@@ -215,7 +215,7 @@
                                 <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delComment"
+                                <button class="btn btn-primary btn-sm delComment" onclick="delComment(this)"
                                     data-delComment={{$commentsItem.comment_id}}>
                                     删除
                                 </button>
@@ -250,7 +250,7 @@
                                 {{$informationsItem.username}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delInformation"
+                                <button class="btn btn-primary btn-sm delInformation" onclick="delInformation(this)"
                                     data-delInformation={{$informationsItem.information_id}}>
                                     删除
                                 </button>

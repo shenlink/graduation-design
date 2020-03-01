@@ -11,6 +11,10 @@
     color: rgb(142, 142, 221);
 }
 
+.delComment {
+    cursor: pointer;
+}
+
 .delCollect {
     cursor: pointer;
 }
@@ -22,3 +26,4 @@
 .delPraise {
     cursor: pointer;
 }
+

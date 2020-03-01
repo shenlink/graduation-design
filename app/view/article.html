@@ -201,6 +201,7 @@
                                         <span><small class="offset-md-1">{{$commentsItem.comment_at}}</small></span>
                                         <div>
                                             {{if $commentsItem.username == $username}}<small class="delComment"
+                                                onclick="delComment(this)"
                                                 data-delComment={{$commentsItem.comment_id}}>删除</small>
                                             {{/if}}
                                         </div>

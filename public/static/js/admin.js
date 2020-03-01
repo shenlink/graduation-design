@@ -19,7 +19,6 @@ for (let i = 0; i < lis.length; i++) {
 
 // 拉黑用户
 let defriendUsers = document.querySelectorAll('.defriendUser');
-// let check = confirm('确认删除吗？');
 for (let i = 0; i < defriendUsers.length; i++) {
     defriendUsers[i].onclick = function () {
         for (let i = 0; i < defriendUsers.length; i++) {
@@ -98,43 +97,39 @@ for (let i = 0; i < normalUsers.length; i++) {
 }
 
 
-// 删除用户
-let delUsers = document.querySelectorAll('.delUser');
-// let check = confirm('确认删除吗？');
-for (let i = 0; i < delUsers.length; i++) {
-    delUsers[i].onclick = function () {
-        for (let i = 0; i < delUsers.length; i++) {
-            if (true) {
-                let user_id = this.getAttribute('data-delUser')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/delUser");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("user_id=" + user_id);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('删除成功', {
-                                time: 1000
-                            });
-                            window.location.reload();
-                        } else {
-                            layer.msg('删除失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+// // 删除用户
+function delUser(userId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = userId;
+    let user_id = temp.getAttribute('data-delUser');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/admin/delUser");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("user_id=" + user_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('删除成功', {
+                    time: 1000
+                });
+                window.location.reload();
+            } else {
+                layer.msg('删除失败', {
+                    time: 1000
+                });
             }
         }
     }
@@ -182,52 +177,48 @@ for (let i = 0; i < defriendArticles.length; i++) {
 
 
 // 删除文章
-let delArticles = document.querySelectorAll('.delArticle');
-// let check = confirm('确认删除吗？');
-for (let i = 0; i < delArticles.length; i++) {
-    delArticles[i].onclick = function () {
-        for (let i = 0; i < delArticles.length; i++) {
-            if (true) {
-                let article_id = this.getAttribute('data-delArticle')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/delArticle");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("article_id=" + article_id);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('删除成功', {
-                                time: 1000
-                            });
-                            window.location.reload();
-                        } else {
-                            layer.msg('删除失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+function delArticle(articleId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = articleId;
+    let article_id = temp.getAttribute('data-delArticle');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/admin/delArticle");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("article_id=" + article_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('删除成功', {
+                    time: 1000
+                });
+                window.location.reload();
+            } else {
+                layer.msg('删除失败', {
+                    time: 1000
+                });
             }
         }
     }
+
 }
 
 
 
 // 拉黑分类
 let defriendcategorys = document.querySelectorAll('.defriendcategory');
-// let check = confirm('确认删除吗？');
 for (let i = 0; i < defriendcategorys.length; i++) {
     defriendcategorys[i].onclick = function () {
         for (let i = 0; i < defriendcategorys.length; i++) {
@@ -269,7 +260,6 @@ for (let i = 0; i < defriendcategorys.length; i++) {
 
 // 恢复分类到正常状态
 let normalCategorys = document.querySelectorAll('.normalCategory');
-// let check = confirm('确认删除吗？');
 for (let i = 0; i < normalCategorys.length; i++) {
     normalCategorys[i].onclick = function () {
         for (let i = 0; i < normalCategorys.length; i++) {
@@ -308,46 +298,43 @@ for (let i = 0; i < normalCategorys.length; i++) {
 }
 
 // 删除分类
-let delCategorys = document.querySelectorAll('.delCategory');
-// let check = confirm('确认删除吗？');
-for (let i = 0; i < delCategorys.length; i++) {
-    delCategorys[i].onclick = function () {
-        for (let i = 0; i < delCategorys.length; i++) {
-            if (true) {
-                let category = this.getAttribute('data-delCategory')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/delCategory");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("category=" + category);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('删除成功', {
-                                time: 1000
-                            });
-                        window.location.reload();
-                        } else {
-                            layer.msg('删除失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+function delCategory(categoryName) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = categoryName;
+    let category = temp.getAttribute('data-delCategory');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/admin/delCategory");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("category=" + category);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('删除成功', {
+                    time: 1000
+                });
+                window.location.reload();
+            } else {
+                layer.msg('删除失败', {
+                    time: 1000
+                });
             }
         }
     }
 }
+
 
 // 新增分类
 function addCategory() {
@@ -370,42 +357,38 @@ function createInput(name, value) {
 
 
 // 删除评论
-let delComments = document.querySelectorAll('.delComment');
-// let check = confirm('确认删除吗？');
-for (let i = 0; i < delComments.length; i++) {
-    delComments[i].onclick = function () {
-        for (let i = 0; i < delComments.length; i++) {
-            if (true) {
-                let comment_id = this.getAttribute('data-delComment')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/delComment");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("comment_id=" + comment_id);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('删除成功', {
-                                time: 1000
-                            });
-                        window.location.reload();
-                        } else {
-                            layer.msg('删除失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+function delComment(commentId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = commentId;
+    let comment_id = temp.getAttribute('data-delComment');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/admin/delComment");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("comment_id=" + comment_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('删除成功', {
+                    time: 1000
+                });
+                window.location.reload();
+            } else {
+                layer.msg('删除失败', {
+                    time: 1000
+                });
             }
         }
     }
@@ -414,45 +397,42 @@ for (let i = 0; i < delComments.length; i++) {
 
 
 // 删除公告
-let delAnnouncements = document.querySelectorAll('.delAnnouncement');
-// let check = confirm('确认删除吗？');
-for (let i = 0; i < delAnnouncements.length; i++) {
-    delAnnouncements[i].onclick = function () {
-        for (let i = 0; i < delAnnouncements.length; i++) {
-            if (true) {
-                let announcement_id = this.getAttribute('data-delAnnouncement')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/admin/delAnnouncement");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("announcement_id=" + announcement_id);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('删除成功', {
-                                time: 1000
-                            });
-                        window.location.reload();
-                        } else {
-                            layer.msg('删除失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+function delAnnouncement(announcementId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = announcementId;
+    let announcement_id = temp.getAttribute('data-delAnnouncement');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/admin/delAnnouncement");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("announcement_id=" + announcement_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('删除成功', {
+                    time: 1000
+                });
+                window.location.reload();
+            } else {
+                layer.msg('删除失败', {
+                    time: 1000
+                });
             }
         }
     }
+
 }
 
 
