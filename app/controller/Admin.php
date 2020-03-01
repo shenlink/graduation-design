@@ -242,9 +242,15 @@ class Admin extends Controller
         if (isset($_POST['addCategory'])) {
             $addCategory = $_POST['addCategory'];
             $view->assign('addCategory', $addCategory);
+            $category = Factory::createCategory();
+            $categorys = $category->getCategory();
+            $view->assign('categorys',$categorys);
             $view->display('add.html');
         } else if (isset($_POST['addAnnouncement'])) {
             $addAnnouncement = $_POST['addAnnouncement'];
+            $category = Factory::createCategory();
+            $categorys = $category->getCategory();
+            $view->assign('categorys', $categorys);
             $view->assign('addAnnouncement', $addAnnouncement);
             $view->display('add.html');
         } else {
