@@ -167,11 +167,11 @@
                             <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a> </td>
                             <td>
                                 <button class="btn btn-primary btn-sm editArticle"
-                                    data-editArticle={{$articlesItem.article_id}}>
+                                    data-article-id={{$articlesItem.article_id}}>
                                     编辑
                                 </button>
-                                <button class="btn btn-primary btn-sm delArticle" onclick="delArticle(this)"
-                                    data-delArticle={{$articlesItem.article_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delArticle(this)"
+                                    data-article-id={{$articlesItem.article_id}}>
                                     删除
                                 </button>
                             </td>
@@ -215,7 +215,7 @@
                                 <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delComment" onclick="delComment(this)"
+                                <button class="btn btn-primary btn-sm" onclick="delComment(this)"
                                     data-delComment={{$commentsItem.comment_id}}>
                                     删除
                                 </button>
@@ -250,8 +250,8 @@
                                 {{$informationsItem.username}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delInformation" onclick="delInformation(this)"
-                                    data-delInformation={{$informationsItem.information_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delInformation(this)"
+                                    data-information-id={{$informationsItem.information_id}}>
                                     删除
                                 </button>
                             </td>

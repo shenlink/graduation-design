@@ -168,17 +168,17 @@
                             <td>
                                 {{if $usersItem.status == 1}}
                                 <button class="btn btn-primary btn-sm defriendUser"
-                                    data-defriendUser={{$usersItem.user_id}}>
+                                    data-user-id={{$usersItem.user_id}}>
                                     拉黑
                                 </button>
                                 {{else}}
                                 <button class="btn btn-primary btn-sm normalUser"
-                                    data-normalUser={{$usersItem.user_id}}>
+                                    data-user-id={{$usersItem.user_id}}>
                                     恢复
                                 </button>
                                 {{/if}}
-                                <button class="btn btn-primary btn-sm delUser" onclick="delUser(this)"
-                                    data-delUser={{$usersItem.user_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delUser(this)"
+                                    data-user-id={{$usersItem.user_id}}>
                                     删除
                                 </button>
                             </td>
@@ -253,11 +253,11 @@
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm defriendArticle"
-                                    data-defriendArticle={{$articlesItem.article_id}}>
+                                    data-article-id={{$articlesItem.article_id}}>
                                     拉黑
                                 </button>
-                                <button class="btn btn-primary btn-sm delArticle" onclick="delArticle(this)"
-                                    data-delArticle={{$articlesItem.article_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delArticle(this)"
+                                    data-article-id={{$articlesItem.article_id}}>
                                     删除
                                 </button>
                             </td>
@@ -305,17 +305,17 @@
                             <td>
                                 {{if $AdminCategorysItem.status == 1}}
                                 <button class="btn btn-primary btn-sm defriendcategory"
-                                    data-defriendcategory={{$AdminCategorysItem.category}}>
+                                    data-category={{$AdminCategorysItem.category}}>
                                     拉黑
                                 </button>
                                 {{else}}
                                 <button class="btn btn-primary btn-sm normalCategory"
-                                    data-normalCategory={{$AdminCategorysItem.category}}>
+                                    data-category={{$AdminCategorysItem.category}}>
                                     恢复
                                 </button>
                                 {{/if}}
-                                <button class="btn btn-primary btn-sm delCategory" onclick="delCategory(this)"
-                                    data-delCategory={{$AdminCategorysItem.category}}>
+                                <button class="btn btn-primary btn-sm" onclick="delCategory(this)"
+                                    data-category={{$AdminCategorysItem.category}}>
                                     删除
                                 </button>
                             </td>
@@ -369,8 +369,8 @@
                                 {{$commentsItem.username}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delComment" onclick="delComment(this)"
-                                    data-delComment={{$commentsItem.comment_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delComment(this)"
+                                    data-comment-id={{$commentsItem.comment_id}}>
                                     删除
                                 </button>
                             </td>
@@ -412,8 +412,8 @@
                                 {{$announcementsItem.updated_at}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm delAnnouncement" onclick="delAnnouncement(this)"
-                                    data-delAnnouncement={{$announcementsItem.announcement_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delAnnouncement(this)"
+                                    data-Announcement-id={{$announcementsItem.announcement_id}}>
                                     删除
                                 </button>
                             </td>

@@ -55,7 +55,7 @@ function delArticle(articleId) {
         return;
     }
     let temp = articleId;
-    let article_id = temp.getAttribute('data-delArticle');
+    let article_id = temp.getAttribute('data-article-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -95,7 +95,7 @@ function delComment(commentId) {
         return;
     }
     let temp = commentId;
-    let comment_id = temp.getAttribute('data-delComment');
+    let comment_id = temp.getAttribute('data-comment-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -135,7 +135,7 @@ function delInformation(informationId) {
         return;
     }
     let temp = informationId;
-    let information_id = temp.getAttribute('data-delInformation');
+    let information_id = temp.getAttribute('data-information-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {

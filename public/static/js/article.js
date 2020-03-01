@@ -178,7 +178,7 @@ function delComment(commentId) {
         return;
     }
     let temp = commentId;
-    let comment_id = temp.getAttribute('data-delComment');
+    let comment_id = temp.getAttribute('data-comment-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {

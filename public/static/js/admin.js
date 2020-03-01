@@ -22,7 +22,7 @@ let defriendUsers = document.querySelectorAll('.defriendUser');
 for (let i = 0; i < defriendUsers.length; i++) {
     defriendUsers[i].onclick = function () {
         for (let i = 0; i < defriendUsers.length; i++) {
-            let user_id = this.getAttribute('data-defriendUser')
+            let user_id = this.getAttribute('data-user-id')
             // 1.创建XMLHttpRequest对象
             let request = null;
             if (XMLHttpRequest) {
@@ -61,7 +61,7 @@ let normalUsers = document.querySelectorAll('.normalUser');
 for (let i = 0; i < normalUsers.length; i++) {
     normalUsers[i].onclick = function () {
         for (let i = 0; i < normalUsers.length; i++) {
-            let user_id = this.getAttribute('data-normalUser');
+            let user_id = this.getAttribute('data-user-id');
             // 1.创建XMLHttpRequest对象
             let request = null;
             if (XMLHttpRequest) {
@@ -103,7 +103,7 @@ function delUser(userId) {
         return;
     }
     let temp = userId;
-    let user_id = temp.getAttribute('data-delUser');
+    let user_id = temp.getAttribute('data-user-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -140,7 +140,7 @@ let defriendArticles = document.querySelectorAll('.defriendArticle');
 for (let i = 0; i < defriendArticles.length; i++) {
     defriendArticles[i].onclick = function () {
         for (let i = 0; i < defriendArticles.length; i++) {
-            let article_id = this.getAttribute('data-defriendArticle')
+            let article_id = this.getAttribute('data-article-id')
             // 1.创建XMLHttpRequest对象
             let request = null;
             if (XMLHttpRequest) {
@@ -182,7 +182,7 @@ function delArticle(articleId) {
         return;
     }
     let temp = articleId;
-    let article_id = temp.getAttribute('data-delArticle');
+    let article_id = temp.getAttribute('data-article-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -223,7 +223,7 @@ for (let i = 0; i < defriendcategorys.length; i++) {
     defriendcategorys[i].onclick = function () {
         for (let i = 0; i < defriendcategorys.length; i++) {
             if (true) {
-                let category = this.getAttribute('data-defriendcategory')
+                let category = this.getAttribute('data-category')
                 // 1.创建XMLHttpRequest对象
                 let request = null;
                 if (XMLHttpRequest) {
@@ -263,7 +263,7 @@ let normalCategorys = document.querySelectorAll('.normalCategory');
 for (let i = 0; i < normalCategorys.length; i++) {
     normalCategorys[i].onclick = function () {
         for (let i = 0; i < normalCategorys.length; i++) {
-            let category = this.getAttribute('data-normalCategory');
+            let category = this.getAttribute('data-category');
             // 1.创建XMLHttpRequest对象
             let request = null;
             if (XMLHttpRequest) {
@@ -303,7 +303,7 @@ function delCategory(categoryName) {
         return;
     }
     let temp = categoryName;
-    let category = temp.getAttribute('data-delCategory');
+    let category = temp.getAttribute('data-category');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -362,7 +362,7 @@ function delComment(commentId) {
         return;
     }
     let temp = commentId;
-    let comment_id = temp.getAttribute('data-delComment');
+    let comment_id = temp.getAttribute('data-comment-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -402,7 +402,7 @@ function delAnnouncement(announcementId) {
         return;
     }
     let temp = announcementId;
-    let announcement_id = temp.getAttribute('data-delAnnouncement');
+    let announcement_id = temp.getAttribute('data-announcement-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
