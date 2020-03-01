@@ -23,7 +23,7 @@ class Article extends Controller
         if ($realArticle_id) {
             $articles = $article->getArticle($article_id);
             $comment = new \app\model\Comment();
-            $comments = $comment->getComment($article_id);
+            $comments = $comment->getArticleComment($article_id);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
             $access = Validate::checkAccess();

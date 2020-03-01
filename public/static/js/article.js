@@ -82,8 +82,8 @@ $('#share').on('click', function () {
     let username = share.getAttribute('data-share');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
-    let author = document.querySelector('#author').innerText;
     let title = document.querySelector('#title').innerText;
+    let author = document.querySelector('#author').innerText;
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -97,7 +97,7 @@ $('#share').on('click', function () {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("username=" + username + "&article_id=" + article_id + "&author=" + author + "&title=" + title);
+    request.send("username=" + username + "&article_id=" + article_id + "&title=" + title + "&author=" + author);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -126,9 +126,9 @@ $('#comment').on('click', function () {
     let username = comment.getAttribute('data-comment');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
-    let comment_content = document.querySelector('#comment-content');
-    let now = new Date();
-    let comment_at = now.toLocaleString();
+    let content = document.querySelector('#content');
+    let title = document.querySelector('#title').innerText;
+    let author = document.querySelector('#author').innerText;
     // 1.创建XMLHttpRequest对象
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -152,41 +152,10 @@ $('#comment').on('click', function () {
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
-            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&comment_at" + comment_at);
+            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&title" + title + "&author" + author);
             // 5.监听服务器响应
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
-                    // 插入评论,用反引号
-                    comment_id = request.responseText;
-                    let card = document.createElement('div');
-                    comment_content.appendChild(card);
-                    card.setAttribute('class', 'card');
-                    let card_body = document.createElement('div');
-                    card.appendChild(card_body);
-                    card_body.setAttribute('class', 'card-body');
-                    let card_title = document.createElement('h5');
-                    card_body.appendChild(card_title);
-                    card_title.setAttribute('class', 'card-title');
-                    let span_username = document.createElement('span');
-                    card_title.appendChild(span_username);
-                    span_username.innerText = username;
-                    let span_time = document.createElement('span');
-                    card_title.appendChild(span_time);
-                    let small_time = document.createElement('small');
-                    span_time.appendChild(small_time);
-                    span_time.setAttribute('class', 'offset-md-1')
-                    small_time.innerText = comment_at;
-                    let del_div = document.createElement('div');
-                    card_title.appendChild(del_div);
-                    let small_del = document.createElement('small');
-                    del_div.appendChild(small_del);
-                    small_del.setAttribute('data-delCommnet', comment_id);
-                    small_del.innerHTML = '删除';
-                    let card_text = document.createElement('div');
-                    card_body.appendChild(card_text);
-                    card_text.setAttribute('class', 'card-text');
-                    card_text.innerHTML = content;
-                    comment_content.insertBefore(card, comment_content.children[0]);
                     layer.msg('评论成功', {
                         time: 1000
                     });
@@ -200,6 +169,40 @@ $('#comment').on('click', function () {
         }
     }
 });
+
+
+function test() {
+    comment_id = request.responseText;
+    let card = document.createElement('div');
+    comment_content.appendChild(card);
+    card.setAttribute('class', 'card');
+    let card_body = document.createElement('div');
+    card.appendChild(card_body);
+    card_body.setAttribute('class', 'card-body');
+    let card_title = document.createElement('h5');
+    card_body.appendChild(card_title);
+    card_title.setAttribute('class', 'card-title');
+    let span_username = document.createElement('span');
+    card_title.appendChild(span_username);
+    span_username.innerText = username;
+    let span_time = document.createElement('span');
+    card_title.appendChild(span_time);
+    let small_time = document.createElement('small');
+    span_time.appendChild(small_time);
+    span_time.setAttribute('class', 'offset-md-1')
+    small_time.innerText = comment_at;
+    let del_div = document.createElement('div');
+    card_title.appendChild(del_div);
+    let small_del = document.createElement('small');
+    del_div.appendChild(small_del);
+    small_del.setAttribute('data-delCommnet', comment_id);
+    small_del.innerHTML = '删除';
+    let card_text = document.createElement('div');
+    card_body.appendChild(card_text);
+    card_text.setAttribute('class', 'card-text');
+    card_text.innerHTML = content;
+    comment_content.insertBefore(card, comment_content.children[0]);
+}
 
 
 // 删除评论
@@ -235,7 +238,7 @@ for (let i = 0; i < delComments.length; i++) {
                         } else {
                             layer.msg('删除失败', {
                                 time: 1000
-                            })
+                            });
                         }
                     }
                 }

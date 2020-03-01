@@ -185,19 +185,19 @@ class User extends Controller
         }
     }
 
-    // 确认收藏
-
-
     // 确认添加评论
     public function addComment()
     {
-        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['comment_at'])) {
+        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['title'])  && isset($_POST['author'])) {
             $content = $_POST['content'];
             $username = $_POST['username'];
             $article_id = $_POST['article_id'];
-            $comment_at = $_POST['comment_at'];
+            $title = $_POST['title'];
+            $author = $_POST['author'];
+            date_default_timezone_set('PRC');
+            $comment_at = date('Y-m-d H:i:s', time());
             $comment = new \app\model\Comment();
-            $res = $comment->addComment($content, $username, $article_id, $comment_at);
+            $res = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
             if ($res) {
                 echo $res;
             } else {
@@ -359,6 +359,8 @@ class User extends Controller
             $users = $user->personal($username);
             $article = Factory::createArticle();
             $articles = $article->personal($username);
+            $comment = new \app\model\Comment();
+            $comments = $comment->getComment($username);
             $collect = new \app\model\Collect();
             $collects = $collect->getCollect($username);
             $share = new \app\model\Share();
@@ -370,6 +372,7 @@ class User extends Controller
             $view->assign('username', $username);
             $view->assign('categorys', $categorys);
             $view->assign('articles', $articles);
+            $view->assign('comments', $comments);
             $view->assign('collects', $collects);
             $view->assign('shares', $shares);
             $view->assign('praises', $praises);

@@ -19,14 +19,19 @@ class Comment extends Model
     }
 
     // 处理添加评论
-    public function addComment($content, $username, $article_id, $comment_at)
+    public function addComment($content, $username, $article_id, $title, $author, $comment_at)
     {
-        return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}",'comment_at'=>"{$comment_at}"]);
+        return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}", 'title'=>"{$title}", 'author' => "{$author}", 'comment_at' => "{$comment_at}"]);
     }
 
     // 处理每篇文章要获取的评论
-    public function getComment($article_id)
+    public function getArticleComment($article_id)
     {
         return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id'=>"{$article_id}"])->selectAll();
+    }
+
+    public function getComment($username)
+    {
+        return $this->table('comment')->field('comment_id,content,article_id,title,author,username,comment_at')->where(['username' => "{$username}"])->selectAll();
     }
 }
