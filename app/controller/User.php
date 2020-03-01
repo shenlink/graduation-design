@@ -33,7 +33,7 @@ class User extends Controller
             $users = $user->search($content);
             if ($type == '1') {
                 $type = '用户名查询结果';
-                $view->assign('users',$users);
+                $view->assign('users', $users);
             } else {
                 $type = '文章查询结果';
                 $view->assign('articles', $articles);
@@ -267,7 +267,7 @@ class User extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $praise = new \app\model\Praise();
-            $result =  $praise->checkPraise($username, $article_id, $author,$title);
+            $result =  $praise->checkPraise($username, $article_id, $author, $title);
             if ($result) {
                 // 如果已经点赞了，返回0,顺便取消点赞
                 $cancel = $praise->cancelPraise($username, $article_id, $author, $title);
@@ -377,6 +377,54 @@ class User extends Controller
             $view->display('personal.html');
         } else {
             $view->display('nologin.html');
+        }
+    }
+
+    public function delCollect()
+    {
+        if (isset($_POST['collect_id'])) {
+            $collect_id = $_POST['collect_id'];
+            $collect = new \app\model\Collect();
+            $result = $collect->delCollect($collect_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function delShare()
+    {
+        if (isset($_POST['share_id'])) {
+            $share_id = $_POST['share_id'];
+            $share = new \app\model\Share();
+            $result = $share->delShare($share_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function delPraise()
+    {
+        if (isset($_POST['praise_id'])) {
+            $praise_id = $_POST['praise_id'];
+            $praise = new \app\model\Praise();
+            $result = $praise->delPraise($praise_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
         }
     }
 

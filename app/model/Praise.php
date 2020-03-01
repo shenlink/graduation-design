@@ -9,7 +9,7 @@ class Praise extends Model
 
     public function getPraise($username)
     {
-        return $this->table('praise')->field('article_id,author,title,praise_at')->where(['username' => "{$username}"])->selectAll();
+        return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->selectAll();
     }
 
     // 处理确认点赞操作
@@ -29,5 +29,10 @@ class Praise extends Model
     public function cancelPraise($username, $article_id, $author, $title)
     {
         return $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
+    }
+
+    public function delPraise($praise_id)
+    {
+        return $this->table('praise')->where(['praise_id' => "{$praise_id}"])->delete();
     }
 }

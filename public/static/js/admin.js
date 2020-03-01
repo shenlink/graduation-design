@@ -59,7 +59,6 @@ for (let i = 0; i < defriendUsers.length; i++) {
 
 // 恢复用户到正常状态
 let normalUsers = document.querySelectorAll('.normalUser');
-
 for (let i = 0; i < normalUsers.length; i++) {
     normalUsers[i].onclick = function () {
         for (let i = 0; i < normalUsers.length; i++) {

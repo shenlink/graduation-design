@@ -9,7 +9,7 @@ class Collect extends Model
 
     public function getCollect($username)
     {
-        return $this->table('collect')->field('article_id,author,title,collect_at')->where(['username' => "{$username}"])->selectAll();
+        return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->where(['username' => "{$username}"])->selectAll();
     }
 
     // 处理确认收藏操作
@@ -25,8 +25,16 @@ class Collect extends Model
     }
 
     // 取消收藏
+    // 取消收藏能简单点吗
     public function cancelCollect($username, $article_id, $author, $title)
     {
         return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
     }
+
+
+    public function delCollect($collect_id)
+    {
+        return $this->table('collect')->where(['collect_id' => "{$collect_id}"])->delete();
+    }
+
 }
