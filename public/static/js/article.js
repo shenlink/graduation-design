@@ -116,7 +116,7 @@ $('#share').on('click', function () {
 
 
 let E = window.wangEditor;
-let editor = new E('#editor-toolbar2', '#editor-content2');
+let editor = new E('#editor-toolbar', '#editor-content');
 editor.create();
 // 登录后才能评论，评论内容去掉标签，空格后为空的话，不能评论
 $('#comment').on('click', function () {
@@ -126,7 +126,6 @@ $('#comment').on('click', function () {
     let username = comment.getAttribute('data-comment');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
-    let content = document.querySelector('#content');
     let title = document.querySelector('#title').innerText;
     let author = document.querySelector('#author').innerText;
     // 1.创建XMLHttpRequest对象
@@ -134,76 +133,41 @@ $('#comment').on('click', function () {
         layer.msg('登录才能评论', {
             time: 2000
         });
+        return;
+    }
+    if (content_text.match(/^[ ]+$/) || content_text.length == 0) {
+        layer.msg('评论内容不能为空', {
+            time: 1000
+        });
+        return;
+    }
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
     } else {
-        if (content_text.match(/^[ ]+$/) || content_text.length == 0) {
-            layer.msg('评论内容不能为空', {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/user/addComment");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&title" + title + "&author" + author);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            layer.msg('评论成功', {
                 time: 1000
             });
+            window.location.reload();
         } else {
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
-            } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/user/addComment");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&title" + title + "&author" + author);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    layer.msg('评论成功', {
-                        time: 1000
-                    });
-                    window.location.reload();
-                } else {
-                    layer.msg('评论失败', {
-                        time: 1000
-                    });
-                }
-            }
+            layer.msg('评论失败', {
+                time: 1000
+            });
         }
     }
 });
-
-
-function test() {
-    comment_id = request.responseText;
-    let card = document.createElement('div');
-    comment_content.appendChild(card);
-    card.setAttribute('class', 'card');
-    let card_body = document.createElement('div');
-    card.appendChild(card_body);
-    card_body.setAttribute('class', 'card-body');
-    let card_title = document.createElement('h5');
-    card_body.appendChild(card_title);
-    card_title.setAttribute('class', 'card-title');
-    let span_username = document.createElement('span');
-    card_title.appendChild(span_username);
-    span_username.innerText = username;
-    let span_time = document.createElement('span');
-    card_title.appendChild(span_time);
-    let small_time = document.createElement('small');
-    span_time.appendChild(small_time);
-    span_time.setAttribute('class', 'offset-md-1')
-    small_time.innerText = comment_at;
-    let del_div = document.createElement('div');
-    card_title.appendChild(del_div);
-    let small_del = document.createElement('small');
-    del_div.appendChild(small_del);
-    small_del.setAttribute('data-delCommnet', comment_id);
-    small_del.innerHTML = '删除';
-    let card_text = document.createElement('div');
-    card_body.appendChild(card_text);
-    card_text.setAttribute('class', 'card-text');
-    card_text.innerHTML = content;
-    comment_content.insertBefore(card, comment_content.children[0]);
-}
-
 
 // 删除评论
 let delComments = document.querySelectorAll('.delComment');

@@ -27,7 +27,7 @@ class Comment extends Model
     // 处理每篇文章要获取的评论
     public function getArticleComment($article_id)
     {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id'=>"{$article_id}"])->selectAll();
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id'=>"{$article_id}"])->order('comment_at desc')->selectAll();
     }
 
     public function getComment($username)
