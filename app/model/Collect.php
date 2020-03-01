@@ -13,9 +13,9 @@ class Collect extends Model
     }
 
     // 处理确认收藏操作
-    public function checkCollect($username, $article_id, $author, $title)
+    public function checkCollect($username, $article_id)
     {
-        return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->select();
+        return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
     }
 
     // 添加收藏
@@ -26,9 +26,9 @@ class Collect extends Model
 
     // 取消收藏
     // 取消收藏能简单点吗
-    public function cancelCollect($username, $article_id, $author, $title)
+    public function cancelCollect($username, $article_id)
     {
-        return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}"])->delete();
+        return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
     }
 
 

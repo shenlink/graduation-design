@@ -156,7 +156,7 @@ $('#comment').on('click', function () {
             // 5.监听服务器响应
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
-                    // 插入评论
+                    // 插入评论,用反引号
                     comment_id = request.responseText;
                     let card = document.createElement('div');
                     comment_content.appendChild(card);

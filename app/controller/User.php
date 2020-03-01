@@ -267,10 +267,10 @@ class User extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $praise = new \app\model\Praise();
-            $result =  $praise->checkPraise($username, $article_id, $author, $title);
+            $result =  $praise->checkPraise($username, $article_id);
             if ($result) {
                 // 如果已经点赞了，返回0,顺便取消点赞
-                $cancel = $praise->cancelPraise($username, $article_id, $author, $title);
+                $cancel = $praise->cancelPraise($username, $article_id);
                 if ($cancel) {
                     // 已经取消点赞
                     echo "0";
@@ -299,9 +299,9 @@ class User extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $collect = new \app\model\Collect();
-            $result =  $collect->checkCollect($username, $article_id, $author, $title);
+            $result =  $collect->checkCollect($username, $article_id);
             if ($result) {
-                $cancel = $collect->cancelCollect($username, $article_id, $author, $title);
+                $cancel = $collect->cancelCollect($username, $article_id);
                 if ($cancel) {
                     echo "0";
                 }
@@ -329,9 +329,9 @@ class User extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $share = new \app\model\Share();
-            $result =  $share->checkShare($username, $article_id, $author, $title);
+            $result =  $share->checkShare($username, $article_id);
             if ($result) {
-                $cancel = $share->cancelShare($username, $article_id, $author, $title);
+                $cancel = $share->cancelShare($username, $article_id);
                 if ($cancel) {
                     echo "0";
                 }
@@ -380,6 +380,22 @@ class User extends Controller
         }
     }
 
+    public function delPraise()
+    {
+        if (isset($_POST['praise_id'])) {
+            $praise_id = $_POST['praise_id'];
+            $praise = new \app\model\Praise();
+            $result = $praise->delPraise($praise_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     public function delCollect()
     {
         if (isset($_POST['collect_id'])) {
@@ -402,22 +418,6 @@ class User extends Controller
             $share_id = $_POST['share_id'];
             $share = new \app\model\Share();
             $result = $share->delShare($share_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    public function delPraise()
-    {
-        if (isset($_POST['praise_id'])) {
-            $praise_id = $_POST['praise_id'];
-            $praise = new \app\model\Praise();
-            $result = $praise->delPraise($praise_id);
             if ($result) {
                 echo '1';
             } else {
