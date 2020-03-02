@@ -34,4 +34,10 @@ class Comment extends Model
     {
         return $this->table('comment')->field('comment_id,content,article_id,title,author,username,comment_at')->where(['username' => "{$username}"])->selectAll();
     }
+
+    // 查询comment表中的数据
+    public function comment()
+    {
+        return $this->table('comment')->field('comment_id,content,status,created_at,article_id,username')->selectAll();
+    }
 }

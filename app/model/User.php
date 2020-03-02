@@ -74,6 +74,12 @@ class User extends Model
         return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
     }
 
+    // 查询user表中的数据
+    public function user()
+    {
+        return $this->table('user')->field('user_id,username,role,article_count,follows_count,fans_count,created_at,status')->selectAll();
+    }
+
     // 处理管理员拉黑用户
     public function defriendUser($user_id)
     {

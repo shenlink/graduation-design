@@ -7,7 +7,6 @@ use core\lib\Db;
 use core\lib\View;
 use app\model\User;
 use core\lib\Pagination;
-use app\model\Admin;
 use app\model\Article;
 use app\model\Category;
 use core\lib\RegisterTree;
@@ -64,18 +63,7 @@ class Factory
         }
         return $pagination;
     }
-    public static function createAdmin()
-    {
-        // 单例模式
-        $key = 'admin';
-        $admin = RegisterTree::get($key);
-        if (!$admin) {
-            $admin = Admin::getInstance();
-            //注册树模式
-            RegisterTree::set('admin', $admin);
-        }
-        return $admin;
-    }
+    
     public static function createArticle()
     {
         // 单例模式

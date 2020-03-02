@@ -25,26 +25,22 @@ class Admin extends Controller
         if ($access == '1') {
             // 获取当前登录的用户的用户名
             $username = $_SESSION['username'];
-            $admin = Factory::createAdmin();
             $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            // 获取user表里所有用户信息
-            $users = $admin->user();
-            // 获取article表里的所有文章信息
-            $articles = $admin->article();
-            //获取category表里的所有分类信息
-            $AdminCategorys = $admin->category();
-            //获取comment表里的所有评论信息
-            $comments = $admin->comment();
-            //获取announcement表里的所有公告信息
-            $announcements = $admin->announcement();
-            // assign赋值操作
+            $categorys = $category->category();
+            $article = Factory::createArticle();
+            $comment = new \app\model\Comment();
+            $announcement = new \app\model\Announcement();
+            $user = Factory::createUser();
+            $users = $user->user();
+            $articles = $article->article();
+            $comments = $comment->comment();
+            $announcements = $announcement->announcement();
             $view->assign('username', $username);
             $view->assign('categorys', $categorys);
             $view->assign('users', $users);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
-            $view->assign('AdminCategorys', $AdminCategorys);
+            // $view->assign('AdminCategorys', $AdminCategorys);
             $view->assign('comments', $comments);
             $view->assign('announcements', $announcements);
             // 展示admin页面
@@ -120,8 +116,8 @@ class Admin extends Controller
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
-            $admin = Factory::createAdmin();
-            $result = $admin->defriendArticle($article_id);
+            $article = Factory::createArticle();
+            $result = $article->defriendArticle($article_id);
             if ($result) {
                 echo '1';
             } else {

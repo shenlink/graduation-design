@@ -34,7 +34,7 @@
                                 {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categorysItem.categorys}}">{{$categorysItem.category}}
+                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -291,38 +291,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$AdminCategorys item=AdminCategorysItem}}
+                        {{foreach from=$categorys item=categorysItem}}
                         <tr>
                             <td>
-                                {{$AdminCategorysItem.category_id}}
+                                {{$categorysItem.category_id}}
                             </td>
                             <td>
-                                {{$AdminCategorysItem.category}}
+                                {{$categorysItem.category}}
                             </td>
                             <td>
-                                {{if $AdminCategorysItem.status == 1}}
+                                {{if $categorysItem.status == 1}}
                                 正常
                                 {{else}}
                                 拉黑
                                 {{/if}}
                             </td>
                             <td>
-                                {{$AdminCategorysItem.article_count}}
+                                {{$categorysItem.article_count}}
                             </td>
                             <td>
-                                {{if $AdminCategorysItem.status == 1}}
+                                {{if $categorysItem.status == 1}}
                                 <button class="btn btn-primary btn-sm defriendcategory"
-                                    data-category={{$AdminCategorysItem.category}}>
+                                    data-category={{$categorysItem.category}}>
                                     拉黑
                                 </button>
                                 {{else}}
                                 <button class="btn btn-primary btn-sm normalCategory"
-                                    data-category={{$AdminCategorysItem.category}}>
+                                    data-category={{$categorysItem.category}}>
                                     恢复
                                 </button>
                                 {{/if}}
                                 <button class="btn btn-primary btn-sm" onclick="delCategory(this)"
-                                    data-category={{$AdminCategorysItem.category}}>
+                                    data-category={{$categorysItem.category}}>
                                     删除
                                 </button>
                             </td>

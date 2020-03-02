@@ -13,6 +13,12 @@ class Announcement extends Model
         return $this->table('announcement')->field('content')->where(['status'=>1])->selectAll();
     }
 
+    // 查询announcement表中的数据
+    public function announcement()
+    {
+        return $this->table('announcement')->field('announcement_id,content,created_at')->selectAll();
+    }
+
     // 添加公告
     public function addAnnouncement($content, $created_at)
     {

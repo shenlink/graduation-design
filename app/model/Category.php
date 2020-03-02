@@ -33,6 +33,12 @@ class Category extends Model
         return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}"])->selectAll();
     }
 
+    // 查询category表中的数据
+    public function category()
+    {
+        return $this->table('category')->field('category_id,category,status,article_count')->selectAll();
+    }
+
     //处理删除分类
     public function delCategory($category)
     {

@@ -52,6 +52,18 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
     }
 
+    // 查询article表中的数据
+    public function article()
+    {
+        return $this->table('article')->field('article_id,author,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count')->selectAll();
+    }
+
+    // 拉黑某篇文章
+    public function defriendArticle()
+    {
+        return $this->table('article')->field('status')->update(['status' => 0]);
+    }
+
     public function normalArticle()
     {
         return $this->table('article')->field('status')->update(['status' => 1]);
