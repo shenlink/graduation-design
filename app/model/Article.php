@@ -55,7 +55,7 @@ class Article extends Model
     // 查询article表中的数据
     public function getAllArticle()
     {
-        return $this->table('article')->field('article_id,author,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count')->selectAll();
+        return $this->table('article')->field('article_id,author,title,status,created_at,category,comment_count,praise_count,collect_count')->selectAll();
     }
 
     // 拉黑某篇文章
