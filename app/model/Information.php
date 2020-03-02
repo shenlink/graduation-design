@@ -6,6 +6,18 @@ use core\lib\Model;
 
 class Information extends Model
 {
+
+    private static $information;
+    public static function getInstance()
+    {
+        if (self::$information) {
+            return self::$information;
+        } else {
+            self::$information = new self();
+            return self::$information;
+        }
+    }
+
     // 获取私信信息
     public function getInformation($username)
     {

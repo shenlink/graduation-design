@@ -23,13 +23,12 @@ class Admin extends Controller
         $access = Validate::checkAccess();
         $view = Factory::createView();
         if ($access == '1') {
-            // 获取当前登录的用户的用户名
             $username = $_SESSION['username'];
             $category = Factory::createCategory();
             $categorys = $category->category();
             $article = Factory::createArticle();
-            $comment = new \app\model\Comment();
-            $announcement = new \app\model\Announcement();
+            $comment =  Factory::createComment();
+            $announcement =  Factory::createAnnouncement();
             $user = Factory::createUser();
             $users = $user->user();
             $articles = $article->article();
@@ -40,16 +39,12 @@ class Admin extends Controller
             $view->assign('users', $users);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
-            // $view->assign('AdminCategorys', $AdminCategorys);
             $view->assign('comments', $comments);
             $view->assign('announcements', $announcements);
-            // 展示admin页面
             $view->display('admin.html');
         } else if ($access == '2') {
-            // 如果权限为2，即普通用户时，提示没有权限
             $view->display('noadmin.html');
         } else {
-            // 如果权限为3，即用户未登录，提示用户未登录
             $view->display('nologin.html');
         }
     }
@@ -219,7 +214,7 @@ class Admin extends Controller
     {
         if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
-            $comment  = new \app\model\Comment();
+            $comment  =  Factory::createComment();
             $result = $comment->delComment($comment_id);
             if ($result) {
                 echo '1';
@@ -236,7 +231,7 @@ class Admin extends Controller
     {
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
-            $announcement  = new \app\model\Announcement();
+            $announcement  =  Factory::createAnnouncement();
             $result = $announcement->delAnnouncement($announcement_id);
             if ($result) {
                 echo '1';
@@ -276,7 +271,7 @@ class Admin extends Controller
     {
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
-            $announcement  = new \app\model\Announcement();
+            $announcement  =  Factory::createAnnouncement();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
             $result = $announcement->addAnnouncement($content,$created_at);

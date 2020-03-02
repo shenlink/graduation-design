@@ -196,7 +196,7 @@ class User extends Controller
             $author = $_POST['author'];
             date_default_timezone_set('PRC');
             $comment_at = date('Y-m-d H:i:s', time());
-            $comment = new \app\model\Comment();
+            $comment =  Factory::createComment();
             $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
             if ($result) {
                 echo '1';
@@ -213,7 +213,7 @@ class User extends Controller
     {
         if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
-            $comment = new \app\model\Comment();
+            $comment =  Factory::createComment();
             $res = $comment->delComment($comment_id);
             if ($res) {
                 echo '1';
@@ -232,7 +232,7 @@ class User extends Controller
         if (isset($_POST['author']) && isset($_POST['username'])) {
             $author = $_POST['author'];
             $username = $_POST['username'];
-            $follow = new \app\model\Follow();
+            $follow =  Factory::createFollow();
             $result =  $follow->checkFollow($author, $username);
             if ($result) {
                 $cancel = $follow->cancelFollow($author, $username);
@@ -266,7 +266,7 @@ class User extends Controller
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $praise = new \app\model\Praise();
+            $praise =  Factory::createPraise();
             $result =  $praise->checkPraise($username, $article_id);
             if ($result) {
                 // 如果已经点赞了，返回0,顺便取消点赞
@@ -298,7 +298,7 @@ class User extends Controller
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $collect = new \app\model\Collect();
+            $collect =  Factory::createCollect();
             $result =  $collect->checkCollect($username, $article_id);
             if ($result) {
                 $cancel = $collect->cancelCollect($username, $article_id);
@@ -328,7 +328,7 @@ class User extends Controller
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $share = new \app\model\Share();
+            $share =  Factory::createShare();
             $result =  $share->checkShare($username, $article_id);
             if ($result) {
                 $cancel = $share->cancelShare($username, $article_id);
@@ -359,13 +359,13 @@ class User extends Controller
             $users = $user->personal($username);
             $article = Factory::createArticle();
             $articles = $article->personal($username);
-            $comment = new \app\model\Comment();
+            $comment =  Factory::createComment();
             $comments = $comment->getComment($username);
-            $collect = new \app\model\Collect();
+            $collect =  Factory::createCollect();
             $collects = $collect->getCollect($username);
-            $share = new \app\model\Share();
+            $share =  Factory::createShare();
             $shares = $share->getShare($username);
-            $praise = new \app\model\Praise();
+            $praise =  Factory::createPraise();
             $praises = $praise->getPraise($username);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
@@ -387,7 +387,7 @@ class User extends Controller
     {
         if (isset($_POST['praise_id'])) {
             $praise_id = $_POST['praise_id'];
-            $praise = new \app\model\Praise();
+            $praise =  Factory::createPraise();
             $result = $praise->delPraise($praise_id);
             if ($result) {
                 echo '1';
@@ -403,7 +403,7 @@ class User extends Controller
     {
         if (isset($_POST['collect_id'])) {
             $collect_id = $_POST['collect_id'];
-            $collect = new \app\model\Collect();
+            $collect =  Factory::createCollect();
             $result = $collect->delCollect($collect_id);
             if ($result) {
                 echo '1';
@@ -419,7 +419,7 @@ class User extends Controller
     {
         if (isset($_POST['share_id'])) {
             $share_id = $_POST['share_id'];
-            $share = new \app\model\Share();
+            $share =  Factory::createShare();
             $result = $share->delShare($share_id);
             if ($result) {
                 echo '1';
@@ -521,9 +521,9 @@ class User extends Controller
             $username = $_SESSION['username'];
             $article = Factory::createArticle();
             $articles = $article->manage($username);
-            $comment = new \app\model\Comment();
+            $comment =  Factory::createComment();
             $comments = $comment->manage($username);
-            $information = new \app\model\Information();
+            $information =  Factory::createInformation();
             $informations = $information->getInformation($username);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
@@ -599,7 +599,7 @@ class User extends Controller
     {
         if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
-            $comment  = new \app\model\Comment();
+            $comment  =  Factory::createComment();
             $res = $comment->delComment($comment_id);
             if ($res) {
                 echo '1';
@@ -614,7 +614,7 @@ class User extends Controller
     {
         if (isset($_POST['information_id'])) {
             $information_id = $_POST['information_id'];
-            $information  = new \app\model\Information();
+            $information  =  Factory::createInformation();
             $res = $information->delInformation($information_id);
             if ($res) {
                 echo '1';
@@ -643,7 +643,7 @@ class User extends Controller
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
             $users = $user->personal($author);
-            $follow = new \app\model\Follow();
+            $follow =  Factory::createFollow();
             $follows = $follow->getFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {

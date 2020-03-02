@@ -6,15 +6,22 @@ namespace core\lib;
 use core\lib\Db;
 use core\lib\View;
 use app\model\User;
-use core\lib\Pagination;
 use app\model\Article;
 use app\model\Category;
+use app\model\Collect;
+use app\model\Comment;
+use app\model\Information;
+use app\model\Praise;
+use app\model\Share;
+use app\model\Follow;
+use app\model\Announcement;
 use core\lib\RegisterTree;
 
 
 //工厂模式
 class Factory
 {
+
     public static function createDatabase()
     {
         // 单例模式
@@ -27,6 +34,7 @@ class Factory
         }
         return $db;
     }
+
     public static function createView()
     {
         // 单例模式
@@ -39,6 +47,7 @@ class Factory
         }
         return $view;
     }
+
     public static function createUser()
     {
         // 单例模式
@@ -51,19 +60,7 @@ class Factory
         }
         return $user;
     }
-    public static function createPagination()
-    {
-        // 单例模式
-        $key = 'pagination';
-        $pagination = RegisterTree::get($key);
-        if (!$pagination) {
-            $pagination = Pagination::getInstance();
-            //注册树模式
-            RegisterTree::set('pagination', $pagination);
-        }
-        return $pagination;
-    }
-    
+
     public static function createArticle()
     {
         // 单例模式
@@ -76,6 +73,7 @@ class Factory
         }
         return $article;
     }
+
     public static function createCategory()
     {
         // 单例模式
@@ -89,4 +87,94 @@ class Factory
         return $category;
     }
 
+    public static function createCollect()
+    {
+        // 单例模式
+        $key = 'collect';
+        $collect = RegisterTree::get($key);
+        if (!$collect) {
+            $collect = Collect::getInstance();
+            //注册树模式
+            RegisterTree::set('collect', $collect);
+        }
+        return $collect;
+    }
+
+    public static function createComment()
+    {
+        // 单例模式
+        $key = 'comment';
+        $comment = RegisterTree::get($key);
+        if (!$comment) {
+            $comment = Comment::getInstance();
+            //注册树模式
+            RegisterTree::set('comment', $comment);
+        }
+        return $comment;
+    }
+
+    public static function createInformation()
+    {
+        // 单例模式
+        $key = 'information';
+        $information = RegisterTree::get($key);
+        if (!$information) {
+            $information = Information::getInstance();
+            //注册树模式
+            RegisterTree::set('information', $information);
+        }
+        return $information;
+    }
+
+    public static function createPraise()
+    {
+        // 单例模式
+        $key = 'praise';
+        $praise = RegisterTree::get($key);
+        if (!$praise) {
+            $praise = Praise::getInstance();
+            //注册树模式
+            RegisterTree::set('praise', $praise);
+        }
+        return $praise;
+    }
+
+    public static function createShare()
+    {
+        // 单例模式
+        $key = 'share';
+        $share = RegisterTree::get($key);
+        if (!$share) {
+            $share = Share::getInstance();
+            //注册树模式
+            RegisterTree::set('share', $share);
+        }
+        return $share;
+    }
+
+    public static function createFollow()
+    {
+        // 单例模式
+        $key = 'follow';
+        $follow = RegisterTree::get($key);
+        if (!$follow) {
+            $follow = Follow::getInstance();
+            //注册树模式
+            RegisterTree::set('follow', $follow);
+        }
+        return $follow;
+    }
+
+    public static function createAnnouncement()
+    {
+        // 单例模式
+        $key = 'announcement';
+        $announcement = RegisterTree::get($key);
+        if (!$announcement) {
+            $announcement = Announcement::getInstance();
+            //注册树模式
+            RegisterTree::set('announcement', $announcement);
+        }
+        return $announcement;
+    }
 }

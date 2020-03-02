@@ -6,6 +6,16 @@ use core\lib\Model;
 
 class Collect extends Model
 {
+    private static $collect;
+    public static function getInstance()
+    {
+        if (self::$collect) {
+            return self::$collect;
+        } else {
+            self::$collect = new self();
+            return self::$collect;
+        }
+    }
 
     public function getCollect($username)
     {

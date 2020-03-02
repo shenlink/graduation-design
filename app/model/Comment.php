@@ -6,6 +6,18 @@ use core\lib\Model;
 
 class Comment extends Model
 {
+
+    private static $comment;
+    public static function getInstance()
+    {
+        if (self::$comment) {
+            return self::$comment;
+        } else {
+            self::$comment = new self();
+            return self::$comment;
+        }
+    }
+
     // 获取所有用户的文章的评论数据
     public function manage($username)
     {

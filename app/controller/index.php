@@ -22,11 +22,11 @@ class Index extends Controller
         $categorys = $category->getCategory();
         if (isset($_POST['currentPage'])) {
             $currentPage = $_POST['currentPage'];
-            $index = new \app\model\Index();
-            $data = $index->mutativePage($currentPage, 5);
+            $article = Factory::createArticle();
+            $data = $article->mutativePage($currentPage, 5);
             $articles = $data['data'];
             $pageHtml = $data['pageHtml'];
-            $announcement = new \app\model\Announcement();
+            $announcement = Factory::createAnnouncement();
             $announcements = $announcement->getAnnouncement();
             $view->assign('announcements', $announcements);
             $view->assign('recommends', $recommends);
@@ -36,11 +36,11 @@ class Index extends Controller
             $view->assign('articles', $articles);
             $view->display('index.html');
         } else {
-            $index = new \app\model\Index();
-            $data = $index->pagination();
+            $article = Factory::createArticle();
+            $data = $article->pagination();
             $articles = $data['data'];
             $pageHtml = $data['pageHtml'];
-            $announcement = new \app\model\Announcement();
+            $announcement = Factory::createAnnouncement();
             $announcements = $announcement->getAnnouncement();
             $view->assign('announcements', $announcements);
             $view->assign('recommends', $recommends);

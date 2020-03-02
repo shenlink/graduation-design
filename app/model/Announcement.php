@@ -7,6 +7,17 @@ use core\lib\Model;
 class Announcement extends Model
 {
 
+    private static $announcement;
+    public static function getInstance()
+    {
+        if (self::$announcement) {
+            return self::$announcement;
+        } else {
+            self::$announcement = new self();
+            return self::$announcement;
+        }
+    }
+
     // 获取公告信息
     public function getAnnouncement()
     {

@@ -7,6 +7,17 @@ use core\lib\Model;
 class Follow extends Model
 {
 
+    private static $follow;
+    public static function getInstance()
+    {
+        if (self::$follow) {
+            return self::$follow;
+        } else {
+            self::$follow = new self();
+            return self::$follow;
+        }
+    }
+
     // 获取用户的所有粉丝
     public function getFollow($author)
     {

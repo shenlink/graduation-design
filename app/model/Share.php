@@ -6,6 +6,16 @@ use core\lib\Model;
 
 class Share extends Model
 {
+    private static $share;
+    public static function getInstance()
+    {
+        if (self::$share) {
+            return self::$share;
+        } else {
+            self::$share = new self();
+            return self::$share;
+        }
+    }
 
     public function getShare($username)
     {

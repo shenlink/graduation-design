@@ -6,6 +6,16 @@ use core\lib\Model;
 
 class Praise extends Model
 {
+    private static $praise;
+    public static function getInstance()
+    {
+        if (self::$praise) {
+            return self::$praise;
+        } else {
+            self::$praise = new self();
+            return self::$praise;
+        }
+    }
 
     public function getPraise($username)
     {

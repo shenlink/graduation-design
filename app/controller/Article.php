@@ -22,7 +22,7 @@ class Article extends Controller
         $realArticle_id = $article->checkArticleId($article_id);
         if ($realArticle_id) {
             $articles = $article->getArticle($article_id);
-            $comment = new \app\model\Comment();
+            $comment =  Factory::createComment();
             $comments = $comment->getArticleComment($article_id);
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
@@ -33,7 +33,7 @@ class Article extends Controller
             $author = $articles['author'];
             $user = Factory::createUser();
             $users = $user->personal($author);
-            $follow = new \app\model\Follow();
+            $follow =  Factory::createFollow();
             $follows = $follow->getFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {
