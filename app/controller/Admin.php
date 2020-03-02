@@ -24,23 +24,22 @@ class Admin extends Controller
         $view = Factory::createView();
         if ($access == '1') {
             $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $categorys = $category->category();
-            $article = Factory::createArticle();
-            $comment =  Factory::createComment();
             $announcement =  Factory::createAnnouncement();
+            $article = Factory::createArticle();
+            $category = Factory::createCategory();
+            $comment =  Factory::createComment();
             $user = Factory::createUser();
-            $users = $user->user();
-            $articles = $article->article();
-            $comments = $comment->comment();
             $announcements = $announcement->announcement();
+            $articles = $article->article();
+            $categorys = $category->category();
+            $comments = $comment->comment();
+            $users = $user->user();
             $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->assign('users', $users);
+            $view->assign('announcements', $announcements);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('comments', $comments);
-            $view->assign('announcements', $announcements);
+            $view->assign('users', $users);
             $view->display('admin.html');
         } else if ($access == '2') {
             $view->display('noadmin.html');
@@ -63,12 +62,11 @@ class Admin extends Controller
                 echo '0';
             }
         } else {
-            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }
 
-    // 回复用户的状态为正常
+    // 恢复用户的状态为正常
     public function normalUser()
     {
         // 获取前端ajax传来的user_id
@@ -82,7 +80,6 @@ class Admin extends Controller
                 echo '0';
             }
         } else {
-            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }

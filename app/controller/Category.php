@@ -3,9 +3,8 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use app\controller\Validate;
 use core\lib\Factory;
-
+use app\controller\Validate;
 
 class Category extends Controller
 {
@@ -24,15 +23,15 @@ class Category extends Controller
             $view->display('notfound.html');
             exit();
         }
-        $categorys = $category->getCategory();
         $article = Factory::createArticle();
         $articles = $category->getArticle($categoryName);
+        $categorys = $category->getCategory();
         $recommends = $article->recommend();
+        $view->assign('username', $username);
+        $view->assign('articles', $articles);
         $view->assign('categorys', $categorys);
         $view->assign('categoryName',$categoryName);
         $view->assign('recommends', $recommends);
-        $view->assign('username', $username);
-        $view->assign('articles', $articles);
         $view->display('category.html');
     }
 }

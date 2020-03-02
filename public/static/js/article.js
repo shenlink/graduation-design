@@ -188,7 +188,7 @@ function delComment(commentId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/delArticleComment");
+    request.open("POST", "/user/delComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据

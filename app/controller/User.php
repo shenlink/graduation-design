@@ -17,19 +17,22 @@ class User extends Controller
     }
 
     // 搜索相关操作的方法
-    // 这个方法一个放在user类中
     public function search()
     {
-        // 用工厂类实例化View类
+
         $view = Factory::createView();
+        $access = Validate::checkAccess();
         if (isset($_POST['type']) && isset($_POST['content'])) {
+            if ($access == 1 || $access == 2) {
+                $username = $_SESSION['username'];
+            }
             $type = $_POST['type'];
             $content = $_POST['content'];
             $article = Factory::createArticle();
-            $articles = $article->search($content);
             $category = Factory::createCategory();
-            $categorys = $category->getCategory();
             $user = Factory::createUser();
+            $articles = $article->search($content);
+            $categorys = $category->getCategory();
             $users = $user->search($content);
             if ($type == '1') {
                 $type = '用户名查询结果';
@@ -38,8 +41,10 @@ class User extends Controller
                 $type = '文章查询结果';
                 $view->assign('articles', $articles);
             }
-            $view->assign('type', $type);
+            $view->assign('username', $username);
             $view->assign('categorys', $categorys);
+            $view->assign('type', $type);
+            $view->assign('users', $users);
             $view->display('search.html');
         } else {
             $this->displayNone();
@@ -76,8 +81,8 @@ class User extends Controller
     public function register()
     {
         $category = Factory::createCategory();
-        $categorys = $category->getCategory();
         $view = Factory::createView();
+        $categorys = $category->getCategory();
         $view->assign('categorys', $categorys);
         $view->display('register.html');
     }
@@ -86,8 +91,8 @@ class User extends Controller
     public function login()
     {
         $category = Factory::createCategory();
-        $categorys = $category->getCategory();
         $view = Factory::createView();
+        $categorys = $category->getCategory();
         $view->assign('categorys', $categorys);
         $view->display('login.html');
     }
@@ -115,8 +120,8 @@ class User extends Controller
             $user = Factory::createUser();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $res = $user->checkRegister($username, $password, $created_at);
-            if ($res) {
+            $result = $user->checkRegister($username, $password, $created_at);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -134,8 +139,8 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $user = Factory::createUser();
-            $res = $user->checkLogin($username, $password);
-            if ($res) {
+            $result = $user->checkLogin($username, $password);
+            if ($result) {
                 session_start();
                 $_SESSION['username'] = $username;
                 echo '1';
@@ -174,8 +179,8 @@ class User extends Controller
             $user = Factory::createUser();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $res = $user->checkWrite($title, $content, $category, $created_at);
-            if ($res) {
+            $result = $user->checkWrite($title, $content, $category, $created_at);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -199,23 +204,6 @@ class User extends Controller
             $comment =  Factory::createComment();
             $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
             if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 确认删除文章的评论
-    public function delArticleComment()
-    {
-        if (isset($_POST['comment_id'])) {
-            $comment_id = $_POST['comment_id'];
-            $comment =  Factory::createComment();
-            $res = $comment->delComment($comment_id);
-            if ($res) {
                 echo '1';
             } else {
                 echo '0';
@@ -355,27 +343,27 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $user = Factory::createUser();
-            $users = $user->personal($username);
             $article = Factory::createArticle();
-            $articles = $article->personal($username);
-            $comment =  Factory::createComment();
-            $comments = $comment->getComment($username);
-            $collect =  Factory::createCollect();
-            $collects = $collect->getCollect($username);
-            $share =  Factory::createShare();
-            $shares = $share->getShare($username);
-            $praise =  Factory::createPraise();
-            $praises = $praise->getPraise($username);
             $category = Factory::createCategory();
+            $collect =  Factory::createCollect();
+            $comment =  Factory::createComment();
+            $praise =  Factory::createPraise();
+            $share =  Factory::createShare();
+            $user = Factory::createUser();
+            $articles = $article->personal($username);
             $categorys = $category->getCategory();
+            $collects = $collect->getCollect($username);
+            $comments = $comment->getComment($username);
+            $praises = $praise->getPraise($username);
+            $shares = $share->getShare($username);
+            $users = $user->personal($username);
             $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
             $view->assign('articles', $articles);
-            $view->assign('comments', $comments);
+            $view->assign('categorys', $categorys);
             $view->assign('collects', $collects);
-            $view->assign('shares', $shares);
+            $view->assign('comments', $comments);
             $view->assign('praises', $praises);
+            $view->assign('shares', $shares);
             $view->assign('users', $users);
             $view->display('personal.html');
         } else {
@@ -456,8 +444,8 @@ class User extends Controller
             $user = Factory::createUser();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $res = $user->checkInformation($author, $username, $content, $created_at);
-            if ($res) {
+            $result = $user->checkInformation($author, $username, $content, $created_at);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -474,10 +462,10 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
-            $user = Factory::createUser();
-            $users = $user->personal($username);
             $category = Factory::createCategory();
+            $user = Factory::createUser();
             $categorys = $category->getCategory();
+            $users = $user->personal($username);
             $view->assign('username', $username);
             $view->assign('categorys', $categorys);
             $view->assign('users', $users);
@@ -499,9 +487,9 @@ class User extends Controller
             $introduction = trim($_POST['introduction']);
             $user = Factory::createUser();
             if (isset($username) && isset($password) && isset($introduction)) {
-                $res = $user->checkChange($username, $password, $introduction);
+                $result = $user->checkChange($username, $password, $introduction);
             }
-            if ($res) {
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -520,13 +508,13 @@ class User extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = Factory::createArticle();
-            $articles = $article->manage($username);
-            $comment =  Factory::createComment();
-            $comments = $comment->manage($username);
-            $information =  Factory::createInformation();
-            $informations = $information->getInformation($username);
             $category = Factory::createCategory();
+            $comment =  Factory::createComment();
+            $information =  Factory::createInformation();
+            $articles = $article->manage($username);
             $categorys = $category->getCategory();
+            $comments = $comment->manage($username);
+            $informations = $information->getInformation($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
@@ -543,10 +531,10 @@ class User extends Controller
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
-            $view = Factory::createView();
             $article = Factory::createArticle();
-            $articles = $article->getArticle($article_id);
             $category = Factory::createCategory();
+            $view = Factory::createView();
+            $articles = $article->getArticle($article_id);
             $categorys = $category->getCategory();
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
@@ -566,8 +554,8 @@ class User extends Controller
             $article = Factory::createArticle();
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
-            $res = $article->editArticle($article_id, $title, $content, $updated_at);
-            if ($res) {
+            $result = $article->editArticle($article_id, $title, $content, $updated_at);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -583,8 +571,8 @@ class User extends Controller
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $article = Factory::createArticle();
-            $res = $article->delArticle($article_id);
-            if ($res) {
+            $result = $article->delArticle($article_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -600,8 +588,8 @@ class User extends Controller
         if (isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $comment  =  Factory::createComment();
-            $res = $comment->delComment($comment_id);
-            if ($res) {
+            $result = $comment->delComment($comment_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -615,8 +603,8 @@ class User extends Controller
         if (isset($_POST['information_id'])) {
             $information_id = $_POST['information_id'];
             $information  =  Factory::createInformation();
-            $res = $information->delInformation($information_id);
-            if ($res) {
+            $result = $information->delInformation($information_id);
+            if ($result) {
                 echo '1';
             } else {
                 echo '0';
@@ -628,8 +616,8 @@ class User extends Controller
     public function __call($method, $args)
     {
         $author = $method;
-        $view = Factory::createView();
         $user = Factory::createUser();
+        $view = Factory::createView();
         $realUsername = $user->getUsername($author);
         if (!$realUsername) {
             $view->display('notfound.html');
@@ -639,11 +627,11 @@ class User extends Controller
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $article = Factory::createArticle();
-            $articles = $article->personal($author);
             $category = Factory::createCategory();
+            $follow =  Factory::createFollow();
+            $articles = $article->personal($author);
             $categorys = $category->getCategory();
             $users = $user->personal($author);
-            $follow =  Factory::createFollow();
             $follows = $follow->getFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {
@@ -655,8 +643,8 @@ class User extends Controller
                 $view->assign('follows', $follows);
             }
             $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
             $view->assign('articles', $articles);
+            $view->assign('categorys', $categorys);
             $view->assign('users', $users);
             $view->display('user.html');
         } else {

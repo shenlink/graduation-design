@@ -112,9 +112,9 @@ class Db
         $sql = $this->fixsql('select') . ' limit 1';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         // 获取多条数据后，截取一条
-        return isset($res[0]) ? $res[0] : false;
+        return isset($result[0]) ? $result[0] : false;
     }
     /**
      * @access:public
@@ -128,8 +128,8 @@ class Db
         $sql = $this->fixSql('select');
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $res;
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     // 查询数据总数
@@ -147,9 +147,9 @@ class Db
     {
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
-        $data = $this->selectAll();
+        $article = $this->selectAll();
         $pageHtml = $this->createPages($currentPage, $pageSize,$count);
-        return array('data' => $data,'pageHtml' => $pageHtml);
+        return array('article' => $article,'pageHtml' => $pageHtml);
     }
 
     // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
@@ -207,8 +207,8 @@ class Db
         $sql = $this->fixSql('insert', $data);
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $res = $this->pdo->lastInsertId();
-        return $res;
+        $result = $this->pdo->lastInsertId();
+        return $result;
     }
     /**
      * @access:public
@@ -221,8 +221,8 @@ class Db
     {
         $sql = $this->fixSql('update', $data);
         $stmt = $this->pdo->prepare($sql);
-        $res = $stmt->execute();
-        return $res;
+        $result = $stmt->execute();
+        return $result;
     }
     /**
      * @access:public
@@ -235,8 +235,8 @@ class Db
     {
         $sql = $this->fixSql('delete');
         $stmt = $this->pdo->prepare($sql);
-        $res = $stmt->execute();
-        return $res;
+        $result = $stmt->execute();
+        return $result;
     }
     /**
      * @access:public

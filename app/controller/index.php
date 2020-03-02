@@ -10,44 +10,41 @@ class Index extends Controller
     // 显示首页
     public function index()
     {
-        // 太冗余了
-        session_start();
-        $view = Factory::createView();
-        if (isset($_SESSION['username'])) {
+        // 太冗余了，这有问题，文章记录只有一条时，不显示
+        $access = Validate::checkAccess();
+        if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
         }
+        $announcement = Factory::createAnnouncement();
         $article = Factory::createArticle();
-        $recommends = $article->recommend();
         $category = Factory::createCategory();
+        $view = Factory::createView();
+        $announcements = $announcement->getAnnouncement();
         $categorys = $category->getCategory();
+        $recommends = $article->recommend();
         if (isset($_POST['currentPage'])) {
             $currentPage = $_POST['currentPage'];
             $article = Factory::createArticle();
             $data = $article->mutativePage($currentPage, 5);
-            $articles = $data['data'];
+            $articles = $data['article'];
             $pageHtml = $data['pageHtml'];
-            $announcement = Factory::createAnnouncement();
-            $announcements = $announcement->getAnnouncement();
+            $view->assign('username', $username);
             $view->assign('announcements', $announcements);
-            $view->assign('recommends', $recommends);
+            $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('pageHtml', $pageHtml);
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
+            $view->assign('recommends', $recommends);
             $view->display('index.html');
         } else {
-            $article = Factory::createArticle();
             $data = $article->pagination();
-            $articles = $data['data'];
+            $articles = $data['article'];
             $pageHtml = $data['pageHtml'];
-            $announcement = Factory::createAnnouncement();
-            $announcements = $announcement->getAnnouncement();
+            $view->assign('username', $username);
             $view->assign('announcements', $announcements);
-            $view->assign('recommends', $recommends);
+            $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('pageHtml', $pageHtml);
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
+            $view->assign('recommends', $recommends);
             $view->display('index.html');
         }
     }
