@@ -15,24 +15,6 @@ class Comment extends Controller
         $view->display('notfound.html');
     }
 
-    // 删除评论
-    public function delComment()
-    {
-        if (isset($_POST['comment_id'])) {
-            $comment_id = $_POST['comment_id'];
-            $comment  =  Factory::createComment();
-            $result = $comment->delComment($comment_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-
     // 发表评论
     public function addComment()
     {
@@ -46,6 +28,23 @@ class Comment extends Controller
             $comment_at = date('Y-m-d H:i:s', time());
             $comment =  Factory::createComment();
             $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    // 删除评论
+    public function delComment()
+    {
+        if (isset($_POST['comment_id'])) {
+            $comment_id = $_POST['comment_id'];
+            $comment  =  Factory::createComment();
+            $result = $comment->delComment($comment_id);
             if ($result) {
                 echo '1';
             } else {

@@ -21,7 +21,7 @@ class Follow extends Model
     // 获取用户的所有粉丝
     public function getFollow($author)
     {
-        return $this->table('follow')->field('username')->where(['author' => "{$author}"])->selectAll();
+        return $this->table('follow')->field('username')->where(['author' => "{$author}"])->order('follow_at desc')->selectAll();
     }
 
     // 处理确认关注操作

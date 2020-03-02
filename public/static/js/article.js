@@ -15,7 +15,7 @@ $('#praise').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkPraise");
+    request.open("POST", "/praise/checkPraise");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -55,7 +55,7 @@ $('#collect').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkCollect");
+    request.open("POST", "/collect/checkCollect");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -93,7 +93,7 @@ $('#share').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkShare");
+    request.open("POST", "/share/checkShare");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -149,7 +149,7 @@ $('#comment').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/addComment");
+    request.open("POST", "/comment/addComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -188,7 +188,7 @@ function delComment(commentId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/delComment");
+    request.open("POST", "/comment/delComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -199,6 +199,8 @@ function delComment(commentId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
+                }, function () {
+                    window.location.reload();
                 });
             } else {
                 layer.msg('删除失败', {

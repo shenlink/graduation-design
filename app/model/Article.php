@@ -43,7 +43,7 @@ class Article extends Model
     // 获取个人页面的文章数据
     public function personal($author)
     {
-        return $this->table('article')->field('article_id,author,title,content,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->selectAll();
+        return $this->table('article')->field('article_id,author,title,content,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->order('created_at desc')->selectAll();
     }
 
     // 获取用户管理页面的文章数据
@@ -53,7 +53,7 @@ class Article extends Model
     }
 
     // 查询article表中的数据
-    public function article()
+    public function getAllArticle()
     {
         return $this->table('article')->field('article_id,author,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count')->selectAll();
     }
@@ -72,7 +72,7 @@ class Article extends Model
     // 处理用户编辑文章页面传来的数据
     public function editArticle($article_id, $title, $content, $updated_at)
     {
-        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['article_id' => "{$article_id}", 'title' => "{$title}", 'content' => "{$content}",'updaated_at'=>"{$updated_at}"]);
+        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['article_id' => "{$article_id}", 'title' => "{$title}", 'content' => "{$content}", 'updaated_at' => "{$updated_at}"]);
     }
 
     // 处理删除文章
@@ -87,17 +87,21 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['recommend' => 1])->order('article_id')->selectAll();
     }
 
-
-
     // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
     public function pagination()
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['status'=>1])->pages(1,5);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['status' => 1])->pages(1, 5);
     }
 
     // 当用户点击首页下的页码时，执行此方法
-    public function mutativePage($currentPage,$pageSize)
+    public function mutativePage($currentPage, $pageSize)
     {
         return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['status' => 1])->pages($currentPage, $pageSize);
+    }
+
+    // 处理用户在写文章页面提交的数据
+    public function checkWrite($title, $content, $category, $author, $created_at)
+    {
+        return $this->table('article')->insert(['title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'author' => "{$author}", 'created_at' => "{$created_at}"]);
     }
 }

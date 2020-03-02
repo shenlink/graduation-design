@@ -29,11 +29,11 @@ class Admin extends Controller
             $category = Factory::createCategory();
             $comment =  Factory::createComment();
             $user = Factory::createUser();
-            $announcements = $announcement->announcement();
-            $articles = $article->article();
-            $categorys = $category->category();
-            $comments = $comment->comment();
-            $users = $user->user();
+            $announcements = $announcement->getAllAnnouncement();
+            $articles = $article->getAllArticle();
+            $categorys = $category->getAllCategory();
+            $comments = $comment->getAllComment();
+            $users = $user->getAllUser();
             $view->assign('username', $username);
             $view->assign('announcements', $announcements);
             $view->assign('articles', $articles);

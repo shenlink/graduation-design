@@ -55,7 +55,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/write">写博客</a>
+                                    <a class="nav-link" href="/article/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -202,7 +202,7 @@
                                         <div>
                                             {{if $commentsItem.username == $username}}<small class="delComment"
                                                 onclick="delComment(this)"
-                                                data-delComment={{$commentsItem.comment_id}}>删除</small>
+                                                data-comment-id={{$commentsItem.comment_id}}>删除</small>
                                             {{/if}}
                                         </div>
                                     </h5>
@@ -325,7 +325,7 @@
     <!-- 空行结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>

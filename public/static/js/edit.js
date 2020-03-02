@@ -1,6 +1,7 @@
 function check() {
     let title = document.querySelector('#title');
     let content = document.querySelector('#content');
+    let category = document.querySelector('#category').value;
     if (title.match(/^[ ]+$/) || title == '') {
         layer.msg('标题不能为空', {
             time: 1000
@@ -17,10 +18,23 @@ function check() {
     return true;
 }
 
-
 $('#edit').on('click', function () {
-    let title = document.querySelector('#title');
-    let content = document.querySelector('#content');
+    let title = document.querySelector('#title').value;
+    let content = editor.txt.html();
+    let category = document.querySelector('#category').value;
+    let content_text = editor.txt.text();
+    if (title.match(/^[ ]+$/) || title.length == 0) {
+        layer.msg('标题不能为空', {
+            time: 1000
+        });
+        return;
+    }
+    if (content_text.match(/^[ ]+$/) || content_text.length == 0) {
+        layer.msg('文章内容不能为空', {
+            time: 1000
+        });
+        return;
+    }
     if (check()) {
         let article_id = this.getAttribute('data-editArticle')
         // 1.创建XMLHttpRequest对象
@@ -32,11 +46,11 @@ $('#edit').on('click', function () {
             request = new ActiveXObject("Msxml2.XMLHTTP");
         }
         // 2.请求行
-        request.open("POST", "/user/checkEdit");
+        request.open("POST", "/article/checkEdit");
         // 3.请求头
         request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
         // 4.设置数据
-        request.send("article_id" + article_id + "&title=" + title + "&content=" + content);
+        request.send("article_id" + article_id + "&title=" + title + "&content=" + content + "&category=" + category);
         // 5.监听服务器响应
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {

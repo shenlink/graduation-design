@@ -32,7 +32,7 @@ for (let i = 0; i < defriendUsers.length; i++) {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/admin/defriendUser");
+            request.open("POST", "/user/defriendUser");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -71,7 +71,7 @@ for (let i = 0; i < normalUsers.length; i++) {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/admin/normalUser");
+            request.open("POST", "/user/normalUser");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -113,7 +113,7 @@ function delUser(userId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/delUser");
+    request.open("POST", "/user/delUser");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -150,7 +150,7 @@ for (let i = 0; i < defriendArticles.length; i++) {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/admin/defriendArticle");
+            request.open("POST", "/article/defriendArticle");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -190,7 +190,7 @@ for (let i = 0; i < normalArticles.length; i++) {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/admin/normalArticle");
+            request.open("POST", "/article/normalArticle");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -232,7 +232,7 @@ function delArticle(articleId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/delArticle");
+    request.open("POST", "/article/delArticle");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -273,7 +273,7 @@ for (let i = 0; i < defriendcategorys.length; i++) {
                     request = new ActiveXObject("Msxml2.XMLHTTP");
                 }
                 // 2.请求行
-                request.open("POST", "/admin/defriendcategory");
+                request.open("POST", "/category/defriendcategory");
                 // 3.请求头
                 request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
                 // 4.设置数据
@@ -313,7 +313,7 @@ for (let i = 0; i < normalCategorys.length; i++) {
                 request = new ActiveXObject("Msxml2.XMLHTTP");
             }
             // 2.请求行
-            request.open("POST", "/admin/normalCategory");
+            request.open("POST", "/category/normalCategory");
             // 3.请求头
             request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
             // 4.设置数据
@@ -353,7 +353,7 @@ function delCategory(categoryName) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/delCategory");
+    request.open("POST", "/category/delCategory");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -380,14 +380,14 @@ function delCategory(categoryName) {
 function addCategory() {
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createInput('addCategory', 'addCategory');
+    let input = createCategoryInput('addCategory', 'addCategory');
     form.appendChild(input);
     form.method = 'post';
-    form.action = '/admin/add';
+    form.action = '/category/addCategory';
     form.submit();
 }
 
-function createInput(name, value) {
+function createCategoryInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -412,7 +412,7 @@ function delComment(commentId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/delComment");
+    request.open("POST", "/comment/delComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -452,7 +452,7 @@ function delAnnouncement(announcementId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/delAnnouncement");
+    request.open("POST", "/announcement/delAnnouncement");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -480,9 +480,17 @@ function delAnnouncement(announcementId) {
 function addAnnouncement() {
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createInput('addAnnouncement', 'addAnnouncement');
+    let input = createAnnouncementInput('addAnnouncement', 'addAnnouncement');
     form.appendChild(input);
     form.method = 'post';
-    form.action = '/admin/add';
+    form.action = '/announcement/addAnnouncement';
     form.submit();
+}
+
+function createAnnouncementInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
 }

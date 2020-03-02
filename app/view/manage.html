@@ -56,7 +56,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/write">写博客</a>
+                                    <a class="nav-link" href="/article/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -166,7 +166,7 @@
                             <td>{{$articlesItem.share_count}}</td>
                             <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a> </td>
                             <td>
-                                <button class="btn btn-primary btn-sm editArticle"
+                                <button class="btn btn-primary btn-sm editArticle" onclick="editArticle(this)"
                                     data-article-id={{$articlesItem.article_id}}>
                                     编辑
                                 </button>
@@ -235,7 +235,7 @@
                     </fieldset>
                     <thead>
                         <tr>
-                            <th scope="col">私信</th>
+                            <th scope="col">私信内容</th>
                             <th scope="col">发信人</th>
                             <th scope="col">操作</th>
                         </tr>

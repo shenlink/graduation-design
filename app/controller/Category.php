@@ -67,7 +67,7 @@ class Category extends Controller
     }
 
     // 添加页面，共有添加分类，公告功能
-    public function add()
+    public function addCategory()
     {
         $view = Factory::createView();
         if (isset($_POST['addCategory'])) {
@@ -77,36 +77,18 @@ class Category extends Controller
             $categorys = $category->getCategory();
             $view->assign('categorys', $categorys);
             $view->display('add.html');
-        } else if (isset($_POST['addAnnouncement'])) {
-            $addAnnouncement = $_POST['addAnnouncement'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('categorys', $categorys);
-            $view->assign('addAnnouncement', $addAnnouncement);
-            $view->display('add.html');
         } else {
             $this->displayNone();
         }
     }
 
     // 确认添加
-    public function checkAdd()
+    public function checkAddCategory()
     {
-        if (isset($_POST['content'])) {
-            $content = $_POST['content'];
-            $announcement  =  Factory::createAnnouncement();
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $announcement->addAnnouncement($content, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
+        if (isset($_POST['categoryName'])) {
+            $categoryName = $_POST['categoryName'];
             $category = Factory::createCategory();
-            $result = $category->addCategory($categorys);
+            $result = $category->addCategory($categoryName);
             if ($result) {
                 echo '1';
             } else {

@@ -44,12 +44,6 @@ class User extends Model
         return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
     }
 
-    // 处理用户在写文章页面提交的数据
-    public function checkWrite($title, $content, $category, $created_at)
-    {
-        return $this->table('article')->insert(['title'=>"{$title}",'content'=>"{$content}",'category'=>"{$category}",'created_at'=>"{$created_at}"]);
-    }
-
     // 获取单个用户的所有信息
     public function getUsername($username)
     {
@@ -62,12 +56,6 @@ class User extends Model
         return $this->table('user')->field('username,created_at,introduction,article_count,follows_count,fans_count')->where(['username'=>"{$username}"])->select();
     }
 
-    // 处理用户提交的私信数据
-    public function checkInformation($author, $username, $content, $created_at)
-    {
-        return $this->table('information')->insert(['author'=>"{$author}",'username'=>"{$username}",'content'=>"{$content}", 'created_at' => "{$created_at}"]);
-    }
-
     // 处理用户在个人信息修改页面提交的数据
     public function checkChange($username, $password, $introduction)
     {
@@ -75,7 +63,7 @@ class User extends Model
     }
 
     // 查询user表中的数据
-    public function user()
+    public function getAllUser()
     {
         return $this->table('user')->field('user_id,username,role,article_count,follows_count,fans_count,created_at,status')->selectAll();
     }

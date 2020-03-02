@@ -56,7 +56,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/write">写博客</a>
+                                    <a class="nav-link" href="/article/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -116,22 +116,22 @@
                 </h3>
                 <!-- 页头说明结束 -->
 
-                <form action="/user/checkWrite" method="post">
+                <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="博文标题" name="title" id="title" autofocus>
+                        <input type="text" class="form-control" placeholder="博文标题" id="title">
                     </div>
                     <div id="content">
 
                     </div>
                     <br>
                     <div class="form-group">
-                        <select class="form-control" name="category">
-                            {{foreach from=$category item=categoryIndex}}
-                            <option value="{{$categoryIndex.category}}">{{$categoryIndex.category}}</option>
+                        <select class="form-control" id="category">
+                            {{foreach from=$categorys item=categorysItem}}
+                            <option value="{{$categorysItem.category}}">{{$categorysItem.category}}</option>
                             {{/foreach}}
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-info btn-sm btn-block" id="publish"
+                    <button type="button" class="btn btn-info btn-sm btn-block" id="publish"
                         onclick="return check()">发布</button><br><br>
                 </form>
             </div>
@@ -156,13 +156,8 @@
 
     <!-- 链接jquery3.2.1 -->
     <script src="/static/js/jquery.js"></script>
-    <!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
-    <script type="text/javascript" src="/static/js/wangEditor.js"></script>
-    <script>
-        let E = window.wangEditor;
-        let editor = new E('#content');
-        editor.create();
-    </script>
+    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
+    <script src="/static/js/wangEditor.js"></script>
     <script src="/static/js/write.js"></script>
 </body>
 

@@ -1,5 +1,5 @@
 $('#addCategory').on('click', function () {
-    let category = document.querySelector('#category').value;
+    let categoryName = document.querySelector('#categoryName').value;
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -9,11 +9,11 @@ $('#addCategory').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/checkAdd");
+    request.open("POST", "/category/checkAddCategory");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("category=" + category);
+    request.send("categoryName=" + categoryName);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -43,7 +43,7 @@ $('#addAnnouncement').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/admin/checkAdd");
+    request.open("POST", "/announcement/checkAddAnnouncement");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -66,7 +66,7 @@ $('#addAnnouncement').on('click', function () {
 
 
 $('#addInformation').on('click', function () {
-    let information = document.querySelector('#information').value;
+    let content = document.querySelector('#content').value;
     let author = document.querySelector('#author').value;
     let username = document.querySelector('#username').value;
     // 1.创建XMLHttpRequest对象
@@ -78,17 +78,19 @@ $('#addInformation').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/checkInformation");
+    request.open("POST", "/information/checkAddInformation");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("information=" + information + "&author=" + author + "&username" + username);
+    request.send("author=" + author + "&username=" + username + "&content=" + content);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             if (request.responseText == "1") {
                 layer.msg('发送成功', {
                     time: 1000
+                }, function () {
+                        window.history.back(-1);
                 });
             } else {
                 layer.msg('发送失败', {

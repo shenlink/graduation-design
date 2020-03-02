@@ -56,7 +56,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/write">写博客</a>
+                                    <a class="nav-link" href="/article/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -141,7 +141,7 @@
                         <form>
                             <div class="form-group">
                                 <br>
-                                <input type="text" class="form-control" placeholder="分类" id="category">
+                                <input type="text" class="form-control" placeholder="分类" id="categoryName">
                                 <br>
                                 <button type="button" class="btn btn-primary" id="addCategory">
                                     添加
@@ -163,7 +163,7 @@
                         <form>
                             <div class="form-group">
                                 <br>
-                                <input type="textarea" class="form-control" placeholder="私信" id="information">
+                                <input type="textarea" class="form-control" placeholder="私信" id="content">
                                 <input type="text" id="author" value="{{$author}}" name="author" hidden>
                                 <input type="text" id="username" value="{{$username}}" name="username" hidden>
                                 <br>
@@ -180,50 +180,7 @@
                 <!-- 左边文章列表和分页结束 -->
 
                 <!--右边推荐列表开始-->
-                <div class="col-md-4">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="#">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">1</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">2</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">3</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">4</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class=" badge badge-primary badge-pill">6</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">7</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">9</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="">JavaScript中有关数组常见操作技</a>
-                            <span class="badge badge-primary badge-pill">10</span>
-                        </li>
-                    </ul>
-                </div>
+
                 <!-- 右边推荐列表结束 -->
             </div>
         </div>
@@ -238,7 +195,7 @@
     <!-- 空行结束 -->
 
     <!-- 公共底部开始-->
-    <footer class="container-fluid">
+    <footer class="container-fluid fixed-bottom">
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center bg-info">Fixed bottom</div>

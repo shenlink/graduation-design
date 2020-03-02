@@ -16,37 +16,25 @@ for (let i = 0; i < lis.length; i++) {
     }
 }
 
+function editArticle(articleId) {
+    let temp = articleId;
+    let article_id = temp.getAttribute('data-article-id');
+    console.log(article_id)
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    let input = createArticleInput('article_id', article_id);
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/article/editArticle';
+    form.submit();
+}
 
-
-let editArticles = document.querySelectorAll('.editArticle');
-for (let i = 0; i < editArticles.length; i++) {
-    editArticles[i].onclick = function () {
-        for (let i = 0; i < editArticles.length; i++) {
-            let article_id = this.getAttribute('data-editArticle')
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
-            } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/user/editArticles");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("article_id=" + article_id);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        window.location.href = '/';
-                    }
-                }
-            }
-        }
-    }
+function createArticleInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
 }
 
 
@@ -65,7 +53,7 @@ function delArticle(articleId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/delArticle");
+    request.open("POST", "/article/delArticle");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -105,7 +93,7 @@ function delComment(commentId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/delComment");
+    request.open("POST", "/comment/delComment");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -145,7 +133,7 @@ function delInformation(informationId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/user/delInformation");
+    request.open("POST", "/information/delInformation");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据

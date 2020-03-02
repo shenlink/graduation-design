@@ -17,7 +17,7 @@ $('#follow').on('click', function () {
             request = new ActiveXObject("Msxml2.XMLHTTP");
         }
         // 2.请求行
-        request.open("POST", "/user/checkFollow");
+        request.open("POST", "/follow/checkFollow");
         // 3.请求头
         request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
         // 4.设置数据
@@ -56,14 +56,14 @@ function addInformation() {
     let author = information.getAttribute('date-author');
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createInput('author', author);
+    let input = createInformationInput('author', author);
     form.appendChild(input);
     form.method = 'post';
-    form.action = '/user/addInformation';
+    form.action = '/information/addInformation';
     form.submit();
 }
 
-function createInput(name, value) {
+function createInformationInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;

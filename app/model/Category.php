@@ -34,7 +34,7 @@ class Category extends Model
     }
 
     // 查询category表中的数据
-    public function category()
+    public function getAllCategory()
     {
         return $this->table('category')->field('category_id,category,status,article_count')->selectAll();
     }
@@ -58,9 +58,9 @@ class Category extends Model
     }
 
     // 处理添加分类
-    public function addCategory($category)
+    public function addCategory($categoryName)
     {
-        return $this->table('category')->insert(['category' => "{$category}"]);
+        return $this->table('category')->insert(['category' => "{$categoryName}"]);
     }
 
 

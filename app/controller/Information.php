@@ -30,16 +30,16 @@ class information extends Controller
     }
 
     // 处理用户发的私信数据
-    public function checkInformation()
+    public function checkAddInformation()
     {
-        if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content'])) {
+        if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content']) &&  isset($_POST['content'])) {
             $author = $_POST['author'];
             $username = $_POST['username'];
             $content = $_POST['content'];
-            $user = Factory::createUser();
+            $information = Factory::createInformation();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $user->checkInformation($author, $username, $content, $created_at);
+            $result = $information->checkAddInformation($author, $username, $content, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -64,5 +64,4 @@ class information extends Controller
             }
         }
     }
-
 }

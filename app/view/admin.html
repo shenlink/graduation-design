@@ -56,7 +56,7 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/write">写博客</a>
+                                    <a class="nav-link" href="/article/write">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
@@ -141,7 +141,11 @@
                                 {{$usersItem.username}}
                             </td>
                             <td>
-                                {{$usersItem.role}}
+                                {{if $usersItem.role == 1}}
+                                管理员
+                                {{else}}
+                                普通用户
+                                {{/if}}
                             </td>
                             <td>
                                 {{$usersItem.article_count}}
@@ -197,17 +201,17 @@
                     </fieldset>
                     <thead>
                         <tr>
-                            <th scope="col">文章id</th>
+                            <th scope="col">id</th>
                             <th scope="col">作者</th>
-                            <th scope="col">文章标题</th>
-                            <th scope="col">文章状态</th>
+                            <th scope="col">标题</th>
+                            <th scope="col">状态</th>
                             <th scope="col">创建时间</th>
                             <th scope="col">更新时间</th>
                             <th scope="col">分类</th>
                             <th scope="col">评论数</th>
                             <th scope="col">点赞数</th>
                             <th scope="col">收藏数</th>
-                            <th scope="col">文章链接</th>
+                            <th scope="col">链接</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
@@ -367,7 +371,7 @@
                                 {{$commentsItem.status}}
                             </td>
                             <td>
-                                {{$commentsItem.created_at}}
+                                {{$commentsItem.comment_at}}
                             </td>
                             <td>
                                 <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
@@ -399,7 +403,6 @@
                             <th scope="col">公告id</th>
                             <th scope="col">公告内容</th>
                             <th scope="col">创建时间</th>
-                            <th scope="col">更新时间</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
@@ -414,9 +417,6 @@
                             </td>
                             <td>
                                 {{$announcementsItem.created_at}}
-                            </td>
-                            <td>
-                                {{$announcementsItem.updated_at}}
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm" onclick="delAnnouncement(this)"

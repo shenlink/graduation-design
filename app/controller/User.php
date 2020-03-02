@@ -87,29 +87,6 @@ class User extends Controller
         $view->display('register.html');
     }
 
-    // 显示登录页面
-    public function login()
-    {
-        $category = Factory::createCategory();
-        $view = Factory::createView();
-        $categorys = $category->getCategory();
-        $view->assign('categorys', $categorys);
-        $view->display('login.html');
-    }
-
-    // 退出登录功能的实现
-    public function logout()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            unset($_SESSION['username']);
-            echo "<script>window.location.href='/'</script>";
-        } else {
-            $view = Factory::createView();
-            $view->display('nologin.html');
-        }
-    }
-
     // 处理注册页面提交的数据
     public function checkRegister()
     {
@@ -131,6 +108,16 @@ class User extends Controller
         }
     }
 
+    // 显示登录页面
+    public function login()
+    {
+        $category = Factory::createCategory();
+        $view = Factory::createView();
+        $categorys = $category->getCategory();
+        $view->assign('categorys', $categorys);
+        $view->display('login.html');
+    }
+
     // 处理登录页面提交的数据
     public function checkLogin()
     {
@@ -149,6 +136,19 @@ class User extends Controller
             }
         } else {
             $this->displayNone();
+        }
+    }
+
+    // 退出登录功能的实现
+    public function logout()
+    {
+        $access = Validate::checkAccess();
+        if ($access == 1 || $access == 2) {
+            unset($_SESSION['username']);
+            echo "<script>window.location.href='/'</script>";
+        } else {
+            $view = Factory::createView();
+            $view->display('nologin.html');
         }
     }
 

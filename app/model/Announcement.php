@@ -25,13 +25,13 @@ class Announcement extends Model
     }
 
     // 查询announcement表中的数据
-    public function announcement()
+    public function getAllAnnouncement()
     {
         return $this->table('announcement')->field('announcement_id,content,created_at')->selectAll();
     }
 
     // 添加公告
-    public function addAnnouncement($content, $created_at)
+    public function checkAddAnnouncement($content, $created_at)
     {
         return $this->table('announcement')->insert(['content'=>"{$content}", 'created_at'=>"{$created_at}"]);
     }

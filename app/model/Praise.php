@@ -19,7 +19,7 @@ class Praise extends Model
 
     public function getPraise($username)
     {
-        return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->selectAll();
+        return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->order('praise_at desc')->selectAll();
     }
 
     // 处理确认点赞操作

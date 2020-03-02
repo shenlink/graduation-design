@@ -19,7 +19,7 @@ class Share extends Model
 
     public function getShare($username)
     {
-        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username' => "{$username}"])->selectAll();
+        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username' => "{$username}"])->order('share_at desc')->selectAll();
     }
 
     // 处理确认分享操作,这应该只传入一个id就可以了

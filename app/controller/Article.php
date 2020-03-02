@@ -15,30 +15,36 @@ class Article extends Controller
         $view->display('notfound.html');
     }
 
-    // 拉黑文章
-    public function defriendArticle()
+    // 显示写文章页面
+    public function write()
     {
-        if (isset($_POST['article_id'])) {
-            $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $result = $article->defriendArticle($article_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+        $access = Validate::checkAccess();
+        $view = Factory::createView();
+        if ($access == '1' || $access == '2') {
+            $username = $_SESSION['username'];
+            $category = Factory::createCategory();
+            $categorys = $category->getCategory();
+            $view->assign('username', $username);
+            $view->assign('categorys', $categorys);
+            $view->display('write.html');
         } else {
-            $this->displayNone();
+            $view->display('nologin.html');
         }
     }
 
-    public function normalArticle()
+    // 处理写文章页面提交的数据
+    public function checkWrite()
     {
-        // 获取前端ajax传来的user_id
-        if (isset($_POST['article_id'])) {
-            $article_id = $_POST['article_id'];
+        if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
+            session_start();
+            $author = $_SESSION['username'];
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $category = $_POST['category'];
             $article = Factory::createArticle();
-            $result = $article->normalArticle($article_id);
+            date_default_timezone_set('PRC');
+            $created_at = date('Y-m-d H:i:s', time());
+            $result = $article->checkWrite($title, $content, $category,$author, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -88,6 +94,40 @@ class Article extends Controller
         }
     }
 
+    // 拉黑文章
+    public function defriendArticle()
+    {
+        if (isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
+            $article = Factory::createArticle();
+            $result = $article->defriendArticle($article_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    public function normalArticle()
+    {
+        // 获取前端ajax传来的user_id
+        if (isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
+            $article = Factory::createArticle();
+            $result = $article->normalArticle($article_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     //删除文章
     public function delArticle()
     {
@@ -105,43 +145,6 @@ class Article extends Controller
         }
     }
 
-    // 显示写文章页面
-    public function write()
-    {
-        $access = Validate::checkAccess();
-        $view = Factory::createView();
-        if ($access == '1' || $access == '2') {
-            $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->display('write.html');
-        } else {
-            $view->display('nologin.html');
-        }
-    }
-
-    // 处理写文章页面提交的数据
-    public function checkWrite()
-    {
-        if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $category = $_POST['category'];
-            $user = Factory::createUser();
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $user->checkWrite($title, $content, $category, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
 
     public function __call($method, $args)
     {
