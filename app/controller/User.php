@@ -152,190 +152,6 @@ class User extends Controller
         }
     }
 
-    // 显示写文章页面
-    public function write()
-    {
-        $access = Validate::checkAccess();
-        $view = Factory::createView();
-        if ($access == '1' || $access == '2') {
-            $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->display('write.html');
-        } else {
-            $view->display('nologin.html');
-        }
-    }
-
-    // 处理写文章页面提交的数据
-    public function checkWrite()
-    {
-        if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $category = $_POST['category'];
-            $user = Factory::createUser();
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $user->checkWrite($title, $content, $category, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 确认添加评论
-    public function addComment()
-    {
-        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['title'])  && isset($_POST['author'])) {
-            $content = $_POST['content'];
-            $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $title = $_POST['title'];
-            $author = $_POST['author'];
-            date_default_timezone_set('PRC');
-            $comment_at = date('Y-m-d H:i:s', time());
-            $comment =  Factory::createComment();
-            $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 确认关注
-    public function checkFollow()
-    {
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['author']) && isset($_POST['username'])) {
-            $author = $_POST['author'];
-            $username = $_POST['username'];
-            $follow =  Factory::createFollow();
-            $result =  $follow->checkFollow($author, $username);
-            if ($result) {
-                $cancel = $follow->cancelFollow($author, $username);
-                if ($cancel) {
-                    echo "取消关注成功";
-                } else {
-                    echo '取消关注失败';
-                }
-            } else {
-                date_default_timezone_set('PRC');
-                $follow_at = date('Y-m-d H:i:s', time());
-                $add = $follow->addFollow($author, $username, $follow_at);
-                if ($add) {
-                    echo "关注成功";
-                } else {
-                    echo '关注失败';
-                }
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 确认点赞
-    public function checkPraise()
-    {
-        // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
-            $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $author = $_POST['author'];
-            $title = $_POST['title'];
-            $praise =  Factory::createPraise();
-            $result =  $praise->checkPraise($username, $article_id);
-            if ($result) {
-                // 如果已经点赞了，返回0,顺便取消点赞
-                $cancel = $praise->cancelPraise($username, $article_id);
-                if ($cancel) {
-                    // 已经取消点赞
-                    echo "0";
-                }
-            } else {
-                // 如果还没有点赞
-                date_default_timezone_set('PRC');
-                $praise_at = date('Y-m-d H:i:s', time());
-                $add = $praise->addPraise($username, $article_id, $author, $title, $praise_at);
-                if ($add) {
-                    // 已经点赞
-                    echo "1";
-                }
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    public function checkCollect()
-    {
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
-            $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $author = $_POST['author'];
-            $title = $_POST['title'];
-            $collect =  Factory::createCollect();
-            $result =  $collect->checkCollect($username, $article_id);
-            if ($result) {
-                $cancel = $collect->cancelCollect($username, $article_id);
-                if ($cancel) {
-                    echo "0";
-                }
-            } else {
-                date_default_timezone_set('PRC');
-                $collect_at = date('Y-m-d H:i:s', time());
-                $add = $collect->addCollect($username, $article_id, $author, $title, $collect_at);
-                if ($add) {
-                    echo "1";
-                }
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 确认分享
-    public function checkShare()
-    {
-        // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
-            $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $author = $_POST['author'];
-            $title = $_POST['title'];
-            $share =  Factory::createShare();
-            $result =  $share->checkShare($username, $article_id);
-            if ($result) {
-                $cancel = $share->cancelShare($username, $article_id);
-                if ($cancel) {
-                    echo "0";
-                }
-            } else {
-                date_default_timezone_set('PRC');
-                $share_at = date('Y-m-d H:i:s', time());
-                $add = $share->addShare($username, $article_id, $author, $title, $share_at);
-                if ($add) {
-                    echo "1";
-                }
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
     // 显示个人首页
     public function personal()
     {
@@ -368,90 +184,6 @@ class User extends Controller
             $view->display('personal.html');
         } else {
             $view->display('nologin.html');
-        }
-    }
-
-    public function delPraise()
-    {
-        if (isset($_POST['praise_id'])) {
-            $praise_id = $_POST['praise_id'];
-            $praise =  Factory::createPraise();
-            $result = $praise->delPraise($praise_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    public function delCollect()
-    {
-        if (isset($_POST['collect_id'])) {
-            $collect_id = $_POST['collect_id'];
-            $collect =  Factory::createCollect();
-            $result = $collect->delCollect($collect_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    public function delShare()
-    {
-        if (isset($_POST['share_id'])) {
-            $share_id = $_POST['share_id'];
-            $share =  Factory::createShare();
-            $result = $share->delShare($share_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    public function addInformation()
-    {
-        if (isset($_POST['author'])) {
-            $author = $_POST['author'];
-            $view = Factory::createView();
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('categorys', $categorys);
-            $view->assign('author', $author);
-            $view->display('add.html');
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 处理用户发的私信数据
-    public function checkInformation()
-    {
-        if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content'])) {
-            $author = $_POST['author'];
-            $username = $_POST['username'];
-            $content = $_POST['content'];
-            $user = Factory::createUser();
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $user->checkInformation($author, $username, $content, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
         }
     }
 
@@ -499,7 +231,6 @@ class User extends Controller
         }
     }
 
-
     // 显示用户管理页面
     public function manage()
     {
@@ -526,35 +257,14 @@ class User extends Controller
         }
     }
 
-    // 显示编辑文章页面
-    public function editArticle()
+    // 拉黑用户
+    public function defriendUser()
     {
-        if (isset($_POST['article_id'])) {
-            $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $view = Factory::createView();
-            $articles = $article->getArticle($article_id);
-            $categorys = $category->getCategory();
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->display('edit.html');
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 处理文章编辑页面提交的数据
-    public function checkEdit()
-    {
-        if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content'])) {
-            $article_id = $_POST['article_id'];
-            $title = $_POST['title'];
-            $content = $_POST['content'];
-            $article = Factory::createArticle();
-            date_default_timezone_set('PRC');
-            $updated_at = date('Y-m-d H:i:s', time());
-            $result = $article->editArticle($article_id, $title, $content, $updated_at);
+        // 获取前端ajax传来的user_id
+        if (isset($_POST['user_id'])) {
+            $user_id = $_POST['user_id'];
+            $user = Factory::createUser();
+            $result = $user->defriendUser($user_id);
             if ($result) {
                 echo '1';
             } else {
@@ -565,13 +275,14 @@ class User extends Controller
         }
     }
 
-    //删除文章
-    public function delArticle()
+    // 恢复用户的状态为正常
+    public function normalUser()
     {
-        if (isset($_POST['article_id'])) {
-            $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $result = $article->delArticle($article_id);
+        // 获取前端ajax传来的user_id
+        if (isset($_POST['user_id'])) {
+            $user_id = $_POST['user_id'];
+            $user = Factory::createUser();
+            $result = $user->normalUser($user_id);
             if ($result) {
                 echo '1';
             } else {
@@ -582,33 +293,22 @@ class User extends Controller
         }
     }
 
-    // 删除评论
-    public function delComment()
+    // 删除用户
+    public function delUser()
     {
-        if (isset($_POST['comment_id'])) {
-            $comment_id = $_POST['comment_id'];
-            $comment  =  Factory::createComment();
-            $result = $comment->delComment($comment_id);
+        // 获取前端ajax传来的user_id
+        if (isset($_POST['user_id'])) {
+            $user_id = $_POST['user_id'];
+            $user = Factory::createUser();
+            $result = $user->delUser($user_id);
             if ($result) {
                 echo '1';
             } else {
                 echo '0';
             }
-        }
-    }
-
-    // 删除私信
-    public function delInformation()
-    {
-        if (isset($_POST['information_id'])) {
-            $information_id = $_POST['information_id'];
-            $information  =  Factory::createInformation();
-            $result = $information->delInformation($information_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+        } else {
+            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
+            $this->displayNone();
         }
     }
 

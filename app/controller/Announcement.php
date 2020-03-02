@@ -4,10 +4,10 @@ namespace app\controller;
 
 use core\lib\Controller;
 use core\lib\Factory;
-use app\controller\Validate;
 
-class Category extends Controller
+class Announcement extends Controller
 {
+
     // 显示404页面
     public function displayNone()
     {
@@ -15,47 +15,13 @@ class Category extends Controller
         $view->display('notfound.html');
     }
 
-    // 拉黑分类
-    public function defriendcategory()
+    // 删除公告
+    public function delAnnouncement()
     {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->defriendcategory($categorys);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 恢复分类
-    public function normalCategory()
-    {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->normalCategory($categorys);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 删除分类
-    public function delCategory()
-    {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->delCategory($categorys);
+        if (isset($_POST['announcement_id'])) {
+            $announcement_id = $_POST['announcement_id'];
+            $announcement  =  Factory::createAnnouncement();
+            $result = $announcement->delAnnouncement($announcement_id);
             if ($result) {
                 echo '1';
             } else {
@@ -117,29 +83,4 @@ class Category extends Controller
         }
     }
 
-    public function __call($method, $args)
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
-        $categoryName = $method;
-        $category = Factory::createCategory();
-        $view = Factory::createView();
-        $realCategory = $category->checkCategory($categoryName);
-        if (!$realCategory) {
-            $view->display('notfound.html');
-            exit();
-        }
-        $article = Factory::createArticle();
-        $articles = $category->getArticle($categoryName);
-        $categorys = $category->getCategory();
-        $recommends = $article->recommend();
-        $view->assign('username', $username);
-        $view->assign('articles', $articles);
-        $view->assign('categorys', $categorys);
-        $view->assign('categoryName',$categoryName);
-        $view->assign('recommends', $recommends);
-        $view->display('category.html');
-    }
 }
