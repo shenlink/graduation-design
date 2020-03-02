@@ -132,6 +132,23 @@ class Admin extends Controller
         }
     }
 
+    public function normalArticle()
+    {
+        // 获取前端ajax传来的user_id
+        if (isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
+            $article = Factory::createArticle();
+            $result = $article->normalArticle($article_id);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     // 删除文章
     public function delArticle()
     {

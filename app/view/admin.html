@@ -252,10 +252,17 @@
                                 <a href="/article/{{$articlesItem.article_id}}">文章链接</a>
                             </td>
                             <td>
+                                {{if $articlesItem.status == 1}}
                                 <button class="btn btn-primary btn-sm defriendArticle"
-                                    data-article-id={{$articlesItem.article_id}}>
+                                    data-category={{$articlesItem.category}}>
                                     拉黑
                                 </button>
+                                {{else}}
+                                <button class="btn btn-primary btn-sm normalArticle"
+                                    data-category={{$articlesItem.category}}>
+                                    恢复
+                                </button>
+                                {{/if}}
                                 <button class="btn btn-primary btn-sm" onclick="delArticle(this)"
                                     data-article-id={{$articlesItem.article_id}}>
                                     删除

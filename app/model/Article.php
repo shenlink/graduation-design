@@ -52,6 +52,11 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
     }
 
+    public function normalArticle()
+    {
+        return $this->table('article')->field('status')->update(['status' => 1]);
+    }
+
     // 处理用户编辑文章页面传来的数据
     public function editArticle($article_id, $title, $content, $updated_at)
     {

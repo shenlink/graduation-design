@@ -175,6 +175,46 @@ for (let i = 0; i < defriendArticles.length; i++) {
     }
 }
 
+// 恢复文章到正常状态
+let normalArticles = document.querySelectorAll('.normalArticle');
+for (let i = 0; i < normalArticles.length; i++) {
+    normalArticles[i].onclick = function () {
+        for (let i = 0; i < normalArticles.length; i++) {
+            let article_id = this.getAttribute('data-user-id');
+            // 1.创建XMLHttpRequest对象
+            let request = null;
+            if (XMLHttpRequest) {
+                request = new XMLHttpRequest();
+            } else {
+                //兼容老IE浏览器
+                request = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            // 2.请求行
+            request.open("POST", "/admin/normalArticle");
+            // 3.请求头
+            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+            // 4.设置数据
+            request.send("article_id=" + article_id);
+            // 5.监听服务器响应
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    if (request.responseText == "1") {
+                        layer.msg('恢复成功', {
+                            time: 1000
+                        });
+                        window.location.reload();
+                    } else {
+                        layer.msg('恢复失败', {
+                            time: 1000
+                        });
+                    }
+                }
+            }
+
+        }
+    }
+}
+
 
 // 删除文章
 function delArticle(articleId) {
