@@ -28,11 +28,6 @@ class Category extends Model
         return $this->table('category')->field('category')->where(['category' => "{$category}"])->select();
     }
 
-    public function getArticle($category)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}"])->selectAll();
-    }
-
     // 查询category表中的数据
     public function getAllCategory()
     {
@@ -62,6 +57,4 @@ class Category extends Model
     {
         return $this->table('category')->insert(['category' => "{$categoryName}"]);
     }
-
-
 }

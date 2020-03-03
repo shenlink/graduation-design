@@ -179,6 +179,8 @@ function delComment(commentId) {
     }
     let temp = commentId;
     let comment_id = temp.getAttribute('data-comment-id');
+    let article = document.querySelector('#article');
+    let article_id = article.getAttribute('data-article-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -192,7 +194,7 @@ function delComment(commentId) {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("comment_id=" + comment_id);
+    request.send("comment_id=" + comment_id + "&article_id=" + article_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {

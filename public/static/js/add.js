@@ -65,7 +65,7 @@ $('#addAnnouncement').on('click', function () {
 });
 
 
-$('#addInformation').on('click', function () {
+$('#addMessage').on('click', function () {
     let content = document.querySelector('#content').value;
     let author = document.querySelector('#author').value;
     let username = document.querySelector('#username').value;
@@ -78,7 +78,7 @@ $('#addInformation').on('click', function () {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/information/checkAddInformation");
+    request.open("POST", "/message/checkAddMessage");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据

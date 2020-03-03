@@ -131,10 +131,13 @@ class Article extends Controller
     //删除文章
     public function delArticle()
     {
-        if (isset($_POST['article_id'])) {
+        session_start();
+        if (isset($_POST['article_id']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
+            $author = $_SESSION['username'];
+            $category = $_POST['category'];
             $article = Factory::createArticle();
-            $result = $article->delArticle($article_id);
+            $result = $article->delArticle($article_id,$author,$category);
             if ($result) {
                 echo '1';
             } else {

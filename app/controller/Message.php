@@ -5,7 +5,7 @@ namespace app\controller;
 use core\lib\Controller;
 use core\lib\Factory;
 
-class information extends Controller
+class Message extends Controller
 {
     // 显示404页面
     public function displayNone()
@@ -14,7 +14,7 @@ class information extends Controller
         $view->display('notfound.html');
     }
 
-    public function addInformation()
+    public function addmessage()
     {
         if (isset($_POST['author'])) {
             $author = $_POST['author'];
@@ -30,16 +30,16 @@ class information extends Controller
     }
 
     // 处理用户发的私信数据
-    public function checkAddInformation()
+    public function checkAddMessage()
     {
         if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content']) &&  isset($_POST['content'])) {
             $author = $_POST['author'];
             $username = $_POST['username'];
             $content = $_POST['content'];
-            $information = Factory::createInformation();
+            $message = Factory::createMessage();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $information->checkAddInformation($author, $username, $content, $created_at);
+            $result = $message->checkAddMessage($author, $username, $content, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -51,12 +51,12 @@ class information extends Controller
     }
 
     // 删除私信
-    public function delInformation()
+    public function delMessage()
     {
-        if (isset($_POST['information_id'])) {
-            $information_id = $_POST['information_id'];
-            $information  =  Factory::createInformation();
-            $result = $information->delInformation($information_id);
+        if (isset($_POST['message_id'])) {
+            $message_id = $_POST['message_id'];
+            $message  =  Factory::createMessage();
+            $result = $message->delMessage($message_id);
             if ($result) {
                 echo '1';
             } else {

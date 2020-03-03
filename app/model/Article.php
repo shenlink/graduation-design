@@ -58,6 +58,12 @@ class Article extends Model
         return $this->table('article')->field('article_id,author,title,status,created_at,category,comment_count,praise_count,collect_count')->selectAll();
     }
 
+    public function getCategoryArticle($category)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}"])->selectAll();
+    }
+
+
     // 拉黑某篇文章
     public function defriendArticle()
     {
@@ -76,9 +82,12 @@ class Article extends Model
     }
 
     // 处理删除文章
-    public function delArticle($article_id)
+    public function delArticle($article_id,$author,$category)
     {
-        return $this->table('article')->where(['article_id' => "{$article_id}"])->delete();
+        $articles = $this->table('article')->where(['article_id' => "{$article_id}"])->delete();
+        $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count-1');
+        $categorys =  $this->table('category')->field('article_count')->where(['category' => "{$category}"])->update('article_count = article_count-1');
+        return $articles && $users && $categorys;
     }
 
     // 获取所有被管理员推荐的文章
@@ -102,6 +111,9 @@ class Article extends Model
     // 处理用户在写文章页面提交的数据
     public function checkWrite($title, $content, $category, $author, $created_at)
     {
-        return $this->table('article')->insert(['title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'author' => "{$author}", 'created_at' => "{$created_at}"]);
+        $articles = $this->table('article')->insert(['title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'author' => "{$author}", 'created_at' => "{$created_at}"]);
+        $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count+1');
+        $categorys =  $this->table('category')->field('article_count')->where(['category' => "{$category}"])->update('article_count = article_count+1');
+        return $articles && $users && $categorys;
     }
 }

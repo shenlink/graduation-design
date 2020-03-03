@@ -10,7 +10,7 @@ class Index extends Controller
     // 显示首页
     public function index()
     {
-        // 太冗余了，这有问题，文章记录只有一条时，不显示
+        // 太冗余了，这有问题，
         $access = Validate::checkAccess();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];

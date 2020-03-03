@@ -114,7 +114,7 @@ class Category extends Controller
             exit();
         }
         $article = Factory::createArticle();
-        $articles = $category->getArticle($categoryName);
+        $articles = $article->getCategoryArticle($categoryName);
         $categorys = $category->getCategory();
         $recommends = $article->recommend();
         $view->assign('username', $username);

@@ -10,7 +10,7 @@ use app\model\Article;
 use app\model\Category;
 use app\model\Collect;
 use app\model\Comment;
-use app\model\Information;
+use app\model\Message;
 use app\model\Praise;
 use app\model\Share;
 use app\model\Follow;
@@ -113,17 +113,17 @@ class Factory
         return $comment;
     }
 
-    public static function createInformation()
+    public static function createMessage()
     {
         // 单例模式
-        $key = 'information';
-        $information = RegisterTree::get($key);
-        if (!$information) {
-            $information = Information::getInstance();
+        $key = 'message';
+        $message = RegisterTree::get($key);
+        if (!$message) {
+            $message = Message::getInstance();
             //注册树模式
-            RegisterTree::set('information', $information);
+            RegisterTree::set('message', $message);
         }
-        return $information;
+        return $message;
     }
 
     public static function createPraise()

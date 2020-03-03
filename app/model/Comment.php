@@ -25,15 +25,19 @@ class Comment extends Model
     }
 
     // 处理删除评论
-    public function delComment($comment_id)
+    public function delComment($comment_id, $article_id)
     {
-        return $this->table('comment')->where(['comment_id'=>"{$comment_id}"])->delete();
+        $comment = $this->table('comment')->where(['comment_id'=>"{$comment_id}"])->delete();
+        $article =  $this->table('article')->field('comment_ount')->where(['article_id' => "{$article_id}"])->update('comment_ount = comment_ount-1');
+        return $comment && $article;
     }
 
     // 处理添加评论
     public function addComment($content, $username, $article_id, $title, $author, $comment_at)
     {
-        return $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}", 'title'=>"{$title}", 'author' => "{$author}", 'comment_at' => "{$comment_at}"]);
+        $comment = $this->table('comment')->insert(['content'=>"{$content}",'username'=>"{$username}",'article_id'=>"{$article_id}", 'title'=>"{$title}", 'author' => "{$author}", 'comment_at' => "{$comment_at}"]);
+        $article =  $this->table('article')->field('comment_ount')->where(['article_id' => "{$article_id}"])->update('comment_ount = comment_ount+1');
+        return $comment && $article;
     }
 
     // 处理每篇文章要获取的评论

@@ -112,9 +112,8 @@ class Db
         $sql = $this->fixsql('select') . ' limit 1';
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // 获取多条数据后，截取一条
-        return isset($result[0]) ? $result[0] : false;
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return isset($result) ? $result : false;
     }
     /**
      * @access:public
@@ -125,7 +124,7 @@ class Db
      */
     public function selectAll()
     {
-        $sql = $this->fixSql('select');
+        $sql = $this->fixSql('selectAll');
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -148,8 +147,8 @@ class Db
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
         $article = $this->selectAll();
-        $pageHtml = $this->createPages($currentPage, $pageSize,$count);
-        return array('article' => $article,'pageHtml' => $pageHtml);
+        $pageHtml = $this->createPages($currentPage, $pageSize, $count);
+        return array('article' => $article, 'pageHtml' => $pageHtml);
     }
 
     // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
@@ -283,6 +282,13 @@ class Db
             }
         }
 
+        if ($type === 'selectAll') {
+            $sql = "select {$this->field} from {$this->table} {$where}";
+            if ($this->order) {
+                $sql .= " order by {$this->order}";
+            }
+        }
+
         if ($type == 'count') {
             $where = $this->fixWhere();
             $fieldList = explode(',', $this->field);
@@ -299,14 +305,17 @@ class Db
             }
             $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
         }
-
         if ($type == 'update') {
-            $str = '';
-            foreach ($data as $key => $val) {
-                $val = is_string($val) ? "'" . $val . "'" : $val;
-                $str .= "{$key}={$val},";
+            if (is_array($data)) {
+                $str = '';
+                foreach ($data as $key => $val) {
+                    $val = is_string($val) ? "'" . $val . "'" : $val;
+                    $str .= "{$key}={$val},";
+                    $str = rtrim($str, ',');
+                }
+            }else{
+                $str = $data;
             }
-            $str = rtrim($str, ',');
             $str = $str ? " set {$str}" : '';
             $sql = "update {$this->table} {$str} {$where}";
         }

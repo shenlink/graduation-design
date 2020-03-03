@@ -51,19 +51,19 @@ $('#follow').on('click', function () {
 
 
 
-function addInformation() {
-    let information = document.querySelector('#information');
-    let author = information.getAttribute('date-author');
+function addMessage() {
+    let message = document.querySelector('#message');
+    let author = message.getAttribute('date-author');
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createInformationInput('author', author);
+    let input = createMessageInput('author', author);
     form.appendChild(input);
     form.method = 'post';
-    form.action = '/information/addInformation';
+    form.action = '/message/addMessage';
     form.submit();
 }
 
-function createInformationInput(name, value) {
+function createMessageInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;

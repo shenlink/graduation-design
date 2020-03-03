@@ -22,6 +22,7 @@ function delComment(commentId) {
         return;
     }
     let temp = commentId;
+    let article_id = temp.getAttribute('data-article-id');
     let comment_id = temp.getAttribute('data-comment-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
@@ -36,7 +37,8 @@ function delComment(commentId) {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("comment_id=" + comment_id);
+    request.send("article_id=" + article_id +
+        "&comment_id=" + comment_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -55,12 +57,13 @@ function delComment(commentId) {
 }
 
 
-// 删除点赞
+// 删除点赞,还有article_id
 function delPraise(praiseId) {
     if (!confirm('确认删除吗？')) {
         return;
     }
     let temp = praiseId;
+    let article_id = temp.getAttribute('data-article-id');
     let praise_id = temp.getAttribute('data-praise-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
@@ -75,7 +78,8 @@ function delPraise(praiseId) {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("praise_id=" + praise_id);
+    request.send("article_id=" + article_id +
+        "&praise_id = " + praise_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -100,6 +104,7 @@ function delCollect(collectId) {
         return;
     }
     let temp = collectId;
+    let article_id = temp.getAttribute('data-article-id');
     let collect_id = temp.getAttribute('data-collect-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
@@ -114,7 +119,8 @@ function delCollect(collectId) {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("collect_id=" + collect_id);
+    request.send("article_id=" + article_id +
+        "&collect_id=" + collect_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -141,6 +147,7 @@ function delShare(shareId) {
         return;
     }
     let temp = shareId;
+    let article_id = temp.getAttribute('data-article-id');
     let share_id = temp.getAttribute('data-share-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
@@ -155,7 +162,8 @@ function delShare(shareId) {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("share_id=" + share_id);
+    request.send("article_id=" + article_id +
+        "&share_id=" + share_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -172,5 +180,3 @@ function delShare(shareId) {
         }
     }
 }
-
-

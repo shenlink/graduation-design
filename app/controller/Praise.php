@@ -51,10 +51,11 @@ class Praise extends Controller
 
     public function delPraise()
     {
-        if (isset($_POST['praise_id'])) {
+        if (isset($_POST['praise_id']) && isset($_POST['praise_id'])) {
             $praise_id = $_POST['praise_id'];
+            $article_id = $_POST['article_id'];
             $praise =  Factory::createPraise();
-            $result = $praise->delPraise($praise_id);
+            $result = $praise->delPraise($praise_id,$article_id);
             if ($result) {
                 echo '1';
             } else {

@@ -33,12 +33,18 @@ class Follow extends Model
     // 处理关注
     public function addFollow($author, $username, $follow_at)
     {
-        return $this->table('follow')->insert(['author' => "{$author}", 'username' => "{$username}", 'follow_at' => "{$follow_at}"]);
+        $follow = $this->table('follow')->insert(['author' => "{$author}", 'username' => "{$username}", 'follow_at' => "{$follow_at}"]);
+        $user =  $this->table('user')->field('follow_count')->where(['username' => "{$author}"])->update('follow_count = follow_count+1');
+        $user2 =  $this->table('user')->field('follow_count')->where(['username' => "{$username}"])->update('follow_count = follow_count+1');
+        return $follow && $user && $user2;
     }
 
     // 处理取消关注
     public function cancelFollow($author, $username)
     {
-        return $this->table('follow')->where(['author' => "{$author}", 'username' => "{$username}"])->delete();
+        $follow = $this->table('follow')->where(['author' => "{$author}", 'username' => "{$username}"])->delete();
+        $user =  $this->table('user')->field('fans_count')->where(['username' => "{$author}"])->update('fans_count = fans_count-1');
+        $user2 =  $this->table('user')->field('follow_count')->where(['username' => "{$username}"])->update('follow_count = follow_count-1');
+        return $follow && $user && $user2;
     }
 }

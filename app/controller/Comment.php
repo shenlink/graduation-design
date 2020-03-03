@@ -41,10 +41,11 @@ class Comment extends Controller
     // 删除评论
     public function delComment()
     {
-        if (isset($_POST['comment_id'])) {
+        if (isset($_POST['comment_id']) && isset($_POST['article_id'])) {
             $comment_id = $_POST['comment_id'];
+            $article_id = $_POST['article_id'];
             $comment  =  Factory::createComment();
-            $result = $comment->delComment($comment_id);
+            $result = $comment->delComment($comment_id, $article_id);
             if ($result) {
                 echo '1';
             } else {
