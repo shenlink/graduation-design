@@ -122,12 +122,12 @@ editor.create();
 $('#comment').on('click', function () {
     let content = editor.txt.html();
     let content_text = editor.txt.text();
-    let comment = document.querySelector('#comment');
-    let username = comment.getAttribute('data-comment');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
+    let author = document.querySelector('#author').getAttribute('data-author');
     let title = document.querySelector('#title').innerText;
-    let author = document.querySelector('#author').innerText;
+    let comment = document.querySelector('#comment');
+    let username = comment.getAttribute('data-comment');
     // 1.创建XMLHttpRequest对象
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -153,7 +153,7 @@ $('#comment').on('click', function () {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("content=" + content + "&username=" + username + "&article_id=" + article_id + "&title=" + title + "&author=" + author);
+    request.send("article_id=" + article_id + "&author=" + author + "&title=" + title + "&content=" + content + "&username=" + username);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
@@ -211,4 +211,24 @@ function delComment(commentId) {
             }
         }
     }
+}
+
+function addMessage() {
+    let message = document.querySelector('#message');
+    let author = message.getAttribute('data-author');
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    let input = createMessageInput('author', author);
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/message/addMessage';
+    form.submit();
+}
+
+function createMessageInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
 }

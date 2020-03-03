@@ -19,7 +19,7 @@ class Message extends Model
     }
 
     // 处理用户提交的私信数据
-    public function checkAddmessage($author, $username, $content, $created_at)
+    public function checkAddmessage($author, $content,$username,  $created_at)
     {
         return $this->table('message')->insert(['author' => "{$author}", 'username' => "{$username}", 'content' => "{$content}",'created_at' => "{$created_at}"]);
     }

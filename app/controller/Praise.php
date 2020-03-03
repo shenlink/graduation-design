@@ -38,7 +38,7 @@ class Praise extends Controller
                 // 如果还没有点赞
                 date_default_timezone_set('PRC');
                 $praise_at = date('Y-m-d H:i:s', time());
-                $add = $praise->addPraise($username, $article_id, $author, $title, $praise_at);
+                $add = $praise->addPraise($article_id, $author, $title, $username, $praise_at);
                 if ($add) {
                     // 已经点赞
                     echo "1";
@@ -51,11 +51,11 @@ class Praise extends Controller
 
     public function delPraise()
     {
-        if (isset($_POST['praise_id']) && isset($_POST['praise_id'])) {
-            $praise_id = $_POST['praise_id'];
+        if (isset($_POST['article_id']) && isset($_POST['praise_id'])) {
             $article_id = $_POST['article_id'];
+            $praise_id = $_POST['praise_id'];
             $praise =  Factory::createPraise();
-            $result = $praise->delPraise($praise_id,$article_id);
+            $result = $praise->delPraise($article_id, $praise_id);
             if ($result) {
                 echo '1';
             } else {

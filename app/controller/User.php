@@ -72,7 +72,7 @@ class User extends Controller
 
     public function getIntercept($username)
     {
-        $pattern = '/Admin|Article|Category|index|User|Validate|displayNone|checkUsername|register|login|logout|checkRegister|checkLogin|write|checkWrite|checkCollect|addComment|delaComment|checkFollow|checkPraise|checkShare|personal|addInformation|checkInformation|change|checkChange|manage|editArticle|checkEdit|delArticle|delComment|delInformation/i';
+        $pattern = '/Admin|Article|Category|index|User|Validate|displayNone|checkUsername|register|login|logout|checkRegister|checkLogin|write|checkWrite|checkCollect|addComment|delaComment|checkFollow|checkPraise|checkShare|personal|addMessage|checkMessage|change|checkChange|manage|editArticle|checkEdit|delArticle|delComment|delMessage/i';
         $intercept = preg_match($pattern, $username);
         return $intercept;
     }
@@ -241,16 +241,16 @@ class User extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $comment =  Factory::createComment();
-            $information =  Factory::createInformation();
+            $message =  Factory::createMessage();
             $articles = $article->manage($username);
             $categorys = $category->getCategory();
             $comments = $comment->manage($username);
-            $informations = $information->getInformation($username);
+            $messages = $message->getMessage($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('comments', $comments);
-            $view->assign('informations', $informations);
+            $view->assign('messages', $messages);
             $view->display('manage.html');
         } else {
             $view->display('nologin.html');

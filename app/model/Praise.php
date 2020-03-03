@@ -23,13 +23,13 @@ class Praise extends Model
     }
 
     // 处理确认点赞操作
-    public function checkPraise($username, $article_id)
+    public function checkPraise($article_id,$username)
     {
         return $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
     }
 
     // 处理点赞
-    public function addPraise($username, $article_id, $author, $title, $praise_at)
+    public function addPraise($article_id, $author, $title,$username,  $praise_at)
     {
         $praise = $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'praise_at' => "{$praise_at}"]);
         $article =  $this->table('article')->field('praise_count')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count+1');
@@ -37,17 +37,17 @@ class Praise extends Model
     }
 
     // 处理取消点赞
-    public function cancelPraise($username, $article_id)
+    public function cancelPraise($article_id,$username)
     {
         $praise = $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
         $article =  $this->table('article')->field('praise_count')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count-1');
         return $praise && $article;
     }
 
-    public function delPraise($praise_id,$article_id)
+    public function delPraise($article_id,$praise_id)
     {
-        $praise = $this->table('praise')->where(['praise_id' => "{$praise_id}"])->delete();
-        $article =  $this->table('article')->field('praise_count')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count-1');
-        return $praise && $article;
+        $praises = $this->table('praise')->where(['praise_id' => "{$praise_id}"])->delete();
+        $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count-1');
+        return $praises && $articles;
     }
 }

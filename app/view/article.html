@@ -136,8 +136,7 @@
                         <div class="card" id="article" data-article-id={{$articles.article_id}}>
                             <div class="card-header">
                                 <span>
-                                    作者：<a href="/user/{{$articles.author}}" class="text-info" id="author">
-                                        {{$articles.author}}</a>&nbsp;
+                                    作者：<a href="/user/{{$articles.author}}" class="text-info" id="author" data-author={{$articles.author}}>{{$articles.author}}</a>&nbsp;
                                 </span>
                                 <span>
                                     发布于：{{$articles.created_at}}&nbsp;
@@ -281,8 +280,7 @@
                                     关注
                                     {{/if}}
                                 </button>
-                                <button type="button" class="btn btn-success card-link" data-author={{$users.username}}
-                                    id="addMessage">私信</button>
+                                <button type="button" class="btn btn-success card-link" id="message" onclick="addMessage()" data-author={{$users.username}}>私信</button>
                                 {{else}}
                                 <a href="/user/manage" class="btn btn-primary card-link">管理</a>
                                 {{/if}}

@@ -311,8 +311,8 @@ class Db
                 foreach ($data as $key => $val) {
                     $val = is_string($val) ? "'" . $val . "'" : $val;
                     $str .= "{$key}={$val},";
-                    $str = rtrim($str, ',');
                 }
+                $str = rtrim($str, ',');
             }else{
                 $str = $data;
             }

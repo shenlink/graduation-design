@@ -28,18 +28,18 @@ class Follow extends Controller
             if ($result) {
                 $cancel = $follow->cancelFollow($author, $username);
                 if ($cancel) {
-                    echo "取消关注成功";
-                } else {
-                    echo '取消关注失败';
+                    echo "0";
+                }else{
+                    echo '00';
                 }
             } else {
                 date_default_timezone_set('PRC');
                 $follow_at = date('Y-m-d H:i:s', time());
                 $add = $follow->addFollow($author, $username, $follow_at);
                 if ($add) {
-                    echo "关注成功";
-                } else {
-                    echo '关注失败';
+                    echo "1";
+                }else{
+                    echo '11';
                 }
             }
         } else {

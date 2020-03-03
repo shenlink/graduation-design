@@ -14,15 +14,18 @@ class Message extends Controller
         $view->display('notfound.html');
     }
 
-    public function addmessage()
+    public function addMessage()
     {
+        session_start();
         if (isset($_POST['author'])) {
+            $username = $_SESSION['username'];
             $author = $_POST['author'];
             $view = Factory::createView();
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
             $view->assign('categorys', $categorys);
             $view->assign('author', $author);
+            $view->assign('username', $username);
             $view->display('add.html');
         } else {
             $this->displayNone();
@@ -39,7 +42,7 @@ class Message extends Controller
             $message = Factory::createMessage();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $message->checkAddMessage($author, $username, $content, $created_at);
+            $result = $message->checkAddMessage($author, $content, $username, $created_at);
             if ($result) {
                 echo '1';
             } else {

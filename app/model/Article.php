@@ -76,13 +76,13 @@ class Article extends Model
     }
 
     // 处理用户编辑文章页面传来的数据
-    public function editArticle($article_id, $title, $content, $updated_at)
+    public function checkEdit($article_id, $category, $title, $content, $updated_at)
     {
-        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['article_id' => "{$article_id}", 'title' => "{$title}", 'content' => "{$content}", 'updaated_at' => "{$updated_at}"]);
+        return $this->table('article')->where(['article_id' => "{$article_id}"])->update(['category' => "{$category}", 'title' => "{$title}", 'content' => "{$content}", 'updated_at' => "{$updated_at}"]);
     }
 
     // 处理删除文章
-    public function delArticle($article_id,$author,$category)
+    public function delArticle($article_id, $author, $category)
     {
         $articles = $this->table('article')->where(['article_id' => "{$article_id}"])->delete();
         $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count-1');
@@ -109,7 +109,7 @@ class Article extends Model
     }
 
     // 处理用户在写文章页面提交的数据
-    public function checkWrite($title, $content, $category, $author, $created_at)
+    public function checkWrite($author, $category, $title, $content,  $created_at)
     {
         $articles = $this->table('article')->insert(['title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'author' => "{$author}", 'created_at' => "{$created_at}"]);
         $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count+1');

@@ -23,13 +23,13 @@ class Share extends Model
     }
 
     // 处理确认分享操作,这应该只传入一个id就可以了
-    public function checkShare($username, $article_id)
+    public function checkShare( $article_id,$username)
     {
         return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
     }
 
     // 处理分享
-    public function addShare($username, $article_id, $author, $title, $share_at)
+    public function addShare($article_id, $author, $title,$username,  $share_at)
     {
         $share = $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'share_at' => "{$share_at}"]);
         $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
@@ -37,14 +37,14 @@ class Share extends Model
     }
 
     // 处理取消分享
-    public function cancelShare($username, $article_id)
+    public function cancelShare($article_id,$username)
     {
         $share = $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
         $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
         return $share && $article;
     }
 
-    public function delShare($share_id, $article_id)
+    public function delShare($article_id, $share_id)
     {
         $share = $this->table('share')->where(['share_id' => "{$share_id}"])->delete();
         $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');

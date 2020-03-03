@@ -34,7 +34,7 @@ class Share extends Controller
             } else {
                 date_default_timezone_set('PRC');
                 $share_at = date('Y-m-d H:i:s', time());
-                $add = $share->addShare($username, $article_id, $author, $title, $share_at);
+                $add = $share->addShare($article_id, $author, $title, $username, $share_at);
                 if ($add) {
                     echo "1";
                 }
@@ -46,10 +46,11 @@ class Share extends Controller
 
     public function delShare()
     {
-        if (isset($_POST['share_id'])) {
+        if (isset($_POST['share_id']) && isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
             $share_id = $_POST['share_id'];
             $share =  Factory::createShare();
-            $result = $share->delShare($share_id);
+            $result = $share->delShare($article_id,$share_id);
             if ($result) {
                 echo '1';
             } else {

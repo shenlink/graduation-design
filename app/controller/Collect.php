@@ -24,16 +24,16 @@ class Collect extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $collect =  Factory::createCollect();
-            $result =  $collect->checkCollect($username, $article_id);
+            $result =  $collect->checkCollect($article_id,$username);
             if ($result) {
-                $cancel = $collect->cancelCollect($username, $article_id);
+                $cancel = $collect->cancelCollect($article_id,$username);
                 if ($cancel) {
                     echo "0";
                 }
             } else {
                 date_default_timezone_set('PRC');
                 $collect_at = date('Y-m-d H:i:s', time());
-                $add = $collect->addCollect($username, $article_id, $author, $title, $collect_at);
+                $add = $collect->addCollect($article_id, $author, $title, $username,$collect_at);
                 if ($add) {
                     echo "1";
                 }
@@ -45,10 +45,11 @@ class Collect extends Controller
 
     public function delCollect()
     {
-        if (isset($_POST['collect_id'])) {
+        if (isset($_POST['collect_id']) && isset($_POST['article_id'])) {
+            $article_id = $_POST['article_id'];
             $collect_id = $_POST['collect_id'];
             $collect =  Factory::createCollect();
-            $result = $collect->delCollect($collect_id);
+            $result = $collect->delCollect($article_id,$collect_id );
             if ($result) {
                 echo '1';
             } else {

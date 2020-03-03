@@ -20,13 +20,14 @@ $('#addCategory').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('添加成功', {
                     time: 2000
+                }, function () {
+                    window.history.back(-1);
                 });
             } else {
                 layer.msg('添加失败', {
                     time: 2000
                 });
             }
-            window.history.back(-1);
         }
     }
 });
@@ -54,6 +55,8 @@ $('#addAnnouncement').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('添加成功', {
                     time: 1000
+                }, function () {
+                    window.history.back(-1);
                 });
             } else {
                 layer.msg('添加失败', {
@@ -90,7 +93,7 @@ $('#addMessage').on('click', function () {
                 layer.msg('发送成功', {
                     time: 1000
                 }, function () {
-                        window.history.back(-1);
+                    window.history.back(-1);
                 });
             } else {
                 layer.msg('发送失败', {

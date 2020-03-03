@@ -18,16 +18,16 @@ class Comment extends Controller
     // 发表评论
     public function addComment()
     {
-        if (isset($_POST['content']) && isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['title'])  && isset($_POST['author'])) {
+        if (isset($_POST['article_id'])  && isset($_POST['author']) && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['username'])) {
+            $article_id = $_POST['article_id'];
+            $author = $_POST['author'];
+            $title = $_POST['title'];
             $content = $_POST['content'];
             $username = $_POST['username'];
-            $article_id = $_POST['article_id'];
-            $title = $_POST['title'];
-            $author = $_POST['author'];
             date_default_timezone_set('PRC');
             $comment_at = date('Y-m-d H:i:s', time());
             $comment =  Factory::createComment();
-            $result = $comment->addComment($content, $username, $article_id, $title, $author, $comment_at);
+            $result = $comment->addComment($article_id, $author, $title,  $content, $username, $comment_at);
             if ($result) {
                 echo '1';
             } else {
@@ -41,11 +41,11 @@ class Comment extends Controller
     // 删除评论
     public function delComment()
     {
-        if (isset($_POST['comment_id']) && isset($_POST['article_id'])) {
+        if (isset($_POST['article_id']) && isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $article_id = $_POST['article_id'];
             $comment  =  Factory::createComment();
-            $result = $comment->delComment($comment_id, $article_id);
+            $result = $comment->delComment($article_id, $comment_id);
             if ($result) {
                 echo '1';
             } else {
@@ -55,5 +55,4 @@ class Comment extends Controller
             $this->displayNone();
         }
     }
-
 }

@@ -38,13 +38,13 @@ class Article extends Controller
         if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
             session_start();
             $author = $_SESSION['username'];
+            $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            $category = $_POST['category'];
             $article = Factory::createArticle();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $article->checkWrite($title, $content, $category,$author, $created_at);
+            $result = $article->checkWrite($author, $category, $title,  $content,  $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -76,14 +76,15 @@ class Article extends Controller
     // 处理文章编辑页面提交的数据
     public function checkEdit()
     {
-        if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content'])) {
+        if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
+            $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
             $article = Factory::createArticle();
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
-            $result = $article->editArticle($article_id, $title, $content, $updated_at);
+            $result = $article->checkEdit($article_id, $category, $title, $content, $updated_at);
             if ($result) {
                 echo '1';
             } else {
@@ -137,7 +138,7 @@ class Article extends Controller
             $author = $_SESSION['username'];
             $category = $_POST['category'];
             $article = Factory::createArticle();
-            $result = $article->delArticle($article_id,$author,$category);
+            $result = $article->delArticle($article_id, $author, $category);
             if ($result) {
                 echo '1';
             } else {

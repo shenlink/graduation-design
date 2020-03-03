@@ -40,8 +40,8 @@ class Announcement extends Controller
             $addAnnouncement = $_POST['addAnnouncement'];
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
-            $view->assign('categorys', $categorys);
             $view->assign('addAnnouncement', $addAnnouncement);
+            $view->assign('categorys', $categorys);
             $view->display('add.html');
         } else {
             $this->displayNone();
