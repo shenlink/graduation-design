@@ -118,9 +118,8 @@ $('#login').on('click', function () {
                 if (request.responseText == "1") {
                     layer.msg('登录成功', {
                         time: 1000
-                    }, function (index, layero) {
+                    }, function () {
                         location.href = '/';
-                        layero.close(index);
                     });
                 }
                 if (request.responseText == "0") {

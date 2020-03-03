@@ -163,9 +163,8 @@ $('#register').on('click', function () {
                 if (request.responseText == "1") {
                     layer.msg('修改成功', {
                         time: 1000
-                    }, function (index, layero) {
+                    }, function () {
                         location.href = '/user/personal';
-                        layero.close(index);
                     });
                 } else {
                     layer.msg('修改失败', {

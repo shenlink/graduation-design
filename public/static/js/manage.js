@@ -105,9 +105,8 @@ function delComment(commentId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
-                }, function (index, layero) {
+                }, function () {
                     window.location.reload();
-                    layero.close(index);
                 });
             } else {
                 layer.msg('删除失败', {

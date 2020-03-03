@@ -28,14 +28,16 @@ $('#follow').on('click', function () {
             console.log(request.responseText)
             if (request.responseText == "1") {
                 layer.msg('关注成功', {
-                    time: 1000
-                });
-                window.location.reload();
+                        time: 1000
+                    },function () {
+                        window.location.reload();
+                    });
             } else {
                 layer.msg('取消关注成功', {
-                    time: 1000
-                });
-                window.location.reload();
+                        time: 1000
+                    },function () {
+                        window.location.reload();
+                    });
             }
         }
     }

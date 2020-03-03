@@ -40,7 +40,7 @@ $('#publish').on('click', function () {
                 layer.msg('发布成功', {
                     time: 1000
                 }, function () {
-                    location.href = '/user/personal';
+                    window.location.href = '/user/personal';
                 });
             } else {
                 layer.msg('发布失败', {

@@ -45,8 +45,9 @@ function delComment(commentId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 });
-                window.location.reload();
             } else {
                 layer.msg('删除失败', {
                     time: 1000
@@ -87,8 +88,9 @@ function delPraise(praiseId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 2000
+                },function () {
+                    window.location.reload();
                 })
-                window.location.reload();
             } else {
                 layer.msg('删除失败', {
                     time: 1000
@@ -127,8 +129,9 @@ function delCollect(collectId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 })
-                window.location.reload();
             } else {
                 layer.msg('删除失败', {
                     time: 1000
@@ -170,8 +173,9 @@ function delShare(shareId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 })
-                window.location.reload();
             } else {
                 layer.msg('删除失败', {
                     time: 1000

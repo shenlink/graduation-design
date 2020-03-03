@@ -37,13 +37,13 @@ class Article extends Model
     // 获取某一篇文章的数据
     public function getArticle($article_id)
     {
-        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}",'status'=>1])->select();
     }
 
     // 获取个人页面的文章数据
     public function personal($author)
     {
-        return $this->table('article')->field('article_id,author,title,content,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}"])->order('created_at desc')->selectAll();
+        return $this->table('article')->field('article_id,author,title,content,created_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}", 'status' => 1])->order('created_at desc')->selectAll();
     }
 
     // 获取用户管理页面的文章数据
@@ -60,7 +60,7 @@ class Article extends Model
 
     public function getCategoryArticle($category)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}"])->selectAll();
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->selectAll();
     }
 
 
@@ -93,7 +93,7 @@ class Article extends Model
     // 获取所有被管理员推荐的文章
     public function recommend()
     {
-        return $this->table('article')->field('article_id,title')->where(['recommend' => 1])->order('article_id')->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('article_id')->selectAll();
     }
 
     // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一

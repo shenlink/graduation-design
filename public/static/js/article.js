@@ -27,6 +27,8 @@ $('#praise').on('click', function () {
                 // 点赞成功，点赞+1，改变点赞字样的颜色
                 layer.msg('点赞成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 });
             } else {
                 layer.msg('已取消点赞', {
@@ -66,6 +68,8 @@ $('#collect').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('收藏成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 });
             } else {
                 layer.msg('取消收藏', {
@@ -104,6 +108,8 @@ $('#share').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('分享成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 });
             } else {
                 layer.msg('取消分享', {
@@ -161,8 +167,9 @@ $('#comment').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('评论成功', {
                     time: 1000
+                },function () {
+                    window.location.reload();
                 });
-                window.location.reload();
             } else {
                 layer.msg('评论失败', {
                     time: 1000

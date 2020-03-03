@@ -229,9 +229,8 @@ $('#register').on('click', function () {
                 if (request.responseText == "1") {
                     layer.msg('注册成功', {
                         time: 1000
-                    }, function (index, layero) {
+                    }, function () {
                         location.href = '/user/login';
-                        layero.close(index);
                     });
                 } else {
                     layer.msg('注册失败', {

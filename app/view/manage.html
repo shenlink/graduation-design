@@ -143,7 +143,11 @@
                                 {{$articlesItem.title}}
                             </td>
                             <td>
-                                {{$articlesItem.status}}
+                                {{if $articlesItem.status == 1}}
+                                正常
+                                {{else}}
+                                拉黑
+                                {{/if}}
                             </td>
                             <td>
                                 {{$articlesItem.created_at}}
@@ -164,7 +168,8 @@
                                 {{$articlesItem.collect_count}}
                             </td>
                             <td>{{$articlesItem.share_count}}</td>
-                            <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a> </td>
+                            <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a>
+                            </td>
                             <td>
                                 <button class="btn btn-primary btn-sm editArticle" onclick="editArticle(this)"
                                     data-article-id={{$articlesItem.article_id}}>

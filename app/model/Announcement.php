@@ -21,7 +21,7 @@ class Announcement extends Model
     // 获取公告信息
     public function getAnnouncement()
     {
-        return $this->table('announcement')->field('content')->where(['status'=>1])->selectAll();
+        return $this->table('announcement')->field('content')->selectAll();
     }
 
     // 查询announcement表中的数据
