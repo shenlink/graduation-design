@@ -124,7 +124,7 @@ class Db
      */
     public function selectAll()
     {
-        $sql = $this->fixSql('selectAll');
+        $sql = $this->fixSql('select');
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -160,34 +160,33 @@ class Db
         $pageCount = ceil($count / $pageSize);
         // 生成首页,生成上一页
         if ($currentPage >= 1) {
-            $pageHtml .= "<li data-index='1' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+            if ($currentPage == 1) {
+                $pageHtml .= "<li data-index='current_1' onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+            } else {
+                $pageHtml .= "<li data-index='1' onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+            }
             $prePage = $currentPage - 1;
-            $pageHtml .= "<li data-index={$prePage} class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
+            if ($prePage < 1) {
+                $prePage = 'current_1';
+            }
+            $pageHtml .= "<li data-index={$prePage} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
         }
-        $start = $currentPage > ($pageCount - 6) ? ($pageCount - 6) : $currentPage;
-        $start = $start - 2;
-        $start = $start <= 0 ? 1 : $start;
-        $end = ($currentPage + 6) > $pageCount ? $pageCount : ($currentPage + 6);
-        $end = $end - 2;
-        if ($end <= $start) {
-            $end = $pageCount;
-        }
-        if (($currentPage + 2) >= $end && $pageCount > 6) {
-            $start = $start + 2;
-            $end = $end + 2;
-        }
-        if ($end - $start <= 5) {
-            $end = $pageCount;
-        }
-
-        for ($i = 1; $i <= $pageCount; $i++) {
-            $pageHtml .= $i == $currentPage ? "<li data-index={$i} class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} class='page-item'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
+        $start = $currentPage - 3 >= 1 ? $currentPage - 3 : 1;
+        $end = $currentPage + 3 <= $pageCount ? $currentPage + 3 : $pageCount;
+        for ($i = $start; $i <= $end; $i++) {
+            $pageHtml .= $i == $currentPage ? "<li data-index={$i} onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
         }
         // 生成下一页,生成尾页
         if ($currentPage <= $pageCount) {
             $nextPage = $currentPage + 1;
-            $pageHtml .= "<li data-index={$nextPage} class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
-            $pageHtml .= "<li data-index={$pageCount} class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
+            if ($nextPage > $pageCount) {
+                $nextPage = 'current_end';
+            }
+            $pageHtml .= "<li data-index={$nextPage} onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
+            if ($currentPage == $pageCount) {
+                $pageCount = 'current_end';
+            }
+            $pageHtml .= "<li data-index={$pageCount} onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
         }
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
 
@@ -282,13 +281,6 @@ class Db
             }
         }
 
-        if ($type === 'selectAll') {
-            $sql = "select {$this->field} from {$this->table} {$where}";
-            if ($this->order) {
-                $sql .= " order by {$this->order}";
-            }
-        }
-
         if ($type == 'count') {
             $where = $this->fixWhere();
             $fieldList = explode(',', $this->field);
@@ -313,7 +305,7 @@ class Db
                     $str .= "{$key}={$val},";
                 }
                 $str = rtrim($str, ',');
-            }else{
+            } else {
                 $str = $data;
             }
             $str = $str ? " set {$str}" : '';

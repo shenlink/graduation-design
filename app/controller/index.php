@@ -22,10 +22,10 @@ class Index extends Controller
         $announcements = $announcement->getAnnouncement();
         $categorys = $category->getCategory();
         $recommends = $article->recommend();
-        if (isset($_POST['currentPage'])) {
-            $currentPage = $_POST['currentPage'];
+        if (isset($_POST['pageNumber'])) {
+            $pageNumber = $_POST['pageNumber'];
             $article = Factory::createArticle();
-            $data = $article->mutativePage($currentPage, 5);
+            $data = $article->changePage($pageNumber, 5);
             $articles = $data['article'];
             $pageHtml = $data['pageHtml'];
             $view->assign('username', $username);
@@ -36,7 +36,7 @@ class Index extends Controller
             $view->assign('recommends', $recommends);
             $view->display('index.html');
         } else {
-            $data = $article->pagination();
+            $data = $article->firstPage();
             $articles = $data['article'];
             $pageHtml = $data['pageHtml'];
             $view->assign('username', $username);
