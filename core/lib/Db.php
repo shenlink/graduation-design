@@ -3,7 +3,6 @@
 namespace core\lib;
 
 use core\lib\Config;
-use \PDO, \PDOException;
 
 /*
  * @Descripttion:数据库操作类
@@ -41,93 +40,62 @@ class Db
         }
     }
 
-    /**
-     * @access:public
-     * @name:table
-     * @param $type
-     * @return:object
-     * @msg:
-     */
     public function init()
     {
-        if ($this->pdo) {
-            return $this->pdo;
-        } else {
-            $config = Config::all('database');
-            $type = $config['type'];
-            $host = $config['host'];
-            $username = $config['username'];
-            $password = $config['password'];
-            $dbname = $config['dbname'];
-            $charset = $config['charset'];
-            $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
-            try {
-                $this->pdo = new PDO($dsn, $username, $password);
-            } catch (PDOException $e) {
-                $e->getMessage();
-            }
-            return $this->pdo;
+        $config = Config::all('database');
+        $type = $config['type'];
+        $host = $config['host'];
+        $username = $config['username'];
+        $password = $config['password'];
+        $dbname = $config['dbname'];
+        $charset = $config['charset'];
+        $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
+        try {
+            $this->pdo = new \PDO($dsn, $username, $password);
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        } catch (\PDOException $e) {
+            return $e->getMessage();
         }
+        return $this->pdo;
     }
+
     public function table($table)
     {
         $this->init();
         $this->table = $table;
         return $this;
     }
-    /**
-     * @access:public
-     * @name:field
-     * @param $filed
-     * @return:object
-     * @msg:
-     */
+
     // 注意，传入多个字段时，应这样：'username,user_id';
     public function field($field)
     {
         $this->field = $field;
         return $this;
     }
-    /**
-     * @access:public
-     * @name:where
-     * @param $where
-     * @return:object
-     * @msg:
-     */
+
     public function where($where)
     {
         $this->where = $where;
         return $this;
     }
-    /**
-     * @access:public
-     * @name:select
-     * @param $select
-     * @return:object
-     * @msg:
-     */
+
     public function select()
     {
         $sql = $this->fixsql('select') . ' limit 1';
+        $wheres = $this->fixPrepareWhere();
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute($wheres);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return isset($result) ? $result : false;
     }
-    /**
-     * @access:public
-     * @name:selectAll
-     * @param
-     * @return:
-     * @msg:
-     */
+
     public function selectAll()
     {
         $sql = $this->fixSql('select');
+        $wheres = $this->fixPrepareWhere();
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute($wheres);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -193,84 +161,60 @@ class Db
         return $pageHtml;
     }
 
-    /**
-     * @access:public
-     * @name:
-     * @param $
-     * @return:
-     * @msg:
-     */
+    // 还要兼顾事务，
     public function insert($data)
     {
         $sql = $this->fixSql('insert', $data);
+        $values = $this->fixPrepareValue($data);
+        $wheres = $this->fixPrepareWhere();
+        $allParams = array_merge($values, $wheres);
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute($allParams);
         $result = $this->pdo->lastInsertId();
         return $result;
     }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:
-     * @msg:
-     */
+
     public function update($data)
     {
         $sql = $this->fixSql('update', $data);
+        $values = $this->fixPrepareValue($data);
+        $wheres = $this->fixPrepareWhere();
+        $allParams = array_merge($values, $wheres);
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute();
+        $result = $stmt->execute($allParams);
         return $result;
     }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:
-     * @msg:
-     */
+
     public function delete()
     {
         $sql = $this->fixSql('delete');
+        $wheres = $this->fixPrepareWhere();
         $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute();
+        $result = $stmt->execute($wheres);
         return $result;
     }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:object
-     * @msg:
-     */
+
     public function limit($limit = 1)
     {
         $this->limit = $limit;
         return $this;
     }
-    /**
-     * @access:public
-     * @name:order
-     * @param:$order
-     * @return:object
-     * @msg:
-     */
+
     public function order($order)
     {
         $this->order = $order;
         return $this;
     }
-    /**
-     * @access:public
-     * @name:
-     * @param
-     * @return:
-     * @msg:
-     */
+
     public function fixSql($type, $data = null)
     {
         $sql = '';
         $where = $this->fixWhere();
+        $values = array();
+        foreach ($this->where as $value) {
+            $values[] = $value;
+        }
+        // $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
         if ($type === 'select') {
             $sql = "select {$this->field} from {$this->table} {$where}";
             if ($this->order) {
@@ -279,6 +223,7 @@ class Db
             if ($this->limit) {
                 $sql .= " limit {$this->limit}";
             }
+            return $sql;
         }
 
         if ($type == 'count') {
@@ -286,23 +231,26 @@ class Db
             $fieldList = explode(',', $this->field);
             $field = count($fieldList) > 1 ? '*' : $this->field;
             $sql = "select count({$field}) from {$this->table} {$where}";
+            return $sql;
         }
 
         if ($type === 'insert') {
             $sql = "insert into {$this->table}";
-            $fields = $values = [];
-            foreach ($data as $key => $val) {
+            $fields = array();
+            $values = array();
+            foreach ($data as $key => $value) {
                 $fields[] = $key;
-                $values[] = is_string($val) ? "'" . $val . "'" : $val;
+                $values[] = '?';
             }
             $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
+            return $sql;
         }
         if ($type == 'update') {
             if (is_array($data)) {
                 $str = '';
-                foreach ($data as $key => $val) {
-                    $val = is_string($val) ? "'" . $val . "'" : $val;
-                    $str .= "{$key}={$val},";
+                foreach ($data as $key => $value) {
+                    $value = '?';
+                    $str .= "{$key}={$value},";
                 }
                 $str = rtrim($str, ',');
             } else {
@@ -310,26 +258,21 @@ class Db
             }
             $str = $str ? " set {$str}" : '';
             $sql = "update {$this->table} {$str} {$where}";
+            return $sql;
         }
 
         if ($type === 'delete') {
             $sql = "delete from {$this->table} {$where}";
+            return $sql;
         }
-        return $sql;
     }
-    /**
-     * @access:
-     * @name:
-     * @param {type}
-     * @return:
-     * @msg:
-     */
+
     private function fixWhere()
     {
         $where = '';
         if (is_array($this->where)) {
             foreach ($this->where as $key => $value) {
-                $value = is_string($value) ? "'" . $value . "'" : $value;
+                $value = '?';
                 $where .= "`{$key}` = {$value} and ";
             }
         } else {
@@ -338,5 +281,29 @@ class Db
         $where = rtrim($where, 'and ');
         $where = $where == '' ? '' : "where {$where}";
         return $where;
+    }
+
+    public function fixPrepareWhere()
+    {
+        if (is_array($this->where)) {
+            $wheres = array();
+            foreach ($this->where as $value) {
+                $wheres[] = $value;
+            }
+        } else {
+            $wheres = $this->where;
+        }
+        return $wheres;
+    }
+
+    public function fixPrepareValue($data)
+    {
+        if (is_array($data)) {
+            $values = array();
+            foreach ($data as $value) {
+                $values[] = $value;
+            }
+        }
+        return $values;
     }
 }

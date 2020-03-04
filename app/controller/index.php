@@ -49,6 +49,18 @@ class Index extends Controller
         }
     }
 
+
+    public function test()
+    {
+        $test = new \app\model\Test();
+        $test = $test->test();
+        // $arr1 = ['shen','shen2'];
+        // $arr2 = ['shen','shen2','shen3'];
+        // $test = array_merge($arr1,$arr2);
+        echo '<pre>';
+        var_dump($test);
+    }
+
     public function __call($method, $args)
     {
         $view = Factory::createView();
