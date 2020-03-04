@@ -239,9 +239,11 @@
                                     关注
                                     {{/if}}
                                 </button>
+                                {{if $username == 'shen'}}
                                 <button type="button" class="btn btn-success card-link" id="message" onclick="addMessage()" data-author={{$users.username}}>
                                     私信
                                 </button>
+                                {{/if}}
                                 {{else}}
                                 <a href="/user/manage" class="btn btn-primary card-link">管理</a>
                                 <a href="/user/change" class="btn btn-danger card-link">

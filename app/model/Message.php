@@ -19,20 +19,19 @@ class Message extends Model
     }
 
     // 处理用户提交的私信数据
-    public function checkAddmessage($author, $content,$username,  $created_at)
+    public function checkAddmessage($author, $content, $created_at)
     {
-        return $this->table('message')->insert(['author' => "{$author}", 'username' => "{$username}", 'content' => "{$content}",'created_at' => "{$created_at}"]);
-    }
-
-    // 获取私信信息
-    public function getMessage($username)
-    {
-        return $this->table('message')->field('message_id,username,content')->where(['username' => "{$username}"])->order('created_at desc')->selectAll();
+        return $this->table('message')->insert(['author' => "{$author}", 'content' => "{$content}",'created_at' => "{$created_at}"]);
     }
 
     // 删除私信
-    public function delmessage($message_id)
+    public function delMessage($message_id)
     {
-        return $this->table('message')->where(['message_id' => "{$message_id}"])->delete();
+        return $this->table('message')->where(['message_id'=>"{$message_id}"])->delete();
+    }
+
+    public function getAllMessage()
+    {
+        return $this->table('message')->order('created_at desc')->selectAll();
     }
 }

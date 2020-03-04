@@ -3,63 +3,26 @@
 
 namespace core\lib;
 
-use core\lib\Db;
-use core\lib\View;
-use app\model\User;
+use app\model\Announcement;
 use app\model\Article;
 use app\model\Category;
 use app\model\Collect;
 use app\model\Comment;
+use app\model\Follow;
 use app\model\Message;
 use app\model\Praise;
 use app\model\Share;
-use app\model\Follow;
-use app\model\Announcement;
+use app\model\Receive;
+use app\model\User;
+use core\lib\Db;
+use core\lib\View;
 use core\lib\RegisterTree;
+
 
 
 //工厂模式
 class Factory
 {
-
-    public static function createDatabase()
-    {
-        // 单例模式
-        $key = 'shen';
-        $db = RegisterTree::get($key);
-        if (!$db) {
-            $db = Db::getInstance();
-            //注册树模式
-            RegisterTree::set('shen', $db);
-        }
-        return $db;
-    }
-
-    public static function createView()
-    {
-        // 单例模式
-        $key = 'view';
-        $view = RegisterTree::get($key);
-        if (!$view) {
-            $view = View::getInstance();
-            //注册树模式
-            RegisterTree::set('view', $view);
-        }
-        return $view;
-    }
-
-    public static function createUser()
-    {
-        // 单例模式
-        $key = 'user';
-        $user = RegisterTree::get($key);
-        if (!$user) {
-            $user = User::getInstance();
-            //注册树模式
-            RegisterTree::set('user', $user);
-        }
-        return $user;
-    }
 
     public static function createArticle()
     {
@@ -72,6 +35,19 @@ class Factory
             RegisterTree::set('article', $article);
         }
         return $article;
+    }
+
+    public static function createAnnouncement()
+    {
+        // 单例模式
+        $key = 'announcement';
+        $announcement = RegisterTree::get($key);
+        if (!$announcement) {
+            $announcement = Announcement::getInstance();
+            //注册树模式
+            RegisterTree::set('announcement', $announcement);
+        }
+        return $announcement;
     }
 
     public static function createCategory()
@@ -113,6 +89,19 @@ class Factory
         return $comment;
     }
 
+    public static function createFollow()
+    {
+        // 单例模式
+        $key = 'follow';
+        $follow = RegisterTree::get($key);
+        if (!$follow) {
+            $follow = Follow::getInstance();
+            //注册树模式
+            RegisterTree::set('follow', $follow);
+        }
+        return $follow;
+    }
+
     public static function createMessage()
     {
         // 单例模式
@@ -152,29 +141,55 @@ class Factory
         return $share;
     }
 
-    public static function createFollow()
+    public static function createReceive()
     {
         // 单例模式
-        $key = 'follow';
-        $follow = RegisterTree::get($key);
-        if (!$follow) {
-            $follow = Follow::getInstance();
+        $key = 'receive';
+        $receive = RegisterTree::get($key);
+        if (!$receive) {
+            $receive = Receive::getInstance();
             //注册树模式
-            RegisterTree::set('follow', $follow);
+            RegisterTree::set('receive', $receive);
         }
-        return $follow;
+        return $receive;
     }
 
-    public static function createAnnouncement()
+    public static function createUser()
     {
         // 单例模式
-        $key = 'announcement';
-        $announcement = RegisterTree::get($key);
-        if (!$announcement) {
-            $announcement = Announcement::getInstance();
+        $key = 'user';
+        $user = RegisterTree::get($key);
+        if (!$user) {
+            $user = User::getInstance();
             //注册树模式
-            RegisterTree::set('announcement', $announcement);
+            RegisterTree::set('user', $user);
         }
-        return $announcement;
+        return $user;
+    }
+
+    public static function createDatabase()
+    {
+        // 单例模式
+        $key = 'shen';
+        $db = RegisterTree::get($key);
+        if (!$db) {
+            $db = Db::getInstance();
+            //注册树模式
+            RegisterTree::set('shen', $db);
+        }
+        return $db;
+    }
+
+    public static function createView()
+    {
+        // 单例模式
+        $key = 'view';
+        $view = RegisterTree::get($key);
+        if (!$view) {
+            $view = View::getInstance();
+            //注册树模式
+            RegisterTree::set('view', $view);
+        }
+        return $view;
     }
 }

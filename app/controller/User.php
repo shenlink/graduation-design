@@ -241,16 +241,16 @@ class User extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $comment =  Factory::createComment();
-            $message =  Factory::createMessage();
+            $receive = Factory::createReceive();
             $articles = $article->manage($username);
             $categorys = $category->getCategory();
             $comments = $comment->manage($username);
-            $messages = $message->getMessage($username);
+            $receives = $receive->getReceive($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('comments', $comments);
-            $view->assign('messages', $messages);
+            $view->assign('receives', $receives);
             $view->display('manage.html');
         } else {
             $view->display('nologin.html');

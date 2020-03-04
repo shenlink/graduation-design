@@ -118,12 +118,12 @@ function delComment(commentId) {
 }
 
 // 删除私信
-function delMessage(messageId) {
+function delReceive(receiveId) {
     if (!confirm('确认删除吗？')) {
         return;
     }
-    let temp = messageId;
-    let message_id = temp.getAttribute('data-message-id');
+    let temp = receiveId;
+    let receive_id = temp.getAttribute('data-receive-id');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -133,11 +133,11 @@ function delMessage(messageId) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/message/delMessage");
+    request.open("POST", "/receive/delReceive");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("message_id=" + message_id);
+    request.send("receive_id=" + receive_id);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {

@@ -32,17 +32,16 @@ class Message extends Controller
         }
     }
 
-    // 处理用户发的私信数据
+    // 处理私信数据
     public function checkAddMessage()
     {
-        if (isset($_POST['author']) && isset($_POST['username']) && isset($_POST['content']) &&  isset($_POST['content'])) {
+        if (isset($_POST['author']) && isset($_POST['content'])) {
             $author = $_POST['author'];
-            $username = $_POST['username'];
             $content = $_POST['content'];
             $message = Factory::createMessage();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $message->checkAddMessage($author, $content, $username, $created_at);
+            $result = $message->checkAddMessage($author, $content, $created_at);
             if ($result) {
                 echo '1';
             } else {

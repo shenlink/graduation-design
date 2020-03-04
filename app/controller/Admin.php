@@ -28,17 +28,20 @@ class Admin extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $comment =  Factory::createComment();
+            $message = Factory::createMessage();
             $user = Factory::createUser();
             $announcements = $announcement->getAllAnnouncement();
             $articles = $article->getAllArticle();
             $categorys = $category->getAllCategory();
             $comments = $comment->getAllComment();
+            $messages = $message->getAllMessage();
             $users = $user->getAllUser();
             $view->assign('username', $username);
             $view->assign('announcements', $announcements);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('comments', $comments);
+            $view->assign('messages', $messages);
             $view->assign('users', $users);
             $view->display('admin.html');
         } else if ($access == '2') {

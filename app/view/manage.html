@@ -238,27 +238,27 @@
             <div class="col-md-10 manage-item">
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
-                        <legend class="text-center">私信管理</legend>
+                        <legend class="text-center">管理员私信管理</legend>
                     </fieldset>
                     <thead>
                         <tr>
                             <th scope="col">私信内容</th>
-                            <th scope="col">发信人</th>
+                            <th scope="col">私信时间</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{foreach from=$messages item=messagesItem}}
+                        {{foreach from=$receives item=receivesItem}}
                         <tr>
                             <td>
-                                {{$messagesItem.content}}
+                                {{$receivesItem.content}}
                             </td>
                             <td>
-                                {{$messagesItem.username}}
+                                {{$receivesItem.receive_at}}
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm" onclick="delMessage(this)"
-                                    data-message-id={{$messagesItem.message_id}}>
+                                <button class="btn btn-primary btn-sm" onclick="delReceive(this)"
+                                    data-receive-id={{$receivesItem.receive_id}}>
                                     删除
                                 </button>
                             </td>

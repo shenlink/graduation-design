@@ -109,6 +109,7 @@
                     <li class="list-group-item">分类管理</li>
                     <li class="list-group-item">评论管理</li>
                     <li class="list-group-item">公告管理</li>
+                    <li class="list-group-item">私信管理</li>
                 </ul>
                 <!-- 列表组结束 -->
             </div>
@@ -428,6 +429,57 @@
                     onclick="addAnnouncement()">
                     新增
                 </button>
+                <!-- 分页开始 -->
+
+                <!-- 分页结束 -->
+            </div>
+            <div class="col-md-10 manage-item">
+                <table class="table table-hover table-bordered text-center">
+                    <fieldset>
+                        <legend class="text-center">私信管理</legend>
+                    </fieldset>
+                    <thead>
+                        <tr>
+                            <th scope="col">私信id</th>
+                            <th scope="col">用户名</th>
+                            <th scope="col">私信内容</th>
+                            <th scope="col">发送时间</th>
+                            <th scope="col">用户主页</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{foreach from=$messages item=messagesItem}}
+                        <tr>
+                            <td>
+                                {{$messagesItem.message_id}}
+                            </td>
+                            <td>
+                                {{$messagesItem.author}}
+                            </td>
+                            <td>
+                                {{$messagesItem.content|truncate_cn:"10":"..."}}
+                            </td>
+                            <td>
+                                {{$messagesItem.created_at}}
+                            </td>
+                            <td>
+                                <a href="/user/{{$messagesItem.user_id}}">用户主页</a>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" id="message"
+                                    onclick="addMessage()" data-author={{$messagesItem.author}}>
+                                    私信
+                                </button>
+                                <button class="btn btn-primary btn-sm" onclick="delMesssage(this)"
+                                    data-message-id={{$messagesItem.message_id}}>
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                        {{/foreach}}
+                    </tbody>
+                </table>
                 <!-- 分页开始 -->
 
                 <!-- 分页结束 -->

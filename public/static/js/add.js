@@ -69,9 +69,8 @@ $('#addAnnouncement').on('click', function () {
 
 
 $('#addMessage').on('click', function () {
-    let content = document.querySelector('#content').value;
     let author = document.querySelector('#author').value;
-    let username = document.querySelector('#username').value;
+    let content = document.querySelector('#content').value;
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -85,7 +84,7 @@ $('#addMessage').on('click', function () {
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
-    request.send("author=" + author + "&username=" + username + "&content=" + content);
+    request.send("author=" + author + "&content=" + content);
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
