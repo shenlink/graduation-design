@@ -30,3 +30,10 @@
 29.对于私信，一个人删除，但是，另一个人还能看到        1
 30.写一个事务函数
 31.防止sql注入,注意，model中有一些update参数是string类型
+$pdo = $this->init();
+            $pdo->beginTransaction();
+            $sql1 = "update user set username = ? where user_id = ?";
+            $stmt = $pdo->prepare($sql1);
+            $stmt->execute(['shen10', 3]);
+            $pdo->commit();
+            return true;

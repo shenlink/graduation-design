@@ -14,22 +14,18 @@ class Db
     private $table;
     private $field = '*';
     private $order = '';
-    private $where = '';
+    private $where;
     private $pdo = null;
-    /**
-     * @access:public
-     * @name:__construct
-     * @param
-     * @return:
-     * @msg:
-     */
+
     // 单例模式
     private function __construct()
     {
     }
+
     private function __clone()
     {
     }
+
     public static function getInstance()
     {
         if (self::$db) {
@@ -53,6 +49,7 @@ class Db
         try {
             $this->pdo = new \PDO($dsn, $username, $password);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
         } catch (\PDOException $e) {
             return $e->getMessage();
         }
@@ -82,9 +79,14 @@ class Db
     public function select()
     {
         $sql = $this->fixsql('select') . ' limit 1';
-        $wheres = $this->fixPrepareWhere();
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($wheres);
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($wheres);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+        }
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return isset($result) ? $result : false;
     }
@@ -92,9 +94,19 @@ class Db
     public function selectAll()
     {
         $sql = $this->fixSql('select');
-        $wheres = $this->fixPrepareWhere();
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($wheres);
+        if ($this->where) {
+            if (is_array($this->where)) {
+                $wheres = $this->fixPrepareWhere($this->where);
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute($wheres);
+            } else {
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute();
+            }
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+        }
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
@@ -103,9 +115,16 @@ class Db
     public function count()
     {
         $sql = $this->fixSql('count');
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-        $count = $stmt->fetchColumn(0);
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($wheres);
+            $count = $stmt->fetchColumn(0);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $count = $stmt->fetchColumn(0);
+        }
         return $count;
     }
 
@@ -114,9 +133,9 @@ class Db
     {
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
-        $article = $this->selectAll();
+        $items = $this->selectAll();
         $pageHtml = $this->createPages($currentPage, $pageSize, $count);
-        return array('article' => $article, 'pageHtml' => $pageHtml);
+        return array('items' => $items, 'pageHtml' => $pageHtml);
     }
 
     // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
@@ -161,15 +180,17 @@ class Db
         return $pageHtml;
     }
 
-    // 还要兼顾事务，
     public function insert($data)
     {
         $sql = $this->fixSql('insert', $data);
-        $values = $this->fixPrepareValue($data);
-        $wheres = $this->fixPrepareWhere();
-        $allParams = array_merge($values, $wheres);
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($allParams);
+        if (is_array($data)) {
+            $values = $this->fixPrepareValue($data);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($values);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+        }
         $result = $this->pdo->lastInsertId();
         return $result;
     }
@@ -177,20 +198,30 @@ class Db
     public function update($data)
     {
         $sql = $this->fixSql('update', $data);
-        $values = $this->fixPrepareValue($data);
-        $wheres = $this->fixPrepareWhere();
-        $allParams = array_merge($values, $wheres);
-        $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute($allParams);
+        if (is_array($data) && is_array($this->where)) {
+            $values = $this->fixPrepareValue($data);
+            $wheres = $this->fixPrepareWhere($this->where);
+            $allParams = array_merge($values, $wheres);
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($allParams);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute();
+        }
         return $result;
     }
 
     public function delete()
     {
         $sql = $this->fixSql('delete');
-        $wheres = $this->fixPrepareWhere();
-        $stmt = $this->pdo->prepare($sql);
-        $result = $stmt->execute($wheres);
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($wheres);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute();
+        }
         return $result;
     }
 
@@ -210,11 +241,6 @@ class Db
     {
         $sql = '';
         $where = $this->fixWhere();
-        $values = array();
-        foreach ($this->where as $value) {
-            $values[] = $value;
-        }
-        // $sql .= " (" . implode(',', $fields) . ") values (" . implode(',', $values) . ")";
         if ($type === 'select') {
             $sql = "select {$this->field} from {$this->table} {$where}";
             if ($this->order) {
@@ -250,13 +276,13 @@ class Db
                 $str = '';
                 foreach ($data as $key => $value) {
                     $value = '?';
-                    $str .= "{$key}={$value},";
+                    $str .= "{$key} = {$value},";
                 }
                 $str = rtrim($str, ',');
             } else {
                 $str = $data;
             }
-            $str = $str ? " set {$str}" : '';
+            $str = $str ? "set {$str}" : '';
             $sql = "update {$this->table} {$str} {$where}";
             return $sql;
         }
@@ -283,26 +309,20 @@ class Db
         return $where;
     }
 
-    public function fixPrepareWhere()
+    public function fixPrepareWhere($prepareWheres)
     {
-        if (is_array($this->where)) {
-            $wheres = array();
-            foreach ($this->where as $value) {
-                $wheres[] = $value;
-            }
-        } else {
-            $wheres = $this->where;
+        $wheres = array();
+        foreach ($prepareWheres as $value) {
+            $wheres[] = $value;
         }
         return $wheres;
     }
 
     public function fixPrepareValue($data)
     {
-        if (is_array($data)) {
-            $values = array();
-            foreach ($data as $value) {
-                $values[] = $value;
-            }
+        $values = array();
+        foreach ($data as $value) {
+            $values[] = $value;
         }
         return $values;
     }

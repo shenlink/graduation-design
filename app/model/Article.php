@@ -37,7 +37,7 @@ class Article extends Model
     // 获取某一篇文章的数据
     public function getArticle($article_id)
     {
-        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}",'status'=>1])->select();
+        return $this->table('article')->field('article_id,title,content,author,created_at,category,comment_count,praise_count,collect_count')->where(['article_id' => "{$article_id}", 'status' => 1])->select();
     }
 
     // 获取个人页面的文章数据
@@ -93,19 +93,43 @@ class Article extends Model
     // 获取所有被管理员推荐的文章
     public function recommend()
     {
-        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('article_id')->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('created_at desc')->selectAll();
     }
 
     // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
     public function firstPage()
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['status' => 1])->pages(1, 5);
+        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages(1, 5);
     }
 
     // 当用户点击首页下的页码时，执行此方法
     public function changePage($currentPage, $pageSize)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['status' => 1])->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['status' => 1])->pages($currentPage, $pageSize);
+    }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstManagePage($username)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changeManagePage($username, $currentPage, $pageSize)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['username' => "{$username}"])->pages($currentPage, $pageSize);
+    }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstUserPage($username)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changeUserPage($username, $currentPage, $pageSize)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['username' => "{$username}"])->pages($currentPage, $pageSize);
     }
 
     // 处理用户在写文章页面提交的数据

@@ -57,4 +57,35 @@ class Category extends Model
     {
         return $this->table('category')->insert(['category' => "{$categoryName}"]);
     }
+
+
+
+
+
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstPage()
+    {
+        return $this->table('category')->field('category_id,category,status,article_count')->where(['status' => 1])->pages(1, 5);
+
+        return $this->table('category')->field('category_id,category,status,article_count')->selectAll();
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changePage($currentPage, $pageSize)
+    {
+        return $this->table('category')->field('category_id,category,status,article_count')->where(['status' => 1])->pages($currentPage, $pageSize);
+    }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstUserPage($username)
+    {
+        return $this->table('category')->field('category_id,category,status,article_count')->where(['status' => 1, 'username' => "{$username}"])->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changeUserPage($username, $currentPage, $pageSize)
+    {
+        return $this->table('category')->field('category_id,category,status,article_count')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
+    }
 }

@@ -50,4 +50,16 @@ class Share extends Model
         $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
         return $share && $article;
     }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstPage()
+    {
+        return $this->table('share')->field('share_id,article_id,author,title,share_at')->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changePage($currentPage, $pageSize)
+    {
+        return $this->table('share')->field('share_id,article_id,author,title,share_at')->pages($currentPage, $pageSize);
+    }
 }

@@ -166,12 +166,35 @@ class User extends Controller
             $praise =  Factory::createPraise();
             $share =  Factory::createShare();
             $user = Factory::createUser();
-            $articles = $article->personal($username);
+            $data = $article->firstPage($username);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $view->assign('articlePage', $articlePage);
+
             $categorys = $category->getCategory();
-            $collects = $collect->getCollect($username);
-            $comments = $comment->getComment($username);
-            $praises = $praise->getPraise($username);
-            $shares = $share->getShare($username);
+            $data = $collect->firstPage($username);
+            $collects = $data['items'];
+            $collectPage = $data['pageHtml'];
+            $view->assign('collectPage', $collectPage);
+
+
+            $data = $comment->firstPage($username);
+            $comments = $data['items'];
+            $commentPage = $data['pageHtml'];
+            $view->assign('commentPage', $commentPage);
+
+
+            $data = $praise->firstPage($username);
+            $praises = $data['items'];
+            $praisePage = $data['pageHtml'];
+            $view->assign('praisePage', $praisePage);
+
+
+            $data = $share->firstPage($username);
+            $shares = $data['items'];
+            $sharePage = $data['pageHtml'];
+            $view->assign('sharePage', $sharePage);
+
             $users = $user->personal($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
@@ -185,6 +208,7 @@ class User extends Controller
         } else {
             $view->display('nologin.html');
         }
+
     }
 
     // 显示用户修稿密码和个人简介的页面
@@ -242,10 +266,19 @@ class User extends Controller
             $category = Factory::createCategory();
             $comment =  Factory::createComment();
             $receive = Factory::createReceive();
-            $articles = $article->manage($username);
+            $data = $article->firstManagePage($username);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $view->assign('articlePage',$articlePage);
             $categorys = $category->getCategory();
-            $comments = $comment->manage($username);
-            $receives = $receive->getReceive($username);
+            $data = $comment->firstManagePage($username);
+            $comments = $data['items'];
+            $commentPage = $data['pageHtml'];
+            $view->assign('commentPage', $commentPage);
+            $data = $receive->firstManagePage($username);
+            $receives = $data['items'];
+            $receivePage = $data['pageHtml'];
+            $view->assign('receivePage', $receivePage);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
@@ -329,7 +362,10 @@ class User extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $follow =  Factory::createFollow();
-            $articles = $article->personal($author);
+            $data = $article->firstUserPage($username);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $view->assign('articlePage', $articlePage);
             $categorys = $category->getCategory();
             $users = $user->personal($author);
             $follows = $follow->getFollow($author);

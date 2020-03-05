@@ -85,4 +85,28 @@ class User extends Model
     {
         return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
     }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstPage()
+    {
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changePage($currentPage, $pageSize)
+    {
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize);
+    }
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstUserPage($username)
+    {
+        return $this->table('user')->field('user_id,username,role,introduction,article_count,follow_count,fans_count,status,created_at')->where(['status' => 1, 'username' => "{$username}"])->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changeUserPage($username, $currentPage, $pageSize)
+    {
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
+    }
 }

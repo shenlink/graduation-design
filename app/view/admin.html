@@ -152,7 +152,7 @@
                                 {{$usersItem.article_count}}
                             </td>
                             <td>
-                                {{$usersItem.follows_count}}
+                                {{$usersItem.follow_count}}
                             </td>
                             <td>
                                 {{$usersItem.fans_count}}
@@ -190,7 +190,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-
+                {{$userPage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-10 manage-item">
@@ -273,7 +273,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-
+                {{$articlePage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-9 manage-item">
@@ -335,7 +335,7 @@
                     新增
                 </button>
                 <!-- 分页开始 -->
-
+                {{$acategoryPage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-9 manage-item">
@@ -387,6 +387,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
+                {{$commentPage}}
 
                 <!-- 分页结束 -->
             </div>
@@ -430,7 +431,7 @@
                     新增
                 </button>
                 <!-- 分页开始 -->
-
+                {{$announcementPage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-10 manage-item">
@@ -481,7 +482,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-
+                {{$messagePage}}
                 <!-- 分页结束 -->
             </div>
 

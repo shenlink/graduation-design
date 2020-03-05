@@ -34,7 +34,7 @@
                                 {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categorysItem.categorys}}">{{$categorysItem.category}}
+                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -185,6 +185,7 @@
                             </tr>
                             {{/foreach}}
                         </table>
+                        {{$articlePage}}
                     </div>
 
                     <div class="manage-item" style="display:none;">
@@ -207,6 +208,7 @@
                             </tr>
                             {{/foreach}}
                         </table>
+                        {{$commentPage}}
                     </div>
 
                     <div class="manage-item" style="display:none;">
@@ -224,6 +226,7 @@
                             </tr>
                             {{/foreach}}
                         </table>
+                        {{$praisePage}}
                     </div>
 
                     <div class="manage-item" style="display:none;">
@@ -241,7 +244,9 @@
                             </tr>
                             {{/foreach}}
                         </table>
+                        {{$collectPage}}
                     </div>
+
 
                     <div class="manage-item" style="display:none;">
                         <table class="table table-striped table-bordered ">
@@ -258,13 +263,9 @@
                             </tr>
                             {{/foreach}}
                         </table>
+                        {{$sharePage}}
                     </div>
 
-                    <!--分页开始-->
-                    <ul class="pagination justify-content-center">
-
-                    </ul>
-                    <!-- 分页结束 -->
                 </div>
 
                 <!-- 文章列表结束 -->

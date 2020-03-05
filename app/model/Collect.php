@@ -50,4 +50,17 @@ class Collect extends Model
         $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
         return $collects && $articles;
     }
+
+
+    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
+    public function firstPage()
+    {
+        return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->pages(1, 5);
+    }
+
+    // 当用户点击首页下的页码时，执行此方法
+    public function changePage($currentPage, $pageSize)
+    {
+        return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->pages($currentPage, $pageSize);
+    }
 }

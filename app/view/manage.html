@@ -187,7 +187,7 @@
                 </table>
 
                 <!-- 分页开始 -->
-
+                    {{$articlePage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-10 manage-item">
@@ -205,7 +205,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- 这个foreach得放在tr的上面 -->
                         {{foreach from=$comments item=commentsItem}}
                         <tr>
                             <td>
@@ -232,7 +231,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-
+                    {{$commentPage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-10 manage-item">
@@ -267,7 +266,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-
+                    {{$receivePage}}
                 <!-- 分页结束 -->
             </div>
         </div>
