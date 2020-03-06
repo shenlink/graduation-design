@@ -25,11 +25,13 @@ class Share extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $share =  Factory::createShare();
-            $result =  $share->checkShare($username, $article_id);
+            $result =  $share->checkShare($article_id,$username);
             if ($result) {
-                $cancel = $share->cancelShare($username, $article_id);
+                $cancel = $share->cancelShare($article_id, $username);
                 if ($cancel) {
                     echo "0";
+                }else{
+                    echo '00';
                 }
             } else {
                 date_default_timezone_set('PRC');
@@ -37,6 +39,8 @@ class Share extends Controller
                 $add = $share->addShare($article_id, $author, $title, $username, $share_at);
                 if ($add) {
                     echo "1";
+                }else{
+                    echo '11';
                 }
             }
         } else {

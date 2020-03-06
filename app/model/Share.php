@@ -21,30 +21,86 @@ class Share extends Model
     // 处理确认分享操作,这应该只传入一个id就可以了
     public function checkShare( $article_id,$username)
     {
-        return $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
+        return $this->table('share')->where([ 'article_id' => "{$article_id}",'username' => "{$username}"])->select();
     }
 
     // 处理分享
     public function addShare($article_id, $author, $title,$username,  $share_at)
     {
-        $share = $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'share_at' => "{$share_at}"]);
-        $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
-        return $share && $article;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $shareSql = "insert into share (article_id,author,title,share_at,username) values (?,?,?,?,?)";
+            $stmt = $pdo->prepare($shareSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->bindParam(2, $author);
+            $stmt->bindParam(3, $title);
+            $stmt->bindParam(4, $share_at);
+            $stmt->bindParam(5, $username);
+            $stmt->execute();
+            $articleSql = "update article set praise_count=praise_count+1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $share = $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'share_at' => "{$share_at}"]);
+        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
+        // return $share && $article;
     }
 
     // 处理取消分享
     public function cancelShare($article_id,$username)
     {
-        $share = $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
-        $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
-        return $share && $article;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $shareSql = "delete from share where article_id=? and username=?";
+            $stmt = $pdo->prepare($shareSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->bindParam(2, $username);
+            $stmt->execute();
+            $articleSql = "update article set praise_count=praise_count+1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $share = $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
+        // return $share && $article;
     }
 
     public function delShare($article_id, $share_id)
     {
-        $share = $this->table('share')->where(['share_id' => "{$share_id}"])->delete();
-        $article =  $this->table('article')->field('share_count')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
-        return $share && $article;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $shareSql = "delete from share where share_id=?";
+            $stmt = $pdo->prepare($shareSql);
+            $stmt->bindParam(1, $share_id);
+            $stmt->execute();
+            $articleSql = "update article set share_count=share_count-1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $share = $this->table('share')->where(['share_id' => "{$share_id}"])->delete();
+        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count-1');
+        // return $share && $article;
     }
 
     public function getShare($username,$currentPage=1, $pageSize=5)

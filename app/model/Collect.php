@@ -17,37 +17,92 @@ class Collect extends Model
         }
     }
 
-    public function getCollect($username, $currentPage=1, $pageSize=5)
+    public function getCollect($username, $currentPage = 1, $pageSize = 5)
     {
         return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->where(['username' => "{$username}"])->order('collect_at desc')->pages($currentPage, $pageSize, 'collect');
     }
 
     // 处理确认收藏操作
-    public function checkCollect($username, $article_id)
+    public function checkCollect($article_id, $username)
     {
-        return $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->select();
+        return $this->table('collect')->where(['article_id' => "{$article_id}", 'username' => "{$username}"])->select();
     }
 
     // 添加收藏
-    public function addCollect( $article_id, $author, $title,$username, $collect_at)
+    public function addCollect($article_id, $author, $title, $username, $collect_at)
     {
-        $collects = $this->table('collect')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'collect_at' => "{$collect_at}"]);
-        $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count+1');
-        return $collects && $articles;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $collectSql = "insert into collect (article_id,author,username,title,collect_at) values (?,?,?,?,?)";
+            $stmt = $pdo->prepare($collectSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->bindParam(2, $author);
+            $stmt->bindParam(3, $username);
+            $stmt->bindParam(4, $title);
+            $stmt->bindParam(5, $collect_at);
+            $stmt->execute();
+            $articleSql = "update article set collect_count=collect_count+1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $collects = $this->table('collect')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'collect_at' => "{$collect_at}"]);
+        // $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count+1');
+        // return $collects && $articles;
     }
 
     // 取消收藏
-    public function cancelCollect( $article_id,$username)
+    public function cancelCollect($article_id, $username)
     {
-        $collects = $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
-        $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
-        return $collects && $articles;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $collectSql = "delete from collect where article_id=? and username=?";
+            $stmt = $pdo->prepare($collectSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->bindParam(2, $username);
+            $stmt->execute();
+            $articleSql = "update article set collect_count = collect_count-1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $collects = $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
+        // $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
+        // return $collects && $articles;
     }
 
     public function delCollect($article_id, $collect_id)
     {
-        $collects = $this->table('collect')->where(['collect_id' => "{$collect_id}"])->delete();
-        $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
-        return $collects && $articles;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $collectSql = "delete from collect where collect_id=?";
+            $stmt = $pdo->prepare($collectSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $articleSql = "update article set article_count = article_count-1 where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
+        // $collects = $this->table('collect')->where(['collect_id' => "{$collect_id}"])->delete();
+        // $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
+        // return $collects && $articles;
     }
 }
