@@ -24,10 +24,8 @@ class Receive extends Model
         return $this->table('receive')->where(['receive_id' => "{$receive_id}"])->delete();
     }
 
-
-
-    public function getReceive($currentPage=1, $pageSize=5)
+    public function getReceive($username,$currentPage=1, $pageSize=5)
     {
-        return $this->table('receive')->field('receive_id,content,receive_at')->pages($currentPage, $pageSize);
+        return $this->table('receive')->field('receive_id,content,receive_at')->where(['username'=>"{$username}"])->pages($currentPage, $pageSize);
     }
 }

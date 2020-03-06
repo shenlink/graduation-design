@@ -27,73 +27,73 @@ class Admin extends Controller
             if (isset($_POST['pageNumber'])) {
                 $pageNumber = $_POST['pageNumber'];
                 $article = Factory::createArticle();
-                $data = $article->changePage($pageNumber, 5);
+                $data = $article->getAllArticle($pageNumber, 5);
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
                 $announcement =  Factory::createAnnouncement();
-                $data = $announcement->changePage($pageNumber, 5);
+                $data = $announcement->getAllAnnouncement($pageNumber, 5);
                 $announcements = $data['items'];
                 $announcementPage = $data['pageHtml'];
                 $view->assign('announcementPage', $announcementPage);
 
                 $category = Factory::createCategory();
-                $data = $category->changePage($pageNumber, 5);
+                $data = $category->getAllCategory($pageNumber, 5);
                 $categorys = $data['items'];
                 $categoryPage = $data['pageHtml'];
                 $view->assign('categoryPage', $categoryPage);
 
                 $comment = Factory::createComment();
-                $data = $comment->changePage($pageNumber, 5);
+                $data = $comment->getAllComment($pageNumber, 5);
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
                 $message = Factory::createMessage();
-                $data = $message->changePage($pageNumber, 5);
+                $data = $message->getAllMessage($pageNumber, 5);
                 $messages = $data['items'];
                 $messagePage = $data['pageHtml'];
                 $view->assign('messagePage', $messagePage);
 
                 $user = Factory::createUser();
-                $data = $user->changePage($pageNumber, 5);
+                $data = $user->getAllUser($pageNumber, 5);
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
                 $view->assign('userPage', $userPage);
             }else{
                 $article = Factory::createArticle();
-                $data = $article->firstPage();
+                $data = $article->getAllArticle();
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
                 $announcement =  Factory::createAnnouncement();
-                $data = $announcement->firstPage();
+                $data = $announcement->getAllAnnouncement();
                 $announcements = $data['items'];
                 $announcementPage = $data['pageHtml'];
                 $view->assign('announcementPage', $announcementPage);
 
                 $category = Factory::createCategory();
-                $data = $category->firstPage();
+                $data = $category->getAllCategory();
                 $categorys = $data['items'];
                 $categoryPage = $data['pageHtml'];
                 $view->assign('categoryPage', $categoryPage);
 
                 $comment =  Factory::createComment();
-                $data = $comment->firstPage();
+                $data = $comment->getAllComment();
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
                 $message = Factory::createMessage();
-                $data = $message->firstPage();
+                $data = $message->getAllMessage();
                 $messages = $data['items'];
                 $messagePage = $data['pageHtml'];
                 $view->assign('messagePage', $messagePage);
 
                 $user = Factory::createUser();
-                $data = $user->firstPage();
+                $data = $user->getAllUser();
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
                 $view->assign('userPage', $userPage);

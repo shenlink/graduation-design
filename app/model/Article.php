@@ -85,7 +85,6 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('created_at desc')->selectAll();
     }
 
-
     public function getAllArticle($currentPage=1, $pageSize=5)
     {
         return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize);

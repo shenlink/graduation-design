@@ -116,12 +116,12 @@ class Category extends Controller
         $article = Factory::createArticle();
         if (isset($_POST['pageNumber'])) {
             $pageNumber = $_POST['pageNumber'];
-            $data = $article->changeCategoryPage($categoryName, $pageNumber, 5);
+            $data = $article->getCategoryArticle($categoryName, $pageNumber, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $view->assign('articlePage', $articlePage);
         }else{
-            $data = $article->firstCategoryPage($categoryName);
+            $data = $article->getCategoryArticle($categoryName);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $view->assign('articlePage', $articlePage);

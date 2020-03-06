@@ -17,7 +17,7 @@ class Collect extends Model
         }
     }
 
-    public function getCollect($username, $currentPage, $pageSize)
+    public function getCollect($username, $currentPage=1, $pageSize=5)
     {
         return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->where(['username' => "{$username}"])->order('collect_at desc')->pages($currentPage, $pageSize);
     }
