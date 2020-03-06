@@ -83,6 +83,6 @@ class User extends Model
 
     public function getAllUser($currentPage=1, $pageSize=5)
     {
-        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize);
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize,'user');
     }
 }

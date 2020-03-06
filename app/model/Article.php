@@ -87,19 +87,19 @@ class Article extends Model
 
     public function getAllArticle($currentPage=1, $pageSize=5)
     {
-        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize, 'article');
     }
 
 
     public function getManageArticle($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
     }
 
 
     public function getUserArticle($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
     }
 
     // 处理用户在写文章页面提交的数据

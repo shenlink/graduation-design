@@ -49,6 +49,6 @@ class Share extends Model
 
     public function getShare($username,$currentPage=1, $pageSize=5)
     {
-        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username'=>"{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username'=>"{$username}"])->pages($currentPage, $pageSize,'share');
     }
 }

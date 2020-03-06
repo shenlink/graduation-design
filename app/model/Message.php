@@ -33,6 +33,6 @@ class Message extends Model
     // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
     public function getAllMessage($currentPage = 1, $pageSize = 5)
     {
-        return $this->table('message')->order('created_at desc')->pages($currentPage, $pageSize);
+        return $this->table('message')->order('created_at desc')->pages($currentPage, $pageSize,'message');
     }
 }

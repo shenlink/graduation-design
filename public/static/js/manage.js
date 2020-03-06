@@ -155,3 +155,50 @@ function delReceive(receiveId) {
         }
     }
 }
+
+
+function changePage(page) {
+    let temp = page;
+    let pagination = temp.getAttribute('data-index');
+    let type = temp.getAttribute('data-type');
+    if (pagination == 'current_1') {
+        layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_end') {
+        layer.msg('已经是末页了', {
+            time: 1000
+        });
+        return;
+    }
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    switch (type) {
+        case 'article':
+            input1 = createPageInput('articlePages', pagination);
+            break;
+        case 'comment':
+            input1 = createPageInput('commentPages', pagination);
+            break;
+        case 'receive':
+            input1 = createPageInput('receivePages', pagination);
+            break;
+    }
+    let input2 = createPageInput('type', type);
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.method = 'post';
+    form.action = '/user/manage';
+    form.submit();
+}
+
+
+function createPageInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}

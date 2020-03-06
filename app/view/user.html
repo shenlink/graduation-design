@@ -180,8 +180,9 @@
                     <div class="container">
                         <!-- 个人信息列开始 -->
                         <div class="card" style="width: 26rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
+                            <div class="card-body" id="author" data-author={{$users.username}}>
+                                <h5 class="card-title">作者：<a
+                                        href="/user/{{$users.username}}" class="text-info">
                                         {{$users.username}}</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted small">TA的个人主页&gt;
                                 </h6>

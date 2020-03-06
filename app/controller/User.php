@@ -166,33 +166,50 @@ class User extends Controller
             $praise =  Factory::createPraise();
             $share =  Factory::createShare();
             $user = Factory::createUser();
-            if (isset($_POST['pageNumber'])) {
-                $pageNumber = $_POST['pageNumer'];
-                $data = $article->getUserArticle($username, $pageNumber,5);
+            if (isset($_POST['type'])) {
+                $categorys = $category->getCategory();
+                $article = Factory::createArticle();
+                if ($_POST['articlePages']) {
+                    $data = $article->getUserArticle($username, $_POST['articlePages'], 5);
+                } else {
+                    $data = $article->getUserArticle($username, 1, 5);
+                }
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
-                $categorys = $category->getCategory();
-                $data = $collect->getCollect($username, $pageNumber, 5);
+                if ($_POST['collectPages']) {
+                    $data = $collect->getCollect($username, $_POST['collectPages'], 5);
+                } else {
+                    $data = $collect->getCollect($username, 1, 5);
+                }
                 $collects = $data['items'];
                 $collectPage = $data['pageHtml'];
                 $view->assign('collectPage', $collectPage);
 
-
-                $data = $comment->getComment($username, $pageNumber, 5);
+                if ($_POST['commentPages']) {
+                    $data = $comment->getComment($username, $_POST['articlePages'], 5);
+                }else{
+                    $data = $comment->getComment($username, 1, 5);
+                }
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
-
-                $data = $praise->getPraise($username, $pageNumber, 5);
+                if ($_POST['praisePages']) {
+                    $data = $praise->getPraise($username,$_POST['praisePages'], 5);
+                } else {
+                    $data = $praise->getPraise(1, 5);
+                }
                 $praises = $data['items'];
                 $praisePage = $data['pageHtml'];
                 $view->assign('praisePage', $praisePage);
 
-
-                $data = $share->getShare($username, $pageNumber, 5);
+                if ($_POST['sharePages']) {
+                    $data = $share->getShare($username, $_POST['sharePages'], 5);
+                } else {
+                    $data = $share->getShare(1, 5);
+                }
                 $shares = $data['items'];
                 $sharePage = $data['pageHtml'];
                 $view->assign('sharePage', $sharePage);
@@ -292,25 +309,35 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            if (isset($_POST['pageNumber'])) {
+            $category = Factory::createCategory();
+            $categorys = $category->getCategory();
+            if (isset($_POST['type'])) {
                 $article = Factory::createArticle();
-                $category = Factory::createCategory();
-                $comment =  Factory::createComment();
-                $receive = Factory::createReceive();
-                $pageNumber = $_POST['pageNumber'];
-                $data = $article->getManageArticle($username, $pageNumber, 5);
+                if ($_POST['articlePages']) {
+                    $data = $article->getManageArticle($username,$_POST['articlePages'], 5);
+                } else {
+                    $data = $article->getManageArticle(1, 5);
+                }
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
-                $categorys = $category->getCategory();
-
-                $data = $comment->getManageComment($username, $pageNumber, 5);
+                $comment = Factory::createComment();
+                if ($_POST['commentPages']) {
+                    $data = $comment->getManageComment($username,$_POST['commentPages'], 5);
+                } else {
+                    $data = $comment->getManageComment(1, 5);
+                }
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
-                $data = $receive->getReceive($username, $pageNumber, 5);
+                $receive =  Factory::createReceive();
+                if ($_POST['receivePages']) {
+                    $data = $receive->getReceive($username, $_POST['receivePages'], 5);
+                } else {
+                    $data = $receive->getReceive($username,1, 5);
+                }
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
                 $view->assign('receivePage', $receivePage);
@@ -420,7 +447,11 @@ class User extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $follow =  Factory::createFollow();
-            $data = $article->getUserArticle($username);
+            if(isset($_POST['pagination'])){
+                $data = $article->getUserArticle($username, $_POST['pagination'],5);
+            }else{
+                $data = $article->getUserArticle($username);
+            }
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $view->assign('articlePage', $articlePage);

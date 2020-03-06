@@ -42,18 +42,18 @@ class Comment extends Model
 
     public function getAllComment($currentPage=1, $pageSize=5)
     {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->pages($currentPage, $pageSize);
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->pages($currentPage, $pageSize, 'comment');
     }
 
 
     public function getComment($username, $currentPage=1, $pageSize=5)
     {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }
 
     public function getManageComment($username, $currentPage=1, $pageSize=5)
     {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }
 
 }

@@ -19,7 +19,7 @@ class Collect extends Model
 
     public function getCollect($username, $currentPage=1, $pageSize=5)
     {
-        return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->where(['username' => "{$username}"])->order('collect_at desc')->pages($currentPage, $pageSize);
+        return $this->table('collect')->field('collect_id,article_id,author,title,collect_at')->where(['username' => "{$username}"])->order('collect_at desc')->pages($currentPage, $pageSize, 'collect');
     }
 
     // 处理确认收藏操作

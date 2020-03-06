@@ -573,3 +573,74 @@ function delMesssage(messageId) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function changePage(page) {
+    let temp = page;
+    let pagination = temp.getAttribute('data-index');
+    let type = temp.getAttribute('data-type');
+    if (pagination == 'current_1') {
+        layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_end') {
+        layer.msg('已经是末页了', {
+            time: 1000
+        });
+        return;
+    }
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    switch (type) {
+        case 'user':
+            input1 = createPageInput('userPages', pagination);
+            break;
+        case 'article':
+            input1 = createPageInput('articlePages', pagination);
+            break;
+        case 'category':
+            input1 = createPageInput('categoryPages', pagination);
+            break;
+        case 'comment':
+            input1 = createPageInput('commentPages', pagination);
+            break;
+        case 'announcement':
+            input1 = createPageInput('announcementPages', pagination);
+            break;
+        case 'message':
+            input1 = createPageInput('messagePages', pagination);
+            break;
+    }
+    let input2 = createPageInput('type', type);
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.method = 'post';
+    form.action = '/admin/manage';
+    form.submit();
+}
+
+
+function createPageInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}

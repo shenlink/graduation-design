@@ -28,16 +28,16 @@ $('#follow').on('click', function () {
             console.log(request.responseText)
             if (request.responseText == "1") {
                 layer.msg('关注成功', {
-                        time: 1000
-                    },function () {
-                        window.location.reload();
-                    });
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
             } else {
                 layer.msg('取消关注成功', {
-                        time: 1000
-                    },function () {
-                        window.location.reload();
-                    });
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
             }
         }
     }
@@ -58,6 +58,40 @@ function addMessage() {
 }
 
 function createMessageInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}
+
+function changePage(page) {
+    let temp = page;
+    let pagination = temp.getAttribute('data-index');
+    let author = document.querySelector('#author').getAttribute('data-author');
+    if (pagination == 'current_1') {
+        layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_end') {
+        layer.msg('已经是末页了', {
+            time: 1000
+        });
+        return;
+    }
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    let input = createPageInput('pagination', pagination);
+    form.appendChild(input);
+    form.method = 'post';
+    form.action = '/user/' + author;
+    form.submit();
+}
+
+
+function createPageInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;

@@ -24,44 +24,68 @@ class Admin extends Controller
         $view = Factory::createView();
         if ($access == '1') {
             $username = $_SESSION['username'];
-            if (isset($_POST['pageNumber'])) {
-                $pageNumber = $_POST['pageNumber'];
+            if (isset($_POST['type'])) {
                 $article = Factory::createArticle();
-                $data = $article->getAllArticle($pageNumber, 5);
+                if ($_POST['articlePages']) {
+                    $data = $article->getAllArticle($_POST['articlePages'], 5);
+                }else{
+                    $data = $article->getAllArticle(1, 5);
+                }
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
                 $announcement =  Factory::createAnnouncement();
-                $data = $announcement->getAllAnnouncement($pageNumber, 5);
+                if ($_POST['announcementPages']) {
+                    $data = $announcement->getAllAnnouncement($_POST['announcementPages'], 5);
+                } else {
+                    $data = $announcement->getAllAnnouncement(1, 5);
+                }
                 $announcements = $data['items'];
                 $announcementPage = $data['pageHtml'];
                 $view->assign('announcementPage', $announcementPage);
 
                 $category = Factory::createCategory();
-                $data = $category->getAllCategory($pageNumber, 5);
+                if ($_POST['categoryPages']) {
+                    $data = $category->getAllCategory($_POST['categoryPages'], 5);
+                } else {
+                    $data = $category->getAllCategory(1, 5);
+                }
                 $categorys = $data['items'];
                 $categoryPage = $data['pageHtml'];
                 $view->assign('categoryPage', $categoryPage);
 
                 $comment = Factory::createComment();
-                $data = $comment->getAllComment($pageNumber, 5);
+                if ($_POST['commentPages']) {
+                    $data = $comment->getAllComment($_POST['commentPages'], 5);
+                } else {
+                    $data = $comment->getAllComment(1, 5);
+                }
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
+
                 $message = Factory::createMessage();
-                $data = $message->getAllMessage($pageNumber, 5);
+                if ($_POST['messagePages']) {
+                    $data = $message->getAllMessage($_POST['messagePages'], 5);
+                } else {
+                    $data = $message->getAllMessage(1, 5);
+                }
                 $messages = $data['items'];
                 $messagePage = $data['pageHtml'];
                 $view->assign('messagePage', $messagePage);
 
                 $user = Factory::createUser();
-                $data = $user->getAllUser($pageNumber, 5);
+                if ($_POST['userPages']) {
+                    $data = $user->getAllUser($_POST['userPages'], 5);
+                } else {
+                    $data = $user->getAllUser(1, 5);
+                }
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
                 $view->assign('userPage', $userPage);
-            }else{
+            } else {
                 $article = Factory::createArticle();
                 $data = $article->getAllArticle();
                 $articles = $data['items'];
@@ -106,7 +130,6 @@ class Admin extends Controller
             $view->assign('messages', $messages);
             $view->assign('users', $users);
             $view->display('admin.html');
-
         } else if ($access == '2') {
             $view->display('noadmin.html');
         } else {

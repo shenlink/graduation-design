@@ -45,7 +45,7 @@ function delComment(commentId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
-                },function () {
+                }, function () {
                     window.location.reload();
                 });
             } else {
@@ -88,7 +88,7 @@ function delPraise(praiseId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 2000
-                },function () {
+                }, function () {
                     window.location.reload();
                 })
             } else {
@@ -129,7 +129,7 @@ function delCollect(collectId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
-                },function () {
+                }, function () {
                     window.location.reload();
                 })
             } else {
@@ -173,7 +173,7 @@ function delShare(shareId) {
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 1000
-                },function () {
+                }, function () {
                     window.location.reload();
                 })
             } else {
@@ -183,4 +183,57 @@ function delShare(shareId) {
             }
         }
     }
+}
+
+
+function changePage(page) {
+    let temp = page;
+    let pagination = temp.getAttribute('data-index');
+    let type = temp.getAttribute('data-type');
+    if (pagination == 'current_1') {
+        layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_end') {
+        layer.msg('已经是末页了', {
+            time: 1000
+        });
+        return;
+    }
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    switch (type) {
+        case 'article':
+            input1 = createPageInput('articlePages', pagination);
+            break;
+        case 'comment':
+            input1 = createPageInput('commentPages', pagination);
+            break;
+        case 'praise':
+            input1 = createPageInput('praisePages', pagination);
+            break;
+        case 'collect':
+            input1 = createPageInput('collectPages', pagination);
+            break;
+        case 'share':
+            input1 = createPageInput('sharePages', pagination);
+            break;
+    }
+    let input2 = createPageInput('type', type);
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.method = 'post';
+    form.action = '/user/personal';
+    form.submit();
+}
+
+
+function createPageInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
 }
