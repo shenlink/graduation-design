@@ -18,12 +18,6 @@ class Receive extends Model
         }
     }
 
-    public function getReceive($username)
-    {
-        // 获取私信信息
-        return $this->table('receive')->field('receive_id,content,receive_at')->where(['username' => "{$username}"])->order('receive_at desc')->selectAll();
-    }
-
     // 删除私信
     public function delReceive($receive_id)
     {
@@ -32,14 +26,7 @@ class Receive extends Model
 
 
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstManagePage()
-    {
-        return $this->table('receive')->field('receive_id,content,receive_at')->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeManagePage($currentPage, $pageSize)
+    public function getReceive($currentPage=1, $pageSize=5)
     {
         return $this->table('receive')->field('receive_id,content,receive_at')->pages($currentPage, $pageSize);
     }

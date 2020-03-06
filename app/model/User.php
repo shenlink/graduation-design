@@ -35,7 +35,7 @@ class User extends Model
     // 处理注册操作
     public function checkRegister($username, $password, $created_at)
     {
-        return $this->table('user')->insert(['username' => "{$username}", 'password' => "{$password}",'created_at'=>"{$created_at}"]);
+        return $this->table('user')->insert(['username' => "{$username}", 'password' => "{$password}", 'created_at' => "{$created_at}"]);
     }
 
     // 处理登录操作
@@ -47,31 +47,25 @@ class User extends Model
     // 获取单个用户的所有信息
     public function getUsername($username)
     {
-        return $this->table('user')->field('username')->where(['username'=>"{$username}"])->select();
+        return $this->table('user')->field('username')->where(['username' => "{$username}"])->select();
     }
 
     // 获取个人页面的用户信息
     public function personal($username)
     {
-        return $this->table('user')->field('username,introduction,article_count,follow_count,fans_count,created_at')->where(['username'=>"{$username}"])->select();
+        return $this->table('user')->field('username,introduction,article_count,follow_count,fans_count,created_at')->where(['username' => "{$username}"])->select();
     }
 
     // 处理用户在个人信息修改页面提交的数据
     public function checkChange($username, $password, $introduction)
     {
-        return $this->table('user')->where(['username'=>"{$username}"])->update(['password'=>"{$password}",'introduction'=>"{$introduction}"]);
-    }
-
-    // 查询user表中的数据
-    public function getAllUser()
-    {
-        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->selectAll();
+        return $this->table('user')->where(['username' => "{$username}"])->update(['password' => "{$password}", 'introduction' => "{$introduction}"]);
     }
 
     // 处理管理员拉黑用户
     public function defriendUser($user_id)
     {
-        return $this->table('user')->where(['user_id'=>"{$user_id}"])->update(['status' => 0]);
+        return $this->table('user')->where(['user_id' => "{$user_id}"])->update(['status' => 0]);
     }
 
     // 处理管理员恢复用户的状态到正常
@@ -86,27 +80,9 @@ class User extends Model
         return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
     }
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstPage()
-    {
-        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages(1, 5);
-    }
 
-    // 当用户点击首页下的页码时，执行此方法
-    public function changePage($currentPage, $pageSize)
+    public function getAllUser($currentPage=1, $pageSize=5)
     {
         return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize);
-    }
-
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstUserPage($username)
-    {
-        return $this->table('user')->field('user_id,username,role,introduction,article_count,follow_count,fans_count,status,created_at')->where(['status' => 1, 'username' => "{$username}"])->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeUserPage($username, $currentPage, $pageSize)
-    {
-        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
     }
 }

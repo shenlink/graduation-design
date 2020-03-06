@@ -18,12 +18,6 @@ class Comment extends Model
         }
     }
 
-    // 获取所有用户的文章的评论数据
-    public function manage($username)
-    {
-        return $this->table('comment')->field('comment_id,content,article_id,username,comment_at')->where(['username' => "{$username}"])->selectAll();
-    }
-
     // 处理删除评论
     public function delComment($article_id, $comment_id)
     {
@@ -46,53 +40,20 @@ class Comment extends Model
         return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id' => "{$article_id}"])->order('comment_at desc')->selectAll();
     }
 
-    public function getComment($username)
+    public function getAllComment($currentPage, $pageSize)
     {
-        return $this->table('comment')->field('comment_id,content,article_id,title,author,username,comment_at')->where(['username' => "{$username}"])->order('comment_at desc')->selectAll();
-    }
-
-    // 查询comment表中的数据
-    public function getAllComment()
-    {
-        return $this->table('comment')->field('article_id,comment_id,content,status,username,comment_at')->selectAll();
+        return $this->table('comment')->field('comment_id,content,username,comment_at')->pages($currentPage, $pageSize);
     }
 
 
-
-
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstPage()
-    {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1])->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changePage($currentPage, $pageSize)
-    {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1])->pages($currentPage, $pageSize);
-    }
-
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstUserPage($username)
-    {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeUserPage($username, $currentPage, $pageSize)
+    public function getComment($username, $currentPage, $pageSize)
     {
         return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
     }
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstManagePage($username)
-    {
-        return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeManagePage($username, $currentPage, $pageSize)
+    public function getManageComment($username, $currentPage, $pageSize)
     {
         return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize);
     }
+
 }

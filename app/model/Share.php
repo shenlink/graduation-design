@@ -17,10 +17,6 @@ class Share extends Model
         }
     }
 
-    public function getShare($username)
-    {
-        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username' => "{$username}"])->order('share_at desc')->selectAll();
-    }
 
     // 处理确认分享操作,这应该只传入一个id就可以了
     public function checkShare( $article_id,$username)
@@ -51,14 +47,7 @@ class Share extends Model
         return $share && $article;
     }
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstPage()
-    {
-        return $this->table('share')->field('share_id,article_id,author,title,share_at')->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changePage($currentPage, $pageSize)
+    public function getShare($currentPage=1, $pageSize=5)
     {
         return $this->table('share')->field('share_id,article_id,author,title,share_at')->pages($currentPage, $pageSize);
     }

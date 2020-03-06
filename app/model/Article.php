@@ -52,17 +52,6 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,status,created_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
     }
 
-    // 查询article表中的数据
-    public function getAllArticle()
-    {
-        return $this->table('article')->field('article_id,author,title,status,created_at,category,comment_count,praise_count,collect_count')->selectAll();
-    }
-
-    public function getCategoryArticle($category)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->selectAll();
-    }
-
 
     // 拉黑某篇文章
     public function defriendArticle()
@@ -96,40 +85,22 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('created_at desc')->selectAll();
     }
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstPage()
+
+    public function getAllArticle($currentPage=1, $pageSize=5)
     {
-        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages(1, 5);
+        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize);
     }
 
-    // 当用户点击首页下的页码时，执行此方法
-    public function changePage($currentPage, $pageSize)
+
+    public function getManageArticle($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['status' => 1])->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize);
     }
 
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstManagePage($username)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages(1, 5);
-    }
 
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeManagePage($username, $currentPage, $pageSize)
+    public function getUserArticle($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['username' => "{$username}"])->pages($currentPage, $pageSize);
-    }
-
-    // 当用户访问首页时，执行此方法,感觉这个方法可以和下面的方法合二为一
-    public function firstUserPage($username)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages(1, 5);
-    }
-
-    // 当用户点击首页下的页码时，执行此方法
-    public function changeUserPage($username, $currentPage, $pageSize)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['username' => "{$username}"])->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize);
     }
 
     // 处理用户在写文章页面提交的数据
@@ -142,13 +113,8 @@ class Article extends Model
     }
 
 
-    public function changeCategoryPage($category, $currentPage, $pageSize)
+    public function getCategoryArticle($category, $currentPage = 1, $pageSize = 5)
     {
         return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->pages($currentPage, $pageSize);
-    }
-
-    public function firstCategoryPage($category)
-    {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->pages(1, 5);
     }
 }
