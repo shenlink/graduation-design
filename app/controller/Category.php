@@ -114,13 +114,24 @@ class Category extends Controller
             exit();
         }
         $article = Factory::createArticle();
-        $articles = $article->getCategoryArticle($categoryName);
+        if (isset($_POST['pageNumber'])) {
+            $pageNumber = $_POST['pageNumber'];
+            $data = $article->changeCategoryPage($categoryName, $pageNumber, 5);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $view->assign('articlePage', $articlePage);
+        }else{
+            $data = $article->firstCategoryPage($categoryName);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $view->assign('articlePage', $articlePage);
+        }
         $categorys = $category->getCategory();
         $recommends = $article->recommend();
         $view->assign('username', $username);
         $view->assign('articles', $articles);
         $view->assign('categorys', $categorys);
-        $view->assign('categoryName',$categoryName);
+        $view->assign('categoryName', $categoryName);
         $view->assign('recommends', $recommends);
         $view->display('category.html');
     }

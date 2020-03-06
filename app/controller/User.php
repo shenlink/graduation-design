@@ -166,35 +166,66 @@ class User extends Controller
             $praise =  Factory::createPraise();
             $share =  Factory::createShare();
             $user = Factory::createUser();
-            $data = $article->firstPage($username);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-            $view->assign('articlePage', $articlePage);
+            if (isset($_POST['pageNumber'])) {
+                $pageNumber = $_POST['pageNumer'];
+                $data = $article->changePage($username, $pageNumber,5);
+                $articles = $data['items'];
+                $articlePage = $data['pageHtml'];
+                $view->assign('articlePage', $articlePage);
 
-            $categorys = $category->getCategory();
-            $data = $collect->firstPage($username);
-            $collects = $data['items'];
-            $collectPage = $data['pageHtml'];
-            $view->assign('collectPage', $collectPage);
-
-
-            $data = $comment->firstPage($username);
-            $comments = $data['items'];
-            $commentPage = $data['pageHtml'];
-            $view->assign('commentPage', $commentPage);
+                $categorys = $category->getCategory();
+                $data = $collect->changePage($username, $pageNumber, 5);
+                $collects = $data['items'];
+                $collectPage = $data['pageHtml'];
+                $view->assign('collectPage', $collectPage);
 
 
-            $data = $praise->firstPage($username);
-            $praises = $data['items'];
-            $praisePage = $data['pageHtml'];
-            $view->assign('praisePage', $praisePage);
+                $data = $comment->changePage($username, $pageNumber, 5);
+                $comments = $data['items'];
+                $commentPage = $data['pageHtml'];
+                $view->assign('commentPage', $commentPage);
 
 
-            $data = $share->firstPage($username);
-            $shares = $data['items'];
-            $sharePage = $data['pageHtml'];
-            $view->assign('sharePage', $sharePage);
+                $data = $praise->changePage($username, $pageNumber, 5);
+                $praises = $data['items'];
+                $praisePage = $data['pageHtml'];
+                $view->assign('praisePage', $praisePage);
 
+
+                $data = $share->changePage($username, $pageNumber, 5);
+                $shares = $data['items'];
+                $sharePage = $data['pageHtml'];
+                $view->assign('sharePage', $sharePage);
+            } else {
+                $data = $article->firstPage($username);
+                $articles = $data['items'];
+                $articlePage = $data['pageHtml'];
+                $view->assign('articlePage', $articlePage);
+
+                $categorys = $category->getCategory();
+                $data = $collect->firstPage($username);
+                $collects = $data['items'];
+                $collectPage = $data['pageHtml'];
+                $view->assign('collectPage', $collectPage);
+
+
+                $data = $comment->firstPage($username);
+                $comments = $data['items'];
+                $commentPage = $data['pageHtml'];
+                $view->assign('commentPage', $commentPage);
+
+
+                $data = $praise->firstPage($username);
+                $praises = $data['items'];
+                $praisePage = $data['pageHtml'];
+                $view->assign('praisePage', $praisePage);
+
+
+                $data = $share->firstPage($username);
+                $shares = $data['items'];
+                $sharePage = $data['pageHtml'];
+                $view->assign('sharePage', $sharePage);
+            }
             $users = $user->personal($username);
             $view->assign('username', $username);
             $view->assign('articles', $articles);
@@ -208,7 +239,6 @@ class User extends Controller
         } else {
             $view->display('nologin.html');
         }
-
     }
 
     // 显示用户修稿密码和个人简介的页面
@@ -262,23 +292,51 @@ class User extends Controller
         $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $comment =  Factory::createComment();
-            $receive = Factory::createReceive();
-            $data = $article->firstManagePage($username);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-            $view->assign('articlePage',$articlePage);
-            $categorys = $category->getCategory();
-            $data = $comment->firstManagePage($username);
-            $comments = $data['items'];
-            $commentPage = $data['pageHtml'];
-            $view->assign('commentPage', $commentPage);
-            $data = $receive->firstManagePage($username);
-            $receives = $data['items'];
-            $receivePage = $data['pageHtml'];
-            $view->assign('receivePage', $receivePage);
+            if (isset($_POST['pageNumber'])) {
+                $article = Factory::createArticle();
+                $category = Factory::createCategory();
+                $comment =  Factory::createComment();
+                $receive = Factory::createReceive();
+                $pageNumber = $_POST['pageNumber'];
+                $data = $article->changeManagePage($username, $pageNumber, 5);
+                $articles = $data['items'];
+                $articlePage = $data['pageHtml'];
+                $view->assign('articlePage', $articlePage);
+
+                $categorys = $category->getCategory();
+
+                $data = $comment->changeManagePage($username, $pageNumber, 5);
+                $comments = $data['items'];
+                $commentPage = $data['pageHtml'];
+                $view->assign('commentPage', $commentPage);
+
+                $data = $receive->changeManagePage($username, $pageNumber, 5);
+                $receives = $data['items'];
+                $receivePage = $data['pageHtml'];
+                $view->assign('receivePage', $receivePage);
+            } else {
+                $article = Factory::createArticle();
+                $category = Factory::createCategory();
+                $comment =  Factory::createComment();
+                $receive = Factory::createReceive();
+
+                $data = $article->firstManagePage($username);
+                $articles = $data['items'];
+                $articlePage = $data['pageHtml'];
+                $view->assign('articlePage', $articlePage);
+
+                $categorys = $category->getCategory();
+
+                $data = $comment->firstManagePage($username);
+                $comments = $data['items'];
+                $commentPage = $data['pageHtml'];
+                $view->assign('commentPage', $commentPage);
+
+                $data = $receive->firstManagePage($username);
+                $receives = $data['items'];
+                $receivePage = $data['pageHtml'];
+                $view->assign('receivePage', $receivePage);
+            }
             $view->assign('username', $username);
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);

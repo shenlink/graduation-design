@@ -140,4 +140,15 @@ class Article extends Model
         $categorys =  $this->table('category')->field('article_count')->where(['category' => "{$category}"])->update('article_count = article_count+1');
         return $articles && $users && $categorys;
     }
+
+
+    public function changeCategoryPage($category, $currentPage, $pageSize)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->pages($currentPage, $pageSize);
+    }
+
+    public function firstCategoryPage($category)
+    {
+        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->pages(1, 5);
+    }
 }
