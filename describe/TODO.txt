@@ -3,13 +3,13 @@
 3.通过GET参数设置url,对于url中article后面用article_id，以标识文章  1
 4.过滤url非法字符  1
 5.注意user控制器中的方法可能与用户的注册名相同 1
-6.如果分类里没有数据，那分页没有意义
+6.如果分类里没有数据，那分页没有意义            1
 7.添加一个分类，要为它创建链接，前端页面的分类不能写死了    1
 8.注册页面和登录页面的宽度更宽                            1
 9.导航栏的用户名可能会导致导航栏的布局混乱                 1
 10.文章详情页的右边改成作者详情                           1
 11.私信得分普通用户和管理员的                             1
-12.升级到php7
+12.升级到php7                          不做了
 13.公告信息                                             1
 13.model中的时间字段                                     1
 14.点赞分为文章点赞和评论点赞                         不做了
@@ -28,12 +28,6 @@
 27.文章的点赞数等涉及到数量的字段如何进行操作？         1
 28.注意状态status                             1
 29.对于私信，一个人删除，但是，另一个人还能看到        1
-30.写一个事务函数
-31.防止sql注入,注意，model中有一些update参数是string类型
-$pdo = $this->init();
-            $pdo->beginTransaction();
-            $sql1 = "update user set username = ? where user_id = ?";
-            $stmt = $pdo->prepare($sql1);
-            $stmt->execute(['shen10', 3]);
-            $pdo->commit();
-            return true;
+30.写一个事务函数                   1
+31.防止sql注入,注意，model中有一些update参数是string类型   1
+32.ajax全部用jquery重写                  重写也没有减少多少代码，不做了
