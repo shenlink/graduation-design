@@ -24,7 +24,6 @@ $('#praise').on('click', function () {
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             if (request.responseText == "1") {
-                // 点赞成功，点赞+1，改变点赞字样的颜色
                 layer.msg('点赞成功', {
                     time: 1000
                 });
@@ -161,7 +160,7 @@ $('#comment').on('click', function () {
             if (request.responseText == "1") {
                 layer.msg('评论成功', {
                     time: 1000
-                },function () {
+                }, function () {
                     window.location.reload();
                 });
             } else {

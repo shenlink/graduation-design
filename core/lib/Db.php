@@ -146,7 +146,7 @@ class Db
         $pageHtml = '';
         $pageCount = ceil($count / $pageSize);
         // 生成首页,生成上一页
-        if ($currentPage >= 1) {
+        if ($pageCount > 0 && $currentPage >= 1) {
             if ($currentPage == 1) {
                 $pageHtml .= "<li data-index='current_1' data-type={$type} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
             } else {
