@@ -15,7 +15,8 @@ class Validate extends Controller
         $url = $_SERVER['REQUEST_URI'];
         if (preg_match($pattern, $url)) {
             $view = Factory::createView();
-            $view->display('notfound.html');
+            $view->assign('error', 'error');
+            $view->display('error.html');
             exit();
         }
     }
@@ -39,7 +40,9 @@ class Validate extends Controller
 
     public function __call($method, $args)
     {
+        // 显示404页面
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

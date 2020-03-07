@@ -12,7 +12,8 @@ class Article extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 显示写文章页面
@@ -28,7 +29,8 @@ class Article extends Controller
             $view->assign('categorys', $categorys);
             $view->display('write.html');
         } else {
-            $view->display('nologin.html');
+            $view->assign('nologin','nologin');
+            $view->display('error.html');
         }
     }
 
@@ -155,7 +157,8 @@ class Article extends Controller
         $view = Factory::createView();
         $article_id = $method;
         if (!is_numeric($article_id)) {
-            $view->display('notfound.html');
+            $view->assign('error','error');
+            $view->display('error.html');
             exit();
         }
         $article = Factory::createArticle();
@@ -191,7 +194,8 @@ class Article extends Controller
             $view->assign('users', $users);
             $view->display('article.html');
         } else {
-            $view->display('notfound.html');
+            $view->assign('error','error');
+            $view->display('error.html');
         }
     }
 }

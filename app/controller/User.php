@@ -10,10 +10,12 @@ use app\controller\Validate;
 class User extends Controller
 {
 
+    // 显示404页面
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 搜索相关操作的方法
@@ -72,7 +74,7 @@ class User extends Controller
 
     public function getIntercept($username)
     {
-        $pattern = '/Admin|Article|Category|index|User|Validate|displayNone|checkUsername|register|login|logout|checkRegister|checkLogin|write|checkWrite|checkCollect|addComment|delaComment|checkFollow|checkPraise|checkShare|personal|addMessage|checkMessage|change|checkChange|manage|editArticle|checkEdit|delArticle|delComment|delMessage/i';
+        $pattern = '/displayNone|search|checkUsername|getIntercept|register|login|logout|checkRegister|checkLogin|write|checkWrite|change|checkChange|manage|editArticle|checkEdit|__call/i';
         $intercept = preg_match($pattern, $username);
         return $intercept;
     }
@@ -148,7 +150,8 @@ class User extends Controller
             echo "<script>window.location.href='/'</script>";
         } else {
             $view = Factory::createView();
-            $view->display('nologin.html');
+            $view->assign('nologin','nologin');
+            $view->display('error.html');
         }
     }
 
@@ -254,7 +257,8 @@ class User extends Controller
             $view->assign('users', $users);
             $view->display('personal.html');
         } else {
-            $view->display('nologin.html');
+            $view->assign('nologin','nologin');
+            $view->display('error.html');
         }
     }
 
@@ -274,9 +278,8 @@ class User extends Controller
             $view->assign('users', $users);
             $view->display('change.html');
         } else if ($access == '3') {
-            $view->display('nologin.html');
-        } else {
-            $this->displayNone();
+            $view->assign('nologin', 'nologin');
+            $view->display('error.html');
         }
     }
 
@@ -371,7 +374,8 @@ class User extends Controller
             $view->assign('receives', $receives);
             $view->display('manage.html');
         } else {
-            $view->display('nologin.html');
+            $view->assign('nologin', 'nologin');
+            $view->display('error.html');
         }
     }
 
@@ -425,7 +429,6 @@ class User extends Controller
                 echo '0';
             }
         } else {
-            // 当$_POST['user_id']不存在时，即用户直接访问该方法时，显示404页面
             $this->displayNone();
         }
     }
@@ -438,7 +441,8 @@ class User extends Controller
         $view = Factory::createView();
         $realUsername = $user->getUsername($author);
         if (!$realUsername) {
-            $view->display('notfound.html');
+            $view->assign('error','error');
+            $view->display('error.html');
             exit();
         }
         $access = Validate::checkAccess();
@@ -473,7 +477,8 @@ class User extends Controller
             $view->assign('users', $users);
             $view->display('user.html');
         } else {
-            $view->display('nologin.html');
+            $view->assign('nologin','nologin');
+            $view->display('error.html');
         }
     }
 }

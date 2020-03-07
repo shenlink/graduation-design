@@ -12,7 +12,8 @@ class Comment extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 发表评论
@@ -54,5 +55,12 @@ class Comment extends Controller
         } else {
             $this->displayNone();
         }
+    }
+
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

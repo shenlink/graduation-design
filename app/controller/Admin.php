@@ -13,7 +13,8 @@ class Admin extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 显示管理员的管理页面
@@ -28,7 +29,7 @@ class Admin extends Controller
                 $article = Factory::createArticle();
                 if ($_POST['articlePages']) {
                     $data = $article->getAllArticle($_POST['articlePages'], 5);
-                }else{
+                } else {
                     $data = $article->getAllArticle(1, 5);
                 }
                 $articles = $data['items'];
@@ -64,7 +65,6 @@ class Admin extends Controller
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
-
 
                 $message = Factory::createMessage();
                 if ($_POST['messagePages']) {
@@ -131,9 +131,11 @@ class Admin extends Controller
             $view->assign('users', $users);
             $view->display('admin.html');
         } else if ($access == '2') {
-            $view->display('noadmin.html');
+            $view->assign('noadmin', 'noadmin');
+            $view->display('error.html');
         } else {
-            $view->display('nologin.html');
+            $view->assign('nologin', 'nologin');
+            $view->display('error.html');
         }
     }
 
@@ -141,6 +143,7 @@ class Admin extends Controller
     public function __call($method, $args)
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

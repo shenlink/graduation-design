@@ -24,7 +24,7 @@ class Index extends Controller
         if (isset($_POST['pageNumber'])) {
             $pageNumber = $_POST['pageNumber'];
             $article = new \app\model\Article();
-            $data = $article->getAllArticle($pageNumber,5);
+            $data = $article->getAllArticle($pageNumber, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
         } else {
@@ -45,7 +45,9 @@ class Index extends Controller
 
     public function __call($method, $args)
     {
+        // 显示404页面
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

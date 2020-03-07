@@ -12,7 +12,8 @@ class Category extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 拉黑分类
@@ -110,7 +111,8 @@ class Category extends Controller
         $view = Factory::createView();
         $realCategory = $category->checkCategory($categoryName);
         if (!$realCategory) {
-            $view->display('notfound.html');
+            $view->assign('error','error');
+            $view->display('error.html');
             exit();
         }
         $article = Factory::createArticle();

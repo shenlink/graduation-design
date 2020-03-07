@@ -11,7 +11,8 @@ class Message extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     public function addMessage()
@@ -65,5 +66,13 @@ class Message extends Controller
                 echo '0';
             }
         }
+    }
+
+    public function __call($method, $args)
+    {
+        // 显示404页面
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

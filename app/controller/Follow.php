@@ -13,7 +13,8 @@ class Follow extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 确认关注
@@ -29,8 +30,6 @@ class Follow extends Controller
                 $cancel = $follow->cancelFollow($author, $username);
                 if ($cancel) {
                     echo "0";
-                }else{
-                    echo '00';
                 }
             } else {
                 date_default_timezone_set('PRC');
@@ -38,12 +37,17 @@ class Follow extends Controller
                 $add = $follow->addFollow($author, $username, $follow_at);
                 if ($add) {
                     echo "1";
-                }else{
-                    echo '11';
                 }
             }
         } else {
             $this->displayNone();
         }
+    }
+
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

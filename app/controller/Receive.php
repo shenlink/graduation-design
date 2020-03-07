@@ -7,6 +7,14 @@ use core\lib\Factory;
 
 class Receive extends Controller
 {
+    // 显示404页面
+    public function displayNone()
+    {
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
+    }
+
     public function delReceive()
     {
         if (isset($_POST['receive_id'])) {
@@ -18,9 +26,16 @@ class Receive extends Controller
             } else {
                 echo '0';
             }
-        }else{
-            $view = Factory::createView();
-            $view->display('error.html');
+        } else {
+            $this->displayNone();
         }
+    }
+
+    public function __call($method, $args)
+    {
+        // 显示404页面
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

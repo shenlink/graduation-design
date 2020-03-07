@@ -12,7 +12,8 @@ class Collect extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     public function checkCollect()
@@ -58,6 +59,14 @@ class Collect extends Controller
         } else {
             $this->displayNone();
         }
+    }
+
+    // 当用户调用Admin类中不存在的方法时，提示404页面
+    public function __call($method, $args)
+    {
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
 }

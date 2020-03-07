@@ -11,7 +11,8 @@ class Share extends Controller
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 确认分享
@@ -63,5 +64,13 @@ class Share extends Controller
         } else {
             $this->displayNone();
         }
+    }
+
+    public function __call($method, $args)
+    {
+        // 显示404页面
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }

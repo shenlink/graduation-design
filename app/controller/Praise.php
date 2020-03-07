@@ -7,12 +7,12 @@ use core\lib\Factory;
 
 class Praise extends Controller
 {
-
     // 显示404页面
     public function displayNone()
     {
         $view = Factory::createView();
-        $view->display('notfound.html');
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 
     // 确认点赞
@@ -25,12 +25,12 @@ class Praise extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $praise =  Factory::createPraise();
-            $result =  $praise->checkPraise($article_id,$username);
+            $result =  $praise->checkPraise($article_id, $username);
             if ($result) {
                 $cancel = $praise->cancelPraise($article_id, $username);
                 if ($cancel) {
                     echo "0";
-                }else{
+                } else {
                     echo '00';
                 }
             } else {
@@ -39,13 +39,12 @@ class Praise extends Controller
                 $add = $praise->addPraise($article_id, $author, $title, $username, $praise_at);
                 if ($add) {
                     echo "1";
-                }else{
+                } else {
                     echo '11';
                 }
             }
         } else {
-            echo '404';
-            // $this->displayNone();
+            $this->displayNone();
         }
     }
 
@@ -64,5 +63,13 @@ class Praise extends Controller
         } else {
             $this->displayNone();
         }
+    }
+
+    public function __call($method, $args)
+    {
+        // 显示404页面
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }
