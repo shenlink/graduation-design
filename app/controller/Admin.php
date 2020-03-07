@@ -23,10 +23,15 @@ class Admin extends Controller
         // 确认权限，为1时允许操作
         $access = Validate::checkAccess();
         $view = Factory::createView();
+        $announcement =  Factory::createAnnouncement();
+        $article = Factory::createArticle();
+        $category = Factory::createCategory();
+        $comment = Factory::createComment();
+        $message = Factory::createMessage();
+        $user = Factory::createUser();
         if ($access == '1') {
             $username = $_SESSION['username'];
             if (isset($_POST['type'])) {
-                $article = Factory::createArticle();
                 if ($_POST['articlePages']) {
                     $data = $article->getAllArticle($_POST['articlePages'], 5);
                 } else {
@@ -36,7 +41,6 @@ class Admin extends Controller
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
-                $announcement =  Factory::createAnnouncement();
                 if ($_POST['announcementPages']) {
                     $data = $announcement->getAllAnnouncement($_POST['announcementPages'], 5);
                 } else {
@@ -46,7 +50,6 @@ class Admin extends Controller
                 $announcementPage = $data['pageHtml'];
                 $view->assign('announcementPage', $announcementPage);
 
-                $category = Factory::createCategory();
                 if ($_POST['categoryPages']) {
                     $data = $category->getAllCategory($_POST['categoryPages'], 5);
                 } else {
@@ -56,7 +59,6 @@ class Admin extends Controller
                 $categoryPage = $data['pageHtml'];
                 $view->assign('categoryPage', $categoryPage);
 
-                $comment = Factory::createComment();
                 if ($_POST['commentPages']) {
                     $data = $comment->getAllComment($_POST['commentPages'], 5);
                 } else {
@@ -66,7 +68,6 @@ class Admin extends Controller
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
-                $message = Factory::createMessage();
                 if ($_POST['messagePages']) {
                     $data = $message->getAllMessage($_POST['messagePages'], 5);
                 } else {
@@ -76,7 +77,6 @@ class Admin extends Controller
                 $messagePage = $data['pageHtml'];
                 $view->assign('messagePage', $messagePage);
 
-                $user = Factory::createUser();
                 if ($_POST['userPages']) {
                     $data = $user->getAllUser($_POST['userPages'], 5);
                 } else {
@@ -86,37 +86,31 @@ class Admin extends Controller
                 $userPage = $data['pageHtml'];
                 $view->assign('userPage', $userPage);
             } else {
-                $article = Factory::createArticle();
                 $data = $article->getAllArticle();
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $view->assign('articlePage', $articlePage);
 
-                $announcement =  Factory::createAnnouncement();
                 $data = $announcement->getAllAnnouncement();
                 $announcements = $data['items'];
                 $announcementPage = $data['pageHtml'];
                 $view->assign('announcementPage', $announcementPage);
 
-                $category = Factory::createCategory();
                 $data = $category->getAllCategory();
                 $categorys = $data['items'];
                 $categoryPage = $data['pageHtml'];
                 $view->assign('categoryPage', $categoryPage);
 
-                $comment =  Factory::createComment();
                 $data = $comment->getAllComment();
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
-                $message = Factory::createMessage();
                 $data = $message->getAllMessage();
                 $messages = $data['items'];
                 $messagePage = $data['pageHtml'];
                 $view->assign('messagePage', $messagePage);
 
-                $user = Factory::createUser();
                 $data = $user->getAllUser();
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
@@ -139,7 +133,6 @@ class Admin extends Controller
         }
     }
 
-    // 当用户调用Admin类中不存在的方法时，提示404页面
     public function __call($method, $args)
     {
         $view = Factory::createView();
