@@ -19,7 +19,6 @@ for (let i = 0; i < lis.length; i++) {
 function editArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
-    console.log(article_id)
     let form = document.createElement("form");
     document.body.appendChild(form);
     let input = createArticleInput('article_id', article_id);
@@ -117,6 +116,42 @@ function delComment(commentId) {
     }
 }
 
+$('#follow').on('click', function () {
+    let follow = document.querySelector('#follow');
+    let username = follow.getAttribute('data-username');
+    let author = follow.getAttribute('data-author');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/follow/delFollow");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("author=" + author + "&username=" + username);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('取消关注成功', {
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
+            } else {
+                layer.msg('取消关注失败', {
+                    time: 1000
+                });
+            }
+        }
+    }
+});
+
 // 删除私信
 function delReceive(receiveId) {
     if (!confirm('确认删除吗？')) {
@@ -182,6 +217,12 @@ function changePage(page) {
         case 'comment':
             input1 = createPageInput('commentPages', pagination);
             break;
+        case 'follow':
+        input1 = createPageInput('followPages', pagination);
+            break;
+        case 'fans':
+        input1 = createPageInput('fansPages', pagination);
+        break;
         case 'receive':
             input1 = createPageInput('receivePages', pagination);
             break;

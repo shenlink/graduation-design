@@ -84,7 +84,6 @@ function delPraise(praiseId) {
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText)
             if (request.responseText == "1") {
                 layer.msg('删除成功', {
                     time: 2000

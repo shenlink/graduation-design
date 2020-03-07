@@ -48,9 +48,6 @@ class Share extends Model
             $pdo->rollBack();
             return false;
         }
-        // $share = $this->table('share')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'share_at' => "{$share_at}"]);
-        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
-        // return $share && $article;
     }
 
     // 处理取消分享
@@ -74,9 +71,6 @@ class Share extends Model
             $pdo->rollBack();
             return false;
         }
-        // $share = $this->table('share')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
-        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count+1');
-        // return $share && $article;
     }
 
     public function delShare($article_id, $share_id)
@@ -98,9 +92,6 @@ class Share extends Model
             $pdo->rollBack();
             return false;
         }
-        // $share = $this->table('share')->where(['share_id' => "{$share_id}"])->delete();
-        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('share_count = share_count-1');
-        // return $share && $article;
     }
 
     public function getShare($username,$currentPage=1, $pageSize=5)

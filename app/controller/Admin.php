@@ -22,6 +22,7 @@ class Admin extends Controller
     {
         // 确认权限，为1时允许操作
         $access = Validate::checkAccess();
+        // 实例化对象
         $view = Factory::createView();
         $announcement =  Factory::createAnnouncement();
         $article = Factory::createArticle();
@@ -33,6 +34,7 @@ class Admin extends Controller
             $username = $_SESSION['username'];
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
+                    // 获取所有的文章数据和分页html
                     $data = $article->getAllArticle($_POST['articlePages'], 5);
                 } else {
                     $data = $article->getAllArticle(1, 5);

@@ -18,10 +18,19 @@ class Follow extends Model
         }
     }
 
-    // 获取用户的所有粉丝
-    public function getFollow($author)
+    public function getAllFollow($author)
     {
         return $this->table('follow')->field('username')->where(['author' => "{$author}"])->order('follow_at desc')->selectAll();
+    }
+
+    public function getFollow($username, $currentPage = 1, $pageSize = 5)
+    {
+        return $this->table('follow')->field('author,follow_at')->where(['username' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, 'follow');
+    }
+
+    public function getFans($username,$currentPage = 1, $pageSize = 5)
+    {
+        return $this->table('follow')->field('username,follow_at')->where(['author' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, 'fans');
     }
 
     // 处理确认关注操作
@@ -46,7 +55,7 @@ class Follow extends Model
             $stmt = $pdo->prepare($userFansSql);
             $stmt->bindParam(1, $author);
             $stmt->execute();
-            $userFollowSql = "update article set follow_count=follow_count+1 where article_id=?";
+            $userFollowSql = "update user set follow_count=follow_count+1 where username=?";
             $stmt = $pdo->prepare($userFollowSql);
             $stmt->bindParam(1, $username);
             $stmt->execute();
@@ -56,10 +65,6 @@ class Follow extends Model
             $pdo->rollBack();
             return false;
         }
-        // $follows = $this->table('follow')->insert(['author' => "{$author}", 'username' => "{$username}", 'follow_at' => "{$follow_at}"]);
-        // $user =  $this->table('user')->where(['username' => "{$author}"])->update('fans_count = fans_count+1');
-        // $user2 =  $this->table('user')->where(['username' => "{$username}"])->update('follow_count = follow_count+1');
-        // return $follows && $user && $user2;
     }
 
     // 处理取消关注
@@ -77,7 +82,7 @@ class Follow extends Model
             $stmt = $pdo->prepare($userFansSql);
             $stmt->bindParam(1, $author);
             $stmt->execute();
-            $userFollowSql = "update article set follow_count=follow_count-1 where username=?";
+            $userFollowSql = "update user set follow_count=follow_count-1 where username=?";
             $stmt = $pdo->prepare($userFollowSql);
             $stmt->bindParam(1, $username);
             $stmt->execute();
@@ -87,9 +92,5 @@ class Follow extends Model
             $pdo->rollBack();
             return false;
         }
-        // $follows = $this->table('follow')->where(['author' => "{$author}", 'username' => "{$username}"])->delete();
-        // $user =  $this->table('user')->where(['username' => "{$author}"])->update('fans_count = fans_count-1');
-        // $user2 =  $this->table('user')->where(['username' => "{$username}"])->update('follow_count = follow_count-1');
-        // return $follows && $user && $user2;
     }
 }

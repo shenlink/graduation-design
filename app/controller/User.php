@@ -150,7 +150,7 @@ class User extends Controller
             echo "<script>window.location.href='/'</script>";
         } else {
             $view = Factory::createView();
-            $view->assign('nologin','nologin');
+            $view->assign('nologin', 'nologin');
             $view->display('error.html');
         }
     }
@@ -191,7 +191,7 @@ class User extends Controller
 
                 if ($_POST['commentPages']) {
                     $data = $comment->getComment($username, $_POST['articlePages'], 5);
-                }else{
+                } else {
                     $data = $comment->getComment($username, 1, 5);
                 }
                 $comments = $data['items'];
@@ -199,7 +199,7 @@ class User extends Controller
                 $view->assign('commentPage', $commentPage);
 
                 if ($_POST['praisePages']) {
-                    $data = $praise->getPraise($username,$_POST['praisePages'], 5);
+                    $data = $praise->getPraise($username, $_POST['praisePages'], 5);
                 } else {
                     $data = $praise->getPraise(1, 5);
                 }
@@ -253,7 +253,7 @@ class User extends Controller
             $view->assign('users', $users);
             $view->display('personal.html');
         } else {
-            $view->assign('nologin','nologin');
+            $view->assign('nologin', 'nologin');
             $view->display('error.html');
         }
     }
@@ -308,15 +308,15 @@ class User extends Controller
         $view = Factory::createView();
         $article = Factory::createArticle();
         $comment = Factory::createComment();
+        $follow = Factory::createFollow();
         $receive =  Factory::createReceive();
-
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
             $category = Factory::createCategory();
             $categorys = $category->getCategory();
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
-                    $data = $article->getManageArticle($username,$_POST['articlePages'], 5);
+                    $data = $article->getManageArticle($username, $_POST['articlePages'], 5);
                 } else {
                     $data = $article->getManageArticle(1, 5);
                 }
@@ -325,7 +325,7 @@ class User extends Controller
                 $view->assign('articlePage', $articlePage);
 
                 if ($_POST['commentPages']) {
-                    $data = $comment->getManageComment($username,$_POST['commentPages'], 5);
+                    $data = $comment->getManageComment($username, $_POST['commentPages'], 5);
                 } else {
                     $data = $comment->getManageComment(1, 5);
                 }
@@ -333,10 +333,28 @@ class User extends Controller
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
+                if ($_POST['followPage']) {
+                    $data = $follow->getFollow($username, $_POST['followPage'], 5);
+                } else {
+                    $data = $follow->getFollow(1, 5);
+                }
+                $follows = $data['items'];
+                $followPage = $data['pageHtml'];
+                $view->assign('followPage', $followPage);
+
+                if ($_POST['fansPages']) {
+                    $data = $follow->getFans($username, $_POST['commentPages'], 5);
+                } else {
+                    $data = $follow->getFans(1, 5);
+                }
+                $fans = $data['items'];
+                $fnasPage = $data['pageHtml'];
+                $view->assign('fnasPage', $fnasPage);
+
                 if ($_POST['receivePages']) {
                     $data = $receive->getReceive($username, $_POST['receivePages'], 5);
                 } else {
-                    $data = $receive->getReceive($username,1, 5);
+                    $data = $receive->getReceive($username, 1, 5);
                 }
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
@@ -352,6 +370,16 @@ class User extends Controller
                 $commentPage = $data['pageHtml'];
                 $view->assign('commentPage', $commentPage);
 
+                $data = $follow->getFollow($username);
+                $follows = $data['items'];
+                $followPage = $data['pageHtml'];
+                $view->assign('followPage', $followPage);
+
+                $data = $follow->getFans($username,);
+                $fans = $data['items'];
+                $fnasPage = $data['pageHtml'];
+                $view->assign('fnasPage', $fnasPage);
+
                 $data = $receive->getReceive($username);
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
@@ -361,6 +389,8 @@ class User extends Controller
             $view->assign('articles', $articles);
             $view->assign('categorys', $categorys);
             $view->assign('comments', $comments);
+            $view->assign('follows', $follows);
+            $view->assign('fans', $fans);
             $view->assign('receives', $receives);
             $view->display('manage.html');
         } else {
@@ -431,7 +461,7 @@ class User extends Controller
         $view = Factory::createView();
         $realUsername = $user->getUsername($author);
         if (!$realUsername) {
-            $view->assign('error','error');
+            $view->assign('error', 'error');
             $view->display('error.html');
             exit();
         }
@@ -441,9 +471,9 @@ class User extends Controller
             $article = Factory::createArticle();
             $category = Factory::createCategory();
             $follow =  Factory::createFollow();
-            if(isset($_POST['pagination'])){
-                $data = $article->getUserArticle($username, $_POST['pagination'],5);
-            }else{
+            if (isset($_POST['pagination'])) {
+                $data = $article->getUserArticle($username, $_POST['pagination'], 5);
+            } else {
                 $data = $article->getUserArticle($username);
             }
             $articles = $data['items'];
@@ -451,7 +481,7 @@ class User extends Controller
             $view->assign('articlePage', $articlePage);
             $categorys = $category->getCategory();
             $users = $user->personal($author);
-            $follows = $follow->getFollow($author);
+            $follows = $follow->getAllFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {
                     $allFollows .= $value . ',';
@@ -467,7 +497,7 @@ class User extends Controller
             $view->assign('users', $users);
             $view->display('user.html');
         } else {
-            $view->assign('nologin','nologin');
+            $view->assign('nologin', 'nologin');
             $view->display('error.html');
         }
     }

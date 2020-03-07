@@ -156,7 +156,6 @@ $('#comment').on('click', function () {
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText)
             if (request.responseText == "1") {
                 layer.msg('评论成功', {
                     time: 1000

@@ -38,9 +38,6 @@ class Comment extends Model
             $pdo->rollBack();
             return false;
         }
-        // $comments = $this->table('comment')->where(['comment_id' => "{$comment_id}"])->delete();
-        // $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('comment_count = comment_count-1');
-        // return $comments && $articles;
     }
 
     // 处理添加评论
@@ -68,9 +65,6 @@ class Comment extends Model
             $pdo->rollBack();
             return false;
         }
-        // $comments = $this->table('comment')->insert(['article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'content' => "{$content}", 'username' => "{$username}", 'comment_at' => "{$comment_at}"]);
-        // $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('comment_count = comment_count+1');
-        // return $comments && $articles;
     }
 
     // 处理每篇文章要获取的评论

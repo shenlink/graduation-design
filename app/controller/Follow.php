@@ -44,6 +44,23 @@ class Follow extends Controller
         }
     }
 
+    public function delFollow()
+    {
+        if (isset($_POST['author']) && isset($_POST['username'])) {
+            $author = $_POST['author'];
+            $username = $_POST['username'];
+            $follow =  Factory::createFollow();
+            $result =  $follow->cancelFollow($author, $username);
+            if ($result) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+        } else {
+            $this->displayNone();
+        }
+    }
+
     public function __call($method, $args)
     {
         $view = Factory::createView();

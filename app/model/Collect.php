@@ -52,9 +52,6 @@ class Collect extends Model
             $pdo->rollBack();
             return false;
         }
-        // $collects = $this->table('collect')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'collect_at' => "{$collect_at}"]);
-        // $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count+1');
-        // return $collects && $articles;
     }
 
     // 取消收藏
@@ -78,9 +75,6 @@ class Collect extends Model
             $pdo->rollBack();
             return false;
         }
-        // $collects = $this->table('collect')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
-        // $articles =  $this->table('article')->field('collect_count')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
-        // return $collects && $articles;
     }
 
     public function delCollect($article_id, $collect_id)
@@ -101,8 +95,5 @@ class Collect extends Model
             $pdo->rollBack();
             return false;
         }
-        // $collects = $this->table('collect')->where(['collect_id' => "{$collect_id}"])->delete();
-        // $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('collect_count = collect_count-1');
-        // return $collects && $articles;
     }
 }

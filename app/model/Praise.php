@@ -47,9 +47,6 @@ class Praise extends Model
             $pdo->rollBack();
             return false;
         }
-        // $praise = $this->table('praise')->insert(['username' => "{$username}", 'article_id' => "{$article_id}", 'author' => "{$author}", 'title' => "{$title}", 'praise_at' => "{$praise_at}"]);
-        // $article =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count+1');
-        // return $praise && $article;
     }
 
     // 处理取消点赞
@@ -73,9 +70,6 @@ class Praise extends Model
             $pdo->rollBack();
             return false;
         }
-        // $praise = $this->table('praise')->where(['username' => "{$username}", 'article_id' => "{$article_id}"])->delete();
-        // $article =  $this->table('article')->field('praise_count')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count-1');
-        // return $praise && $article;
     }
 
     public function delPraise($article_id, $praise_id)
@@ -97,9 +91,6 @@ class Praise extends Model
             $pdo->rollBack();
             return false;
         }
-        // $praises = $this->table('praise')->where(['praise_id' => "{$praise_id}"])->delete();
-        // $articles =  $this->table('article')->where(['article_id' => "{$article_id}"])->update('praise_count = praise_count-1');
-        // return $praises && $articles;
     }
 
     public function getPraise($username, $currentPage=1, $pageSize=5)

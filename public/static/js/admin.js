@@ -23,7 +23,6 @@ for (let i = 0; i < defriendUsers.length; i++) {
     defriendUsers[i].onclick = function () {
         for (let i = 0; i < defriendUsers.length; i++) {
             let user_id = this.getAttribute('data-user-id');
-            console.log(user_id)
             if (user_id == "1") {
                 alert('这是管理员，不能拉黑');
                 return;

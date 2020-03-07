@@ -73,10 +73,27 @@ class Article extends Model
     // 处理删除文章
     public function delArticle($article_id, $author, $category)
     {
-        $articles = $this->table('article')->where(['article_id' => "{$article_id}"])->delete();
-        $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count-1');
-        $categorys =  $this->table('category')->field('article_count')->where(['category' => "{$category}"])->update('article_count = article_count-1');
-        return $articles && $users && $categorys;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $articleSql = "delete from article where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $userSql = "update user set article_count=article_count-1 where username=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $author);
+            $stmt->execute();
+            $categorySql = "update category set article_count=article_count-1 where category=?";
+            $stmt = $pdo->prepare($categorySql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     // 获取所有被管理员推荐的文章
@@ -105,10 +122,31 @@ class Article extends Model
     // 处理用户在写文章页面提交的数据
     public function checkWrite($author, $category, $title, $content,  $created_at)
     {
-        $articles = $this->table('article')->insert(['title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'author' => "{$author}", 'created_at' => "{$created_at}"]);
-        $users =  $this->table('user')->field('article_count')->where(['username' => "{$author}"])->update('article_count = article_count+1');
-        $categorys =  $this->table('category')->field('article_count')->where(['category' => "{$category}"])->update('article_count = article_count+1');
-        return $articles && $users && $categorys;
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $shareSql = "insert into article (author,category,title,content,created_at) values (?,?,?,?,?)";
+            $stmt = $pdo->prepare($shareSql);
+            $stmt->bindParam(1, $author);
+            $stmt->bindParam(2, $category);
+            $stmt->bindParam(3, $title);
+            $stmt->bindParam(4, $content);
+            $stmt->bindParam(5, $created_at);
+            $stmt->execute();
+            $userSql = "update user set article_count=article_count+1 where username=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $author);
+            $stmt->execute();
+            $userSql = "update category set article_count=article_count+1 where category=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
     }
 
 
