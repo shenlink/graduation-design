@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Collect extends Controller
 {
@@ -11,9 +10,8 @@ class Collect extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     public function checkCollect()
@@ -24,17 +22,16 @@ class Collect extends Controller
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $collect =  Factory::createCollect();
-            $result =  $collect->checkCollect($article_id,$username);
+            $result =  $this->collect->checkCollect($article_id,$username);
             if ($result) {
-                $cancel = $collect->cancelCollect($article_id,$username);
+                $cancel = $this->collect->cancelCollect($article_id,$username);
                 if ($cancel) {
                     echo "0";
                 }
             } else {
                 date_default_timezone_set('PRC');
                 $collect_at = date('Y-m-d H:i:s', time());
-                $add = $collect->addCollect($article_id, $author, $title, $username,$collect_at);
+                $add = $this->collect->addCollect($article_id, $author, $title, $username,$collect_at);
                 if ($add) {
                     echo "1";
                 }
@@ -49,8 +46,7 @@ class Collect extends Controller
         if (isset($_POST['collect_id']) && isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $collect_id = $_POST['collect_id'];
-            $collect =  Factory::createCollect();
-            $result = $collect->delCollect($article_id,$collect_id );
+            $result = $this->collect->delCollect($article_id,$collect_id );
             if ($result) {
                 echo '1';
             } else {
@@ -64,9 +60,8 @@ class Collect extends Controller
     // 当用户调用Admin类中不存在的方法时，提示404页面
     public function __call($method, $args)
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
 }

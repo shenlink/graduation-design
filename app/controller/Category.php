@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 use app\controller\Validate;
 
 class Category extends Controller
@@ -11,9 +10,8 @@ class Category extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 拉黑分类
@@ -21,8 +19,7 @@ class Category extends Controller
     {
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->defriendcategory($categorys);
+            $result = $this->category->defriendcategory($categorys);
             if ($result) {
                 echo '1';
             } else {
@@ -38,8 +35,7 @@ class Category extends Controller
     {
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->normalCategory($categorys);
+            $result = $this->category->normalCategory($categorys);
             if ($result) {
                 echo '1';
             } else {
@@ -55,8 +51,7 @@ class Category extends Controller
     {
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
-            $category = Factory::createCategory();
-            $result = $category->delCategory($categorys);
+            $result = $this->category->delCategory($categorys);
             if ($result) {
                 echo '1';
             } else {
@@ -70,14 +65,12 @@ class Category extends Controller
     // 添加页面，共有添加分类，公告功能
     public function addCategory()
     {
-        $view = Factory::createView();
         if (isset($_POST['addCategory'])) {
             $addCategory = $_POST['addCategory'];
-            $view->assign('addCategory', $addCategory);
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('categorys', $categorys);
-            $view->display('add.html');
+            $categorys = $this->category->getCategory();
+            $this->view->assign('addCategory', $addCategory);
+            $this->view->assign('categorys', $categorys);
+            $this->view->display('add.html');
         } else {
             $this->displayNone();
         }
@@ -88,8 +81,7 @@ class Category extends Controller
     {
         if (isset($_POST['categoryName'])) {
             $categoryName = $_POST['categoryName'];
-            $category = Factory::createCategory();
-            $result = $category->addCategory($categoryName);
+            $result = $this->category->addCategory($categoryName);
             if ($result) {
                 echo '1';
             } else {
@@ -107,34 +99,31 @@ class Category extends Controller
             $username = $_SESSION['username'];
         }
         $categoryName = $method;
-        $category = Factory::createCategory();
-        $view = Factory::createView();
-        $realCategory = $category->checkCategory($categoryName);
+        $realCategory = $this->category->checkCategory($categoryName);
         if (!$realCategory) {
-            $view->assign('error','error');
-            $view->display('error.html');
+            $this->view->assign('error','error');
+            $this->view->display('error.html');
             exit();
         }
-        $article = Factory::createArticle();
         if (isset($_POST['pageNumber'])) {
             $pageNumber = $_POST['pageNumber'];
-            $data = $article->getCategoryArticle($categoryName, $pageNumber, 5);
+            $data = $this->article->getCategoryArticle($categoryName, $pageNumber, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
-            $view->assign('articlePage', $articlePage);
+            $this->view->assign('articlePage', $articlePage);
         }else{
-            $data = $article->getCategoryArticle($categoryName);
+            $data = $this->article->getCategoryArticle($categoryName);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
-            $view->assign('articlePage', $articlePage);
+            $this->view->assign('articlePage', $articlePage);
         }
-        $categorys = $category->getCategory();
-        $recommends = $article->recommend();
-        $view->assign('username', $username);
-        $view->assign('articles', $articles);
-        $view->assign('categorys', $categorys);
-        $view->assign('categoryName', $categoryName);
-        $view->assign('recommends', $recommends);
-        $view->display('category.html');
+        $categorys = $this->category->getCategory();
+        $recommends = $this->article->recommend();
+        $this->view->assign('username', $username);
+        $this->view->assign('articles', $articles);
+        $this->view->assign('categorys', $categorys);
+        $this->view->assign('categoryName', $categoryName);
+        $this->view->assign('recommends', $recommends);
+        $this->view->display('category.html');
     }
 }

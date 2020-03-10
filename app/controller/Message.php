@@ -3,16 +3,14 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Message extends Controller
 {
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     public function addMessage()
@@ -21,13 +19,11 @@ class Message extends Controller
         if (isset($_POST['author'])) {
             $username = $_SESSION['username'];
             $author = $_POST['author'];
-            $view = Factory::createView();
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('categorys', $categorys);
-            $view->assign('author', $author);
-            $view->assign('username', $username);
-            $view->display('add.html');
+            $categorys = $this->category->getCategory();
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('author', $author);
+            $this->view->assign('username', $username);
+            $this->view->display('add.html');
         } else {
             $this->displayNone();
         }
@@ -39,10 +35,9 @@ class Message extends Controller
         if (isset($_POST['author']) && isset($_POST['content'])) {
             $author = $_POST['author'];
             $content = $_POST['content'];
-            $message = Factory::createMessage();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $message->checkAddMessage($author, $content, $created_at);
+            $result = $this->message->checkAddMessage($author, $content, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -58,8 +53,7 @@ class Message extends Controller
     {
         if (isset($_POST['message_id'])) {
             $message_id = $_POST['message_id'];
-            $message  =  Factory::createMessage();
-            $result = $message->delMessage($message_id);
+            $result = $this->message->delMessage($message_id);
             if ($result) {
                 echo '1';
             } else {
@@ -71,8 +65,7 @@ class Message extends Controller
     public function __call($method, $args)
     {
         // 显示404页面
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }

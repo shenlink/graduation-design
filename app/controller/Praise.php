@@ -3,16 +3,14 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Praise extends Controller
 {
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 确认点赞
@@ -24,10 +22,9 @@ class Praise extends Controller
             $username = $_POST['username'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $praise =  Factory::createPraise();
-            $result =  $praise->checkPraise($article_id, $username);
+            $result =  $this->praise->checkPraise($article_id, $username);
             if ($result) {
-                $cancel = $praise->cancelPraise($article_id, $username);
+                $cancel = $this->praise->cancelPraise($article_id, $username);
                 if ($cancel) {
                     echo "0";
                 } else {
@@ -36,7 +33,7 @@ class Praise extends Controller
             } else {
                 date_default_timezone_set('PRC');
                 $praise_at = date('Y-m-d H:i:s', time());
-                $add = $praise->addPraise($article_id, $author, $title, $username, $praise_at);
+                $add = $this->praise->addPraise($article_id, $author, $title, $username, $praise_at);
                 if ($add) {
                     echo "1";
                 } else {
@@ -53,8 +50,7 @@ class Praise extends Controller
         if (isset($_POST['article_id']) && isset($_POST['praise_id'])) {
             $article_id = $_POST['article_id'];
             $praise_id = $_POST['praise_id'];
-            $praise =  Factory::createPraise();
-            $result = $praise->delPraise($article_id, $praise_id);
+            $result = $this->praise->delPraise($article_id, $praise_id);
             if ($result) {
                 echo '1';
             } else {
@@ -68,8 +64,7 @@ class Praise extends Controller
     public function __call($method, $args)
     {
         // 显示404页面
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }

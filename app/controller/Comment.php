@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Comment extends Controller
 {
@@ -11,9 +10,8 @@ class Comment extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 发表评论
@@ -27,8 +25,7 @@ class Comment extends Controller
             $username = $_POST['username'];
             date_default_timezone_set('PRC');
             $comment_at = date('Y-m-d H:i:s', time());
-            $comment =  Factory::createComment();
-            $result = $comment->addComment($article_id, $author, $title,  $content, $username, $comment_at);
+            $result = $this->comment->addComment($article_id, $author, $title,  $content, $username, $comment_at);
             if ($result) {
                 echo '1';
             } else {
@@ -45,8 +42,7 @@ class Comment extends Controller
         if (isset($_POST['article_id']) && isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $article_id = $_POST['article_id'];
-            $comment  =  Factory::createComment();
-            $result = $comment->delComment($article_id, $comment_id);
+            $result = $this->comment->delComment($article_id, $comment_id);
             if ($result) {
                 echo '1';
             } else {
@@ -59,8 +55,7 @@ class Comment extends Controller
 
     public function __call($method, $args)
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }

@@ -3,16 +3,14 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Share extends Controller
 {
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 确认分享
@@ -25,10 +23,9 @@ class Share extends Controller
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $share =  Factory::createShare();
-            $result =  $share->checkShare($article_id,$username);
+            $result =  $this->share->checkShare($article_id,$username);
             if ($result) {
-                $cancel = $share->cancelShare($article_id, $username);
+                $cancel = $this->share->cancelShare($article_id, $username);
                 if ($cancel) {
                     echo "0";
                 }else{
@@ -37,7 +34,7 @@ class Share extends Controller
             } else {
                 date_default_timezone_set('PRC');
                 $share_at = date('Y-m-d H:i:s', time());
-                $add = $share->addShare($article_id, $author, $title, $username, $share_at);
+                $add = $this->share->addShare($article_id, $author, $title, $username, $share_at);
                 if ($add) {
                     echo "1";
                 }else{
@@ -54,8 +51,7 @@ class Share extends Controller
         if (isset($_POST['share_id']) && isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $share_id = $_POST['share_id'];
-            $share =  Factory::createShare();
-            $result = $share->delShare($article_id,$share_id);
+            $result = $this->share->delShare($article_id,$share_id);
             if ($result) {
                 echo '1';
             } else {
@@ -69,8 +65,7 @@ class Share extends Controller
     public function __call($method, $args)
     {
         // 显示404页面
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }

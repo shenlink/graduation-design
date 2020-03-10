@@ -14,6 +14,17 @@ class Controller
 
     public function __construct()
     {
+        $this->announcement =  Factory::createAnnouncement();
+        $this->article = Factory::createArticle();
+        $this->category = Factory::createCategory();
+        $this->collect = Factory::createCollect();
+        $this->comment = Factory::createComment();
+        $this->follow = Factory::createFollow();
+        $this->message = Factory::createMessage();
+        $this->praise = Factory::createPraise();
+        $this->receive = Factory::createReceive();
+        $this->share = Factory::createShare();
+        $this->user = Factory::createUser();
         $this->view = Factory::createView();
     }
 

@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 use app\controller\Validate;
 
 
@@ -13,16 +12,13 @@ class User extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 搜索相关操作的方法
     public function search()
     {
-
-        $view = Factory::createView();
         $access = Validate::checkAccess();
         if (isset($_POST['type']) && isset($_POST['content'])) {
             if ($access == 1 || $access == 2) {
@@ -30,24 +26,21 @@ class User extends Controller
             }
             $type = $_POST['type'];
             $content = $_POST['content'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $user = Factory::createUser();
-            $articles = $article->search($content);
-            $categorys = $category->getCategory();
-            $users = $user->search($content);
+            $articles = $this->article->search($content);
+            $categorys = $this->category->getCategory();
+            $users = $this->user->search($content);
             if ($type == '1') {
                 $type = '用户名查询结果';
-                $view->assign('users', $users);
+                $this->view->assign('users', $users);
             } else {
                 $type = '文章查询结果';
-                $view->assign('articles', $articles);
+                $this->view->assign('articles', $articles);
             }
-            $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->assign('type', $type);
-            $view->assign('users', $users);
-            $view->display('search.html');
+            $this->view->assign('username', $username);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('type', $type);
+            $this->view->assign('users', $users);
+            $this->view->display('search.html');
         } else {
             $this->displayNone();
         }
@@ -59,8 +52,7 @@ class User extends Controller
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username'])) {
             $username = $_POST['username'];
-            $user = Factory::createUser();
-            $result =  $user->checkUsername($username);
+            $result =  $this->user->checkUsername($username);
             $intercept = $this->getIntercept($username);
             if ($result || $intercept) {
                 echo "1";
@@ -82,11 +74,9 @@ class User extends Controller
     // 显示注册页面
     public function register()
     {
-        $category = Factory::createCategory();
-        $view = Factory::createView();
-        $categorys = $category->getCategory();
-        $view->assign('categorys', $categorys);
-        $view->display('register.html');
+        $categorys = $this->category->getCategory();
+        $this->view->assign('categorys', $categorys);
+        $this->view->display('register.html');
     }
 
     // 处理注册页面提交的数据
@@ -96,10 +86,9 @@ class User extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
-            $user = Factory::createUser();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $user->checkRegister($username, $password, $created_at);
+            $result = $this->user->checkRegister($username, $password, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -113,11 +102,9 @@ class User extends Controller
     // 显示登录页面
     public function login()
     {
-        $category = Factory::createCategory();
-        $view = Factory::createView();
-        $categorys = $category->getCategory();
-        $view->assign('categorys', $categorys);
-        $view->display('login.html');
+        $categorys = $this->category->getCategory();
+        $this->view->assign('categorys', $categorys);
+        $this->view->display('login.html');
     }
 
     // 处理登录页面提交的数据
@@ -127,8 +114,7 @@ class User extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
-            $user = Factory::createUser();
-            $result = $user->checkLogin($username, $password);
+            $result = $this->user->checkLogin($username, $password);
             if ($result) {
                 session_start();
                 $_SESSION['username'] = $username;
@@ -149,9 +135,8 @@ class User extends Controller
             unset($_SESSION['username']);
             echo "<script>window.location.href='/'</script>";
         } else {
-            $view = Factory::createView();
-            $view->assign('nologin', 'nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin', 'nologin');
+            $this->view->display('error.html');
         }
     }
 
@@ -159,102 +144,93 @@ class User extends Controller
     public function personal()
     {
         $access = Validate::checkAccess();
-        $view = Factory::createView();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $collect =  Factory::createCollect();
-            $comment =  Factory::createComment();
-            $praise =  Factory::createPraise();
-            $share =  Factory::createShare();
-            $user = Factory::createUser();
-            $categorys = $category->getCategory();
+            $categorys = $this->category->getCategory();
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
-                    $data = $article->getUserArticle($username, $_POST['articlePages'], 5);
+                    $data = $this->article->getUserArticle($username, $_POST['articlePages'], 5);
                 } else {
-                    $data = $article->getUserArticle($username, 1, 5);
+                    $data = $this->article->getUserArticle($username, 1, 5);
                 }
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
-                $view->assign('articlePage', $articlePage);
+                $this->view->assign('articlePage', $articlePage);
 
                 if ($_POST['collectPages']) {
-                    $data = $collect->getCollect($username, $_POST['collectPages'], 5);
+                    $data = $this->collect->getCollect($username, $_POST['collectPages'], 5);
                 } else {
-                    $data = $collect->getCollect($username, 1, 5);
+                    $data = $this->collect->getCollect($username, 1, 5);
                 }
                 $collects = $data['items'];
                 $collectPage = $data['pageHtml'];
-                $view->assign('collectPage', $collectPage);
+                $this->view->assign('collectPage', $collectPage);
 
                 if ($_POST['commentPages']) {
-                    $data = $comment->getComment($username, $_POST['articlePages'], 5);
+                    $data = $this->comment->getComment($username, $_POST['articlePages'], 5);
                 } else {
-                    $data = $comment->getComment($username, 1, 5);
+                    $data = $this->comment->getComment($username, 1, 5);
                 }
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
-                $view->assign('commentPage', $commentPage);
+                $this->view->assign('commentPage', $commentPage);
 
                 if ($_POST['praisePages']) {
-                    $data = $praise->getPraise($username, $_POST['praisePages'], 5);
+                    $data = $this->praise->getPraise($username, $_POST['praisePages'], 5);
                 } else {
-                    $data = $praise->getPraise(1, 5);
+                    $data = $this->praise->getPraise(1, 5);
                 }
                 $praises = $data['items'];
                 $praisePage = $data['pageHtml'];
-                $view->assign('praisePage', $praisePage);
+                $this->view->assign('praisePage', $praisePage);
 
                 if ($_POST['sharePages']) {
-                    $data = $share->getShare($username, $_POST['sharePages'], 5);
+                    $data = $this->share->getShare($username, $_POST['sharePages'], 5);
                 } else {
-                    $data = $share->getShare(1, 5);
+                    $data = $this->share->getShare(1, 5);
                 }
                 $shares = $data['items'];
                 $sharePage = $data['pageHtml'];
-                $view->assign('sharePage', $sharePage);
+                $this->view->assign('sharePage', $sharePage);
             } else {
-                $data = $article->getUserArticle($username);
+                $data = $this->article->getUserArticle($username);
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
-                $view->assign('articlePage', $articlePage);
+                $this->view->assign('articlePage', $articlePage);
 
-                $categorys = $category->getCategory();
-                $data = $collect->getCollect($username);
+                $data = $this->collect->getCollect($username);
                 $collects = $data['items'];
                 $collectPage = $data['pageHtml'];
-                $view->assign('collectPage', $collectPage);
+                $this->view->assign('collectPage', $collectPage);
 
-                $data = $comment->getComment($username);
+                $data = $this->comment->getComment($username);
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
-                $view->assign('commentPage', $commentPage);
+                $this->view->assign('commentPage', $commentPage);
 
-                $data = $praise->getPraise($username);
+                $data = $this->praise->getPraise($username);
                 $praises = $data['items'];
                 $praisePage = $data['pageHtml'];
-                $view->assign('praisePage', $praisePage);
+                $this->view->assign('praisePage', $praisePage);
 
-                $data = $share->getShare($username);
+                $data = $this->share->getShare($username);
                 $shares = $data['items'];
                 $sharePage = $data['pageHtml'];
-                $view->assign('sharePage', $sharePage);
+                $this->view->assign('sharePage', $sharePage);
             }
-            $users = $user->personal($username);
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->assign('collects', $collects);
-            $view->assign('comments', $comments);
-            $view->assign('praises', $praises);
-            $view->assign('shares', $shares);
-            $view->assign('users', $users);
-            $view->display('personal.html');
+            $users = $this->user->personal($username);
+            $this->view->assign('username', $username);
+            $this->view->assign('articles', $articles);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('collects', $collects);
+            $this->view->assign('comments', $comments);
+            $this->view->assign('praises', $praises);
+            $this->view->assign('shares', $shares);
+            $this->view->assign('users', $users);
+            $this->view->display('personal.html');
         } else {
-            $view->assign('nologin', 'nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin', 'nologin');
+            $this->view->display('error.html');
         }
     }
 
@@ -262,20 +238,17 @@ class User extends Controller
     public function change()
     {
         $access = Validate::checkAccess();
-        $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $user = Factory::createUser();
-            $categorys = $category->getCategory();
-            $users = $user->personal($username);
-            $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->assign('users', $users);
-            $view->display('change.html');
+            $categorys = $this->category->getCategory();
+            $users = $this->user->personal($username);
+            $this->view->assign('username', $username);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('users', $users);
+            $this->view->display('change.html');
         } else if ($access == '3') {
-            $view->assign('nologin', 'nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin', 'nologin');
+            $this->view->display('error.html');
         }
     }
 
@@ -287,9 +260,8 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $introduction = trim($_POST['introduction']);
-            $user = Factory::createUser();
             if (isset($username) && isset($password) && isset($introduction)) {
-                $result = $user->checkChange($username, $password, $introduction);
+                $result = $this->user->checkChange($username, $password, $introduction);
             }
             if ($result) {
                 echo '1';
@@ -305,97 +277,91 @@ class User extends Controller
     public function manage()
     {
         $access = Validate::checkAccess();
-        $view = Factory::createView();
-        $article = Factory::createArticle();
-        $comment = Factory::createComment();
-        $follow = Factory::createFollow();
-        $receive =  Factory::createReceive();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
+            $categorys = $this->category->getCategory();
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
-                    $data = $article->getManageArticle($username, $_POST['articlePages'], 5);
+                    $data = $this->article->getManageArticle($username, $_POST['articlePages'], 5);
                 } else {
-                    $data = $article->getManageArticle(1, 5);
+                    $data = $this->article->getManageArticle(1, 5);
                 }
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
-                $view->assign('articlePage', $articlePage);
+                $this->view->assign('articlePage', $articlePage);
 
                 if ($_POST['commentPages']) {
-                    $data = $comment->getManageComment($username, $_POST['commentPages'], 5);
+                    $data = $this->comment->getManageComment($username, $_POST['commentPages'], 5);
                 } else {
-                    $data = $comment->getManageComment(1, 5);
+                    $data = $this->comment->getManageComment(1, 5);
                 }
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
-                $view->assign('commentPage', $commentPage);
+                $this->view->assign('commentPage', $commentPage);
 
                 if ($_POST['followPage']) {
-                    $data = $follow->getFollow($username, $_POST['followPage'], 5);
+                    $data = $this->follow->getFollow($username, $_POST['followPage'], 5);
                 } else {
-                    $data = $follow->getFollow(1, 5);
+                    $data = $this->follow->getFollow(1, 5);
                 }
                 $follows = $data['items'];
                 $followPage = $data['pageHtml'];
-                $view->assign('followPage', $followPage);
+                $this->view->assign('followPage', $followPage);
 
                 if ($_POST['fansPages']) {
-                    $data = $follow->getFans($username, $_POST['commentPages'], 5);
+                    $data = $this->follow->getFans($username, $_POST['commentPages'], 5);
                 } else {
-                    $data = $follow->getFans(1, 5);
+                    $data = $this->follow->getFans(1, 5);
                 }
                 $fans = $data['items'];
                 $fnasPage = $data['pageHtml'];
-                $view->assign('fnasPage', $fnasPage);
+                $this->view->assign('fnasPage', $fnasPage);
 
                 if ($_POST['receivePages']) {
-                    $data = $receive->getReceive($username, $_POST['receivePages'], 5);
+                    $data = $this->receive->getReceive($username, $_POST['receivePages'], 5);
                 } else {
-                    $data = $receive->getReceive($username, 1, 5);
+                    $data = $this->receive->getReceive($username, 1, 5);
                 }
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
-                $view->assign('receivePage', $receivePage);
+                $this->view->assign('receivePage', $receivePage);
             } else {
-                $data = $article->getManageArticle($username);
+                $data = $this->article->getManageArticle($username);
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
-                $view->assign('articlePage', $articlePage);
+                $this->view->assign('articlePage', $articlePage);
 
-                $data = $comment->getManageComment($username);
+                $data = $this->comment->getManageComment($username);
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
-                $view->assign('commentPage', $commentPage);
+                $this->view->assign('commentPage', $commentPage);
 
-                $data = $follow->getFollow($username);
+                $data = $this->follow->getFollow($username);
                 $follows = $data['items'];
                 $followPage = $data['pageHtml'];
-                $view->assign('followPage', $followPage);
+                $this->view->assign('followPage', $followPage);
 
-                $data = $follow->getFans($username,);
+                $data = $this->follow->getFans($username,);
                 $fans = $data['items'];
                 $fnasPage = $data['pageHtml'];
-                $view->assign('fnasPage', $fnasPage);
+                $this->view->assign('fnasPage', $fnasPage);
 
-                $data = $receive->getReceive($username);
+                $data = $this->receive->getReceive($username);
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
-                $view->assign('receivePage', $receivePage);
+                $this->view->assign('receivePage', $receivePage);
             }
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->assign('comments', $comments);
-            $view->assign('follows', $follows);
-            $view->assign('fans', $fans);
-            $view->assign('receives', $receives);
-            $view->display('manage.html');
+            $this->view->assign('username', $username);
+            $this->view->assign('articles', $articles);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('comments', $comments);
+            $this->view->assign('follows', $follows);
+            $this->view->assign('fans', $fans);
+            $this->view->assign('receives', $receives);
+            $this->view->display('manage.html');
         } else {
-            $view->assign('nologin', 'nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin', 'nologin');
+            $this->view->display('error.html');
         }
     }
 
@@ -405,8 +371,7 @@ class User extends Controller
         // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
-            $user = Factory::createUser();
-            $result = $user->defriendUser($user_id);
+            $result = $this->user->defriendUser($user_id);
             if ($result) {
                 echo '1';
             } else {
@@ -423,8 +388,7 @@ class User extends Controller
         // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
-            $user = Factory::createUser();
-            $result = $user->normalUser($user_id);
+            $result = $this->user->normalUser($user_id);
             if ($result) {
                 echo '1';
             } else {
@@ -441,8 +405,7 @@ class User extends Controller
         // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
-            $user = Factory::createUser();
-            $result = $user->delUser($user_id);
+            $result = $this->user->delUser($user_id);
             if ($result) {
                 echo '1';
             } else {
@@ -457,31 +420,26 @@ class User extends Controller
     public function __call($method, $args)
     {
         $author = $method;
-        $user = Factory::createUser();
-        $view = Factory::createView();
-        $realUsername = $user->getUsername($author);
+        $realUsername = $this->user->getUsername($author);
         if (!$realUsername) {
-            $view->assign('error', 'error');
-            $view->display('error.html');
+            $this->view->assign('error', 'error');
+            $this->view->display('error.html');
             exit();
         }
         $access = Validate::checkAccess();
         if ($access == 1 || $access == 2) {
             $username = $_SESSION['username'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $follow =  Factory::createFollow();
             if (isset($_POST['pagination'])) {
-                $data = $article->getUserArticle($username, $_POST['pagination'], 5);
+                $data = $this->article->getUserArticle($username, $_POST['pagination'], 5);
             } else {
-                $data = $article->getUserArticle($username);
+                $data = $this->article->getUserArticle($username);
             }
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
-            $view->assign('articlePage', $articlePage);
-            $categorys = $category->getCategory();
-            $users = $user->personal($author);
-            $follows = $follow->getAllFollow($author);
+            $this->view->assign('articlePage', $articlePage);
+            $categorys = $this->category->getCategory();
+            $users = $this->user->personal($author);
+            $follows = $this->follow->getAllFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {
                     $allFollows .= $value . ',';
@@ -489,16 +447,16 @@ class User extends Controller
             }
             if (in_array($username, explode(',', $allFollows))) {
                 $follows = true;
-                $view->assign('follows', $follows);
+                $this->view->assign('follows', $follows);
             }
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->assign('users', $users);
-            $view->display('user.html');
+            $this->view->assign('username', $username);
+            $this->view->assign('articles', $articles);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('users', $users);
+            $this->view->display('user.html');
         } else {
-            $view->assign('nologin', 'nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin', 'nologin');
+            $this->view->display('error.html');
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Announcement extends Controller
 {
@@ -11,9 +10,8 @@ class Announcement extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 删除公告
@@ -21,8 +19,7 @@ class Announcement extends Controller
     {
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
-            $announcement  =  Factory::createAnnouncement();
-            $result = $announcement->delAnnouncement($announcement_id);
+            $result = $this->announcement->delAnnouncement($announcement_id);
             if ($result) {
                 echo '1';
             } else {
@@ -36,14 +33,12 @@ class Announcement extends Controller
     // 添加页面，共有添加分类，公告功能
     public function addAnnouncement()
     {
-        $view = Factory::createView();
         if (isset($_POST['addAnnouncement'])) {
             $addAnnouncement = $_POST['addAnnouncement'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('addAnnouncement', $addAnnouncement);
-            $view->assign('categorys', $categorys);
-            $view->display('add.html');
+            $categorys = $this->category->getCategory();
+            $this->view->assign('addAnnouncement', $addAnnouncement);
+            $this->view->assign('categorys', $categorys);
+            $this->view->display('add.html');
         } else {
             $this->displayNone();
         }
@@ -54,10 +49,9 @@ class Announcement extends Controller
     {
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
-            $announcement  =  Factory::createAnnouncement();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $announcement->checkAddAnnouncement($content, $created_at);
+            $result = $this->announcement->checkAddAnnouncement($content, $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -71,8 +65,7 @@ class Announcement extends Controller
     // 当用户调用Admin类中不存在的方法时，提示404页面
     public function __call($method, $args)
     {
-        $view = Factory::createView();
-        $view->assign('error','error');
-        $view->display('error.html');
+        $this->view->assign('error','error');
+        $this->view->display('error.html');
     }
 }

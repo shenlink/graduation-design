@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 class Article extends Controller
 {
@@ -11,26 +10,23 @@ class Article extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 显示写文章页面
     public function write()
     {
         $access = Validate::checkAccess();
-        $view = Factory::createView();
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
-            $category = Factory::createCategory();
-            $categorys = $category->getCategory();
-            $view->assign('username', $username);
-            $view->assign('categorys', $categorys);
-            $view->display('write.html');
+            $categorys = $this->category->getCategory();
+            $this->view->assign('username', $username);
+            $this->view->assign('categorys', $categorys);
+            $this->view->display('write.html');
         } else {
-            $view->assign('nologin','nologin');
-            $view->display('error.html');
+            $this->view->assign('nologin','nologin');
+            $this->view->display('error.html');
         }
     }
 
@@ -43,10 +39,9 @@ class Article extends Controller
             $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            $article = Factory::createArticle();
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
-            $result = $article->checkWrite($author, $category, $title,  $content,  $created_at);
+            $result = $this->article->checkWrite($author, $category, $title,  $content,  $created_at);
             if ($result) {
                 echo '1';
             } else {
@@ -62,14 +57,11 @@ class Article extends Controller
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $category = Factory::createCategory();
-            $view = Factory::createView();
-            $articles = $article->getArticle($article_id);
-            $categorys = $category->getCategory();
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->display('edit.html');
+            $articles = $this->article->getArticle($article_id);
+            $categorys = $this->category->getCategory();
+            $this->view->assign('articles', $articles);
+            $this->view->assign('categorys', $categorys);
+            $this->view->display('edit.html');
         } else {
             $this->displayNone();
         }
@@ -83,10 +75,9 @@ class Article extends Controller
             $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            $article = Factory::createArticle();
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
-            $result = $article->checkEdit($article_id, $category, $title, $content, $updated_at);
+            $result = $this->article->checkEdit($article_id, $category, $title, $content, $updated_at);
             if ($result) {
                 echo '1';
             } else {
@@ -102,8 +93,7 @@ class Article extends Controller
     {
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $result = $article->defriendArticle($article_id);
+            $result = $this->article->defriendArticle($article_id);
             if ($result) {
                 echo '1';
             } else {
@@ -119,8 +109,7 @@ class Article extends Controller
         // 获取前端ajax传来的user_id
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
-            $article = Factory::createArticle();
-            $result = $article->normalArticle($article_id);
+            $result = $this->article->normalArticle($article_id);
             if ($result) {
                 echo '1';
             } else {
@@ -139,8 +128,7 @@ class Article extends Controller
             $article_id = $_POST['article_id'];
             $author = $_SESSION['username'];
             $category = $_POST['category'];
-            $article = Factory::createArticle();
-            $result = $article->delArticle($article_id, $author, $category);
+            $result = $this->article->delArticle($article_id, $author, $category);
             if ($result) {
                 echo '1';
             } else {
@@ -154,30 +142,24 @@ class Article extends Controller
 
     public function __call($method, $args)
     {
-        $view = Factory::createView();
         $article_id = $method;
         if (!is_numeric($article_id)) {
-            $view->assign('error','error');
-            $view->display('error.html');
+            $this->view->assign('error','error');
+            $this->view->display('error.html');
             exit();
         }
-        $article = Factory::createArticle();
-        $realArticle_id = $article->checkArticleId($article_id);
+        $realArticle_id = $this->article->checkArticleId($article_id);
         if ($realArticle_id) {
-            $category = Factory::createCategory();
-            $comment =  Factory::createComment();
-            $articles = $article->getArticle($article_id);
-            $categorys = $category->getCategory();
-            $comments = $comment->getArticleComment($article_id);
+            $articles = $this->article->getArticle($article_id);
+            $categorys = $this->category->getCategory();
+            $comments = $this->comment->getArticleComment($article_id);
             $access = Validate::checkAccess();
             if ($access == 1 || $access == 2) {
                 $username = $_SESSION['username'];
             }
-            $author = $articles['author'];
-            $user = Factory::createUser();
-            $follow =  Factory::createFollow();
-            $users = $user->personal($author);
-            $follows = $follow->getFollow($author);
+            $author = $this->articles['author'];
+            $users = $this->user->personal($author);
+            $follows = $this->follow->getFollow($author);
             foreach ($follows as $values) {
                 foreach ($values as $value) {
                     $allFollows .= $value . ',';
@@ -185,17 +167,17 @@ class Article extends Controller
             }
             if (in_array($username, explode(',', $allFollows))) {
                 $follows = true;
-                $view->assign('follows', $follows);
+                $this->view->assign('follows', $follows);
             }
-            $view->assign('username', $username);
-            $view->assign('articles', $articles);
-            $view->assign('categorys', $categorys);
-            $view->assign('comments', $comments);
-            $view->assign('users', $users);
-            $view->display('article.html');
+            $this->view->assign('username', $username);
+            $this->view->assign('articles', $articles);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('comments', $comments);
+            $this->view->assign('users', $users);
+            $this->view->display('article.html');
         } else {
-            $view->assign('error','error');
-            $view->display('error.html');
+            $this->view->assign('error','error');
+            $this->view->display('error.html');
         }
     }
 }

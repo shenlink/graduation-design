@@ -3,7 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use core\lib\Factory;
 
 
 class Follow extends Controller
@@ -12,9 +11,8 @@ class Follow extends Controller
     // 显示404页面
     public function displayNone()
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 
     // 确认关注
@@ -24,17 +22,16 @@ class Follow extends Controller
         if (isset($_POST['author']) && isset($_POST['username'])) {
             $author = $_POST['author'];
             $username = $_POST['username'];
-            $follow =  Factory::createFollow();
-            $result =  $follow->checkFollow($author, $username);
+            $result =  $this->follow->checkFollow($author, $username);
             if ($result) {
-                $cancel = $follow->cancelFollow($author, $username);
+                $cancel = $this->follow->cancelFollow($author, $username);
                 if ($cancel) {
                     echo "0";
                 }
             } else {
                 date_default_timezone_set('PRC');
                 $follow_at = date('Y-m-d H:i:s', time());
-                $add = $follow->addFollow($author, $username, $follow_at);
+                $add = $this->follow->addFollow($author, $username, $follow_at);
                 if ($add) {
                     echo "1";
                 }
@@ -49,8 +46,7 @@ class Follow extends Controller
         if (isset($_POST['author']) && isset($_POST['username'])) {
             $author = $_POST['author'];
             $username = $_POST['username'];
-            $follow =  Factory::createFollow();
-            $result =  $follow->cancelFollow($author, $username);
+            $result =  $this->follow->cancelFollow($author, $username);
             if ($result) {
                 echo '1';
             } else {
@@ -63,8 +59,7 @@ class Follow extends Controller
 
     public function __call($method, $args)
     {
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }
