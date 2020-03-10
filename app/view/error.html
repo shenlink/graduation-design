@@ -7,70 +7,39 @@
     <title>未登录</title>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="/static/css/self.css" type="text/css" rel="stylesheet">
+    <link href="/static/css/error.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
-
-
-
-    <!-- 主体内容开始 -->
-    <div class="container-fluid">
-        <div class="col-md-12">
-            <!-- row类确保两列布局 -->
-            <div class="row">
-                <div class="col-md-8">
-                    <div>
-                        {{if $noLogin}}
-                        <h2 class="text-center text-danger">
-                            你还未登录，暂无权限查看此页面,回到
-                            <a href="/">首页</a>,
-                            <a href="javascript:history.back(-1)">
-                                返回上一页
-                            </a>
-                        </h2>
-                        {{else if $notAdmin}}
-                        <h2 class="text-center text-danger">
-                            你不是管理员，暂无权限查看此页面,回到
-                            <a href="/">首页</a>,
-                            <a href="javascript:history.back(-1)">
-                                返回上一页
-                            </a>
-                        </h2>
-                        {{else}}
-                        <h2 class="text-center text-danger">
-                            没有找到页面，请确认输入是否正确,回到
-                            <a href="/">首页</a>,
-                            <a href="javascript:history.back(-1)">
-                                返回上一页
-                            </a>
-                        </h2>
-                        {{/if}}
-                    </div>
-                </div>
-                <!--右边推荐列表开始-->
-
-                <!-- 右边推荐列表结束 -->
+    <div class="container-fluid vertical-all">
+            <div class="vertical">
+                {{if $noLogin}}
+                <h2 class="text-center text-danger">
+                    你还未登录，暂无权限查看此页面,回到
+                    <a href="/">首页</a>,
+                    <a href="javascript:history.back(-1)">
+                        返回上一页
+                    </a>
+                </h2>
+                {{else if $notAdmin}}
+                <h2 class="text-center text-danger">
+                    你不是管理员，暂无权限查看此页面,回到
+                    <a href="/">首页</a>,
+                    <a href="javascript:history.back(-1)">
+                        返回上一页
+                    </a>
+                </h2>
+                {{else}}
+                <h2 class="text-center text-danger">
+                    没有找到页面，请确认输入是否正确,回到
+                    <a href="/">首页</a>,
+                    <a href="javascript:history.back(-1)">
+                        返回上一页
+                    </a>
+                </h2>
+                {{/if}}
             </div>
-        </div>
     </div>
-    <!-- 主体内容结束 -->
-
-
-    <!-- 空行开始 -->
-    <br>
-    <br>
-    <!-- 空行结束 -->
-
-    <!-- 公共底部开始-->
-    <footer class="container-fluid fixed-bottom">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-center bg-info">Fixed bottom</div>
-            </div>
-        </div>
-    </footer>
-    <!-- 公告底部结束 -->
 </body>
 
 </html>

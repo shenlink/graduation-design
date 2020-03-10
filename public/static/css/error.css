@@ -1,0 +1,8 @@
+.vertical-all{
+    position: relative;
+}
+.vertical{
+    position: absolute;
+    left: 200px;
+    top: 300px;
+}

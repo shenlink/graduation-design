@@ -11,6 +11,12 @@ use core\lib\Factory;
  */
 class Controller
 {
+
+    public function __construct()
+    {
+        $this->view = Factory::createView();
+    }
+
     /**
      * 执行前调用
      */
