@@ -110,9 +110,8 @@ class Article extends Model
 
     public function getManageArticle($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,title,content,category,created_at,collect_count,praise_count,comment_count,share_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
     }
-
 
     public function getUserArticle($username, $currentPage = 1, $pageSize = 5)
     {
