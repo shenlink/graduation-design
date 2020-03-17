@@ -62,7 +62,6 @@ class Announcement extends Controller
         }
     }
 
-    // 当用户调用Admin类中不存在的方法时，提示404页面
     public function __call($method, $args)
     {
         $this->view->assign('error','error');

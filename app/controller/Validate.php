@@ -40,9 +40,7 @@ class Validate extends Controller
 
     public function __call($method, $args)
     {
-        // 显示404页面
-        $view = Factory::createView();
-        $view->assign('error', 'error');
-        $view->display('error.html');
+        $this->view->assign('error', 'error');
+        $this->view->display('error.html');
     }
 }

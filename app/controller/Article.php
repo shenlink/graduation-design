@@ -106,7 +106,6 @@ class Article extends Controller
 
     public function normalArticle()
     {
-        // 获取前端ajax传来的user_id
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $result = $this->article->normalArticle($article_id);

@@ -16,7 +16,6 @@ class Share extends Controller
     // 确认分享
     public function checkShare()
     {
-        // 思路：只有按钮，用户点击之后，先确认用户是否已经点赞，若已经点赞，则取消点赞，否则点赞加1
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $username = $_POST['username'];
@@ -64,7 +63,6 @@ class Share extends Controller
 
     public function __call($method, $args)
     {
-        // 显示404页面
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
     }

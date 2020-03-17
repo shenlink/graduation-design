@@ -22,7 +22,6 @@ class Index extends Controller
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
         } else {
-            // 因为直接返回了对象，所以不能再直接取注册树上的对象了
             $data = $this->article->getAllArticle();
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
@@ -38,7 +37,6 @@ class Index extends Controller
 
     public function __call($method, $args)
     {
-        // 显示404页面
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
     }

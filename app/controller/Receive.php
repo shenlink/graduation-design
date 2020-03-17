@@ -30,7 +30,6 @@ class Receive extends Controller
 
     public function __call($method, $args)
     {
-        // 显示404页面
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
     }

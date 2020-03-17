@@ -8,24 +8,19 @@ use app\controller\Validate;
 class Admin extends Controller
 {
 
-    // 显示404页面
     public function displayNone()
     {
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
     }
 
-    // 显示管理员的管理页面
     public function manage()
     {
-        // 确认权限，为1时允许操作
         $access = Validate::checkAccess();
-        // 实例化对象
         if ($access == '1') {
             $username = $_SESSION['username'];
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
-                    // 获取所有的文章数据和分页html
                     $data = $this->article->getAllArticle($_POST['articlePages'], 5);
                 } else {
                     $data = $this->article->getAllArticle(1, 5);

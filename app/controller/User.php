@@ -404,7 +404,6 @@ class User extends Controller
     // 删除用户
     public function delUser()
     {
-        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->delUser($user_id);
