@@ -157,22 +157,15 @@ class Article extends Controller
             if ($access == 1 || $access == 2) {
                 $username = $_SESSION['username'];
             }
-            $author = $this->articles['author'];
+            $author = $this->article->getAuthor($article_id);
+            $author = $author['author'];
             $users = $this->user->personal($author);
-            $follows = $this->follow->getFollow($author);
-            foreach ($follows as $values) {
-                foreach ($values as $value) {
-                    $allFollows .= $value . ',';
-                }
-            }
-            if (in_array($username, explode(',', $allFollows))) {
-                $follows = true;
-                $this->view->assign('follows', $follows);
-            }
+            $follows = $this->follow->checkFollow($author,$username);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('comments', $comments);
+            $this->view->assign('follows', $follows);
             $this->view->assign('users', $users);
             $this->view->display('article.html');
         } else {

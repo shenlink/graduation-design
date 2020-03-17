@@ -23,7 +23,6 @@ class Index extends Controller
             $articlePage = $data['pageHtml'];
         } else {
             // 因为直接返回了对象，所以不能再直接取注册树上的对象了
-
             $data = $this->article->getAllArticle();
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
