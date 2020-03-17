@@ -119,7 +119,8 @@ let editor = new E('#editor-toolbar', '#editor-content');
 editor.create();
 // 登录后才能评论，评论内容去掉标签，空格后为空的话，不能评论
 $('#comment').on('click', function () {
-    let content = editor.txt.html();
+    let html = editor.txt.html();
+    let content = filterXSS(html);
     let content_text = editor.txt.text();
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');

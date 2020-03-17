@@ -3,7 +3,8 @@ let editor = new E('#content');
 editor.create();
 $('#publish').on('click', function () {
     let title = document.querySelector('#title').value;
-    let content = editor.txt.html();
+    let html = editor.txt.html();
+    let content = filterXSS(html);
     let category = document.querySelector('#category').value;
     let content_text = editor.txt.text();
     if (title.match(/^[ ]+$/) || title.length == 0) {
