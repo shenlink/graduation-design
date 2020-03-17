@@ -218,12 +218,14 @@ class User extends Controller
                 $sharePage = $data['pageHtml'];
                 $this->view->assign('sharePage', $sharePage);
             }
+            $recents = $this->article->getRecentArticle($username);
             $users = $this->user->personal($username);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('collects', $collects);
             $this->view->assign('comments', $comments);
+            $this->view->assign('recents', $recents);
             $this->view->assign('praises', $praises);
             $this->view->assign('shares', $shares);
             $this->view->assign('users', $users);
@@ -439,19 +441,13 @@ class User extends Controller
             $this->view->assign('articlePage', $articlePage);
             $categorys = $this->category->getCategory();
             $users = $this->user->personal($author);
-            $follows = $this->follow->getAllFollow($author);
-            foreach ($follows as $values) {
-                foreach ($values as $value) {
-                    $allFollows .= $value . ',';
-                }
-            }
-            if (in_array($username, explode(',', $allFollows))) {
-                $follows = true;
-                $this->view->assign('follows', $follows);
-            }
+            $follows = $this->follow->checkFollow($author, $username);
+            $recents = $this->article->getRecentArticle($author);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);
+            $this->view->assign('follows', $follows);
+            $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('user.html');
         } else {

@@ -249,23 +249,15 @@
                         </div>
                         <div class="card" style="width: 26rem;">
                             <div class="card-body">
-                                <h5 class="card-title">文章分类</h5>
+                                <h5 class="card-title">最新文章</h5>
                                 <div>
+                                    {{foreach from=$recents item=recentsItem}}
                                     <div>
-                                        Dapibus ac facilisis in
+                                        <a href="/article/{{$recentsItem.article_id}}">
+                                            {{$recentsItem.title|truncate_cn:"30":"..."}}
+                                        </a>
                                     </div>
-                                    <div>
-                                        Dapibus ac facilisis in
-                                    </div>
-                                    <div>
-                                        Dapibus ac facilisis in
-                                    </div>
-                                    <div>
-                                        Dapibus ac facilisis in
-                                    </div>
-                                    <div>
-                                        Dapibus ac facilisis in
-                                    </div>
+                                    {{/foreach}}
                                 </div>
                             </div>
                         </div>

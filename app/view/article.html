@@ -285,6 +285,20 @@
                                 {{/if}}
                             </div>
                         </div>
+                        <div class="card" style="width: 26rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">最新文章</h5>
+                                <div>
+                                    {{foreach from=$recents item=recentsItem}}
+                                    <div>
+                                        <a href="/article/{{$recentsItem.article_id}}">
+                                            {{$recentsItem.title|truncate_cn:"30":"..."}}
+                                        </a>
+                                    </div>
+                                    {{/foreach}}
+                                </div>
+                            </div>
+                        </div>
                         <!-- 个人信息列结束 -->
                     </div>
                 </div>

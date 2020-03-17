@@ -118,6 +118,11 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,content,created_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
     }
 
+    public function getRecentArticle($author)
+    {
+        return $this->table('article')->field('article_id,title')->where(['author'=>"{$author}"])->limit(5)->selectAll();
+    }
+
     // 处理用户在写文章页面提交的数据
     public function checkWrite($author, $category, $title, $content,  $created_at)
     {

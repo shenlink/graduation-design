@@ -161,11 +161,13 @@ class Article extends Controller
             $author = $author['author'];
             $users = $this->user->personal($author);
             $follows = $this->follow->checkFollow($author,$username);
+            $recents = $this->article->getRecentArticle($author);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('comments', $comments);
             $this->view->assign('follows', $follows);
+            $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('article.html');
         } else {

@@ -141,8 +141,9 @@
                             {{foreach from=$articles item=articlesItem}}
                             <tr>
                                 <td>
-                                    <a
-                                        href="/article/{{$articlesItem.article_id}}">{{$articlesItem.title|truncate_cn:"30":"..."}}</a>
+                                    <a href="/article/{{$articlesItem.article_id}}">
+                                        {{$articlesItem.title|truncate_cn:"30":"..."}}
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
