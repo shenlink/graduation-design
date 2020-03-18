@@ -1,3 +1,38 @@
+// 搜索
+$('#search').on('click', function () {
+    let type = document.querySelector('#type').value;
+    let searchContent = document.querySelector('#searchContent').value;
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    switch (type) {
+        case '1':
+            input1 = createSearchInput('type', 'user');
+            break;
+        case '2':
+            input1 = createSearchInput('type', 'article');
+            break;
+    }
+    let input2 = createSearchInput('content', searchContent);
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.method = 'post';
+    if (type == '1') {
+        form.action = '/user/search';
+    } else {
+        form.action = '/article/search';
+    }
+    form.submit();
+});
+
+function createSearchInput(name, value) {
+    let input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value;
+    return input;
+}
+
+
 let lis = document.querySelector('.list-group').querySelectorAll('.list-group-item');
 let items = document.querySelectorAll('.manage-item');
 // for循环在页面加载完成之后就已经执行完了，这时候lis的index索引已经赋值完成,然后执行lis[i].click事件注册，待点击之后就触发

@@ -14,6 +14,27 @@ class Article extends Controller
         $this->view->display('error.html');
     }
 
+    public function search()
+    {
+        $access = Validate::checkAccess();
+        if (isset($_POST['type']) && isset($_POST['content'])) {
+            if ($access == 1 || $access == 2) {
+                $username = $_SESSION['username'];
+            }
+            $content = $_POST['content'];
+            $categorys = $this->category->getCategory();
+            $type = '文章查询结果';
+            $articles = $this->article->search($content);
+            $this->view->assign('articles', $articles);
+            $this->view->assign('username', $username);
+            $this->view->assign('categorys', $categorys);
+            $this->view->assign('type', $type);
+            $this->view->display('search.html');
+        } else {
+            $this->displayNone();
+        }
+    }
+
     // 显示写文章页面
     public function write()
     {

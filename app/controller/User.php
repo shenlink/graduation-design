@@ -24,18 +24,10 @@ class User extends Controller
             if ($access == 1 || $access == 2) {
                 $username = $_SESSION['username'];
             }
-            $type = $_POST['type'];
             $content = $_POST['content'];
             $categorys = $this->category->getCategory();
-            if ($type == '1') {
-                $type = '用户名查询结果';
-                $users = $this->user->search($content);
-                $this->view->assign('users', $users);
-            } else {
-                $type = '文章查询结果';
-                $articles = $this->article->search($content);
-                $this->view->assign('articles', $articles);
-            }
+            $type = '用户名查询结果';
+            $users = $this->user->search($content);
             $this->view->assign('username', $username);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('type', $type);
