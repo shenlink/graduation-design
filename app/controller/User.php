@@ -258,7 +258,7 @@ class User extends Controller
     public function checkChange()
     {
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['password']) && isset($_SESSION['introduction'])) {
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['introduction'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $introduction = trim($_POST['introduction']);

@@ -135,7 +135,7 @@ function clickConEye() {
 function check() {
     return checkPassword() && checkConPassword();
 }
-$('#register').on('click', function () {
+$('#change').on('click', function () {
     // 获取用户名输入框的值
     let username = document.querySelector('#username').value;
     // 获取密码输入框的值
@@ -156,7 +156,6 @@ $('#register').on('click', function () {
         request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
         // 4.设置数据
         request.send("username=" + username + "&password=" + password +"&introduction=" + introduction);
-        // request.send("username="+userval+"&age="+ageval+"&timp"+new Date().getTime());
         // 5.监听服务器响应
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
