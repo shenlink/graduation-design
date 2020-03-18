@@ -237,6 +237,7 @@
                         <tr>
                             <th scope="col">用户</th>
                             <th scope="col">关注时间</th>
+                            <th scope="col">个人主页</th>
                             <th scope="col">操作</th>
                         </tr>
                     </thead>
@@ -248,6 +249,11 @@
                             </td>
                             <td>
                                 {{$followsItem.follow_at}}
+                            </td>
+                            <td>
+                                <a href="/user/{{$followsItem.author}}">
+                                    个人主页
+                                </a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary card-link" id="follow"
@@ -272,6 +278,7 @@
                         <tr>
                             <th scope="col">用户</th>
                             <th scope="col">关注时间</th>
+                            <th scope="col">个人主页</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -282,6 +289,11 @@
                             </td>
                             <td>
                                 {{$fansItem.follow_at}}
+                            </td>
+                            <td>
+                                <a href="/user/{{$fansItem.username}}">
+                                    个人主页
+                                </a>
                             </td>
                         </tr>
                         {{/foreach}}
