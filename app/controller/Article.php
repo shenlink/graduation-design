@@ -25,9 +25,11 @@ class Article extends Controller
             $categorys = $this->category->getCategory();
             $type = '文章查询结果';
             $articles = $this->article->search($content);
+            $recommends = $this->article->recommend();
             $this->view->assign('articles', $articles);
             $this->view->assign('username', $username);
             $this->view->assign('categorys', $categorys);
+            $this->view->assign('recommends', $recommends);
             $this->view->assign('type', $type);
             $this->view->display('search.html');
         } else {

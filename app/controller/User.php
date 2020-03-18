@@ -28,8 +28,10 @@ class User extends Controller
             $categorys = $this->category->getCategory();
             $type = '用户名查询结果';
             $users = $this->user->search($content);
+            $recommends = $this->article->recommend();
             $this->view->assign('username', $username);
             $this->view->assign('categorys', $categorys);
+            $this->view->assign('recommends', $recommends);
             $this->view->assign('type', $type);
             $this->view->assign('users', $users);
             $this->view->display('search.html');
