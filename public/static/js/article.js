@@ -6,6 +6,12 @@ $('#praise').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let author = document.querySelector('#author').innerText;
     let title = document.querySelector('#title').innerText;
+    if (username == '') {
+        layer.msg('请先登录', {
+            time: 1000
+        });
+        return;
+    }
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -27,10 +33,12 @@ $('#praise').on('click', function () {
                 layer.msg('点赞成功', {
                     time: 1000
                 });
+                praise.innerHTML = `已点赞&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
-                layer.msg('已取消点赞', {
+                layer.msg('取消点赞', {
                     time: 1000
                 });
+                praise.innerHTML = `点赞&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }
@@ -45,6 +53,12 @@ $('#collect').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let author = document.querySelector('#author').innerText;
     let title = document.querySelector('#title').innerText;
+    if (username == '') {
+        layer.msg('请先登录', {
+            time: 1000
+        });
+        return;
+    }
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -66,10 +80,12 @@ $('#collect').on('click', function () {
                 layer.msg('收藏成功', {
                     time: 1000
                 });
+                collect.innerHTML = `已收藏&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
                 layer.msg('取消收藏', {
                     time: 1000
-                })
+                });
+                collect.innerHTML = `收藏&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }
@@ -83,6 +99,12 @@ $('#share').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let title = document.querySelector('#title').innerText;
     let author = document.querySelector('#author').innerText;
+    if (username == '') {
+        layer.msg('请先登录', {
+            time: 1000
+        });
+        return;
+    }
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -104,10 +126,12 @@ $('#share').on('click', function () {
                 layer.msg('分享成功', {
                     time: 1000
                 });
+                share.innerHTML = `已分享&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
                 layer.msg('取消分享', {
                     time: 1000
-                })
+                });
+                share.innerHTML = `分享&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }

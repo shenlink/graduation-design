@@ -35,7 +35,8 @@ class Praise extends Controller
                 $praise_at = date('Y-m-d H:i:s', time());
                 $add = $this->praise->addPraise($article_id, $author, $title, $username, $praise_at);
                 if ($add) {
-                    echo "1";
+                    // echo "1";
+                    echo $add;
                 } else {
                     echo '11';
                 }

@@ -45,7 +45,8 @@ class Praise extends Model
             return true;
         } catch (\PDOException $e) {
             $pdo->rollBack();
-            return false;
+            // return false;
+            return $e->getMessage();
         }
     }
 
@@ -93,8 +94,8 @@ class Praise extends Model
         }
     }
 
-    public function getPraise($username, $currentPage=1, $pageSize=5)
+    public function getPraise($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->order('praise_at desc')->pages($currentPage, $pageSize,'praise');
+        return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->order('praise_at desc')->pages($currentPage, $pageSize, 'praise');
     }
 }

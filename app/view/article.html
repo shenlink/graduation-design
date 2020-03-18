@@ -158,14 +158,26 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <span class=" offset-md-9" id="praise" data-praise={{$username}}>
+                                <span class=" offset-md-8" id="praise" data-praise={{$username}}>
+                                    {{if $praised}}
+                                    已点赞&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{else}}
                                     点赞&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{/if}}
                                 </span>
                                 <span id="collect" data-collect={{$username}}>
+                                    {{if $collected}}
+                                    已收藏&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{else}}
                                     收藏&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{/if}}
                                 </span>
                                 <span id="share" data-share={{$username}}>
+                                    {{if $shared}}
+                                    已分享&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{else}}
                                     分享&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{/if}}
                                 </span>
                             </div>
                         </div>
