@@ -104,7 +104,7 @@ class Article extends Model
 
     public function getAllArticle($currentPage=1, $pageSize=5)
     {
-        return $this->table('article')->field('article_id,author,category,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,author,category,status,title,content,created_at,collect_count,comment_count,praise_count')->pages($currentPage, $pageSize, 'article');
     }
 
 

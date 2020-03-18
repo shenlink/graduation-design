@@ -343,7 +343,6 @@
                         <tr>
                             <th scope="col">评论id</th>
                             <th scope="col">评论内容</th>
-                            <th scope="col">状态</th>
                             <th scope="col">评论时间</th>
                             <th scope="col">文章</th>
                             <th scope="col">用户</th>
@@ -358,9 +357,6 @@
                             </td>
                             <td>
                                 {{$commentsItem.content|truncate_cn:"10":"..."}}
-                            </td>
-                            <td>
-                                {{$commentsItem.status}}
                             </td>
                             <td>
                                 {{$commentsItem.comment_at}}
