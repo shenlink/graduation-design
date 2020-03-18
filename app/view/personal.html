@@ -166,7 +166,7 @@
                                     <p>{{$articlesItem.content|truncate_cn:"30":"..."}}</p>
                                     <div class="justify-content-start text-dark">
                                         <span>
-                                            {{$articlesItem.created_at}}
+                                            {{$articlesItem.updated_at}}
                                         </span>
                                         <span class="offset-md-1">
                                             收藏数
@@ -230,7 +230,8 @@
                             {{foreach from=$collects item=collectsItem}}
                             <tr>
                                 <td>
-                                    <a href="/article/{{$collectsItem.article_id}}">{{$collectsItem.title}}</a>
+                                    <a
+                                        href="/article/{{$collectsItem.article_id}}">{{$collectsItem.title|truncate_cn:"10":"..."}}</a>
                                     <span class="offset-md-2">作者:{{$collectsItem.author}}</span>
                                     <span class="offset-md-2">收藏时间:{{$collectsItem.collect_at}}</span>
                                     <span class="offset-md-1 delCollect" onclick="delCollect(this)"
@@ -249,7 +250,8 @@
                             {{foreach from=$shares item=sharesItem}}
                             <tr>
                                 <td>
-                                    <a href="/article/{{$sharesItem.article_id}}">{{$sharesItem.title}}</a>
+                                    <a
+                                        href="/article/{{$sharesItem.article_id}}">{{$sharesItem.title|truncate_cn:"10":"..."}}</a>
                                     <span class="offset-md-2">作者:{{$sharesItem.author}}</span>
                                     <span class="offset-md-2">分享时间:{{$sharesItem.share_at}}</span>
                                     <span class="offset-md-1 delShare" onclick="delShare(this)"
@@ -345,7 +347,7 @@
                                     {{foreach from=$recents item=recentsItem}}
                                     <div>
                                         <a href="/article/{{$recentsItem.article_id}}">
-                                            {{$recentsItem.title|truncate_cn:"30":"..."}}
+                                            {{$recentsItem.title|truncate_cn:"20":"..."}}
                                         </a>
                                     </div>
                                     {{/foreach}}

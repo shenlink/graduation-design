@@ -20,7 +20,7 @@ class User extends Model
     public function search($content)
     {
         $content = '%' . $content . '%';
-        return $this->table('user')->field('username,information,created_at,article_count,follows_count,fans_count')->where("username like \"{$content}\"")->selectAll();
+        return $this->table('user')->field('username,introduction,created_at,article_count,follow_count,fans_count')->where("username like \"{$content}\"")->selectAll();
     }
 
 

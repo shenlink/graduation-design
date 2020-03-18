@@ -40,8 +40,8 @@ class Article extends Controller
             $title = $_POST['title'];
             $content = $_POST['content'];
             date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $this->article->checkWrite($author, $category, $title,  $content,  $created_at);
+            $updated_at = date('Y-m-d H:i:s', time());
+            $result = $this->article->checkWrite($author, $category, $title,  $content,  $updated_at);
             if ($result) {
                 echo '1';
             } else {

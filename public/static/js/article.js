@@ -6,6 +6,7 @@ $('#praise').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let author = document.querySelector('#author').innerText;
     let title = document.querySelector('#title').innerText;
+    let praise_count = parseInt(praise.innerText.replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -33,12 +34,12 @@ $('#praise').on('click', function () {
                 layer.msg('点赞成功', {
                     time: 1000
                 });
-                praise.innerHTML = `已点赞&nbsp;&nbsp;&nbsp;&nbsp;`;
+                praise.innerHTML = `已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
                 layer.msg('取消点赞', {
                     time: 1000
                 });
-                praise.innerHTML = `点赞&nbsp;&nbsp;&nbsp;&nbsp;`;
+                praise.innerHTML = `点赞(${praise_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }
@@ -53,6 +54,7 @@ $('#collect').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let author = document.querySelector('#author').innerText;
     let title = document.querySelector('#title').innerText;
+    let collect_count = parseInt(collect.innerText.replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -80,12 +82,12 @@ $('#collect').on('click', function () {
                 layer.msg('收藏成功', {
                     time: 1000
                 });
-                collect.innerHTML = `已收藏&nbsp;&nbsp;&nbsp;&nbsp;`;
+                collect.innerHTML = `已收藏(${collect_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
                 layer.msg('取消收藏', {
                     time: 1000
                 });
-                collect.innerHTML = `收藏&nbsp;&nbsp;&nbsp;&nbsp;`;
+                collect.innerHTML = `收藏(${collect_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }
@@ -99,6 +101,7 @@ $('#share').on('click', function () {
     let article_id = article.getAttribute('data-article-id');
     let title = document.querySelector('#title').innerText;
     let author = document.querySelector('#author').innerText;
+    let share_count = parseInt(share.innerText.replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -126,12 +129,12 @@ $('#share').on('click', function () {
                 layer.msg('分享成功', {
                     time: 1000
                 });
-                share.innerHTML = `已分享&nbsp;&nbsp;&nbsp;&nbsp;`;
+                share.innerHTML = `已分享(${share_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             } else {
                 layer.msg('取消分享', {
                     time: 1000
                 });
-                share.innerHTML = `分享&nbsp;&nbsp;&nbsp;&nbsp;`;
+                share.innerHTML = `分享(${share_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             }
         }
     }

@@ -123,8 +123,7 @@
                         <tr>
                             <th scope="col">标题</th>
                             <th scope="col">状态</th>
-                            <th scope="col">创建时间</th>
-                            <th scope="col">更新时间</th>
+                            <th scope="col">最后更新</th>
                             <th scope="col">分类</th>
                             <th scope="col">评论数</th>
                             <th scope="col">点赞数</th>
@@ -138,7 +137,7 @@
                         {{foreach from=$articles item=articlesItem}}
                         <tr>
                             <td>
-                                {{$articlesItem.title}}
+                                {{$articlesItem.title|truncate_cn:"10":"..."}}
                             </td>
                             <td>
                                 {{if $articlesItem.status == 1}}
@@ -146,9 +145,6 @@
                                 {{else}}
                                 拉黑
                                 {{/if}}
-                            </td>
-                            <td>
-                                {{$articlesItem.created_at}}
                             </td>
                             <td>
                                 {{$articlesItem.updated_at}}
@@ -206,7 +202,7 @@
                         {{foreach from=$comments item=commentsItem}}
                         <tr>
                             <td>
-                                {{$commentsItem.content}}
+                                {{$commentsItem.content|truncate_cn:"20":"..."}}
                             </td>
                             <td>
                                 {{$commentsItem.comment_at}}
@@ -254,7 +250,7 @@
                                 {{$followsItem.follow_at}}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-info card-link" id="follow"
+                                <button type="button" class="btn btn-primary card-link" id="follow"
                                     data-username={{$username}} data-author={{$followsItem.author}}>
                                     取消关注
                                 </button>

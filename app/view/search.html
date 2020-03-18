@@ -148,15 +148,15 @@
                                         </span>
                                         <span class="offset-md-1">
                                             文章数
-                                            {{$usersItem.collect_count}}
+                                            {{$usersItem.article_count}}
                                         </span>
                                         <span class="offset-md-1">
                                             关注数
-                                            {{$usersItem.follows_count}}
+                                            {{$usersItem.follow_count}}
                                         </span>
                                         <span class="offset-md-1">
                                             粉丝数
-                                            {{$usersItem.article_count}}
+                                            {{$usersItem.fans_count}}
                                         </span>
                                     </div>
                                 </td>
@@ -166,15 +166,15 @@
                             {{foreach from=$articles item=articlesItem}}
                             <tr>
                                 <td>
-                                    <a href="">{{$articlesItem.title}}</a>
+                                    <a href="">{{$articlesItem.title|truncate_cn:"30":"..."}}</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>{{$articlesItem.content|truncate_cn:"10":"..."}}</p>
+                                    <p>{{$articlesItem.content|truncate_cn:"30":"..."}}</p>
                                     <div class="justify-content-start text-dark">
                                         <span>
-                                            {{$articlesItem.created_at}}
+                                            {{$articlesItem.updated_at}}
                                         </span>
                                         <span class="offset-md-1">
                                             收藏数

@@ -151,7 +151,7 @@
                                     <p>{{$articlesItem.content|truncate_cn:"30":"..."}}</p>
                                     <div class="justify-content-start text-dark">
                                         <span>
-                                            {{$articlesItem.created_at}}
+                                            {{$articlesItem.updated_at}}
                                         </span>
                                         <span class="offset-md-1">
                                             收藏数
@@ -180,7 +180,7 @@
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a
-                                href="/article/{{$recommendsItem.article_id}}">{{$recommendsItem.title|truncate_cn:"10":"..."}}</a>
+                                href="/article/{{$recommendsItem.article_id}}">{{$recommendsItem.title|truncate_cn:"20":"..."}}</a>
                             <span class=" badge badge-primary badge-pill">hot</span>
                         </li>
                     </ul>

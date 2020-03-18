@@ -129,7 +129,7 @@ class Db
     }
 
     // 分页
-    public function pages($currentPage, $pageSize = 10,$type='article')
+    public function pages($currentPage, $pageSize = 5,$type='article')
     {
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;

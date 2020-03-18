@@ -137,19 +137,13 @@
                                         data-author={{$articles.author}}>{{$articles.author}}</a>&nbsp;
                                 </span>
                                 <span>
-                                    发布于：{{$articles.created_at}}&nbsp;
+                                    发布于：{{$articles.updated_at}}&nbsp;
                                 </span>
                                 <span>
                                     分类：{{$articles.category}}&nbsp;
                                 </span>
                                 <span>
-                                    评论：{{$articles.comment_count}}&nbsp;
-                                </span>
-                                <span>
-                                    点赞：{{$articles.praise_count}}&nbsp;
-                                </span>
-                                <span>
-                                    收藏：{{$articles.collect_count}}&nbsp;
+                                    评论数：{{$articles.comment_count}}
                                 </span>
                             </div>
                             <div class="card-body">
@@ -160,23 +154,23 @@
                             <div class="card-footer">
                                 <span class=" offset-md-8" id="praise" data-praise={{$username}}>
                                     {{if $praised}}
-                                    已点赞&nbsp;&nbsp;&nbsp;&nbsp;
+                                    已点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{else}}
-                                    点赞&nbsp;&nbsp;&nbsp;&nbsp;
+                                    点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{/if}}
                                 </span>
                                 <span id="collect" data-collect={{$username}}>
                                     {{if $collected}}
-                                    已收藏&nbsp;&nbsp;&nbsp;&nbsp;
+                                    已收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{else}}
-                                    收藏&nbsp;&nbsp;&nbsp;&nbsp;
+                                    收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{/if}}
                                 </span>
                                 <span id="share" data-share={{$username}}>
                                     {{if $shared}}
-                                    已分享&nbsp;&nbsp;&nbsp;&nbsp;
+                                    已分享({{$articles.share_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{else}}
-                                    分享&nbsp;&nbsp;&nbsp;&nbsp;
+                                    分享({{$articles.share_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{/if}}
                                 </span>
                             </div>
@@ -304,7 +298,7 @@
                                     {{foreach from=$recents item=recentsItem}}
                                     <div>
                                         <a href="/article/{{$recentsItem.article_id}}">
-                                            {{$recentsItem.title|truncate_cn:"30":"..."}}
+                                            {{$recentsItem.title|truncate_cn:"20":"..."}}
                                         </a>
                                     </div>
                                     {{/foreach}}

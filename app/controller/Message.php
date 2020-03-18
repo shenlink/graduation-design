@@ -20,8 +20,10 @@ class Message extends Controller
             $username = $_SESSION['username'];
             $author = $_POST['author'];
             $categorys = $this->category->getCategory();
+            $recommends = $this->article->recommend();
             $this->view->assign('categorys', $categorys);
             $this->view->assign('author', $author);
+            $this->view->assign('recommends', $recommends);
             $this->view->assign('username', $username);
             $this->view->display('add.html');
         } else {

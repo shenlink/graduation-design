@@ -20,7 +20,27 @@ class Message extends Model
 
     public function checkAddmessage($author, $content, $created_at)
     {
-        return $this->table('message')->insert(['author' => "{$author}", 'content' => "{$content}",'created_at' => "{$created_at}"]);
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $messageSql = "insert into message (author,content,created_at) values (?,?,?)";
+            $stmt = $pdo->prepare($messageSql);
+            $stmt->bindParam(1, $author);
+            $stmt->bindParam(2, $content);
+            $stmt->bindParam(3, $created_at);
+            $stmt->execute();
+            $receiveSql = "insert into receive (username,content,receive_at) values (?,?,?)";
+            $stmt = $pdo->prepare($receiveSql);
+            $stmt->bindParam(1, $author);
+            $stmt->bindParam(2, $content);
+            $stmt->bindParam(3, $created_at);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     public function delMessage($message_id)

@@ -26,14 +26,14 @@ class User extends Controller
             }
             $type = $_POST['type'];
             $content = $_POST['content'];
-            $articles = $this->article->search($content);
             $categorys = $this->category->getCategory();
-            $users = $this->user->search($content);
             if ($type == '1') {
                 $type = '用户名查询结果';
+                $users = $this->user->search($content);
                 $this->view->assign('users', $users);
             } else {
                 $type = '文章查询结果';
+                $articles = $this->article->search($content);
                 $this->view->assign('articles', $articles);
             }
             $this->view->assign('username', $username);
@@ -243,9 +243,11 @@ class User extends Controller
         if ($access == '1' || $access == '2') {
             $username = $_SESSION['username'];
             $categorys = $this->category->getCategory();
+            $recents = $this->article->getRecentArticle($username);
             $users = $this->user->personal($username);
             $this->view->assign('username', $username);
             $this->view->assign('categorys', $categorys);
+            $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('change.html');
         } else if ($access == '3') {

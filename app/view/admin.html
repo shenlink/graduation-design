@@ -200,7 +200,7 @@
                             <th scope="col">作者</th>
                             <th scope="col">标题</th>
                             <th scope="col">状态</th>
-                            <th scope="col">发表时间</th>
+                            <th scope="col">最后更新</th>
                             <th scope="col">分类</th>
                             <th scope="col">评论数</th>
                             <th scope="col">点赞数</th>
@@ -229,7 +229,7 @@
                                 {{/if}}
                             </td>
                             <td>
-                                {{$articlesItem.created_at}}
+                                {{$articlesItem.updated_at}}
                             </td>
                             <td>
                                 {{$articlesItem.category}}
@@ -327,7 +327,7 @@
                     </tbody>
                 </table>
                 <!-- 优化建议：局部刷新 -->
-                <button class="btn btn-primary btn-sm" style="position: relative;left: 877px;" onclick="addCategory()">
+                <button class="btn btn-primary btn-sm" style="position: relative;left: 857px;" onclick="addCategory()">
                     新增
                 </button>
                 <!-- 分页开始 -->
@@ -417,7 +417,7 @@
                         {{/foreach}}
                     </tbody>
                 </table>
-                <button class="btn btn-primary btn-sm" style="position: relative;left: 908px;"
+                <button class="btn btn-primary btn-sm" style="position: relative;left: 887px;"
                     onclick="addAnnouncement()">
                     新增
                 </button>
@@ -456,7 +456,7 @@
                                 {{$messagesItem.created_at}}
                             </td>
                             <td>
-                                <a href="/user/{{$messagesItem.user_id}}">用户主页</a>
+                                <a href="/user/{{$messagesItem.author}}">用户主页</a>
                             </td>
                             <td>
                                 <button class="btn btn-primary btn-sm" id="message" onclick="addMessage()"

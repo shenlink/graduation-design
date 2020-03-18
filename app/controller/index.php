@@ -14,7 +14,6 @@ class Index extends Controller
             $username = $_SESSION['username'];
         }
         $announcements = $this->announcement->getAnnouncement();
-        $recommends = $this->article->recommend();
         $categorys = $this->category->getCategory();
         if (isset($_POST['pageNumber'])) {
             $pageNumber = $_POST['pageNumber'];
@@ -26,6 +25,7 @@ class Index extends Controller
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
         }
+        $recommends = $this->article->recommend();
         $this->view->assign('username', $username);
         $this->view->assign('announcements', $announcements);
         $this->view->assign('articles', $articles);
