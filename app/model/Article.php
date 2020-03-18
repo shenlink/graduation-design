@@ -99,7 +99,7 @@ class Article extends Model
     // 获取所有被管理员推荐的文章
     public function recommend()
     {
-        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('created_at desc')->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('created_at desc')->limit(10)->selectAll();
     }
 
     public function getAllArticle($currentPage=1, $pageSize=5)
