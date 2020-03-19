@@ -161,7 +161,7 @@ class User extends Controller
                 $this->view->assign('collectPage', $collectPage);
 
                 if ($_POST['commentPages']) {
-                    $data = $this->comment->getComment($username, $_POST['articlePages'], 5);
+                    $data = $this->comment->getComment($username, $_POST['commentPages'], 5);
                 } else {
                     $data = $this->comment->getComment($username, 1, 5);
                 }
@@ -186,6 +186,7 @@ class User extends Controller
                 $shares = $data['items'];
                 $sharePage = $data['pageHtml'];
                 $this->view->assign('sharePage', $sharePage);
+                $type = $_POST['type'];
             } else {
                 $data = $this->article->getUserArticle($username);
                 $articles = $data['items'];
@@ -211,6 +212,7 @@ class User extends Controller
                 $shares = $data['items'];
                 $sharePage = $data['pageHtml'];
                 $this->view->assign('sharePage', $sharePage);
+                $type = 'article';
             }
             $praise_count = $this->praise->getPraiseCount($username);
             $comment_count = $this->comment->getCommentCount($username);
@@ -226,6 +228,7 @@ class User extends Controller
             $this->view->assign('recents', $recents);
             $this->view->assign('praises', $praises);
             $this->view->assign('shares', $shares);
+            $this->view->assign('type', $type);
             $this->view->assign('users', $users);
             $this->view->display('personal.html');
         } else {
@@ -331,6 +334,7 @@ class User extends Controller
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
                 $this->view->assign('receivePage', $receivePage);
+                $type = $_POST['type'];
             } else {
                 $data = $this->article->getManageArticle($username);
                 $articles = $data['items'];
@@ -356,6 +360,7 @@ class User extends Controller
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
                 $this->view->assign('receivePage', $receivePage);
+                $type = 'article';
             }
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
@@ -364,6 +369,7 @@ class User extends Controller
             $this->view->assign('follows', $follows);
             $this->view->assign('fans', $fans);
             $this->view->assign('receives', $receives);
+            $this->view->assign('type', $type);
             $this->view->display('manage.html');
         } else {
             $this->view->assign('nologin', 'nologin');

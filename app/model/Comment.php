@@ -85,6 +85,11 @@ class Comment extends Model
         return $this->table('comment')->field('comment_id,author,title,content,username,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }
 
+    public function getShare($username, $currentPage = 1, $pageSize = 5)
+    {
+        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'share');
+    }
+
     public function getCommentCount($username)
     {
         return $this->table('comment')->where(['username' => "{$username}"])->count();

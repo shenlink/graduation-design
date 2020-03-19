@@ -111,7 +111,7 @@
                 </ul>
                 <!-- 列表组结束 -->
             </div>
-            <div class="col-md-9 manage-item" style="display: block;">
+            <div class="col-md-9 manage-item" {{if $type == 'user'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">用户管理</legend>
@@ -191,7 +191,7 @@
                 {{$userPage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'article'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">文章管理</legend>
@@ -274,7 +274,7 @@
                 {{$articlePage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-9 manage-item">
+            <div class="col-md-9 manage-item" {{if $type == 'category'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">分类管理</legend>
@@ -336,7 +336,7 @@
                 {{$categoryPage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-9 manage-item">
+            <div class="col-md-9 manage-item" {{if $type == 'comment'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">评论管理</legend>
@@ -384,7 +384,7 @@
                 {{$commentPage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-9 manage-item">
+            <div class="col-md-9 manage-item" {{if $type == 'announcement'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">公告管理</legend>
@@ -427,7 +427,7 @@
                 {{$announcementPage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'message'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">私信管理</legend>

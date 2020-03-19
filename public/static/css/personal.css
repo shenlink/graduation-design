@@ -11,6 +11,10 @@
     color: rgb(142, 142, 221);
 }
 
+.manage-item {
+    display: none;
+}
+
 .delComment {
     cursor: pointer;
 }

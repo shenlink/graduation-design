@@ -73,6 +73,7 @@ class Admin extends Controller
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
                 $this->view->assign('userPage', $userPage);
+                $type = $_POST['type'];
             } else {
                 $data = $this->article->getAllArticle();
                 $articles = $data['items'];
@@ -103,6 +104,7 @@ class Admin extends Controller
                 $users = $data['items'];
                 $userPage = $data['pageHtml'];
                 $this->view->assign('userPage', $userPage);
+                $type = 'user';
             }
             $this->view->assign('username', $username);
             $this->view->assign('announcements', $announcements);
@@ -110,6 +112,7 @@ class Admin extends Controller
             $this->view->assign('categorys', $categorys);
             $this->view->assign('comments', $comments);
             $this->view->assign('messages', $messages);
+            $this->view->assign('type', $type);
             $this->view->assign('users', $users);
             $this->view->display('admin.html');
         } else if ($access == '2') {

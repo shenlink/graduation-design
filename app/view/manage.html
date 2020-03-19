@@ -116,7 +116,7 @@
                 </ul>
                 <!-- 列表组结束 -->
             </div>
-            <div class="col-md-10 manage-item" style="display: block;">
+            <div class="col-md-10 manage-item" {{if $type == 'article'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">文章管理</legend>
@@ -186,7 +186,7 @@
                 {{$articlePage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'comment'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">评论管理</legend>
@@ -230,7 +230,7 @@
                 {{$commentPage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'follow'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">关注管理</legend>
@@ -271,7 +271,7 @@
                 {{$receivePage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'fans'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">粉丝管理</legend>
@@ -305,7 +305,7 @@
                 {{$receivePage}}
                 <!-- 分页结束 -->
             </div>
-            <div class="col-md-10 manage-item">
+            <div class="col-md-10 manage-item" {{if $type == 'receive'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
                         <legend class="text-center">管理员私信管理</legend>
