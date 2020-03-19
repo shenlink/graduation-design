@@ -176,7 +176,6 @@ class Db
             $pageHtml .= "<li data-index={$pageCount} data-type={$type} onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
         }
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
-
         return $pageHtml;
     }
 

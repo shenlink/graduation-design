@@ -52,7 +52,6 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,status,updated_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
     }
 
-
     // 拉黑某篇文章
     public function defriendArticle($article_id)
     {
@@ -99,7 +98,7 @@ class Article extends Model
     // 获取所有被管理员推荐的文章
     public function recommend()
     {
-        return $this->table('article')->field('article_id,title')->where(['recommend' => 1, 'status' => 1])->order('updated_at desc')->limit(10)->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
     public function getAllArticle($currentPage=1, $pageSize=5)
