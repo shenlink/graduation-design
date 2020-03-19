@@ -28,7 +28,7 @@ class Comment extends Model
             $stmt = $pdo->prepare($collectSql);
             $stmt->bindParam(1, $comment_id);
             $stmt->execute();
-            $articleSql = "update article set comment_count=comment_count+1 where article_id=?";
+            $articleSql = "update article set comment_count=comment_count-1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
@@ -55,12 +55,13 @@ class Comment extends Model
             $stmt->bindParam(5, $username);
             $stmt->bindParam(6, $comment_at);
             $stmt->execute();
+            $comment_id = $pdo->lastInsertId();
             $articleSql = "update article set comment_count=comment_count+1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
             $pdo->commit();
-            return true;
+            return $comment_id;
         } catch (\PDOException $e) {
             $pdo->rollBack();
             return false;

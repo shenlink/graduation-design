@@ -175,6 +175,60 @@ $('#share').on('click', function () {
     }
 });
 
+function createTime() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDate();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
+    if (parseInt(month) < 10) {
+        month = (parseInt(month) + 1).toString();
+        month = '0' + month;
+    }
+    if (parseInt(day) < 10) {
+        day = '0' + day;
+    }
+    if (parseInt(hour) < 10) {
+        hour = '0' + hour;
+    }
+    if (parseInt(minute) < 10) {
+        minute = '0' + minute;
+    }
+    if (parseInt(second) < 10) {
+        second = '0' + second;
+    }
+    let RecentTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    return RecentTime;
+}
+
+function createComment(username, comment_at, comment_id, content) {
+    let comment_html = `<div class="card-body">
+                                    <h5 class="card-title">
+                                        <span>${username}</span>
+                                        <span>
+                                            <small class="offset-md-1">
+                                                ${comment_at}
+                                            </small>
+                                        </span>
+                                        <div>
+                                            <small class="delComment"
+                                                onclick="delComment(this)"
+                                                data-comment-id=
+                                                ${comment_id}>删除
+                                            </small>
+                                        </div>
+                                    </h5>
+                                    <div class="card-text">
+                                        ${content}
+                                    </div>
+                                </div>`;
+    let div = document.createElement("div");
+    div.setAttribute('class', 'card');
+    div.innerHTML = comment_html;
+    return div;
+}
 
 let E = window.wangEditor;
 let editor = new E('#editor-toolbar', '#editor-content');
@@ -190,6 +244,10 @@ $('#comment').on('click', function () {
     let title = document.querySelector('#title').innerText;
     let comment = document.querySelector('#comment');
     let username = comment.getAttribute('data-comment');
+    let commentContent = document.querySelector('#comment-content');
+    let count = document.querySelector('#comment-count');
+    let comment_count = parseInt(count.innerText.replace(/[^0-9]/ig, ""));
+    let comment_at = createTime();
     // 1.创建XMLHttpRequest对象
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -219,11 +277,14 @@ $('#comment').on('click', function () {
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
+            if (request.responseText != "0") {
                 layer.msg('评论成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    comment_id = request.responseText;
+                    let div = createComment(username, comment_at, comment_id, content);
+                    commentContent.insertBefore(div, commentContent.children[0]);
+                    count.innerHTML = `评论数：${comment_count+1}`;
                 });
             } else {
                 layer.msg('评论失败', {
@@ -243,6 +304,9 @@ function delComment(commentId) {
     let comment_id = temp.getAttribute('data-comment-id');
     let article = document.querySelector('#article');
     let article_id = article.getAttribute('data-article-id');
+    let count = document.querySelector('#comment-count');
+    let comment_count = parseInt(count.innerText.replace(/[^0-9]/ig, ""));
+    let commentContent = document.querySelector('#comment-content');
     // 1.创建XMLHttpRequest对象
     let request = null;
     if (XMLHttpRequest) {
@@ -264,7 +328,9 @@ function delComment(commentId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let card = temp.parentNode.parentNode.parentNode.parentNode;
+                    commentContent.removeChild(card);
+                    count.innerHTML = `评论数：${comment_count-1}`;
                 });
             } else {
                 layer.msg('删除失败', {

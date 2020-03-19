@@ -27,7 +27,7 @@ class Comment extends Controller
             $comment_at = date('Y-m-d H:i:s', time());
             $result = $this->comment->addComment($article_id, $author, $title,  $content, $username, $comment_at);
             if ($result) {
-                echo '1';
+                echo $result;
             } else {
                 echo '0';
             }

@@ -144,7 +144,7 @@
                                 <span>
                                     分类：{{$articles.category}}&nbsp;
                                 </span>
-                                <span>
+                                <span id="comment-count">
                                     评论数：{{$articles.comment_count}}
                                 </span>
                             </div>
@@ -205,9 +205,12 @@
                                         <span>{{$commentsItem.username}}</span>
                                         <span><small class="offset-md-1">{{$commentsItem.comment_at}}</small></span>
                                         <div>
-                                            {{if $commentsItem.username == $username}}<small class="delComment"
+                                            {{if $commentsItem.username == $username}}
+                                            <small class="delComment"
                                                 onclick="delComment(this)"
-                                                data-comment-id={{$commentsItem.comment_id}}>删除</small>
+                                                data-comment-id={{$commentsItem.comment_id}}>
+                                                删除
+                                            </small>
                                             {{/if}}
                                         </div>
                                     </h5>
