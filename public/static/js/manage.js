@@ -33,6 +33,7 @@ function createSearchInput(name, value) {
 }
 
 
+// 左边的导航切换
 let lis = document.querySelector('.list-group').querySelectorAll('.list-group-item');
 let items = document.querySelectorAll('.manage-item');
 // for循环在页面加载完成之后就已经执行完了，这时候lis的index索引已经赋值完成,然后执行lis[i].click事件注册，待点击之后就触发
@@ -51,6 +52,8 @@ for (let i = 0; i < lis.length; i++) {
     }
 }
 
+
+// 编辑文章
 function editArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
@@ -72,6 +75,7 @@ function createArticleInput(name, value) {
 }
 
 
+// 删除文章
 function delArticle(articleId) {
     if (!confirm('确认删除吗？')) {
         return;
@@ -112,6 +116,7 @@ function delArticle(articleId) {
 }
 
 
+// 删除评论
 function delComment(commentId) {
     if (!confirm('确认删除吗？')) {
         return;
@@ -151,6 +156,8 @@ function delComment(commentId) {
     }
 }
 
+
+// 取消关注
 $('#follow').on('click', function () {
     let follow = document.querySelector('#follow');
     let username = follow.getAttribute('data-username');
@@ -186,6 +193,7 @@ $('#follow').on('click', function () {
         }
     }
 });
+
 
 // 删除私信
 function delReceive(receiveId) {
