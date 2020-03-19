@@ -227,6 +227,7 @@ function delReceive(receiveId) {
 }
 
 
+// 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
@@ -269,7 +270,6 @@ function changePage(page) {
     form.action = '/user/manage';
     form.submit();
 }
-
 
 function createPageInput(name, value) {
     let input = document.createElement('input');

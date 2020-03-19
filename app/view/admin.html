@@ -309,12 +309,12 @@
                             </td>
                             <td>
                                 {{if $categorysItem.status == 1}}
-                                <button class="btn btn-primary btn-sm defriendcategory"
+                                <button class="btn btn-primary btn-sm" onclick="defriendcategory(this)"
                                     data-category={{$categorysItem.category}}>
                                     拉黑
                                 </button>
                                 {{else}}
-                                <button class="btn btn-primary btn-sm normalCategory"
+                                <button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
                                     data-category={{$categorysItem.category}}>
                                     恢复
                                 </button>

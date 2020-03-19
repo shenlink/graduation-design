@@ -53,88 +53,82 @@ for (let i = 0; i < lis.length; i++) {
 
 
 // 拉黑用户
-let defriendUsers = document.querySelectorAll('.defriendUser');
-for (let i = 0; i < defriendUsers.length; i++) {
-    defriendUsers[i].onclick = function () {
-        for (let i = 0; i < defriendUsers.length; i++) {
-            let user_id = this.getAttribute('data-user-id');
-            if (user_id == "1") {
-                alert('这是管理员，不能拉黑');
-                return;
-            }
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
+function defriendUser(userId) {
+    let temp = userId;
+    let user_id = temp.getAttribute('data-user-id');
+    if (user_id == "1") {
+        alert('这是管理员，不能拉黑');
+        return;
+    }
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/user/defriendUser");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("user_id=" + user_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('拉黑成功', {
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                })
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/user/defriendUser");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("user_id=" + user_id);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        layer.msg('拉黑成功', {
-                            time: 1000
-                        }, function () {
-                            window.location.reload();
-                        })
-                    } else {
-                        layer.msg('拉黑失败', {
-                            time: 1000
-                        })
-                    }
-                }
+                layer.msg('拉黑失败', {
+                    time: 1000
+                })
             }
         }
     }
 }
 
+
 // 恢复用户到正常状态
-let normalUsers = document.querySelectorAll('.normalUser');
-for (let i = 0; i < normalUsers.length; i++) {
-    normalUsers[i].onclick = function () {
-        for (let i = 0; i < normalUsers.length; i++) {
-            let user_id = this.getAttribute('data-user-id');
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
+function normalUser(userId) {
+    let temp = userId;
+    let user_id = temp.getAttribute('data-user-id');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/user/normalUser");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("user_id=" + user_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('恢复成功', {
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/user/normalUser");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("user_id=" + user_id);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        layer.msg('恢复成功', {
-                            time: 1000
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        layer.msg('恢复失败', {
-                            time: 1000
-                        });
-                    }
-                }
+                layer.msg('恢复失败', {
+                    time: 1000
+                });
             }
         }
     }
 }
+
 
 
 // // 删除用户
@@ -181,85 +175,79 @@ function delUser(userId) {
 }
 
 // 拉黑文章
-let defriendArticles = document.querySelectorAll('.defriendArticle');
-for (let i = 0; i < defriendArticles.length; i++) {
-    defriendArticles[i].onclick = function () {
-        for (let i = 0; i < defriendArticles.length; i++) {
-            let article_id = this.getAttribute('data-article-id')
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
+function defriendArticle(articleId) {
+    let temp = articleId;
+    let article_id = temp.getAttribute('data-article-id');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/article/defriendArticle");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("article_id=" + article_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('拉黑成功', {
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/article/defriendArticle");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("article_id=" + article_id);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        layer.msg('拉黑成功', {
-                            time: 1000
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        layer.msg('拉黑失败', {
-                            time: 1000
-                        });
-                    }
-                }
+                layer.msg('拉黑失败', {
+                    time: 1000
+                });
             }
         }
     }
 }
+
+
 
 // 恢复文章到正常状态
-let normalArticles = document.querySelectorAll('.normalArticle');
-for (let i = 0; i < normalArticles.length; i++) {
-    normalArticles[i].onclick = function () {
-        for (let i = 0; i < normalArticles.length; i++) {
-            let article_id = this.getAttribute('data-user-id');
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
+function normalArticle(articleId) {
+    let temp = articleId;
+    let article_id = temp.getAttribute('data-article-id');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/article/normalArticle");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("article_id=" + article_id);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('恢复成功', {
+                    time: 1000
+                }, function () {
+                    window.location.reload();
+                });
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
+                layer.msg('恢复失败', {
+                    time: 1000
+                });
             }
-            // 2.请求行
-            request.open("POST", "/article/normalArticle");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("article_id=" + article_id);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        layer.msg('恢复成功', {
-                            time: 1000
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        layer.msg('恢复失败', {
-                            time: 1000
-                        });
-                    }
-                }
-            }
-
         }
     }
 }
+
 
 
 // 删除文章
@@ -303,90 +291,106 @@ function delArticle(articleId) {
 
 }
 
+function test() {
+    let tr = temp.parentNode.parentNode;
+    let tbody = tr.parentNode;
+    tbody.removeChild(tr);
+}
 
 
 // 拉黑分类
-let defriendcategorys = document.querySelectorAll('.defriendcategory');
-for (let i = 0; i < defriendcategorys.length; i++) {
-    defriendcategorys[i].onclick = function () {
-        for (let i = 0; i < defriendcategorys.length; i++) {
-            if (true) {
-                let category = this.getAttribute('data-category')
-                // 1.创建XMLHttpRequest对象
-                let request = null;
-                if (XMLHttpRequest) {
-                    request = new XMLHttpRequest();
-                } else {
-                    //兼容老IE浏览器
-                    request = new ActiveXObject("Msxml2.XMLHTTP");
-                }
-                // 2.请求行
-                request.open("POST", "/category/defriendcategory");
-                // 3.请求头
-                request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-                // 4.设置数据
-                request.send("category=" + category);
-                // 5.监听服务器响应
-                request.onreadystatechange = function () {
-                    if (request.readyState == 4 && request.status == 200) {
-                        if (request.responseText == "1") {
-                            layer.msg('拉黑成功', {
-                                time: 1000
-                            }, function () {
-                                window.location.reload();
-                            });
-
-                        } else {
-                            layer.msg('拉黑失败', {
-                                time: 1000
-                            });
-                        }
-                    }
-                }
+function defriendcategory(categoryName) {
+    let temp = categoryName;
+    let category = temp.getAttribute('data-category');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/category/defriendcategory");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("category=" + category);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('拉黑成功', {
+                    time: 1000
+                }, function () {
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[2].innerText = '拉黑';
+                    tr.children[4].innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
+                                    data-category=${category}>
+                                    恢复
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delCategory(this)"
+                                data-category=${category}>
+                                    删除
+                                </button>`;
+                });
+            } else {
+                layer.msg('拉黑失败', {
+                    time: 1000
+                });
             }
         }
     }
 }
 
 // 恢复分类到正常状态
-let normalCategorys = document.querySelectorAll('.normalCategory');
-for (let i = 0; i < normalCategorys.length; i++) {
-    normalCategorys[i].onclick = function () {
-        for (let i = 0; i < normalCategorys.length; i++) {
-            let category = this.getAttribute('data-category');
-            // 1.创建XMLHttpRequest对象
-            let request = null;
-            if (XMLHttpRequest) {
-                request = new XMLHttpRequest();
+function normalCategory(categoryName) {
+    let temp = categoryName;
+    let category = temp.getAttribute('data-category');
+    // 1.创建XMLHttpRequest对象
+    let request = null;
+    if (XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    } else {
+        //兼容老IE浏览器
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    // 2.请求行
+    request.open("POST", "/category/normalCategory");
+    // 3.请求头
+    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
+    // 4.设置数据
+    request.send("category=" + category);
+    // 5.监听服务器响应
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            if (request.responseText == "1") {
+                layer.msg('恢复成功', {
+                    time: 1000
+                }, function () {
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[2].innerText = '正常';
+                    tr.children[4].innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendcategory(this)"
+                                    data-category=${category}>
+                                    拉黑
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delCategory(this)"
+                                data-category=${category}>
+                                    删除
+                                </button>`;
+                });
             } else {
-                //兼容老IE浏览器
-                request = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-            // 2.请求行
-            request.open("POST", "/category/normalCategory");
-            // 3.请求头
-            request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-            // 4.设置数据
-            request.send("category=" + category);
-            // 5.监听服务器响应
-            request.onreadystatechange = function () {
-                if (request.readyState == 4 && request.status == 200) {
-                    if (request.responseText == "1") {
-                        layer.msg('恢复成功', {
-                            time: 1000
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        layer.msg('恢复失败', {
-                            time: 1000
-                        });
-                    }
-                }
+                layer.msg('恢复失败', {
+                    time: 1000
+                });
             }
         }
     }
 }
+
+
 
 // 删除分类
 function delCategory(categoryName) {
@@ -549,6 +553,7 @@ function createAnnouncementInput(name, value) {
     return input;
 }
 
+// 发私信
 function addMessage() {
     let message = document.querySelector('#message');
     let author = message.getAttribute('data-author');
@@ -569,7 +574,7 @@ function createMessageInput(name, value) {
     return input;
 }
 
-
+// 删除私信
 function delMesssage(messageId) {
     if (!confirm('确认删除吗？')) {
         return;
@@ -609,21 +614,7 @@ function delMesssage(messageId) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
@@ -669,7 +660,6 @@ function changePage(page) {
     form.action = '/admin/manage';
     form.submit();
 }
-
 
 function createPageInput(name, value) {
     let input = document.createElement('input');
