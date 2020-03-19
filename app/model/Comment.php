@@ -85,6 +85,11 @@ class Comment extends Model
         return $this->table('comment')->field('comment_id,author,title,content,username,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }
 
+    public function getCommentCount($username)
+    {
+        return $this->table('comment')->where(['username' => "{$username}"])->count();
+    }
+
     public function getManageComment($username, $currentPage = 1, $pageSize = 5)
     {
         return $this->table('comment')->field('comment_id,content,username,article_id,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');

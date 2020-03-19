@@ -212,6 +212,8 @@ class User extends Controller
                 $sharePage = $data['pageHtml'];
                 $this->view->assign('sharePage', $sharePage);
             }
+            $praise_count = $this->praise->getPraiseCount($username);
+            $comment_count = $this->comment->getCommentCount($username);
             $recents = $this->article->getRecentArticle($username);
             $users = $this->user->personal($username);
             $this->view->assign('username', $username);
@@ -219,6 +221,8 @@ class User extends Controller
             $this->view->assign('categorys', $categorys);
             $this->view->assign('collects', $collects);
             $this->view->assign('comments', $comments);
+            $this->view->assign('praise_count', $praise_count);
+            $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);
             $this->view->assign('praises', $praises);
             $this->view->assign('shares', $shares);
@@ -239,8 +243,12 @@ class User extends Controller
             $categorys = $this->category->getCategory();
             $recents = $this->article->getRecentArticle($username);
             $users = $this->user->personal($username);
+            $praise_count = $this->praise->getPraiseCount($username);
+            $comment_count = $this->comment->getCommentCount($username);
             $this->view->assign('username', $username);
             $this->view->assign('categorys', $categorys);
+            $this->view->assign('praise_count', $praise_count);
+            $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('change.html');
@@ -437,11 +445,15 @@ class User extends Controller
             $categorys = $this->category->getCategory();
             $users = $this->user->personal($author);
             $follows = $this->follow->checkFollow($author, $username);
+            $praise_count = $this->praise->getPraiseCount($username);
+            $comment_count = $this->comment->getCommentCount($username);
             $recents = $this->article->getRecentArticle($author);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('follows', $follows);
+            $this->view->assign('praise_count', $praise_count);
+            $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('user.html');

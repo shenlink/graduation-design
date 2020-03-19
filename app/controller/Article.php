@@ -48,7 +48,7 @@ class Article extends Controller
             $this->view->assign('categorys', $categorys);
             $this->view->display('write.html');
         } else {
-            $this->view->assign('nologin','nologin');
+            $this->view->assign('nologin', 'nologin');
             $this->view->display('error.html');
         }
     }
@@ -186,6 +186,8 @@ class Article extends Controller
             $recents = $this->article->getRecentArticle($author);
             $praised =  $this->praise->checkPraise($article_id, $username);
             $collected =  $this->collect->checkCollect($article_id, $username);
+            $praise_count = $this->praise->getPraiseCount($username);
+            $comment_count = $this->comment->getCommentCount($username);
             $shared =  $this->share->checkShare($article_id, $username);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
@@ -194,6 +196,8 @@ class Article extends Controller
             $this->view->assign('comments', $comments);
             $this->view->assign('follows', $follows);
             $this->view->assign('praised', $praised);
+            $this->view->assign('praise_count', $praise_count);
+            $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);
             $this->view->assign('shared', $shared);
             $this->view->assign('users', $users);

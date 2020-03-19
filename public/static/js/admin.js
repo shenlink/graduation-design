@@ -130,7 +130,6 @@ function normalUser(userId) {
 }
 
 
-
 // // 删除用户
 function delUser(userId) {
     let temp = userId;
@@ -174,6 +173,7 @@ function delUser(userId) {
     }
 }
 
+
 // 拉黑文章
 function defriendArticle(articleId) {
     let temp = articleId;
@@ -211,7 +211,6 @@ function defriendArticle(articleId) {
 }
 
 
-
 // 恢复文章到正常状态
 function normalArticle(articleId) {
     let temp = articleId;
@@ -247,7 +246,6 @@ function normalArticle(articleId) {
         }
     }
 }
-
 
 
 // 删除文章
@@ -344,6 +342,7 @@ function defriendcategory(categoryName) {
     }
 }
 
+
 // 恢复分类到正常状态
 function normalCategory(categoryName) {
     let temp = categoryName;
@@ -389,7 +388,6 @@ function normalCategory(categoryName) {
         }
     }
 }
-
 
 
 // 删除分类
@@ -493,7 +491,6 @@ function delComment(commentId) {
 }
 
 
-
 // 删除公告
 function delAnnouncement(announcementId) {
     if (!confirm('确认删除吗？')) {
@@ -553,6 +550,7 @@ function createAnnouncementInput(name, value) {
     return input;
 }
 
+
 // 发私信
 function addMessage() {
     let message = document.querySelector('#message');
@@ -573,6 +571,7 @@ function createMessageInput(name, value) {
     input.value = value;
     return input;
 }
+
 
 // 删除私信
 function delMesssage(messageId) {
