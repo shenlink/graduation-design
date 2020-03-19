@@ -35,7 +35,7 @@ class Category extends Model
     }
 
     // 处理管理员拉黑分类
-    public function defriendcategory($category)
+    public function defriendCategory($category)
     {
         return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 0]);
     }

@@ -54,14 +54,14 @@ class Article extends Model
 
 
     // 拉黑某篇文章
-    public function defriendArticle()
+    public function defriendArticle($article_id)
     {
-        return $this->table('article')->field('status')->update(['status' => 0]);
+        return $this->table('article')->field('status')->where(['article_id'=>"{$article_id}"])->update(['status' => 0]);
     }
 
-    public function normalArticle()
+    public function normalArticle($article_id)
     {
-        return $this->table('article')->field('status')->update(['status' => 1]);
+        return $this->table('article')->field('status')->where(['article_id' => "{$article_id}"])->update(['status' => 1]);
     }
 
     // 处理用户编辑文章页面传来的数据

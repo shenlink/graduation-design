@@ -15,11 +15,11 @@ class Category extends Controller
     }
 
     // 拉黑分类
-    public function defriendcategory()
+    public function defriendCategory()
     {
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
-            $result = $this->category->defriendcategory($categorys);
+            $result = $this->category->defriendCategory($categorys);
             if ($result) {
                 echo '1';
             } else {

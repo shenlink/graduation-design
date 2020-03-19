@@ -82,7 +82,17 @@ function defriendUser(userId) {
                 layer.msg('拉黑成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[8].innerText = '拉黑';
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalUser(this)"
+                                    data-user-id=${user_id}>
+                                    恢复
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delUser(this)"
+                                data-user-id=${user_id}>
+                                    删除
+                                </button>`;
                 })
             } else {
                 layer.msg('拉黑失败', {
@@ -119,7 +129,17 @@ function normalUser(userId) {
                 layer.msg('恢复成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[8].innerText = '正常';
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendUser(this)"
+                                    data-user-id=${user_id}>
+                                    拉黑
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delUser(this)"
+                                data-user-id=${user_id}>
+                                    删除
+                                </button>`;
                 });
             } else {
                 layer.msg('恢复失败', {
@@ -196,11 +216,22 @@ function defriendArticle(articleId) {
     // 5.监听服务器响应
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
+            console.log(request.responseText)
             if (request.responseText == "1") {
                 layer.msg('拉黑成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[3].innerText = '拉黑';
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalArticle(this)"
+                                    data-article-id=${article_id}>
+                                    恢复
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delArticle(this)"
+                                data-article-id=${article_id}>
+                                    删除
+                                </button>`;
                 });
             } else {
                 layer.msg('拉黑失败', {
@@ -237,7 +268,17 @@ function normalArticle(articleId) {
                 layer.msg('恢复成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    tr.children[3].innerText = '正常';
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendArticle(this)"
+                                    data-article-id=${article_id}>
+                                    拉黑
+                                </button>
+                                <button class="btn btn-primary btn-sm"
+                                onclick="delArticle(this)"
+                                data-article-id=${article_id}>
+                                    删除
+                                </button>`;
                 });
             } else {
                 layer.msg('恢复失败', {
@@ -290,15 +331,9 @@ function delArticle(articleId) {
 
 }
 
-function test() {
-    let tr = temp.parentNode.parentNode;
-    let tbody = tr.parentNode;
-    tbody.removeChild(tr);
-}
-
 
 // 拉黑分类
-function defriendcategory(categoryName) {
+function defriendCategory(categoryName) {
     let temp = categoryName;
     let category = temp.getAttribute('data-category');
     // 1.创建XMLHttpRequest对象
@@ -310,7 +345,7 @@ function defriendcategory(categoryName) {
         request = new ActiveXObject("Msxml2.XMLHTTP");
     }
     // 2.请求行
-    request.open("POST", "/category/defriendcategory");
+    request.open("POST", "/category/defriendCategory");
     // 3.请求头
     request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
     // 4.设置数据
@@ -324,7 +359,7 @@ function defriendcategory(categoryName) {
                 }, function () {
                     let tr = temp.parentNode.parentNode;
                     tr.children[2].innerText = '拉黑';
-                    tr.children[4].innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
                                     data-category=${category}>
                                     恢复
                                 </button>
@@ -371,7 +406,7 @@ function normalCategory(categoryName) {
                 }, function () {
                     let tr = temp.parentNode.parentNode;
                     tr.children[2].innerText = '正常';
-                    tr.children[4].innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendcategory(this)"
+                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendCategory(this)"
                                     data-category=${category}>
                                     拉黑
                                 </button>
