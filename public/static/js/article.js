@@ -284,7 +284,8 @@ $('#comment').on('click', function () {
                     comment_id = request.responseText;
                     let div = createComment(username, comment_at, comment_id, content);
                     commentContent.insertBefore(div, commentContent.children[0]);
-                    count.innerHTML = `评论数：${comment_count+1}`;
+                    count.innerHTML = `评论数：${comment_count + 1}`;
+                    editor.txt.html('');
                 });
             } else {
                 layer.msg('评论失败', {
