@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -59,19 +59,11 @@ function editArticle(articleId) {
     let article_id = temp.getAttribute('data-article-id');
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createArticleInput('article_id', article_id);
+    let input = createInput('article_id', article_id);
     form.appendChild(input);
     form.method = 'post';
     form.action = '/article/editArticle';
     form.submit();
-}
-
-function createArticleInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
 }
 
 
@@ -83,38 +75,25 @@ function delArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
     let category = temp.getAttribute('data-category');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/article/delArticle");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id + "&category=" + category);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                })
-            }
+    $.post("/article/delArticle", {
+        article_id: article_id,
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -126,38 +105,25 @@ function delComment(commentId) {
     let temp = commentId;
     let article_id = temp.getAttribute('data-article-id');
     let comment_id = temp.getAttribute('data-comment-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/comment/delComment");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id + "&comment_id=" + comment_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                })
-            }
+    $.post("/comment/delComment", {
+        article_id: article_id,
+        comment_id: comment_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -166,38 +132,25 @@ $('#follow').on('click', function () {
     let follow = document.querySelector('#follow');
     let username = follow.getAttribute('data-username');
     let author = follow.getAttribute('data-author');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/follow/delFollow");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("author=" + author + "&username=" + username);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('取消关注成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('取消关注失败', {
-                    time: 1000
-                });
-            }
+    $.post("/follow/checkFollow", {
+        author: author,
+        username: username
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('关注成功', {
+                time: 1000
+            }, function () {
+                follow.innerText = '已关注';
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('取消关注', {
+                time: 1000
+            }, function () {
+                follow.innerText = '关注';
+            });
+        }
+    });
 });
 
 
@@ -208,38 +161,24 @@ function delReceive(receiveId) {
     }
     let temp = receiveId;
     let receive_id = temp.getAttribute('data-receive-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/receive/delReceive");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("receive_id=" + receive_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                })
-            }
+    $.post("/receive/delReceive", {
+        receive_id: receive_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -264,22 +203,22 @@ function changePage(page) {
     document.body.appendChild(form);
     switch (type) {
         case 'article':
-            input1 = createPageInput('articlePages', pagination);
+            input1 = createInput('articlePages', pagination);
             break;
         case 'comment':
-            input1 = createPageInput('commentPages', pagination);
+            input1 = createInput('commentPages', pagination);
             break;
         case 'follow':
-        input1 = createPageInput('followPages', pagination);
+            input1 = createInput('followPages', pagination);
             break;
         case 'fans':
-        input1 = createPageInput('fansPages', pagination);
-        break;
+            input1 = createInput('fansPages', pagination);
+            break;
         case 'receive':
-            input1 = createPageInput('receivePages', pagination);
+            input1 = createInput('receivePages', pagination);
             break;
     }
-    let input2 = createPageInput('type', type);
+    let input2 = createInput('type', type);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -287,10 +226,3 @@ function changePage(page) {
     form.submit();
 }
 
-function createPageInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}

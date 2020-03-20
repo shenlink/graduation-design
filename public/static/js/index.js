@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -51,18 +51,10 @@ function changePage(page) {
     }
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createPageInput('pageNumber', pagination);
+    let input = createInput('pageNumber', pagination);
     form.appendChild(input);
     form.method = 'post';
     form.action = '/';
     form.submit();
-}
-
-function createPageInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
 }
 

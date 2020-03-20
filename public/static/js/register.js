@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,8 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -78,6 +79,7 @@ function checkUsername() {
     }
 }
 
+
 function checkAjax() {
     // 获取提示用户注意的信息的节点元素
     let userMessage = document.querySelector('#userMessage');
@@ -87,6 +89,7 @@ function checkAjax() {
         return true;
     }
 }
+
 
 // 确认密码是否符合要求
 function checkPassword() {
@@ -119,6 +122,7 @@ function checkPassword() {
     }
 }
 
+
 // 确认密码
 function checkConPassword() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
@@ -147,6 +151,7 @@ function checkConPassword() {
     }
 }
 
+
 // 用户名输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function userOriginal() {
     // 其实这两条获取元素的语句是不用加的，但是感觉怪怪的，就加上了
@@ -160,6 +165,7 @@ function userOriginal() {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
 }
 
+
 // 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
     // 获取密码输入框元素
@@ -171,6 +177,7 @@ function passwordOriginal() {
     passwordTip.innerHTML = `<img src="/static/image/mess.png" id="passwordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
 }
+
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
@@ -184,6 +191,7 @@ function conPasswordOriginal() {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     确认密码 `;
 }
+
 
 // 获取眼睛图案
 let passwordEye = document.querySelector('#passwordEye');
@@ -212,6 +220,7 @@ function clickEye() {
     }
 }
 
+
 // 获取眼睛图案
 let conPasswordEye = document.querySelector('#conPasswordEye');
 // 这个变量的声明不能放在函数内
@@ -234,45 +243,36 @@ function clickConEye() {
         conFlag = false;
     }
 }
+
+
 // 表单提交验证
 function check() {
     return checkUsername() && checkAjax() && checkPassword() && checkConPassword();
 }
+
+
 $('#register').on('click', function () {
     // 获取输入的用户名的值
     let username = document.querySelector('#username').value;
     // 获取输入的密码的值
     let password = document.querySelector('#password').value;
     if (check()) {
-        // 1.创建XMLHttpRequest对象
-        let request = null;
-        if (XMLHttpRequest) {
-            request = new XMLHttpRequest();
-        } else {
-            //兼容老IE浏览器
-            request = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        // 2.请求行
-        request.open("POST", "/user/checkRegister");
-        // 3.请求头
-        request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-        // 4.设置数据
-        request.send("username=" + username + "&password=" + password);
-        // 5.监听服务器响应
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                if (request.responseText == "1") {
-                    layer.msg('注册成功', {
-                        time: 1000
-                    }, function () {
-                        location.href = '/user/login';
-                    });
-                } else {
-                    layer.msg('注册失败', {
-                        time: 1000
-                    })
-                }
+        $.post("/user/checkRegister", {
+            username: username,
+            password: password
+        }, function (data) {
+            if (data === '1') {
+                layer.msg('注册成功', {
+                    time: 1000
+                }, function () {
+                    location.href = '/user/login';
+                });
             }
-        }
+            if (data === '0') {
+                layer.msg('注册失败', {
+                    time: 1000
+                });
+            }
+        });
     }
 });

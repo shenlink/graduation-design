@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -177,35 +177,23 @@ $('#change').on('click', function () {
     let password = document.querySelector('#password').value;
     let introduction = document.querySelector('#introduction').value;
     if (check()) {
-        // 1.创建XMLHttpRequest对象
-        let request = null;
-        if (XMLHttpRequest) {
-            request = new XMLHttpRequest();
-        } else {
-            //兼容老IE浏览器
-            request = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        // 2.请求行
-        request.open("POST", "/user/checkChange");
-        // 3.请求头
-        request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-        // 4.设置数据
-        request.send("username=" + username + "&password=" + password +"&introduction=" + introduction);
-        // 5.监听服务器响应
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                if (request.responseText == "1") {
-                    layer.msg('修改成功', {
-                        time: 1000
-                    }, function () {
-                        location.href = '/user/personal';
-                    });
-                } else {
-                    layer.msg('修改失败', {
-                        time: 1000
-                    })
-                }
+        $.post("/user/checkChange", {
+            username: username,
+
+        }, function (data) {
+            if (data === '1') {
+                layer.msg('修改成功', {
+                    time: 1000
+                }, function () {
+                    location.href = '/user/personal';
+
+                });
             }
-        }
+            if (data === '0') {
+                layer.msg('修改失败', {
+                    time: 1000
+                });
+            }
+        });
     }
 });

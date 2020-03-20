@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,8 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -33,6 +34,7 @@ function createSearchInput(name, value) {
 }
 
 
+// 编辑文章
 $('#edit').on('click', function () {
     let title = document.querySelector('#title').value;
     let content = editor.txt.html();
@@ -50,35 +52,24 @@ $('#edit').on('click', function () {
         });
         return;
     }
-    let article_id = this.getAttribute('data-editArticle')
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/article/checkEdit");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id + "&title=" + title + "&content=" + content + "&category=" + category);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('更改成功', {
-                    time: 1000
-                }, function () {
-                    location.href = '/user/manage';
-                });
-            } else {
-                layer.msg('更改失败', {
-                    time: 1000
-                })
-            }
+    let article_id = this.getAttribute('data-editArticle');
+    $.post("/article/checkEdit", {
+        article_id: article_id,
+        title: title,
+        content: content,
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('更改成功', {
+                time: 1000
+            }, function () {
+                location.href = '/user/manage';
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('更改失败', {
+                time: 1000
+            });
+        }
+    });
 });
