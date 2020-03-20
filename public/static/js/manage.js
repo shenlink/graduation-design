@@ -104,7 +104,9 @@ function delArticle(articleId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -145,7 +147,9 @@ function delComment(commentId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -183,7 +187,9 @@ $('#follow').on('click', function () {
                 layer.msg('取消关注成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('取消关注失败', {
@@ -223,7 +229,9 @@ function delReceive(receiveId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {

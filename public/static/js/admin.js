@@ -151,6 +151,13 @@ function normalUser(userId) {
 }
 
 
+function test() {
+    let tr = temp.parentNode.parentNode;
+    let tbody = tr.parentNode;
+    tbody.removeChild(tr);
+}
+
+
 // // 删除用户
 function delUser(userId) {
     let temp = userId;
@@ -183,7 +190,9 @@ function delUser(userId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -319,7 +328,9 @@ function delArticle(articleId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -454,7 +465,9 @@ function delCategory(categoryName) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -515,7 +528,9 @@ function delComment(commentId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -555,7 +570,9 @@ function delAnnouncement(announcementId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -637,7 +654,9 @@ function delMesssage(messageId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {

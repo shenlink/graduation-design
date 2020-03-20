@@ -129,19 +129,18 @@ class Db
     }
 
     // 分页
-    public function pages($currentPage, $pageSize = 5,$type='article')
+    public function pages($currentPage, $pageSize = 5, $type = 'article')
     {
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
         $items = $this->selectAll();
-        $pageHtml = $this->createPages($currentPage, $pageSize, $count,$type);
+        $pageHtml = $this->createPages($currentPage, $pageSize, $count, $type);
         return array('items' => $items, 'pageHtml' => $pageHtml);
     }
 
     // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
-    private function createPages($currentPage, $pageSize, $count,$type)
+    private function createPages($currentPage, $pageSize, $count, $type)
     {
-
         // 分页数，向上取整
         $pageHtml = '';
         $pageCount = ceil($count / $pageSize);
