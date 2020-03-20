@@ -139,7 +139,7 @@
                         <form>
                             <div class="form-group">
                                 <br>
-                                <input type="text" class="form-control" placeholder="分类" id="categoryName">
+                                <input type="text" class="form-control" placeholder="分类" id="categoryName" autofocus>
                                 <br>
                                 <button type="button" class="btn btn-primary" id="addCategory">
                                     添加
@@ -150,7 +150,7 @@
                         <form>
                             <div class="form-group">
                                 <br>
-                                <input type="textarea" class="form-control" placeholder="公告" id="content">
+                                <input type="textarea" class="form-control" placeholder="公告" id="content" autofocus>
                                 <br>
                                 <button type="button" class="btn btn-primary" id="addAnnouncement">
                                     添加
@@ -161,7 +161,7 @@
                         <form>
                             <div class="form-group">
                                 <br>
-                                <input type="textarea" class="form-control" placeholder="私信" id="content">
+                                <input type="textarea" class="form-control" placeholder="私信" id="content" autofocus>
                                 <input type="text" id="author" value="{{$author}}" hidden>
                                 <br>
                                 <button type="button" class="btn btn-primary" id="addMessage">
@@ -172,7 +172,6 @@
                         {{/if}}
                         <!-- 左边文章列表结束 -->
                     </div>
-
                 </div>
                 <!-- 左边文章列表和分页结束 -->
 
