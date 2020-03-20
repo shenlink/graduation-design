@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,8 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -53,6 +54,17 @@ for (let i = 0; i < lis.length; i++) {
 }
 
 
+function createHtml(function1, function2, data, value) {
+    let html = `<button class="btn btn-primary btn-sm" onclick="${function1}(this)" data-${data}=${value}>
+        恢复
+    </button>
+    <button class="btn btn-primary btn-sm" onclick="${function2}(this)" data-${data}=${value}>
+        删除
+    </button>`;
+    return html;
+}
+
+
 // 拉黑用户
 function defriendUser(userId) {
     let temp = userId;
@@ -61,46 +73,25 @@ function defriendUser(userId) {
         alert('这是管理员，不能拉黑');
         return;
     }
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/user/defriendUser");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("user_id=" + user_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('拉黑成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[8].innerText = '拉黑';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalUser(this)"
-                                    data-user-id=${user_id}>
-                                    恢复
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delUser(this)"
-                                data-user-id=${user_id}>
-                                    删除
-                                </button>`;
-                })
-            } else {
-                layer.msg('拉黑失败', {
-                    time: 1000
-                })
-            }
+    $.post("/user/defriendUser", {
+        user_id: user_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('拉黑成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[8].innerText = '拉黑';
+                let html = createHtml('normalUser', 'delUser', 'user-id', user_id);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('拉黑失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -108,53 +99,25 @@ function defriendUser(userId) {
 function normalUser(userId) {
     let temp = userId;
     let user_id = temp.getAttribute('data-user-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/user/normalUser");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("user_id=" + user_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('恢复成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[8].innerText = '正常';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendUser(this)"
-                                    data-user-id=${user_id}>
-                                    拉黑
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delUser(this)"
-                                data-user-id=${user_id}>
-                                    删除
-                                </button>`;
-                });
-            } else {
-                layer.msg('恢复失败', {
-                    time: 1000
-                });
-            }
+    $.post("/user/normalUser", {
+        user_id: user_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('恢复成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[8].innerText = '正常';
+                let html = createHtml('defriendUser', 'delUser', 'user-id', user_id);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
-}
-
-
-function test() {
-    let tr = temp.parentNode.parentNode;
-    let tbody = tr.parentNode;
-    tbody.removeChild(tr);
+        if (data === '0') {
+            layer.msg('恢复失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -169,38 +132,24 @@ function delUser(userId) {
     if (!confirm('确认删除吗？')) {
         return;
     }
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/user/delUser");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("user_id=" + user_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/user/delUser", {
+        user_id: user_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -208,47 +157,25 @@ function delUser(userId) {
 function defriendArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/article/defriendArticle");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText)
-            if (request.responseText == "1") {
-                layer.msg('拉黑成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[3].innerText = '拉黑';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalArticle(this)"
-                                    data-article-id=${article_id}>
-                                    恢复
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delArticle(this)"
-                                data-article-id=${article_id}>
-                                    删除
-                                </button>`;
-                });
-            } else {
-                layer.msg('拉黑失败', {
-                    time: 1000
-                });
-            }
+    $.post("/article/defriendArticle", {
+        article_id: article_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('拉黑成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[3].innerText = '拉黑';
+                let html = createHtml('normalArticle', 'delArticle', 'article-id', article_id);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('拉黑失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -256,46 +183,25 @@ function defriendArticle(articleId) {
 function normalArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/article/normalArticle");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('恢复成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[3].innerText = '正常';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendArticle(this)"
-                                    data-article-id=${article_id}>
-                                    拉黑
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delArticle(this)"
-                                data-article-id=${article_id}>
-                                    删除
-                                </button>`;
-                });
-            } else {
-                layer.msg('恢复失败', {
-                    time: 1000
-                });
-            }
+    $.post("/article/normalArticle", {
+        article_id: article_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('恢复成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[3].innerText = '正常';
+                let html = createHtml('defriendArticle', 'delArticle', 'article-id', article_id);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('恢复失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -307,39 +213,25 @@ function delArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
     let category = temp.getAttribute('data-category');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/article/delArticle");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("category=" + category + "&article_id=" + article_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/article/delArticle", {
+        article_id: article_id,
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
-
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -347,46 +239,25 @@ function delArticle(articleId) {
 function defriendCategory(categoryName) {
     let temp = categoryName;
     let category = temp.getAttribute('data-category');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/category/defriendCategory");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("category=" + category);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('拉黑成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[2].innerText = '拉黑';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
-                                    data-category=${category}>
-                                    恢复
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delCategory(this)"
-                                data-category=${category}>
-                                    删除
-                                </button>`;
-                });
-            } else {
-                layer.msg('拉黑失败', {
-                    time: 1000
-                });
-            }
+    $.post("/category/defriendCategory", {
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('拉黑成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[2].innerText = '拉黑';
+                let html = createHtml('normalCategory', 'delCategory', 'category', category);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('拉黑失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -394,46 +265,25 @@ function defriendCategory(categoryName) {
 function normalCategory(categoryName) {
     let temp = categoryName;
     let category = temp.getAttribute('data-category');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/category/normalCategory");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("category=" + category);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('恢复成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    tr.children[2].innerText = '正常';
-                    tr.lastElementChild.innerHTML = `<button class="btn btn-primary btn-sm" onclick="defriendCategory(this)"
-                                    data-category=${category}>
-                                    拉黑
-                                </button>
-                                <button class="btn btn-primary btn-sm"
-                                onclick="delCategory(this)"
-                                data-category=${category}>
-                                    删除
-                                </button>`;
-                });
-            } else {
-                layer.msg('恢复失败', {
-                    time: 1000
-                });
-            }
+    $.post("/category/normalCategory", {
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('恢复成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                tr.children[2].innerText = '正常';
+                let html = createHtml('defriendCategory', 'delCategory', 'category', category);
+                tr.lastElementChild.innerHTML = html;
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('恢复失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -444,38 +294,24 @@ function delCategory(categoryName) {
     }
     let temp = categoryName;
     let category = temp.getAttribute('data-category');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/category/delCategory");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("category=" + category);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/category/delCategory", {
+        category: category
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -483,19 +319,11 @@ function delCategory(categoryName) {
 function addCategory() {
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createCategoryInput('addCategory', 'addCategory');
+    let input = createInput('addCategory', 'addCategory');
     form.appendChild(input);
     form.method = 'post';
     form.action = '/category/addCategory';
     form.submit();
-}
-
-function createCategoryInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
 }
 
 
@@ -507,38 +335,25 @@ function delComment(commentId) {
     let temp = commentId;
     let article_id = temp.getAttribute('data-article-id');
     let comment_id = temp.getAttribute('data-comment-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/comment/delComment");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("article_id=" + article_id + "&comment_id=" + comment_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/comment/delComment", {
+        article_id: article_id,
+        comment_id: comment_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -549,38 +364,24 @@ function delAnnouncement(announcementId) {
     }
     let temp = announcementId;
     let announcement_id = temp.getAttribute('data-announcement-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/announcement/delAnnouncement");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("announcement_id=" + announcement_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/announcement/delAnnouncement", {
+        announcement_id: announcement_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -588,19 +389,11 @@ function delAnnouncement(announcementId) {
 function addAnnouncement() {
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createAnnouncementInput('addAnnouncement', 'addAnnouncement');
+    let input = createInput('addAnnouncement', 'addAnnouncement');
     form.appendChild(input);
     form.method = 'post';
     form.action = '/announcement/addAnnouncement';
     form.submit();
-}
-
-function createAnnouncementInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
 }
 
 
@@ -610,19 +403,11 @@ function addMessage() {
     let author = message.getAttribute('data-author');
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createMessageInput('author', author);
+    let input = createInput('author', author);
     form.appendChild(input);
     form.method = 'post';
     form.action = '/message/addMessage';
     form.submit();
-}
-
-function createMessageInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
 }
 
 
@@ -633,38 +418,24 @@ function delMesssage(messageId) {
     }
     let temp = messageId;
     let message_id = temp.getAttribute('data-message-id');
-    // 1.创建XMLHttpRequest对象
-    let request = null;
-    if (XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else {
-        //兼容老IE浏览器
-        request = new ActiveXObject("Msxml2.XMLHTTP");
-    }
-    // 2.请求行
-    request.open("POST", "/message/delMessage");
-    // 3.请求头
-    request.setRequestHeader('Content-Type', ' application/x-www-form-urlencoded');
-    // 4.设置数据
-    request.send("message_id=" + message_id);
-    // 5.监听服务器响应
-    request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            if (request.responseText == "1") {
-                layer.msg('删除成功', {
-                    time: 1000
-                }, function () {
-                    let tr = temp.parentNode.parentNode;
-                    let tbody = tr.parentNode;
-                    tbody.removeChild(tr);
-                });
-            } else {
-                layer.msg('删除失败', {
-                    time: 1000
-                });
-            }
+    $.post("/message/delMessage", {
+        message_id: message_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
         }
-    }
+        if (data === '0') {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
 }
 
 
@@ -689,25 +460,25 @@ function changePage(page) {
     document.body.appendChild(form);
     switch (type) {
         case 'user':
-            input1 = createPageInput('userPages', pagination);
+            input1 = createInput('userPages', pagination);
             break;
         case 'article':
-            input1 = createPageInput('articlePages', pagination);
+            input1 = createInput('articlePages', pagination);
             break;
         case 'category':
-            input1 = createPageInput('categoryPages', pagination);
+            input1 = createInput('categoryPages', pagination);
             break;
         case 'comment':
-            input1 = createPageInput('commentPages', pagination);
+            input1 = createInput('commentPages', pagination);
             break;
         case 'announcement':
-            input1 = createPageInput('announcementPages', pagination);
+            input1 = createInput('announcementPages', pagination);
             break;
         case 'message':
-            input1 = createPageInput('messagePages', pagination);
+            input1 = createInput('messagePages', pagination);
             break;
     }
-    let input2 = createPageInput('type', type);
+    let input2 = createInput('type', type);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -715,10 +486,3 @@ function changePage(page) {
     form.submit();
 }
 
-function createPageInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
