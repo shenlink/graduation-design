@@ -24,6 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
+
 function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
@@ -51,6 +52,7 @@ for (let i = 0; i < lis.length; i++) {
     }
 }
 
+
 // 删除评论
 function delComment(commentId) {
     if (!confirm('确认删除吗？')) {
@@ -67,12 +69,13 @@ function delComment(commentId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
+                let tr1 = temp.parentNode.parentNode;
+                let tr2 = tr1.nextElementSibling;
+                let table = tr1.parentNode;
+                table.removeChild(tr1);
+                table.removeChild(tr2);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -101,8 +104,7 @@ function delPraise(praiseId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -131,8 +133,7 @@ function delCollect(collectId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -161,8 +162,7 @@ function delShare(shareId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -171,6 +171,7 @@ function delShare(shareId) {
 }
 
 
+// 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
@@ -213,4 +214,3 @@ function changePage(page) {
     form.action = '/user/personal';
     form.submit();
 }
-

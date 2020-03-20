@@ -6,13 +6,13 @@ $('#search').on('click', function () {
     document.body.appendChild(form);
     switch (type) {
         case '1':
-            input1 = createSearchInput('type', 'user');
+            input1 = createInput('type', 'user');
             break;
         case '2':
-            input1 = createSearchInput('type', 'article');
+            input1 = createInput('type', 'article');
             break;
     }
-    let input2 = createSearchInput('content', searchContent);
+    let input2 = createInput('content', searchContent);
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
@@ -24,7 +24,8 @@ $('#search').on('click', function () {
     form.submit();
 });
 
-function createSearchInput(name, value) {
+
+function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
     input.name = name;
@@ -33,6 +34,7 @@ function createSearchInput(name, value) {
 }
 
 
+// 添加分类
 $('#addCategory').on('click', function () {
     let categoryName = document.querySelector('#categoryName').value;
     $.post("/category/checkAddCategory", {
@@ -44,8 +46,7 @@ $('#addCategory').on('click', function () {
             }, function () {
                 window.history.back(-1);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('添加失败', {
                 time: 1000
             });
@@ -54,6 +55,7 @@ $('#addCategory').on('click', function () {
 });
 
 
+// 添加公告
 $('#addAnnouncement').on('click', function () {
     let content = document.querySelector('#content').value;
     $.post("/announcement/checkAddAnnouncement", {
@@ -65,8 +67,7 @@ $('#addAnnouncement').on('click', function () {
             }, function () {
                 window.history.back(-1);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('添加失败', {
                 time: 1000
             });
@@ -75,6 +76,7 @@ $('#addAnnouncement').on('click', function () {
 });
 
 
+// 发私信
 $('#addMessage').on('click', function () {
     let author = document.querySelector('#author').value;
     let content = document.querySelector('#content').value;
@@ -88,8 +90,7 @@ $('#addMessage').on('click', function () {
             }, function () {
                 window.history.back(-1);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('添加失败', {
                 time: 1000
             });

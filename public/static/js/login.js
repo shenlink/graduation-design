@@ -24,6 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
+
 function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
@@ -51,6 +52,7 @@ function checkUsername() {
     }
 }
 
+
 function checkPassword() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
     // 获取密码输入框元素
@@ -69,6 +71,7 @@ function checkPassword() {
     }
 }
 
+
 // 用户名输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function userOriginal() {
     // 其实这两条语句是不用加的，但是感觉怪怪的，就加上了
@@ -81,6 +84,7 @@ function userOriginal() {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
 }
 
+
 // 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
     // 获取密码输入框元素
@@ -92,6 +96,7 @@ function passwordOriginal() {
     passwordTip.innerHTML = `<img src="/static/image/mess.png" id="passwordImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码`;
 }
+
 
 // 获取眼睛图案
 let passwordEye = document.querySelector('#passwordEye');
@@ -119,9 +124,12 @@ function clickEye() {
     }
 }
 
+
 function check() {
     return checkUsername() && checkPassword();
 }
+
+
 $('#login').on('click', function () {
     // 获取输入的用户名的值
     let username = document.querySelector('#username').value;
@@ -138,8 +146,7 @@ $('#login').on('click', function () {
                 }, function () {
                     location.href = '/';
                 });
-            }
-            if (data === '0') {
+            } else {
                 layer.msg('登录失败', {
                     time: 1000
                 });

@@ -61,8 +61,7 @@ $('#praise').on('click', function () {
             }, function () {
                 praise.innerHTML = `已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('取消点赞', {
                 time: 1000
             }, function () {
@@ -100,8 +99,7 @@ $('#collect').on('click', function () {
             }, function () {
                 collect.innerHTML = `已收藏(${collect_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('取消收藏', {
                 time: 1000
             }, function () {
@@ -110,6 +108,7 @@ $('#collect').on('click', function () {
         }
     });
 });
+
 
 // 分享
 $('#share').on('click', function () {
@@ -138,8 +137,7 @@ $('#share').on('click', function () {
             }, function () {
                 share.innerHTML = `已分享(${share_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('分享失败', {
                 time: 1000
             }, function () {
@@ -149,6 +147,8 @@ $('#share').on('click', function () {
     });
 });
 
+
+// 获取当前时间
 function createTime() {
     let date = new Date();
     let year = date.getFullYear();
@@ -177,6 +177,8 @@ function createTime() {
     return RecentTime;
 }
 
+
+// 创建评论的html
 function createComment(username, comment_at, comment_id, content) {
     let comment_html = `<div class="card-body">
                             <h5 class="card-title">
@@ -252,14 +254,14 @@ $('#comment').on('click', function () {
                 count.innerHTML = `评论数：${comment_count + 1}`;
                 editor.txt.html('');
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('评论失败', {
                 time: 1000
             });
         }
     });
 });
+
 
 // 删除评论
 function delComment(commentId) {
@@ -285,8 +287,7 @@ function delComment(commentId) {
                 commentContent.removeChild(card);
                 count.innerHTML = `评论数：${comment_count-1}`;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -316,8 +317,7 @@ $('#follow').on('click', function () {
             }, function () {
                 follow.innerText = '已关注';
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
@@ -327,6 +327,8 @@ $('#follow').on('click', function () {
     });
 });
 
+
+// 发私信
 function addMessage() {
     let message = document.querySelector('#message');
     let author = message.getAttribute('data-author');

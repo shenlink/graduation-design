@@ -267,8 +267,7 @@ $('#register').on('click', function () {
                 }, function () {
                     location.href = '/user/login';
                 });
-            }
-            if (data === '0') {
+            } else {
                 layer.msg('注册失败', {
                     time: 1000
                 });

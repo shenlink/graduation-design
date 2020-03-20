@@ -24,6 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
+
 function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
@@ -87,8 +88,7 @@ function delArticle(articleId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -117,8 +117,7 @@ function delComment(commentId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -128,30 +127,29 @@ function delComment(commentId) {
 
 
 // 取消关注
-$('#follow').on('click', function () {
-    let follow = document.querySelector('#follow');
-    let username = follow.getAttribute('data-username');
-    let author = follow.getAttribute('data-author');
-    $.post("/follow/checkFollow", {
+function delFollow(followName) {
+    let temp = followName;
+    let username = temp.getAttribute('data-username');
+    let author = temp.getAttribute('data-author');
+    $.post("/follow/delFollow", {
         author: author,
         username: username
     }, function (data) {
         if (data === '1') {
-            layer.msg('关注成功', {
-                time: 1000
-            }, function () {
-                follow.innerText = '已关注';
-            });
-        }
-        if (data === '0') {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
-                follow.innerText = '关注';
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
+        } else {
+            layer.msg('取消关注失败', {
+                time: 1000
             });
         }
     });
-});
+}
 
 
 // 删除私信
@@ -172,8 +170,7 @@ function delReceive(receiveId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -225,4 +222,3 @@ function changePage(page) {
     form.action = '/user/manage';
     form.submit();
 }
-

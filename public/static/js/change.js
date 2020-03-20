@@ -24,6 +24,7 @@ $('#search').on('click', function () {
     form.submit();
 });
 
+
 function createInput(name, value) {
     let input = document.createElement('input');
     input.type = 'hidden';
@@ -64,6 +65,7 @@ function checkPassword() {
     }
 }
 
+
 // 确认密码
 function checkConPassword() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
@@ -92,6 +94,7 @@ function checkConPassword() {
     }
 }
 
+
 // 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
     // 获取密码输入框元素
@@ -103,6 +106,7 @@ function passwordOriginal() {
     passwordTip.innerHTML = `<img src="/static/image/mess.png" id="passwordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
 }
+
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
@@ -117,11 +121,12 @@ function conPasswordOriginal() {
     确认密码 `;
 }
 
+
 // 获取眼睛图案
 let passwordEye = document.querySelector('#passwordEye');
 // 这个变量的声明不能放在函数内，若放在函数内，那每次点击调用函数时，均会flag = false
 let flag = false;
-//
+
 function clickEye() {
     if (flag == false) {
         // 把密码输入的框变成文本输入框
@@ -143,6 +148,7 @@ function clickEye() {
         flag = false;
     }
 }
+
 
 // 获取眼睛图案
 let conPasswordEye = document.querySelector('#conPasswordEye');
@@ -166,10 +172,14 @@ function clickConEye() {
         conFlag = false;
     }
 }
+
+
 // 表单提交验证
 function check() {
     return checkPassword() && checkConPassword();
 }
+
+
 $('#change').on('click', function () {
     // 获取用户名输入框的值
     let username = document.querySelector('#username').value;
@@ -179,17 +189,16 @@ $('#change').on('click', function () {
     if (check()) {
         $.post("/user/checkChange", {
             username: username,
-
+            password: password,
+            introduction: introduction
         }, function (data) {
             if (data === '1') {
                 layer.msg('修改成功', {
                     time: 1000
                 }, function () {
                     location.href = '/user/personal';
-
                 });
-            }
-            if (data === '0') {
+            } else {
                 layer.msg('修改失败', {
                     time: 1000
                 });

@@ -112,7 +112,9 @@
                     <li class="list-group-item">评论管理</li>
                     <li class="list-group-item">关注管理</li>
                     <li class="list-group-item">粉丝管理</li>
+                    {{if $username !== 'shen'}}
                     <li class="list-group-item">私信管理</li>
+                    {{/if}}
                 </ul>
                 <!-- 列表组结束 -->
             </div>
@@ -181,7 +183,6 @@
                         {{/foreach}}
                     </tbody>
                 </table>
-
                 <!-- 分页开始 -->
                 {{$articlePage}}
                 <!-- 分页结束 -->
@@ -258,7 +259,7 @@
                                 </a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-primary card-link" id="follow"
+                                <button type="button" class="btn btn-primary card-link" onclick="delFollow(this)"
                                     data-username={{$username}} data-author={{$followsItem.author}}>
                                     取消关注
                                 </button>
@@ -268,7 +269,7 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-                {{$receivePage}}
+                {{$followPage}}
                 <!-- 分页结束 -->
             </div>
             <div class="col-md-10 manage-item" {{if $type == 'fans'}} style="display: block;" {{/if}}>
@@ -302,9 +303,10 @@
                     </tbody>
                 </table>
                 <!-- 分页开始 -->
-                {{$receivePage}}
+                {{$fansPage}}
                 <!-- 分页结束 -->
             </div>
+            {{if $username !== 'shen'}}
             <div class="col-md-10 manage-item" {{if $type == 'receive'}} style="display: block;" {{/if}}>
                 <table class="table table-hover table-bordered text-center">
                     <fieldset>
@@ -340,6 +342,7 @@
                 {{$receivePage}}
                 <!-- 分页结束 -->
             </div>
+            {{/if}}
         </div>
     </div>
 

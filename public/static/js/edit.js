@@ -65,8 +65,7 @@ $('#edit').on('click', function () {
             }, function () {
                 location.href = '/user/manage';
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('更改失败', {
                 time: 1000
             });

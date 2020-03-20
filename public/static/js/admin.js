@@ -85,8 +85,7 @@ function defriendUser(userId) {
                 let html = createHtml('normalUser', 'delUser', 'user-id', user_id);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('拉黑失败', {
                 time: 1000
             });
@@ -111,8 +110,7 @@ function normalUser(userId) {
                 let html = createHtml('defriendUser', 'delUser', 'user-id', user_id);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('恢复失败', {
                 time: 1000
             });
@@ -143,8 +141,7 @@ function delUser(userId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -169,8 +166,7 @@ function defriendArticle(articleId) {
                 let html = createHtml('normalArticle', 'delArticle', 'article-id', article_id);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('拉黑失败', {
                 time: 1000
             });
@@ -195,8 +191,7 @@ function normalArticle(articleId) {
                 let html = createHtml('defriendArticle', 'delArticle', 'article-id', article_id);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('恢复失败', {
                 time: 1000
             });
@@ -225,8 +220,7 @@ function delArticle(articleId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -251,8 +245,7 @@ function defriendCategory(categoryName) {
                 let html = createHtml('normalCategory', 'delCategory', 'category', category);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('拉黑失败', {
                 time: 1000
             });
@@ -277,8 +270,7 @@ function normalCategory(categoryName) {
                 let html = createHtml('defriendCategory', 'delCategory', 'category', category);
                 tr.lastElementChild.innerHTML = html;
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('恢复失败', {
                 time: 1000
             });
@@ -305,8 +297,7 @@ function delCategory(categoryName) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -347,8 +338,7 @@ function delComment(commentId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -375,8 +365,7 @@ function delAnnouncement(announcementId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -429,8 +418,7 @@ function delMesssage(messageId) {
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('删除失败', {
                 time: 1000
             });
@@ -485,4 +473,3 @@ function changePage(page) {
     form.action = '/admin/manage';
     form.submit();
 }
-

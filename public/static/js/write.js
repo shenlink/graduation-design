@@ -67,8 +67,7 @@ $('#publish').on('click', function () {
             }, function () {
                 window.location.href = '/user/personal';
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('发布失败', {
                 time: 1000
             });

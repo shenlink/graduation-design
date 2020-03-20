@@ -353,8 +353,8 @@ class User extends Controller
 
                 $data = $this->follow->getFans($username,);
                 $fans = $data['items'];
-                $fnasPage = $data['pageHtml'];
-                $this->view->assign('fnasPage', $fnasPage);
+                $fansPage = $data['pageHtml'];
+                $this->view->assign('fansPage', $fansPage);
 
                 $data = $this->receive->getReceive($username);
                 $receives = $data['items'];

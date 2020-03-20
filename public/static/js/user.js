@@ -54,8 +54,7 @@ $('#follow').on('click', function () {
             }, function () {
                 follow.innerText = '已关注';
             });
-        }
-        if (data === '0') {
+        } else {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
@@ -66,6 +65,7 @@ $('#follow').on('click', function () {
 });
 
 
+// 发私信
 function addMessage() {
     let message = document.querySelector('#message');
     let author = message.getAttribute('data-author');
@@ -79,6 +79,7 @@ function addMessage() {
 }
 
 
+// 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
@@ -103,4 +104,3 @@ function changePage(page) {
     form.action = '/user/' + author;
     form.submit();
 }
-
