@@ -38,7 +38,7 @@ class Share extends Model
             $stmt->bindParam(4, $share_at);
             $stmt->bindParam(5, $username);
             $stmt->execute();
-            $articleSql = "update article set praise_count=praise_count+1 where article_id=?";
+            $articleSql = "update article set share_count=share_count+1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
@@ -61,7 +61,7 @@ class Share extends Model
             $stmt->bindParam(1, $article_id);
             $stmt->bindParam(2, $username);
             $stmt->execute();
-            $articleSql = "update article set praise_count=praise_count+1 where article_id=?";
+            $articleSql = "update article set share_count=share_count-1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();

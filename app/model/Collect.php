@@ -65,7 +65,7 @@ class Collect extends Model
             $stmt->bindParam(1, $article_id);
             $stmt->bindParam(2, $username);
             $stmt->execute();
-            $articleSql = "update article set collect_count = collect_count-1 where article_id=?";
+            $articleSql = "update article set collect_count=collect_count-1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
@@ -84,12 +84,13 @@ class Collect extends Model
             $pdo->beginTransaction();
             $collectSql = "delete from collect where collect_id=?";
             $stmt = $pdo->prepare($collectSql);
-            $stmt->bindParam(1, $article_id);
+            $stmt->bindParam(1, $collect_id);
             $stmt->execute();
-            $articleSql = "update article set article_count = article_count-1 where article_id=?";
+            $articleSql = "update article set collect_count=collect_count-1 where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
+            $pdo->commit();
             return true;
         } catch (\PDOException $e) {
             $pdo->rollBack();

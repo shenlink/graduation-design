@@ -24,8 +24,8 @@ class Comment extends Model
         $pdo = $this->init();
         try {
             $pdo->beginTransaction();
-            $collectSql = "delete from comment where comment_id=?";
-            $stmt = $pdo->prepare($collectSql);
+            $commenttSql = "delete from comment where comment_id=?";
+            $stmt = $pdo->prepare($commenttSql);
             $stmt->bindParam(1, $comment_id);
             $stmt->execute();
             $articleSql = "update article set comment_count=comment_count-1 where article_id=?";
@@ -82,7 +82,7 @@ class Comment extends Model
 
     public function getComment($username, $currentPage = 1, $pageSize = 5)
     {
-        return $this->table('comment')->field('comment_id,author,title,content,username,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
+        return $this->table('comment')->field('comment_id,article_id,author,title,content,username,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }
 
     public function getShare($username, $currentPage = 1, $pageSize = 5)

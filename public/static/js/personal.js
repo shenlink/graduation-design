@@ -81,7 +81,9 @@ function delComment(commentId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 });
             } else {
                 layer.msg('删除失败', {
@@ -93,7 +95,7 @@ function delComment(commentId) {
 }
 
 
-// 删除点赞,还有article_id
+// 删除点赞
 function delPraise(praiseId) {
     if (!confirm('确认删除吗？')) {
         return;
@@ -123,7 +125,9 @@ function delPraise(praiseId) {
                 layer.msg('删除成功', {
                     time: 2000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 })
             } else {
                 layer.msg('删除失败', {
@@ -133,6 +137,7 @@ function delPraise(praiseId) {
         }
     }
 }
+
 
 // 删除收藏
 function delCollect(collectId) {
@@ -164,7 +169,9 @@ function delCollect(collectId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 })
             } else {
                 layer.msg('删除失败', {
@@ -174,8 +181,6 @@ function delCollect(collectId) {
         }
     }
 }
-
-
 
 
 // 删除分享
@@ -208,7 +213,9 @@ function delShare(shareId) {
                 layer.msg('删除成功', {
                     time: 1000
                 }, function () {
-                    window.location.reload();
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
                 })
             } else {
                 layer.msg('删除失败', {
