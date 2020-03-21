@@ -24,12 +24,10 @@ class User extends Model
     }
 
 
-    // 在用户注册的时候，用户输入完成后，输入框失去焦点时，执行此方法，告诉用户此用户名是否被注册了
+    // 验证用户名是否被注册
     public function checkUsername($username)
     {
-        // $_POST变量是超全局变量，可以直接在模型类获取表单提交的数据，但是，不提倡这么做，因为本来表单是提交到控制器的，表单传过来的值应该由控制器传到模型类中
-        // 这个$this是Model类的对象
-        return $this->table('user')->where(array('username' => "{$username}"))->select();
+        return $this->table('user')->where(['username' => "{$username}"])->select();
     }
 
     // 处理注册操作
@@ -38,10 +36,16 @@ class User extends Model
         return $this->table('user')->insert(['username' => "{$username}", 'password' => "{$password}", 'created_at' => "{$created_at}"]);
     }
 
+    // 确认用户的状态
+    public function checkStatus($username)
+    {
+        return $this->table('user')->where(['username' => "{$username}", 'status'=>1])->select();
+    }
+
     // 处理登录操作
     public function checkLogin($username, $password)
     {
-        return $this->table('user')->where(array('username' => "{$username}", 'password' => "{$password}"))->select();
+        return $this->table('user')->where(['username' => "{$username}", 'password' => "{$password}"])->select();
     }
 
     // 获取单个用户的所有信息

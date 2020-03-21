@@ -102,13 +102,11 @@
             <!-- 用户名开始 -->
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <!-- userOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
-                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username" autofocus
+                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
                     onblur="checkUsername()" onfocus="userOriginal()">
-                <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="userMessage">
                     <img src="/static/image/mess.png" id="userImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名，用户名至少包含1个字母，可以包含数字，4到16位
                 </small>
             </div>
             <!-- 用户名结束 -->
@@ -116,15 +114,11 @@
             <!-- 密码开始 -->
             <div class="form-group">
                 <label for="password">密码：</label>
-                <!-- passwordOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
                 <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
                     onblur="checkPassword()" onfocus="passwordOriginal()">
-                <!-- rePassword是定位父级，相对定位 -->
                 <div id="rePassword">
-                    <!-- 显示隐藏密码 -->
                     <img src="/static/image/close.png" alt="显示密码" id="passwordEye" onclick="clickEye()">
                 </div>
-                <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="passwordTip">
                     <img src="/static/image/mess.png" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符
@@ -135,15 +129,11 @@
             <!-- 确认密码开始 -->
             <div class="form-group">
                 <label for="confirm-password">确认密码：</label>
-                <!-- conPasswordOriginal()是输入框在此聚焦发生的事件，还原成初始样式 -->
                 <input type="password" class="form-control" placeholder="请再次输入密码" name="confirmPassword"
                     id="confirmPassword" onblur="checkConPassword()" onfocus="conPasswordOriginal()">
-                <!-- reCOnPassword是定位父级，相对定位 -->
                 <span id="reConPassword">
-                    <!-- 显示隐藏密码 -->
                     <img src="/static/image/close.png" alt="隐藏密码" id="conPasswordEye" onclick="clickConEye()">
                 </span>
-                <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="conPasswordTip">
                     <img src="/static/image/mess.png" id="conPasswordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;

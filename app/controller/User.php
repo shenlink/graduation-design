@@ -108,6 +108,11 @@ class User extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
+            $status = $this->user->checkStatus($username);
+            if(!$status){
+                echo '-1';
+                exit();
+            }
             $result = $this->user->checkLogin($username, $password);
             if ($result) {
                 session_start();

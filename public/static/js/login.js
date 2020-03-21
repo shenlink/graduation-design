@@ -34,6 +34,7 @@ function createInput(name, value) {
 }
 
 
+// 确认用户名
 function checkUsername() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
     // 获取用户名输入框元素
@@ -53,6 +54,7 @@ function checkUsername() {
 }
 
 
+// 确认密码
 function checkPassword() {
     // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
     // 获取密码输入框元素
@@ -72,9 +74,8 @@ function checkPassword() {
 }
 
 
-// 用户名输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
+// 用户名输入框获得焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function userOriginal() {
-    // 其实这两条语句是不用加的，但是感觉怪怪的，就加上了
     let username = document.querySelector('#username');
     // 获取提示用户注意的信息的节点元素
     let userMessage = document.querySelector('#userMessage');
@@ -85,7 +86,7 @@ function userOriginal() {
 }
 
 
-// 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
+// 密码输入框获得焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
     // 获取密码输入框元素
     let password = document.querySelector('#password');
@@ -146,6 +147,8 @@ $('#login').on('click', function () {
                 }, function () {
                     location.href = '/';
                 });
+            } else if (data === '-1') {
+                alert('用户因违规被封号，请联系管理员解禁，xxx@qq.com');
             } else {
                 layer.msg('登录失败', {
                     time: 1000

@@ -26,7 +26,7 @@ class Article extends Model
 
     public function checkArticleId($article_id)
     {
-        return $this->table('article')->field('article_id')->where(['article_id' => "{$article_id}"])->select();
+        return $this->table('article')->field('article_id')->where(['article_id' => "{$article_id}",'status'=>1])->select();
     }
 
     public function getAuthor($article_id)

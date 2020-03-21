@@ -49,6 +49,13 @@ function checkUsername() {
         userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
         return false;
     }
+    let reg = /^(?=.*[A-Za-z])|(?=.*[0-9]){4,16}$/;
+    if (reg.test(usernameValue)) {
+        userMessage.innerHTML = `<span style="color:green;">用户名符合要求</span>`;
+    } else {
+        userMessage.innerHTML = `<span style="color:red;">用户名不符合要求</span>`;
+        return false;
+    }
     // ajax验证用户名是否被注册
     if (usernameValue.length > 0) {
         // 1.创建XMLHttpRequest对象
@@ -162,7 +169,7 @@ function userOriginal() {
     // 还原输入框的初始样式
     username.className = "form-control"
     userMessage.innerHTML = `<img src="/static/image/mess.png" id="userImg">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名，用户名至少包含1个字母，可以包含数字，4到16位`;
 }
 
 

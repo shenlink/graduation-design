@@ -103,9 +103,8 @@
             <!-- 用户名输入框开始 -->
             <div class="form-group">
                 <label for="username">用户名：</label>
-                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username" autofocus
+                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
                     onblur="checkUsername()" onfocus="userOriginal()">
-                <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="userMessage">
                     <img src="/static/image/mess.png" alt="" id="userImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
@@ -121,7 +120,6 @@
                 <span id="rePassword">
                     <img src="/static/image/close.png" alt="显示密码 " id="passwordEye" onclick="clickEye()">
                 </span>
-                <!-- 提示用户注意的信息 -->
                 <small class="form-text text-muted" id="passwordTip">
                     <img src="/static/image/mess.png" alt="" id="passwordImg">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
