@@ -8,10 +8,9 @@ class Log
 {
 
     public static $class;
-    /**
-     * 1.确定日志的存储方式
-     * 2.写日志
-     */
+
+    // 1.确定日志的存储方式
+    // 2.写日志
     public static function init()
     {
         //确定存储方式

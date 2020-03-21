@@ -2,6 +2,7 @@
 
 namespace app\model;
 
+use core\lib\Log;
 use core\lib\Model;
 
 class Share extends Model
@@ -45,6 +46,10 @@ class Share extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
@@ -68,6 +73,10 @@ class Share extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
@@ -89,6 +98,10 @@ class Share extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }

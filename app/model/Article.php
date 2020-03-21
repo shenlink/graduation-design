@@ -2,6 +2,7 @@
 
 namespace app\model;
 
+use core\lib\Log;
 use core\lib\Model;
 
 class Article extends Model
@@ -26,7 +27,7 @@ class Article extends Model
 
     public function checkArticleId($article_id)
     {
-        return $this->table('article')->field('article_id')->where(['article_id' => "{$article_id}",'status'=>1])->select();
+        return $this->table('article')->field('article_id')->where(['article_id' => "{$article_id}", 'status' => 1])->select();
     }
 
     public function getAuthor($article_id)
@@ -55,7 +56,7 @@ class Article extends Model
     // 拉黑某篇文章
     public function defriendArticle($article_id)
     {
-        return $this->table('article')->field('status')->where(['article_id'=>"{$article_id}"])->update(['status' => 0]);
+        return $this->table('article')->field('status')->where(['article_id' => "{$article_id}"])->update(['status' => 0]);
     }
 
     public function normalArticle($article_id)
@@ -75,7 +76,7 @@ class Article extends Model
         $pdo = $this->init();
         try {
             $pdo->beginTransaction();
-            $articleSql = "delete from article where article_id=?";
+            $articleSql = "delete from articles where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
@@ -90,6 +91,10 @@ class Article extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
@@ -101,7 +106,7 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
-    public function getAllArticle($currentPage=1, $pageSize=5)
+    public function getAllArticle($currentPage = 1, $pageSize = 5)
     {
         return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
     }
@@ -118,7 +123,7 @@ class Article extends Model
 
     public function getRecentArticle($author)
     {
-        return $this->table('article')->field('article_id,title')->where(['author'=>"{$author}"])->order('updated_at desc')->limit(5)->selectAll();
+        return $this->table('article')->field('article_id,title')->where(['author' => "{$author}"])->order('updated_at desc')->limit(5)->selectAll();
     }
 
     // 处理用户在写文章页面提交的数据
@@ -146,6 +151,10 @@ class Article extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }

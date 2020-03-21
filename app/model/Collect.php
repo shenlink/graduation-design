@@ -2,6 +2,7 @@
 
 namespace app\model;
 
+use core\lib\Log;
 use core\lib\Model;
 
 class Collect extends Model
@@ -49,6 +50,10 @@ class Collect extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
@@ -72,11 +77,16 @@ class Collect extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
     }
 
+    // 删除收藏
     public function delCollect($article_id, $collect_id)
     {
         $pdo = $this->init();
@@ -93,6 +103,10 @@ class Collect extends Model
             $pdo->commit();
             return true;
         } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
             $pdo->rollBack();
             return false;
         }
