@@ -20,11 +20,7 @@ class Announcement extends Controller
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
             $result = $this->announcement->delAnnouncement($announcement_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -54,11 +50,7 @@ class Announcement extends Controller
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
             $result = $this->announcement->checkAddAnnouncement($content, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

@@ -34,6 +34,7 @@ function createInput(name, value) {
 }
 
 
+// 关注或取消关注
 $('#follow').on('click', function () {
     let follow = document.querySelector('#follow');
     let username = follow.getAttribute('data-username');
@@ -53,6 +54,14 @@ $('#follow').on('click', function () {
                 time: 1000
             }, function () {
                 follow.innerText = '已关注';
+            });
+        } else if (data === '11') {
+            layer.msg('关注失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
             });
         } else {
             layer.msg('取消关注', {

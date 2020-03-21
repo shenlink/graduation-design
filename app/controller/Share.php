@@ -25,20 +25,12 @@ class Share extends Controller
             $result =  $this->share->checkShare($article_id,$username);
             if ($result) {
                 $cancel = $this->share->cancelShare($article_id, $username);
-                if ($cancel) {
-                    echo "0";
-                }else{
-                    echo '00';
-                }
+                echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $share_at = date('Y-m-d H:i:s', time());
                 $add = $this->share->addShare($article_id, $author, $title, $username, $share_at);
-                if ($add) {
-                    echo "1";
-                }else{
-                    echo '11';
-                }
+                echo $add ? '1' : '11';
             }
         } else {
             $this->displayNone();
@@ -51,11 +43,7 @@ class Share extends Controller
             $article_id = $_POST['article_id'];
             $share_id = $_POST['share_id'];
             $result = $this->share->delShare($article_id,$share_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

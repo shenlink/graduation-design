@@ -25,16 +25,12 @@ class Collect extends Controller
             $result =  $this->collect->checkCollect($article_id,$username);
             if ($result) {
                 $cancel = $this->collect->cancelCollect($article_id,$username);
-                if ($cancel) {
-                    echo "0";
-                }
+                echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $collect_at = date('Y-m-d H:i:s', time());
                 $add = $this->collect->addCollect($article_id, $author, $title, $username,$collect_at);
-                if ($add) {
-                    echo "1";
-                }
+                echo $add ? '1' : '11';
             }
         } else {
             $this->displayNone();
@@ -47,11 +43,7 @@ class Collect extends Controller
             $article_id = $_POST['article_id'];
             $collect_id = $_POST['collect_id'];
             $result = $this->collect->delCollect($article_id,$collect_id );
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

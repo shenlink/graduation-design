@@ -25,21 +25,12 @@ class Praise extends Controller
             $result =  $this->praise->checkPraise($article_id, $username);
             if ($result) {
                 $cancel = $this->praise->cancelPraise($article_id, $username);
-                if ($cancel) {
-                    echo "0";
-                } else {
-                    echo '00';
-                }
+                echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $praise_at = date('Y-m-d H:i:s', time());
                 $add = $this->praise->addPraise($article_id, $author, $title, $username, $praise_at);
-                if ($add) {
-                    // echo "1";
-                    echo $add;
-                } else {
-                    echo '11';
-                }
+                echo $add ? '1' : '11';
             }
         } else {
             $this->displayNone();
@@ -52,11 +43,7 @@ class Praise extends Controller
             $article_id = $_POST['article_id'];
             $praise_id = $_POST['praise_id'];
             $result = $this->praise->delPraise($article_id, $praise_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

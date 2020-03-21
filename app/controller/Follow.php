@@ -25,16 +25,12 @@ class Follow extends Controller
             $result =  $this->follow->checkFollow($author, $username);
             if ($result) {
                 $cancel = $this->follow->cancelFollow($author, $username);
-                if ($cancel) {
-                    echo "0";
-                }
+                echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $follow_at = date('Y-m-d H:i:s', time());
                 $add = $this->follow->addFollow($author, $username, $follow_at);
-                if ($add) {
-                    echo "1";
-                }
+                echo $add ? '1' : '11';
             }
         } else {
             $this->displayNone();
@@ -47,11 +43,7 @@ class Follow extends Controller
             $author = $_POST['author'];
             $username = $_POST['username'];
             $result =  $this->follow->cancelFollow($author, $username);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

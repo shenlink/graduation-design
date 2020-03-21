@@ -40,11 +40,7 @@ class Message extends Controller
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
             $result = $this->message->checkAddMessage($author, $content, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -56,11 +52,7 @@ class Message extends Controller
         if (isset($_POST['message_id'])) {
             $message_id = $_POST['message_id'];
             $result = $this->message->delMessage($message_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         }
     }
 

@@ -65,11 +65,7 @@ class Article extends Controller
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
             $result = $this->article->checkWrite($author, $category, $title,  $content,  $updated_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -101,11 +97,7 @@ class Article extends Controller
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
             $result = $this->article->checkEdit($article_id, $category, $title, $content, $updated_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -117,11 +109,7 @@ class Article extends Controller
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $result = $this->article->defriendArticle($article_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -132,11 +120,7 @@ class Article extends Controller
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $result = $this->article->normalArticle($article_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -151,16 +135,11 @@ class Article extends Controller
             $author = $_SESSION['username'];
             $category = $_POST['category'];
             $result = $this->article->delArticle($article_id, $author, $category);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
     }
-
 
     public function __call($method, $args)
     {

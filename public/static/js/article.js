@@ -61,6 +61,14 @@ $('#praise').on('click', function () {
             }, function () {
                 praise.innerHTML = `已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             });
+        } else if (data === '11') {
+            layer.msg('点赞失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
+            });
         } else {
             layer.msg('取消点赞', {
                 time: 1000
@@ -99,6 +107,14 @@ $('#collect').on('click', function () {
             }, function () {
                 collect.innerHTML = `已收藏(${collect_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
             });
+        } else if (data === '11') {
+            layer.msg('收藏失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
+            });
         } else {
             layer.msg('取消收藏', {
                 time: 1000
@@ -136,6 +152,14 @@ $('#share').on('click', function () {
                 time: 1000
             }, function () {
                 share.innerHTML = `已分享(${share_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+            });
+        } else if (data === '11') {
+            layer.msg('分享失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
             });
         } else {
             layer.msg('分享失败', {
@@ -316,6 +340,14 @@ $('#follow').on('click', function () {
                 time: 1000
             }, function () {
                 follow.innerText = '已关注';
+            });
+        } else if (data === '11') {
+            layer.msg('关注失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
             });
         } else {
             layer.msg('取消关注', {

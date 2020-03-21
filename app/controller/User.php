@@ -48,11 +48,7 @@ class User extends Controller
             $username = $_POST['username'];
             $result =  $this->user->checkUsername($username);
             $intercept = $this->getIntercept($username);
-            if ($result || $intercept) {
-                echo "1";
-            } else {
-                echo "0";
-            }
+            echo $result || $intercept ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -83,11 +79,7 @@ class User extends Controller
             date_default_timezone_set('PRC');
             $created_at = date('Y-m-d H:i:s', time());
             $result = $this->user->checkRegister($username, $password, $created_at);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -109,7 +101,7 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $status = $this->user->checkStatus($username);
-            if(!$status){
+            if (!$status) {
                 echo '-1';
                 exit();
             }
@@ -274,14 +266,8 @@ class User extends Controller
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $introduction = trim($_POST['introduction']);
-            if (isset($username) && isset($password) && isset($introduction)) {
-                $result = $this->user->checkChange($username, $password, $introduction);
-            }
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            $result = $this->user->checkChange($username, $password, $introduction);
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -385,15 +371,10 @@ class User extends Controller
     // 拉黑用户
     public function defriendUser()
     {
-        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->defriendUser($user_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -402,15 +383,10 @@ class User extends Controller
     // 恢复用户的状态为正常
     public function normalUser()
     {
-        // 获取前端ajax传来的user_id
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->normalUser($user_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

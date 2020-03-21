@@ -26,11 +26,7 @@ class Comment extends Controller
             date_default_timezone_set('PRC');
             $comment_at = date('Y-m-d H:i:s', time());
             $result = $this->comment->addComment($article_id, $author, $title,  $content, $username, $comment_at);
-            if ($result) {
-                echo $result;
-            } else {
-                echo '0';
-            }
+            echo $result ? $result : '0';
         } else {
             $this->displayNone();
         }
@@ -43,11 +39,7 @@ class Comment extends Controller
             $comment_id = $_POST['comment_id'];
             $article_id = $_POST['article_id'];
             $result = $this->comment->delComment($article_id, $comment_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

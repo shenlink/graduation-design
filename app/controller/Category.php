@@ -20,11 +20,7 @@ class Category extends Controller
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->defriendCategory($categorys);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -36,11 +32,7 @@ class Category extends Controller
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->normalCategory($categorys);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -52,11 +44,7 @@ class Category extends Controller
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->delCategory($categorys);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
@@ -84,11 +72,7 @@ class Category extends Controller
         if (isset($_POST['categoryName'])) {
             $categoryName = $_POST['categoryName'];
             $result = $this->category->addCategory($categoryName);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }

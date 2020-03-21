@@ -18,11 +18,7 @@ class Receive extends Controller
         if (isset($_POST['receive_id'])) {
             $receive_id = $_POST['receive_id'];
             $result = $this->receive->delReceive($receive_id);
-            if ($result) {
-                echo '1';
-            } else {
-                echo '0';
-            }
+            echo $result ? '1' : '0';
         } else {
             $this->displayNone();
         }
