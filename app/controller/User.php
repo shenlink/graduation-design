@@ -56,7 +56,7 @@ class User extends Controller
 
     public function getIntercept($username)
     {
-        $pattern = '/displayNone|search|checkUsername|getIntercept|register|login|logout|checkRegister|checkLogin|write|checkWrite|change|checkChange|manage|editArticle|checkEdit|__call/i';
+        $pattern = '/displayNone|guest|search|checkUsername|getIntercept|register|login|logout|checkRegister|checkLogin|write|checkWrite|change|checkChange|manage|editArticle|checkEdit|__call/i';
         $intercept = preg_match($pattern, $username);
         return $intercept;
     }

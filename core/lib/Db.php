@@ -3,6 +3,7 @@
 namespace core\lib;
 
 use core\lib\Config;
+use core\lib\Log;
 
 /*
  * @Descripttion:数据库操作类
@@ -17,7 +18,7 @@ class Db
     private $where;
     private $pdo = null;
 
-    // 单例模式
+    // 单例模式,禁止实例化
     private function __construct()
     {
     }
@@ -51,9 +52,50 @@ class Db
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
         } catch (\PDOException $e) {
-            return $e->getMessage();
+            Log::init();
+            session_start();
+            if (isset($_SESSION)) {
+                $username = $_SESSION['username'];
+                Log::log("用户{$username}:" . '数据库连接发生错误:' . $e->getMessage());
+            } else {
+                Log::log('数据库连接发生错误:' . $e->getMessage());
+            }
         }
         return $this->pdo;
+    }
+
+    public function fetchSql($statement)
+    {
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $count = count($wheres);
+            for ($i = 0; $i < $count; $i++) {
+                $statement = preg_replace('/[?]/', $wheres[$i], $statement, 1);
+            }
+        }
+        return $statement;
+    }
+
+    // 针对insert和update语句
+    public function getSql($statement, $condition)
+    {
+        $count = count($condition);
+        for ($i = 0; $i < $count; $i++) {
+            $statement = preg_replace('/[?]/', $condition[$i], $statement, 1);
+        }
+        return $statement;
+    }
+
+    public function writeLog($realSql)
+    {
+        Log::init();
+        session_start();
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql操作:' . $realSql);
+        } else {
+            Log::log('执行sql操作:' . $realSql);
+        }
     }
 
     public function table($table)
@@ -63,7 +105,6 @@ class Db
         return $this;
     }
 
-    // 注意，传入多个字段时，应这样：'username,user_id';
     public function field($field)
     {
         $this->field = $field;
@@ -76,9 +117,23 @@ class Db
         return $this;
     }
 
+    public function limit($limit = 1)
+    {
+        $this->limit = $limit;
+        return $this;
+    }
+
+    public function order($order)
+    {
+        $this->order = $order;
+        return $this;
+    }
+
     public function select()
     {
         $sql = $this->fixsql('select') . ' limit 1';
+        $realSql = $this->fetchSql($sql);
+        $this->writeLog($realSql);
         if (is_array($this->where)) {
             $wheres = $this->fixPrepareWhere($this->where);
             $stmt = $this->pdo->prepare($sql);
@@ -94,15 +149,12 @@ class Db
     public function selectAll()
     {
         $sql = $this->fixSql('select');
-        if ($this->where) {
-            if (is_array($this->where)) {
-                $wheres = $this->fixPrepareWhere($this->where);
-                $stmt = $this->pdo->prepare($sql);
-                $stmt->execute($wheres);
-            } else {
-                $stmt = $this->pdo->prepare($sql);
-                $stmt->execute();
-            }
+        $realSql = $this->fetchSql($sql);
+        $this->writeLog($realSql);
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($wheres);
         } else {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
@@ -111,10 +163,70 @@ class Db
         return $result;
     }
 
+    public function insert($data)
+    {
+        $sql = $this->fixSql('insert', $data);
+        $values = $this->fixPrepareValue($data);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($values);
+        $realSql = $this->getSql($sql, $values);
+        $this->writeLog($realSql);
+        $result = $this->pdo->lastInsertId();
+        return $result;
+    }
+
+    public function update($data)
+    {
+        $sql = $this->fixSql('update', $data);
+        $values = $this->fixPrepareValue($data);
+        $wheres = $this->fixPrepareWhere($this->where);
+        $allParams = array_merge($values, $wheres);
+        if (is_array($data) && is_array($this->where)) {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($allParams);
+            $realSql = $this->getSql($sql, $allParams);
+            $this->writeLog($realSql);
+        } else if (is_array($data) && !is_array($this->where)) {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($values);
+            $realSql = $this->getSql($sql, $values);
+            $this->writeLog($realSql);
+        } else if (!is_array($data) && is_array($this->where)) {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($wheres);
+            $realSql = $this->getSql($sql, $wheres);
+            $this->writeLog($realSql);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute();
+            $realSql = $this->fetchSql($sql);
+            $this->writeLog($realSql);
+        }
+        return $result;
+    }
+
+    public function delete()
+    {
+        $sql = $this->fixSql('delete');
+        $realSql = $this->fetchSql($sql);
+        $this->writeLog($realSql);
+        if (is_array($this->where)) {
+            $wheres = $this->fixPrepareWhere($this->where);
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute($wheres);
+        } else {
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute();
+        }
+        return $result;
+    }
+
     // 查询数据总数
     public function count()
     {
         $sql = $this->fixSql('count');
+        $realSql = $this->fetchSql($sql);
+        $this->writeLog($realSql);
         if (is_array($this->where)) {
             $wheres = $this->fixPrepareWhere($this->where);
             $stmt = $this->pdo->prepare($sql);
@@ -178,63 +290,6 @@ class Db
         return $pageHtml;
     }
 
-    public function insert($data)
-    {
-        $sql = $this->fixSql('insert', $data);
-        if (is_array($data)) {
-            $values = $this->fixPrepareValue($data);
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($values);
-        } else {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
-        }
-        $result = $this->pdo->lastInsertId();
-        return $result;
-    }
-
-    public function update($data)
-    {
-        $sql = $this->fixSql('update', $data);
-        if (is_array($data) && is_array($this->where)) {
-            $values = $this->fixPrepareValue($data);
-            $wheres = $this->fixPrepareWhere($this->where);
-            $allParams = array_merge($values, $wheres);
-            $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute($allParams);
-        } else {
-            $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute();
-        }
-        return $result;
-    }
-
-    public function delete()
-    {
-        $sql = $this->fixSql('delete');
-        if (is_array($this->where)) {
-            $wheres = $this->fixPrepareWhere($this->where);
-            $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute($wheres);
-        } else {
-            $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute();
-        }
-        return $result;
-    }
-
-    public function limit($limit = 1)
-    {
-        $this->limit = $limit;
-        return $this;
-    }
-
-    public function order($order)
-    {
-        $this->order = $order;
-        return $this;
-    }
-
     public function fixSql($type, $data = null)
     {
         $sql = '';
@@ -249,7 +304,6 @@ class Db
             }
             return $sql;
         }
-
         if ($type == 'count') {
             $where = $this->fixWhere();
             $fieldList = explode(',', $this->field);
@@ -257,7 +311,6 @@ class Db
             $sql = "select count({$field}) from {$this->table} {$where}";
             return $sql;
         }
-
         if ($type === 'insert') {
             $sql = "insert into {$this->table}";
             $fields = array();
@@ -284,7 +337,6 @@ class Db
             $sql = "update {$this->table} {$str} {$where}";
             return $sql;
         }
-
         if ($type === 'delete') {
             $sql = "delete from {$this->table} {$where}";
             return $sql;

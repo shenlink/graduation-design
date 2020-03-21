@@ -76,7 +76,7 @@ class Article extends Model
         $pdo = $this->init();
         try {
             $pdo->beginTransaction();
-            $articleSql = "delete from articles where article_id=?";
+            $articleSql = "delete from article where article_id=?";
             $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $article_id);
             $stmt->execute();
