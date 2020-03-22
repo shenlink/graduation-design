@@ -6,9 +6,8 @@ use core\lib\Config;
 
 
 // 日志文件存储方式
-class file
+class File
 {
-
     public $path;
     public function __construct()
     {

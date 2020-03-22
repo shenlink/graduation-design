@@ -5,10 +5,8 @@ namespace core\lib;
 use core\lib\Config;
 use core\lib\Log;
 
-/*
- * @Descripttion:数据库操作类
- */
 
+// 数据库操作类
 class Db
 {
     private static $db;
@@ -48,6 +46,7 @@ class Db
         $charset = $config['charset'];
         $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
         try {
+            // 初步怀疑是未连接就打印日志了
             $this->pdo = new \PDO($dsn, $username, $password);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
@@ -56,9 +55,9 @@ class Db
             session_start();
             if (isset($_SESSION)) {
                 $username = $_SESSION['username'];
-                Log::log("用户{$username}:" . '数据库连接发生错误:' . $e->getMessage());
+                Log::log("用户{$username}:" . '数据库连接发生错误:' . $e->getMessage(),'sql');
             } else {
-                Log::log('数据库连接发生错误:' . $e->getMessage());
+                Log::log('数据库连接发生错误:' . $e->getMessage().'sql');
             }
         }
         return $this->pdo;

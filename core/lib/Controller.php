@@ -68,17 +68,17 @@ class Controller
             session_start();
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
-                Log::log("用户{$username}:" . 'controller:' . $controllerClass . ' action:' . $action);
+                Log::log("用户{$username}:" . 'controller:' . $controllerClass . ' action:' . $action . "\r\n");
             } else {
-                Log::log('controller:' . $controllerClass . ' action:' . $action);
+                Log::log('controller:' . $controllerClass . ' action:' . $action . "\r\n");
             }
         } else {
             session_start();
             if (isset($_SESSION['username'])) {
                 $username = $_SESSION['username'];
-                Log::log("用户{$username}:" . '找不到控制器' . $controllerClass);
+                Log::log("用户{$username}:" . '找不到控制器' . $controllerClass . "\r\n");
             } else {
-                Log::log('找不到控制器' . $controllerClass);
+                Log::log('找不到控制器' . $controllerClass . "\r\n");
             }
             $view = Factory::createView();
             $view->assign('error', 'error');

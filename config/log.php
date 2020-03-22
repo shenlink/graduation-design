@@ -1,6 +1,6 @@
 <?php
 return array(
-    'DRIVER' => 'file',
+    'DRIVER' => 'File',
     'OPTION' => array(
     'PATH' => SHEN . '/runtime/log/'
     )
