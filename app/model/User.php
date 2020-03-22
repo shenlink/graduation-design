@@ -27,7 +27,7 @@ class User extends Model
     // 验证用户名是否被注册
     public function checkUsername($username)
     {
-        return $this->table('user')->where(['username' => "{$username}"])->select();
+        return $this->table('user')->field('username')->where(['username' => "{$username}"])->select();
     }
 
     // 处理注册操作
@@ -46,12 +46,6 @@ class User extends Model
     public function checkLogin($username, $password)
     {
         return $this->table('user')->where(['username' => "{$username}", 'password' => "{$password}"])->select();
-    }
-
-    // 获取单个用户的所有信息
-    public function getUsername($username)
-    {
-        return $this->table('user')->field('username')->where(['username' => "{$username}"])->select();
     }
 
     // 获取个人页面的用户信息

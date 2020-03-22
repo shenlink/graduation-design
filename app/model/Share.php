@@ -18,7 +18,6 @@ class Share extends Model
         }
     }
 
-
     // 处理确认分享操作,这应该只传入一个id就可以了
     public function checkShare( $article_id,$username)
     {

@@ -169,7 +169,7 @@ class User extends Controller
                 if ($_POST['praisePages']) {
                     $data = $this->praise->getPraise($username, $_POST['praisePages'], 5);
                 } else {
-                    $data = $this->praise->getPraise(1, 5);
+                    $data = $this->praise->getPraise($username, 1, 5);
                 }
                 $praises = $data['items'];
                 $praisePage = $data['pageHtml'];
@@ -412,41 +412,62 @@ class User extends Controller
     public function __call($method, $args)
     {
         $author = $method;
-        $realUsername = $this->user->getUsername($author);
+        $realUsername = $this->user->checkUsername($author);
         if (!$realUsername) {
             $this->view->assign('error', 'error');
             $this->view->display('error.html');
             exit();
         }
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
+        if(isset($_SESSION['username'])){
             $username = $_SESSION['username'];
-            if (isset($_POST['pagination'])) {
-                $data = $this->article->getUserArticle($username, $_POST['pagination'], 5);
+        }
+        if (isset($_POST['type'])) {
+            if ($_POST['articlePages']) {
+                $data = $this->article->getUserArticle($author, $_POST['articlePages'], 5);
             } else {
-                $data = $this->article->getUserArticle($username);
+                $data = $this->article->getUserArticle($author, 1, 5);
             }
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
-            $categorys = $this->category->getCategory();
-            $users = $this->user->personal($author);
-            $follows = $this->follow->checkFollow($author, $username);
-            $praise_count = $this->praise->getPraiseCount($username);
-            $comment_count = $this->comment->getCommentCount($username);
-            $recents = $this->article->getRecentArticle($author);
-            $this->view->assign('username', $username);
-            $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
-            $this->view->assign('follows', $follows);
-            $this->view->assign('praise_count', $praise_count);
-            $this->view->assign('comment_count', $comment_count);
-            $this->view->assign('recents', $recents);
-            $this->view->assign('users', $users);
-            $this->view->display('user.html');
+
+            if ($_POST['sharePages']) {
+                $data = $this->share->getShare($author, $_POST['sharePages'], 5);
+            } else {
+                $data = $this->share->getShare($author, 1, 5);
+            }
+            $shares = $data['items'];
+            $sharePage = $data['pageHtml'];
+            $this->view->assign('sharePage', $sharePage);
+            $type = $_POST['type'];
         } else {
-            $this->view->assign('nologin', 'nologin');
-            $this->view->display('error.html');
+            $data = $this->article->getUserArticle($author);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $this->view->assign('articlePage', $articlePage);
+
+            $data = $this->share->getShare($author);
+            $shares = $data['items'];
+            $sharePage = $data['pageHtml'];
+            $this->view->assign('sharePage', $sharePage);
+            $type = 'article';
         }
+        $categorys = $this->category->getCategory();
+        $users = $this->user->personal($author);
+        $follows = $this->follow->checkFollow($author, $username);
+        $praise_count = $this->praise->getPraiseCount($username);
+        $comment_count = $this->comment->getCommentCount($username);
+        $recents = $this->article->getRecentArticle($author);
+        $this->view->assign('username', $username);
+        $this->view->assign('articles', $articles);
+        $this->view->assign('categorys', $categorys);
+        $this->view->assign('follows', $follows);
+        $this->view->assign('praise_count', $praise_count);
+        $this->view->assign('comment_count', $comment_count);
+        $this->view->assign('recents', $recents);
+        $this->view->assign('shares', $shares);
+        $this->view->assign('type', $type);
+        $this->view->assign('users', $users);
+        $this->view->display('user.html');
     }
 }

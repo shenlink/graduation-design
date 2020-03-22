@@ -109,10 +109,16 @@
         <div class="col-md-12">
             <nav class="row">
                 <div class="col-md-9">
-                    <!-- 不加这container时,需要在最新博文前面加两个空格 -->
                     <div class="container">
                         <div class="navbar-header">
-                            <h4>文章</h4>
+                            <ul class="manage-ul">
+                                <li class="h4 manage-list">
+                                    文章&nbsp;&nbsp;
+                                </li>
+                                <li class="h4 manage-list">
+                                    分享&nbsp;&nbsp;
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -139,7 +145,8 @@
                 <div class="col-md-8">
 
                     <!-- 文章列表开始 -->
-                    <table class="table table-striped table-bordered ">
+                    <div class="manage-item" {{if $type == 'article'}} style="display: block;" {{/if}}>
+                    <table class="table table-striped table-bordered">
                         {{foreach from=$articles item=articlesItem}}
                         <tr>
                             <td>
@@ -169,6 +176,29 @@
                     <!--分页开始-->
                     {{$articlePage}}
                     <!-- 分页结束 -->
+                    </div>
+
+                    <div class="manage-item" {{if $type == 'share'}} style="display: block;" {{/if}}>
+                        <table class="table table-striped table-bordered ">
+                            {{foreach from=$shares item=sharesItem}}
+                            <tr>
+                                <td>
+                                    <a href="/article/{{$sharesItem.article_id}}">
+                                        {{$sharesItem.title|truncate_cn:"10":"..."}}
+                                    </a>
+                                    <span class="offset-md-2">作者:{{$sharesItem.author}}</span>
+                                    <span class="offset-md-2">分享时间:{{$sharesItem.share_at}}</span>
+                                    <span class="offset-md-1 delShare" onclick="delShare(this)"
+                                        data-article-id={{$sharesItem.article_id}}
+                                        data-share-id={{$sharesItem.share_id}}>
+                                        删除
+                                    </span>
+                                </td>
+                            </tr>
+                            {{/foreach}}
+                        </table>
+                        {{$sharePage}}
+                    </div>
                 </div>
 
                 <!-- 文章列表结束 -->
