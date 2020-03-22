@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = $('#type').val();
+    let searchContent = $('#searchContent').val;
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -35,7 +35,7 @@ function createInput(name, value) {
 
 
 // 左边的导航栏切换
-let lis = document.querySelector('.list-group').querySelectorAll('.list-group-item');
+let lis = $('.list-group-item');
 let items = document.querySelectorAll('.manage-item');
 // for循环在页面加载完成之后就已经执行完了，这时候lis的index索引已经赋值完成,然后执行lis[i].click事件注册，待点击之后就触发
 for (let i = 0; i < lis.length; i++) {
@@ -388,7 +388,7 @@ function addAnnouncement() {
 
 // 发私信
 function addMessage() {
-    let message = document.querySelector('#message');
+    let message = $('#message');
     let author = message.getAttribute('data-author');
     let form = document.createElement("form");
     document.body.appendChild(form);

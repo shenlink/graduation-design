@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = $('#type').val();
+    let searchContent = $('#searchContent').val();
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -36,13 +36,13 @@ function createInput(name, value) {
 
 // 点赞
 $('#praise').on('click', function () {
-    let praise = document.querySelector('#praise');
-    let username = praise.getAttribute('data-praise');
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
-    let author = document.querySelector('#author').innerText;
-    let title = document.querySelector('#title').innerText;
-    let praise_count = parseInt(praise.innerText.replace(/[^0-9]/ig, ""));
+    let praise = $('#praise');
+    let username = praise.data('praise');
+    let article = $('#article');
+    let article_id = article.data('article-id');
+    let author = $('#author').text();
+    let title = $('#title').text();
+    let praise_count = parseInt(praise.text().replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -59,7 +59,7 @@ $('#praise').on('click', function () {
             layer.msg('点赞成功', {
                 time: 1000
             }, function () {
-                praise.innerHTML = `已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                praise.html(`已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         } else if (data === '11') {
             layer.msg('点赞失败', {
@@ -73,7 +73,7 @@ $('#praise').on('click', function () {
             layer.msg('取消点赞', {
                 time: 1000
             }, function () {
-                praise.innerHTML = `点赞(${praise_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                praise.html(`点赞(${praise_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         }
     });
@@ -82,13 +82,13 @@ $('#praise').on('click', function () {
 
 // 收藏
 $('#collect').on('click', function () {
-    let collect = document.querySelector('#collect');
-    let username = collect.getAttribute('data-collect');
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
-    let author = document.querySelector('#author').innerText;
-    let title = document.querySelector('#title').innerText;
-    let collect_count = parseInt(collect.innerText.replace(/[^0-9]/ig, ""));
+    let collect = $('#collect');
+    let username = collect.data('collect');
+    let article = $('#article');
+    let article_id = article.data('article-id');
+    let author = $('#author').text();
+    let title = $('#title').text();
+    let collect_count = parseInt(collect.text().replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -105,7 +105,7 @@ $('#collect').on('click', function () {
             layer.msg('收藏成功', {
                 time: 1000
             }, function () {
-                collect.innerHTML = `已收藏(${collect_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                collect.html(`已收藏(${collect_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         } else if (data === '11') {
             layer.msg('收藏失败', {
@@ -119,7 +119,7 @@ $('#collect').on('click', function () {
             layer.msg('取消收藏', {
                 time: 1000
             }, function () {
-                collect.innerHTML = `收藏(${collect_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                collect.html(`收藏(${collect_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         }
     });
@@ -128,13 +128,13 @@ $('#collect').on('click', function () {
 
 // 分享
 $('#share').on('click', function () {
-    let share = document.querySelector('#share');
-    let username = share.getAttribute('data-share');
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
-    let title = document.querySelector('#title').innerText;
-    let author = document.querySelector('#author').innerText;
-    let share_count = parseInt(share.innerText.replace(/[^0-9]/ig, ""));
+    let share = $('#share');
+    let username = share.data('share');
+    let article = $('#article');
+    let article_id = article.data('article-id');
+    let title = $('#title').text();
+    let author = $('#author').text();
+    let share_count = parseInt(share.text().replace(/[^0-9]/ig, ""));
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -151,7 +151,7 @@ $('#share').on('click', function () {
             layer.msg('分享成功', {
                 time: 1000
             }, function () {
-                share.innerHTML = `已分享(${share_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                share.html(`已分享(${share_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         } else if (data === '11') {
             layer.msg('分享失败', {
@@ -165,7 +165,7 @@ $('#share').on('click', function () {
             layer.msg('分享失败', {
                 time: 1000
             }, function () {
-                share.innerHTML = `分享(${share_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`;
+                share.html(`分享(${share_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
             });
         }
     });
@@ -239,15 +239,15 @@ $('#comment').on('click', function () {
     let html = editor.txt.html();
     let content = filterXSS(html);
     let content_text = editor.txt.text();
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
-    let author = document.querySelector('#author').getAttribute('data-author');
-    let title = document.querySelector('#title').innerText;
-    let comment = document.querySelector('#comment');
-    let username = comment.getAttribute('data-comment');
-    let commentContent = document.querySelector('#comment-content');
-    let count = document.querySelector('#comment-count');
-    let comment_count = parseInt(count.innerText.replace(/[^0-9]/ig, ""));
+    let article = $('#article');
+    let article_id = article.data('article-id');
+    let author = $('#author').data('author');
+    let title = $('#title').text();
+    let comment = $('#comment');
+    let username = comment.data('comment');
+    let commentContent = $('#comment-content');
+    let count = $('#comment-count');
+    let comment_count = parseInt(count.text().replace(/[^0-9]/ig, ""));
     let comment_at = createTime();
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -274,8 +274,8 @@ $('#comment').on('click', function () {
             }, function () {
                 comment_id = data;
                 let div = createComment(username, comment_at, comment_id, content);
-                commentContent.insertBefore(div, commentContent.children[0]);
-                count.innerHTML = `评论数：${comment_count + 1}`;
+                commentContent.prepend(div);
+                count.html(`评论数：${comment_count + 1}`);
                 editor.txt.html('');
             });
         } else {
@@ -294,10 +294,10 @@ function delComment(commentId) {
     }
     let temp = commentId;
     let comment_id = temp.getAttribute('data-comment-id');
-    let article = document.querySelector('#article');
-    let article_id = article.getAttribute('data-article-id');
-    let count = document.querySelector('#comment-count');
-    let comment_count = parseInt(count.innerText.replace(/[^0-9]/ig, ""));
+    let article = $('#article');
+    let article_id = article.data('article-id');
+    let count = $('#comment-count');
+    let comment_count = parseInt(count.text().replace(/[^0-9]/ig, ""));
     let commentContent = document.querySelector('#comment-content');
     $.post("/comment/delComment", {
         article_id: article_id,
@@ -309,7 +309,7 @@ function delComment(commentId) {
             }, function () {
                 let card = temp.parentNode.parentNode.parentNode.parentNode;
                 commentContent.removeChild(card);
-                count.innerHTML = `评论数：${comment_count-1}`;
+                count.html(`评论数：${comment_count-1}`);
             });
         } else {
             layer.msg('删除失败', {
@@ -322,9 +322,9 @@ function delComment(commentId) {
 
 // 关注或取消关注
 $('#follow').on('click', function () {
-    let follow = document.querySelector('#follow');
-    let username = follow.getAttribute('data-username');
-    let author = follow.getAttribute('data-author');
+    let follow = $('#follow');
+    let username = follow.data('username');
+    let author = follow.data('author');
     if (username == '') {
         layer.msg('登录才能关注', {
             time: 2000
@@ -339,7 +339,7 @@ $('#follow').on('click', function () {
             layer.msg('关注成功', {
                 time: 1000
             }, function () {
-                follow.innerText = '已关注';
+                follow.text('已关注');
             });
         } else if (data === '11') {
             layer.msg('关注失败', {
@@ -353,7 +353,7 @@ $('#follow').on('click', function () {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
-                follow.innerText = '关注';
+                follow.text('关注');
             });
         }
     });
@@ -362,8 +362,8 @@ $('#follow').on('click', function () {
 
 // 发私信
 function addMessage() {
-    let message = document.querySelector('#message');
-    let author = message.getAttribute('data-author');
+    let message = $('#message');
+    let author = message.data('author');
     let form = document.createElement("form");
     document.body.appendChild(form);
     let input = createInput('author', author);

@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = document.$('#type').val();
+    let searchContent = document.$('#searchContent').val();
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {

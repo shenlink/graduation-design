@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = $('#type').val();
+    let searchContent = $('#searchContent').val();
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -36,7 +36,7 @@ function createInput(name, value) {
 
 // 添加分类
 $('#addCategory').on('click', function () {
-    let categoryName = document.querySelector('#categoryName').value;
+    let categoryName = $('#categoryName').val();
     $.post("/category/checkAddCategory", {
         categoryName: categoryName
     }, function (data) {
@@ -57,7 +57,7 @@ $('#addCategory').on('click', function () {
 
 // 添加公告
 $('#addAnnouncement').on('click', function () {
-    let content = document.querySelector('#content').value;
+    let content = $('#content').val();
     $.post("/announcement/checkAddAnnouncement", {
         content: content
     }, function (data) {
@@ -78,8 +78,8 @@ $('#addAnnouncement').on('click', function () {
 
 // 发私信
 $('#addMessage').on('click', function () {
-    let author = document.querySelector('#author').value;
-    let content = document.querySelector('#content').value;
+    let author = $('#author').val();
+    let content = $('#content').val();
     $.post("/message/checkAddMessage", {
         author: author,
         content: content

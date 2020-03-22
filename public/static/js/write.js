@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = $('#type').val();
+    let searchContent = $('#searchContent').val();
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -39,10 +39,10 @@ let E = window.wangEditor;
 let editor = new E('#content');
 editor.create();
 $('#publish').on('click', function () {
-    let title = document.querySelector('#title').value;
+    let title = $('#title').val();
     let html = editor.txt.html();
     let content = filterXSS(html);
-    let category = document.querySelector('#category').value;
+    let category = $('#category').val();
     let content_text = editor.txt.text();
     if (title.match(/^[ ]+$/) || title.length == 0) {
         layer.msg('标题不能为空', {

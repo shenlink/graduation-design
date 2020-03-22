@@ -1,7 +1,7 @@
 // 搜索
 $('#search').on('click', function () {
-    let type = document.querySelector('#type').value;
-    let searchContent = document.querySelector('#searchContent').value;
+    let type = $('#type').val();
+    let searchContent = $('#searchContent').val();
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -36,30 +36,24 @@ function createInput(name, value) {
 
 // 确认密码是否符合要求
 function checkPassword() {
-    // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
-    // 获取密码输入框元素
-    let password = document.querySelector('#password');
-    // 获取输入的密码的值
-    let passwordValue = password.value;
-    // 获取提示用户注意的信息的节点元素
-    let passwordTip = document.querySelector('#passwordTip');
-    // 密码输入框为空时
+    let password = $('#password');
+    let passwordValue = password.val();
+    let passwordTip = $('#passwordTip');
     if (passwordValue.length === 0) {
-        password.className = "form-control is-invalid"
-        passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
+        password.attr('class', "form-control is-invalid");
+        passwordTip.html(`<span style="color:red;">密码不能为空</span>`);
         return false;
     } else if (passwordValue.length < 6 || passwordValue.length > 16) {
-        // 密码位数不符合要求
-        passwordTip.innerHTML = `<span style="color:red;">密码位数不符合要求,要求6到16位</span>`;
+        passwordTip.htm(`<span style="color:red;">密码位数不符合要求,要求6到16位</span>`);
         return false;
     } else {
         // 正则表达式正向预查，匹配含数字，小写字母，大写字母和特殊字符的字符串
         let reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_]).{6,16}/;
         if (reg.test(passwordValue)) {
-            passwordTip.innerHTML = `<span style="color:green;">密码符合要求</span>`;
+            passwordTip.html(`<span style="color:green;">密码符合要求</span>`);
             return true;
         } else {
-            passwordTip.innerHTML = `<span style="color:red;">密码不符合要求</span>`;
+            passwordTip.html(`<span style="color:red;">密码不符合要求</span>`);
             return false;
         }
     }
@@ -68,107 +62,77 @@ function checkPassword() {
 
 // 确认密码
 function checkConPassword() {
-    // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
-    // 获取密码输入框元素
-    let password = document.querySelector('#password');
-    // 获取输入的密码的值
+    let password = $('#password');
     let passwordValue = password.value;
-    // 获取确认密码输入框元素
-    let confirmPassword = document.querySelector('#confirmPassword');
-    // 获取确认密码的值
-    let conPasswordValue = confirmPassword.value;
-    // 获取提示用户注意的信息的节点元素
-    let conPasswordTip = document.querySelector('#conPasswordTip');
-    // 确认密码输入框为空时
+    let confirmPassword = $('#confirmPassword');
+    let conPasswordValue = confirmPassword.val();
+    let conPasswordTip = $('#conPasswordTip');
     if (conPasswordValue.length === 0) {
-        confirmPassword.className = "form-control is-invalid"
-        conPasswordTip.innerHTML = `<span style="color:red;">确认密码不能为空</span>`;
+        confirmPassword.attr('class', "form-control is-invalid");
+        conPasswordTip.html(`<span style="color:red;">确认密码不能为空</span>`);
         return false;
     }
     if (passwordValue === conPasswordValue) {
-        conPasswordTip.innerHTML = `<span style="color:green;">两次密码一致</span>`;
+        conPasswordTip.html(`<span style="color:green;">两次密码一致</span>`);
         return true;
     } else {
-        conPasswordTip.innerHTML = `<span style="color:red;">两次密码不一致</span>`;
+        conPasswordTip.html(`<span style="color:red;">两次密码不一致</span>`);
         return false;
     }
 }
 
 
-// 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
-    // 获取密码输入框元素
-    let password = document.querySelector('#password');
-    // 获取提示用户注意的信息的节点元素
-    let passwordTip = document.querySelector('#passwordTip');
-    // 还原输入框的初始样式
-    password.className = "form-control"
-    passwordTip.innerHTML = `<img src="/static/image/mess.png" id="passwordImg">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
+    let password = $('#password');
+    let passwordTip = $('#passwordTip');
+    password.attr('class', "form-control");
+    passwordTip.html(`<img src="/static/image/mess.png" id="passwordImg">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`);
 }
 
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
-    // 获取确认密码输入框元素
-    let confirmPassword = document.querySelector('#confirmPassword');
-    // 获取提示用户注意的信息的节点元素
-    let conPasswordTip = document.querySelector('#conPasswordTip');
-    // 还原输入框的初始样式
-    confirmPassword.className = "form-control"
-    conPasswordTip.innerHTML = `<img src="/static/image/mess.png" id="conPasswordImg">
+    let confirmPassword = $('#confirmPassword');
+    let conPasswordTip = $('#conPasswordTip');
+    confirmPassword.attr('class', "form-control");
+    conPasswordTip.html(`<img src="/static/image/mess.png" id="conPasswordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    确认密码 `;
+    确认密码 `);
 }
 
 
 // 获取眼睛图案
-let passwordEye = document.querySelector('#passwordEye');
-// 这个变量的声明不能放在函数内，若放在函数内，那每次点击调用函数时，均会flag = false
+let passwordEye = $('#passwordEye');
 let flag = false;
 
 function clickEye() {
     if (flag == false) {
-        // 把密码输入的框变成文本输入框
         password.type = 'text';
-        // 切换成睁眼的图片
         passwordEye.src = '/static/image/open.png';
-        // 改变图片的alt值
         passwordEye.alt = '隐藏密码';
-        // flag置true,下次再点击就切换成闭眼的图片
         flag = true;
     } else {
-        // 把密码输入的框变成文本输入框
         password.type = 'password';
-        // 切换成睁眼的图片
         passwordEye.src = '/static/image/close.png';
-        // 改变图片的alt值
         passwordEye.alt = '显示密码';
-        // flag置false,下次再点击就切换成睁眼的图片
         flag = false;
     }
 }
 
 
 // 获取眼睛图案
-let conPasswordEye = document.querySelector('#conPasswordEye');
-// 这个变量的声明不能放在函数内
+let conPasswordEye = $('#conPasswordEye');
 let conFlag = false;
-// 这个变量的声明不能放在函数内，若放在函数内，那每次点击调用函数时，均会conFlag = false
+
 function clickConEye() {
     if (conFlag == false) {
-        // 把密码输入的框变成文本输入框
         confirmPassword.type = 'text';
-        // 切换成睁眼的图片
         conPasswordEye.src = '/static/image/open.png';
-        // conflag置true,下次再点击就切换成闭眼的图片
         conFlag = true;
     } else {
-        // 把密码输入的框变成文本输入框
         confirmPassword.type = 'password';
-        // 切换成睁眼的图片
         conPasswordEye.src = '/static/image/close.png';
-        // conflag置false,下次再点击就切换成睁眼的图片
         conFlag = false;
     }
 }
@@ -181,11 +145,9 @@ function check() {
 
 
 $('#change').on('click', function () {
-    // 获取用户名输入框的值
-    let username = document.querySelector('#username').value;
-    // 获取密码输入框的值
-    let password = document.querySelector('#password').value;
-    let introduction = document.querySelector('#introduction').value;
+    let username = $('#username').val();
+    let password = $('#password').val();
+    let introduction = $('#introduction').val();
     if (check()) {
         $.post("/user/checkChange", {
             username: username,
