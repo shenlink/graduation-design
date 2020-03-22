@@ -31,11 +31,13 @@ class Announcement extends Controller
     {
         if (isset($_POST['addAnnouncement'])) {
             $addAnnouncement = $_POST['addAnnouncement'];
+            $username = $_SESSION['username'];
             $categorys = $this->category->getCategory();
             $recommends = $this->article->recommend();
             $this->view->assign('addAnnouncement', $addAnnouncement);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('recommends', $recommends);
+            $this->view->assign('username', $username);
             $this->view->display('add.html');
         } else {
             $this->displayNone();

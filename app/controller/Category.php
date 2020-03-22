@@ -55,11 +55,13 @@ class Category extends Controller
     {
         if (isset($_POST['addCategory'])) {
             $addCategory = $_POST['addCategory'];
+            $username = $_SESSION['username'];
             $categorys = $this->category->getCategory();
             $recommends = $this->article->recommend();
             $this->view->assign('addCategory', $addCategory);
             $this->view->assign('categorys', $categorys);
             $this->view->assign('recommends', $recommends);
+            $this->view->assign('username', $username);
             $this->view->display('add.html');
         } else {
             $this->displayNone();

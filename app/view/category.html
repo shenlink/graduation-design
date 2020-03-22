@@ -1,4 +1,12 @@
 {extends file = 'layout.html'}
+{{block name=head}}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{$categoryName}}</title>
+<link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
+<link href="/static/css/self.css" type="text/css" rel="stylesheet">
+{{/block}}
 {{block name=header}}
 <!-- 页头说明开始 -->
 <div class="container-fluid">
