@@ -22,7 +22,7 @@ class Article extends Model
     public function search($content)
     {
         $content = '%' . $content . '%';
-        return $this->table('article')->field('title,content,updated_at,collect_count,comment_count')->where("content like \"{$content}\" or title like \"{$content}\"")->selectAll();
+        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where("content like \"{$content}\" or title like \"{$content}\"")->selectAll();
     }
 
     public function checkArticleId($article_id)

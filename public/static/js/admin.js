@@ -54,9 +54,9 @@ for (let i = 0; i < lis.length; i++) {
 }
 
 
-function createHtml(function1, function2, data, value) {
+function createHtml(function1, function2, data, value,action) {
     let html = `<button class="btn btn-primary btn-sm" onclick="${function1}(this)" data-${data}=${value}>
-        恢复
+        ${action}
     </button>
     <button class="btn btn-primary btn-sm" onclick="${function2}(this)" data-${data}=${value}>
         删除
@@ -82,7 +82,7 @@ function defriendUser(userId) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[8].innerText = '拉黑';
-                let html = createHtml('normalUser', 'delUser', 'user-id', user_id);
+                let html = createHtml('normalUser', 'delUser', 'user-id', user_id,'恢复');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {
@@ -107,7 +107,7 @@ function normalUser(userId) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[8].innerText = '正常';
-                let html = createHtml('defriendUser', 'delUser', 'user-id', user_id);
+                let html = createHtml('defriendUser', 'delUser', 'user-id', user_id,'拉黑');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {

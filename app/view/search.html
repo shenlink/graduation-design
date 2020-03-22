@@ -43,8 +43,9 @@
                         {{foreach from=$users item=usersItem}}
                         <tr>
                             <td>
-                                用户名：<a href="">{{$usersItem.username
-                                        }}</a>
+                                用户名：<a href="/user/{{$usersItem.username}}">
+                                    {{$usersItem.username}}
+                                </a>
                             </td>
                         </tr>
                         <tr>
@@ -76,7 +77,8 @@
                         {{foreach from=$articles item=articlesItem}}
                         <tr>
                             <td>
-                                <a href="">{{$articlesItem.title|truncate_cn:"30":"..."}}</a>
+                                <a
+                                    href="/article/{{$articlesItem.article_id}}">{{$articlesItem.title|truncate_cn:"30":"..."}}</a>
                             </td>
                         </tr>
                         <tr>
