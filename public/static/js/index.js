@@ -51,7 +51,7 @@ function changePage(page) {
     }
     let form = document.createElement("form");
     document.body.appendChild(form);
-    let input = createInput('pageNumber', pagination);
+    let input = createInput('articlePages', pagination);
     form.appendChild(input);
     form.method = 'post';
     form.action = '/';

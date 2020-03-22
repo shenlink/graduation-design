@@ -44,7 +44,7 @@ function checkPassword() {
         passwordTip.html(`<span style="color:red;">密码不能为空</span>`);
         return false;
     } else if (passwordValue.length < 6 || passwordValue.length > 16) {
-        passwordTip.htm(`<span style="color:red;">密码位数不符合要求,要求6到16位</span>`);
+        passwordTip.html(`<span style="color:red;">密码位数不符合要求,要求6到16位</span>`);
         return false;
     } else {
         // 正则表达式正向预查，匹配含数字，小写字母，大写字母和特殊字符的字符串

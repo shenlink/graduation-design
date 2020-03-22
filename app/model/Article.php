@@ -106,6 +106,11 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
+    public function getIndexArticle($currentPage = 1, $pageSize = 5)
+    {
+        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
+    }
+
     public function getAllArticle($currentPage = 1, $pageSize = 5)
     {
         return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->order('updated_at desc')->pages($currentPage, $pageSize, 'article');

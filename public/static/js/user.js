@@ -53,6 +53,7 @@ for (let i = 0; i < lis.length; i++) {
 }
 
 
+// 删除分享
 function delShare(shareId) {
     if (!confirm('确认删除吗？')) {
         return;
@@ -84,8 +85,8 @@ function delShare(shareId) {
 // 关注或取消关注
 $('#follow').on('click', function () {
     let follow = $('#follow');
-    let username = follow.getAttribute('data-username');
-    let author = follow.getAttribute('data-author');
+    let username = follow.data('username');
+    let author = follow.data('author');
     if (username == '') {
         layer.msg('登录才能关注', {
             time: 2000
@@ -100,7 +101,7 @@ $('#follow').on('click', function () {
             layer.msg('关注成功', {
                 time: 1000
             }, function () {
-                follow.innerText = '已关注';
+                follow.text('已关注');
             });
         } else if (data === '11') {
             layer.msg('关注失败', {
@@ -114,7 +115,7 @@ $('#follow').on('click', function () {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
-                follow.innerText = '关注';
+                follow.text('关注');
             });
         }
     });
@@ -124,7 +125,7 @@ $('#follow').on('click', function () {
 // 发私信
 function addMessage() {
     let message = $('#message');
-    let author = message.getAttribute('data-author');
+    let author = message.data('author');
     let form = document.createElement("form");
     document.body.appendChild(form);
     let input = createInput('author', author);
@@ -139,7 +140,7 @@ function addMessage() {
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let author = $('#author').getAttribute('data-author');
+    let author = $('#author').data('author');
     let type = temp.getAttribute('data-type');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {

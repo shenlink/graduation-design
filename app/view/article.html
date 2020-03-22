@@ -156,7 +156,7 @@
                                         {{$users.article_count}}
                                     </dd>
                                 </dl>
-                                <dl>
+                                <dl class="text-center">
                                     <dt>
                                         粉丝
                                     </dt>
@@ -164,24 +164,23 @@
                                         {{$users.fans_count}}
                                     </dd>
                                 </dl>
-                                <dl>
+                                <dl class="text-center">
                                     <dt>
                                         获赞
                                     </dt>
-                                    <dd>
+                                    <dd id="praise-all">
                                         {{$praise_count}}
                                     </dd>
                                 </dl>
-                                <dl>
+                                <dl class="text-center">
                                     <dt>
                                         评论
                                     </dt>
-                                    <dd>
+                                    <dd id="comment-all">
                                         {{$comment_count}}
                                     </dd>
                                 </dl>
                             </div>
-                            <!-- 两个参数，一个是关注者，一个是作者 -->
                             {{if $users.username !== $username}}
                             <button type="button" class="btn btn-info card-link" id="follow" data-username={{$username}}
                                 data-author={{$users.username}}>

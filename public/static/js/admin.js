@@ -163,7 +163,7 @@ function defriendArticle(articleId) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[3].innerText = '拉黑';
-                let html = createHtml('normalArticle', 'delArticle', 'article-id', article_id);
+                let html = createHtml('normalArticle', 'delArticle', 'article-id', article_id,'恢复');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {
@@ -188,7 +188,7 @@ function normalArticle(articleId) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[3].innerText = '正常';
-                let html = createHtml('defriendArticle', 'delArticle', 'article-id', article_id);
+                let html = createHtml('defriendArticle', 'delArticle', 'article-id', article_id,'拉黑');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {
@@ -242,7 +242,7 @@ function defriendCategory(categoryName) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[2].innerText = '拉黑';
-                let html = createHtml('normalCategory', 'delCategory', 'category', category);
+                let html = createHtml('normalCategory', 'delCategory', 'category', category,'恢复');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {
@@ -267,7 +267,7 @@ function normalCategory(categoryName) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 tr.children[2].innerText = '正常';
-                let html = createHtml('defriendCategory', 'delCategory', 'category', category);
+                let html = createHtml('defriendCategory', 'delCategory', 'category', category,'拉黑');
                 tr.lastElementChild.innerHTML = html;
             });
         } else {

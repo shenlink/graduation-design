@@ -43,6 +43,8 @@ $('#praise').on('click', function () {
     let author = $('#author').text();
     let title = $('#title').text();
     let praise_count = parseInt(praise.text().replace(/[^0-9]/ig, ""));
+    let praise_author = $('#praise-all');
+    let praise_all = parseInt(praise_author.text());
     if (username == '') {
         layer.msg('请先登录', {
             time: 1000
@@ -59,7 +61,8 @@ $('#praise').on('click', function () {
             layer.msg('点赞成功', {
                 time: 1000
             }, function () {
-                praise.html(`已点赞(${praise_count+1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+                praise.html(`已点赞(${praise_count + 1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+                praise_author.html(praise_all + 1);
             });
         } else if (data === '11') {
             layer.msg('点赞失败', {
@@ -73,7 +76,8 @@ $('#praise').on('click', function () {
             layer.msg('取消点赞', {
                 time: 1000
             }, function () {
-                praise.html(`点赞(${praise_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+                praise.html(`点赞(${praise_count - 1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+                praise_author.html(praise_all - 1);
             });
         }
     });
@@ -248,6 +252,8 @@ $('#comment').on('click', function () {
     let commentContent = $('#comment-content');
     let count = $('#comment-count');
     let comment_count = parseInt(count.text().replace(/[^0-9]/ig, ""));
+    let comment_author = $('#comment-all');
+    let comment_all = parseInt(comment_author.text());
     let comment_at = createTime();
     if (username == '') {
         layer.msg('登录才能评论', {
@@ -276,6 +282,7 @@ $('#comment').on('click', function () {
                 let div = createComment(username, comment_at, comment_id, content);
                 commentContent.prepend(div);
                 count.html(`评论数：${comment_count + 1}`);
+                comment_author.html(comment_all + 1);
                 editor.txt.html('');
             });
         } else {
@@ -299,6 +306,8 @@ function delComment(commentId) {
     let count = $('#comment-count');
     let comment_count = parseInt(count.text().replace(/[^0-9]/ig, ""));
     let commentContent = document.querySelector('#comment-content');
+    let comment_author = $('#comment-all');
+    let comment_all = parseInt(comment_author.text());
     $.post("/comment/delComment", {
         article_id: article_id,
         comment_id: comment_id
@@ -309,7 +318,8 @@ function delComment(commentId) {
             }, function () {
                 let card = temp.parentNode.parentNode.parentNode.parentNode;
                 commentContent.removeChild(card);
-                count.html(`评论数：${comment_count-1}`);
+                count.html(`评论数：${comment_count - 1}`);
+                comment_author.html(comment_all - 1);
             });
         } else {
             layer.msg('删除失败', {

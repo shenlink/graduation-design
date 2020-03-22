@@ -15,16 +15,10 @@ class Index extends Controller
         }
         $announcements = $this->announcement->getAnnouncement();
         $categorys = $this->category->getCategory();
-        if (isset($_POST['pageNumber'])) {
-            $pageNumber = $_POST['pageNumber'];
-            $data = $this->article->getAllArticle($pageNumber, 5);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-        } else {
-            $data = $this->article->getAllArticle();
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-        }
+        $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
+        $data = $this->article->getIndexArticle($articlePages, 5);
+        $articles = $data['items'];
+        $articlePage = $data['pageHtml'];
         $recommends = $this->article->recommend();
         $this->view->assign('username', $username);
         $this->view->assign('announcements', $announcements);

@@ -19,99 +19,42 @@ class Admin extends Controller
         $access = Validate::checkAccess();
         if ($access == '1') {
             $username = $_SESSION['username'];
-            if (isset($_POST['type'])) {
-                if ($_POST['articlePages']) {
-                    $articlePages = $_POST['articlePages'];
-                    $data = $this->article->getAllArticle($articlePages, 5);
-                } else {
-                    $data = $this->article->getAllArticle(1, 5);
-                }
-                $articles = $data['items'];
-                $articlePage = $data['pageHtml'];
-                $this->view->assign('articlePage', $articlePage);
+            $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
+            $data = $this->article->getAllArticle($articlePages, 5);
+            $articles = $data['items'];
+            $articlePage = $data['pageHtml'];
+            $this->view->assign('articlePage', $articlePage);
 
-                if ($_POST['announcementPages']) {
-                    $announcementPages = $_POST['announcementPages'];
-                    $data = $this->announcement->getAllAnnouncement($announcementPages, 5);
-                } else {
-                    $data = $this->announcement->getAllAnnouncement(1, 5);
-                }
-                $announcements = $data['items'];
-                $announcementPage = $data['pageHtml'];
-                $this->view->assign('announcementPage', $announcementPage);
+            $announcementPages = isset($_POST['announcementPages']) ? $_POST['announcementPages'] : 1;
+            $data = $this->announcement->getAllAnnouncement($announcementPages, 5);
+            $announcements = $data['items'];
+            $announcementPage = $data['pageHtml'];
+            $this->view->assign('announcementPage', $announcementPage);
 
-                if ($_POST['categoryPages']) {
-                    $categoryPages = $_POST['categoryPages'];
-                    $data = $this->category->getAllCategory($categoryPages, 5);
-                } else {
-                    $data = $this->category->getAllCategory(1, 5);
-                }
-                $categorys = $data['items'];
-                $categoryPage = $data['pageHtml'];
-                $this->view->assign('categoryPage', $categoryPage);
+            $categoryPages = isset($_POST['categoryPages']) ? $_POST['categoryPages'] : 1;
+            $data = $this->category->getAllCategory($categoryPages, 5);
+            $categorys = $data['items'];
+            $categoryPage = $data['pageHtml'];
+            $this->view->assign('categoryPage', $categoryPage);
 
-                if ($_POST['commentPages']) {
-                    $commentPages = $_POST['commentPages'];
-                    $data = $this->comment->getAllComment($commentPages, 5);
-                } else {
-                    $data = $this->comment->getAllComment(1, 5);
-                }
-                $comments = $data['items'];
-                $commentPage = $data['pageHtml'];
-                $this->view->assign('commentPage', $commentPage);
+            $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
+            $data = $this->comment->getAllComment($commentPages, 5);
+            $comments = $data['items'];
+            $commentPage = $data['pageHtml'];
+            $this->view->assign('commentPage', $commentPage);
 
-                if ($_POST['messagePages']) {
-                    $messagePages = $_POST['messagePages'];
-                    $data = $this->message->getAllMessage($messagePages, 5);
-                } else {
-                    $data = $this->message->getAllMessage(1, 5);
-                }
-                $messages = $data['items'];
-                $messagePage = $data['pageHtml'];
-                $this->view->assign('messagePage', $messagePage);
+            $messagePages = isset($_POST['messagePages']) ? $_POST['messagePages'] : 1;
+            $data = $this->message->getAllMessage($messagePages, 5);
+            $messages = $data['items'];
+            $messagePage = $data['pageHtml'];
+            $this->view->assign('messagePage', $messagePage);
 
-                if ($_POST['userPages']) {
-                    $userPages = $_POST['userPages'];
-                    $data = $this->user->getAllUser($userPages, 5);
-                } else {
-                    $data = $this->user->getAllUser(1, 5);
-                }
-                $users = $data['items'];
-                $userPage = $data['pageHtml'];
-                $this->view->assign('userPage', $userPage);
-                $type = $_POST['type'];
-            } else {
-                $data = $this->article->getAllArticle();
-                $articles = $data['items'];
-                $articlePage = $data['pageHtml'];
-                $this->view->assign('articlePage', $articlePage);
-
-                $data = $this->announcement->getAllAnnouncement();
-                $announcements = $data['items'];
-                $announcementPage = $data['pageHtml'];
-                $this->view->assign('announcementPage', $announcementPage);
-
-                $data = $this->category->getAllCategory();
-                $categorys = $data['items'];
-                $categoryPage = $data['pageHtml'];
-                $this->view->assign('categoryPage', $categoryPage);
-
-                $data = $this->comment->getAllComment();
-                $comments = $data['items'];
-                $commentPage = $data['pageHtml'];
-                $this->view->assign('commentPage', $commentPage);
-
-                $data = $this->message->getAllMessage();
-                $messages = $data['items'];
-                $messagePage = $data['pageHtml'];
-                $this->view->assign('messagePage', $messagePage);
-
-                $data = $this->user->getAllUser();
-                $users = $data['items'];
-                $userPage = $data['pageHtml'];
-                $this->view->assign('userPage', $userPage);
-                $type = 'user';
-            }
+            $userPages = isset($_POST['userPages']) ? $_POST['userPages'] : 1;
+            $data = $this->user->getAllUser($userPages, 5);
+            $users = $data['items'];
+            $userPage = $data['pageHtml'];
+            $this->view->assign('userPage', $userPage);
+            $type = isset($_POST['type']) ? $_POST['type'] : 'user';
             $this->view->assign('username', $username);
             $this->view->assign('announcements', $announcements);
             $this->view->assign('articles', $articles);
