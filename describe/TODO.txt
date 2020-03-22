@@ -40,4 +40,5 @@
 39.favicon                              1
 40.执行sql语句前后都应该写日志            1
 41.jquery简化DOM操作
-42.smarty继承
+42.smarty继承                           1
+43.未登录时不要执行username相关的sql      1

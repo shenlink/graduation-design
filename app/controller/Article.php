@@ -161,13 +161,15 @@ class Article extends Controller
             $author = $this->article->getAuthor($article_id);
             $author = $author['author'];
             $users = $this->user->personal($author);
-            $follows = $this->follow->checkFollow($author,$username);
+            if($username){
+                $follows = $this->follow->checkFollow($author, $username);
+                $praised =  $this->praise->checkPraise($article_id, $username);
+                $collected =  $this->collect->checkCollect($article_id, $username);
+                $shared =  $this->share->checkShare($article_id, $username);
+            }
             $recents = $this->article->getRecentArticle($author);
-            $praised =  $this->praise->checkPraise($article_id, $username);
-            $collected =  $this->collect->checkCollect($article_id, $username);
-            $praise_count = $this->praise->getPraiseCount($username);
-            $comment_count = $this->comment->getCommentCount($username);
-            $shared =  $this->share->checkShare($article_id, $username);
+            $praise_count = $this->praise->getPraiseCount($author);
+            $comment_count = $this->comment->getCommentCount($author);
             $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
             $this->view->assign('categorys', $categorys);

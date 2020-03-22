@@ -281,47 +281,27 @@ class User extends Controller
             $username = $_SESSION['username'];
             $categorys = $this->category->getCategory();
             if (isset($_POST['type'])) {
-                if ($_POST['articlePages']) {
-                    $data = $this->article->getManageArticle($username, $_POST['articlePages'], 5);
-                } else {
-                    $data = $this->article->getManageArticle(1, 5);
-                }
+                $data = $this->article->getManageArticle($username, $_POST['articlePages'], 5);
                 $articles = $data['items'];
                 $articlePage = $data['pageHtml'];
                 $this->view->assign('articlePage', $articlePage);
 
-                if ($_POST['commentPages']) {
-                    $data = $this->comment->getManageComment($username, $_POST['commentPages'], 5);
-                } else {
-                    $data = $this->comment->getManageComment(1, 5);
-                }
+                $data = $this->comment->getManageComment($username, $_POST['commentPages'], 5);
                 $comments = $data['items'];
                 $commentPage = $data['pageHtml'];
                 $this->view->assign('commentPage', $commentPage);
 
-                if ($_POST['followPage']) {
-                    $data = $this->follow->getFollow($username, $_POST['followPage'], 5);
-                } else {
-                    $data = $this->follow->getFollow(1, 5);
-                }
+                $data = $this->follow->getFollow($username, $_POST['followPage'], 5);
                 $follows = $data['items'];
                 $followPage = $data['pageHtml'];
                 $this->view->assign('followPage', $followPage);
 
-                if ($_POST['fansPages']) {
-                    $data = $this->follow->getFans($username, $_POST['commentPages'], 5);
-                } else {
-                    $data = $this->follow->getFans(1, 5);
-                }
+                $data = $this->follow->getFans($username, $_POST['FansPages'], 5);
                 $fans = $data['items'];
                 $fnasPage = $data['pageHtml'];
                 $this->view->assign('fnasPage', $fnasPage);
 
-                if ($_POST['receivePages']) {
-                    $data = $this->receive->getReceive($username, $_POST['receivePages'], 5);
-                } else {
-                    $data = $this->receive->getReceive($username, 1, 5);
-                }
+                $data = $this->receive->getReceive($username, $_POST['receivePages'], 5);
                 $receives = $data['items'];
                 $receivePage = $data['pageHtml'];
                 $this->view->assign('receivePage', $receivePage);
@@ -418,24 +398,16 @@ class User extends Controller
             $this->view->display('error.html');
             exit();
         }
-        if(isset($_SESSION['username'])){
+        if (isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
         }
         if (isset($_POST['type'])) {
-            if ($_POST['articlePages']) {
-                $data = $this->article->getUserArticle($author, $_POST['articlePages'], 5);
-            } else {
-                $data = $this->article->getUserArticle($author, 1, 5);
-            }
+            $data = $this->article->getUserArticle($author, $_POST['articlePages'], 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            if ($_POST['sharePages']) {
-                $data = $this->share->getShare($author, $_POST['sharePages'], 5);
-            } else {
-                $data = $this->share->getShare($author, 1, 5);
-            }
+            $data = $this->share->getShare($author, $_POST['sharePages'], 5);
             $shares = $data['items'];
             $sharePage = $data['pageHtml'];
             $this->view->assign('sharePage', $sharePage);
@@ -452,11 +424,13 @@ class User extends Controller
             $this->view->assign('sharePage', $sharePage);
             $type = 'article';
         }
+        if ($username) {
+            $follows = $this->follow->checkFollow($author, $username);
+        }
         $categorys = $this->category->getCategory();
         $users = $this->user->personal($author);
-        $follows = $this->follow->checkFollow($author, $username);
-        $praise_count = $this->praise->getPraiseCount($username);
-        $comment_count = $this->comment->getCommentCount($username);
+        $praise_count = $this->praise->getPraiseCount($author);
+        $comment_count = $this->comment->getCommentCount($author);
         $recents = $this->article->getRecentArticle($author);
         $this->view->assign('username', $username);
         $this->view->assign('articles', $articles);

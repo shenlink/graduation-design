@@ -21,7 +21,8 @@ class Admin extends Controller
             $username = $_SESSION['username'];
             if (isset($_POST['type'])) {
                 if ($_POST['articlePages']) {
-                    $data = $this->article->getAllArticle($_POST['articlePages'], 5);
+                    $articlePages = $_POST['articlePages'];
+                    $data = $this->article->getAllArticle($articlePages, 5);
                 } else {
                     $data = $this->article->getAllArticle(1, 5);
                 }
@@ -30,7 +31,8 @@ class Admin extends Controller
                 $this->view->assign('articlePage', $articlePage);
 
                 if ($_POST['announcementPages']) {
-                    $data = $this->announcement->getAllAnnouncement($_POST['announcementPages'], 5);
+                    $announcementPages = $_POST['announcementPages'];
+                    $data = $this->announcement->getAllAnnouncement($announcementPages, 5);
                 } else {
                     $data = $this->announcement->getAllAnnouncement(1, 5);
                 }
@@ -39,7 +41,8 @@ class Admin extends Controller
                 $this->view->assign('announcementPage', $announcementPage);
 
                 if ($_POST['categoryPages']) {
-                    $data = $this->category->getAllCategory($_POST['categoryPages'], 5);
+                    $categoryPages = $_POST['categoryPages'];
+                    $data = $this->category->getAllCategory($categoryPages, 5);
                 } else {
                     $data = $this->category->getAllCategory(1, 5);
                 }
@@ -48,7 +51,8 @@ class Admin extends Controller
                 $this->view->assign('categoryPage', $categoryPage);
 
                 if ($_POST['commentPages']) {
-                    $data = $this->comment->getAllComment($_POST['commentPages'], 5);
+                    $commentPages = $_POST['commentPages'];
+                    $data = $this->comment->getAllComment($commentPages, 5);
                 } else {
                     $data = $this->comment->getAllComment(1, 5);
                 }
@@ -57,7 +61,8 @@ class Admin extends Controller
                 $this->view->assign('commentPage', $commentPage);
 
                 if ($_POST['messagePages']) {
-                    $data = $this->message->getAllMessage($_POST['messagePages'], 5);
+                    $messagePages = $_POST['messagePages'];
+                    $data = $this->message->getAllMessage($messagePages, 5);
                 } else {
                     $data = $this->message->getAllMessage(1, 5);
                 }
@@ -66,7 +71,8 @@ class Admin extends Controller
                 $this->view->assign('messagePage', $messagePage);
 
                 if ($_POST['userPages']) {
-                    $data = $this->user->getAllUser($_POST['userPages'], 5);
+                    $userPages = $_POST['userPages'];
+                    $data = $this->user->getAllUser($userPages, 5);
                 } else {
                     $data = $this->user->getAllUser(1, 5);
                 }
