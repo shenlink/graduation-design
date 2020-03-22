@@ -53,6 +53,34 @@ for (let i = 0; i < lis.length; i++) {
 }
 
 
+function delShare(shareId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = shareId;
+    let article_id = temp.getAttribute('data-article-id');
+    let share_id = temp.getAttribute('data-share-id');
+    $.post("/share/delShare", {
+        article_id: article_id,
+        share_id: share_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
+        } else {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
+}
+
+
 // 关注或取消关注
 $('#follow').on('click', function () {
     let follow = document.querySelector('#follow');
