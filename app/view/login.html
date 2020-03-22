@@ -1,153 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>登录</title>
-    <link href="/static/css/bootstrap.css" type="text/css" rel="stylesheet">
-    <link href="/static/css/self.css" type="text/css" rel="stylesheet">
-</head>
-
-<body>
-    <!--导航栏开始-->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button class="navbar-toggler" type="button">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <a class="navbar-brand" href="/">shen的博客</a>
-                        </div>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <!-- 导航栏明细 -->
-                                <li class="nav-item active">
-                                    <a class="nav-link active" href="/">首页</a>
-                                </li>
-                                {{foreach from=$categorys item=categorysItem}}
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
-                                    </a>
-                                </li>
-                                {{/foreach}}
-                            </ul>
-                        </div>
-                        <div class="collapse navbar-collapse offset-3" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-
-                                <!-- 搜索框开始 -->
-                                <form class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="搜索用户或文章"
-                                        id="searchContent">
-                                    <select class="btn btn-outline-success my-1 my-sm-0" id="type">
-                                        <option value="1">用户</option>
-                                        <option value="2">文章</option>
-                                    </select>
-                                    <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="search">
-                                        搜索
-                                    </button>
-                                </form>
-                                <!-- 搜索框结束 -->
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/article/write">写博客</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/user/register">注册</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/user/login">登录</a>
-                                </li>
-
-                                <!-- 管理菜单 -->
-                                {{if $username == 'shen'}}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/manage">管理</a>
-                                </li>
-                                {{else}}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/user/manage">管理</a>
-                                </li>
-                                {{/if}}
-                                <!-- 管理菜单结束 -->
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!--导航栏结束-->
-
-    <br>
-
-    <!-- 主体内容开始 -->
+{extends file = 'layout.html'}
+{{block name=main}}
+<!-- 主体内容开始 -->
+<div class="container">
     <div class="container">
-        <div class="container">
-            <div class="col-md-12">
-                <div class="text-center">
-                    <h3>用户登录:</h3>
-                </div>
+        <div class="col-md-12">
+            <div class="text-center">
+                <h3>用户登录:</h3>
             </div>
         </div>
-
-        <!-- 表单开始 -->
-        <form>
-            <!-- 用户名输入框开始 -->
-            <div class="form-group">
-                <label for="username">用户名：</label>
-                <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
-                    onblur="checkUsername()" onfocus="userOriginal()">
-                <small class="form-text text-muted" id="userMessage">
-                    <img src="/static/image/mess.png" alt="" id="userImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
-                </small>
-            </div>
-            <!-- 用户名输入框结束 -->
-
-            <!-- 密码输入框开始 -->
-            <div class="form-group">
-                <label for="password">密码：</label>
-                <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
-                    onblur="checkPassword()" onfocus="passwordOriginal()">
-                <span id="rePassword">
-                    <img src="/static/image/close.png" alt="显示密码 " id="passwordEye" onclick="clickEye()">
-                </span>
-                <small class="form-text text-muted" id="passwordTip">
-                    <img src="/static/image/mess.png" alt="" id="passwordImg">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
-                </small>
-            </div>
-            <!-- 密码输入框结束 -->
-
-            <button type="reset" class="btn btn-primary">重置</button>
-            <button type="button" class="btn btn-primary" id="login">提交</button>
-        </form>
-        <!-- 表单结束 -->
     </div>
-    <!-- 主体内容结束 -->
 
-    <!-- 公共底部开始-->
-    <footer class="container-fluid fixed-bottom">
-        <div class="row" id="footer">
-            <div class="col-md-12">
-                <div class="text-center bg-info">Fixed bottom</div>
-            </div>
+    <!-- 表单开始 -->
+    <form>
+        <!-- 用户名输入框开始 -->
+        <div class="form-group">
+            <label for="username">用户名：</label>
+            <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username"
+                onblur="checkUsername()" onfocus="userOriginal()">
+            <small class="form-text text-muted" id="userMessage">
+                <img src="/static/image/mess.png" alt="" id="userImg">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名
+            </small>
         </div>
-    </footer>
-    <!-- 公告底部结束 -->
+        <!-- 用户名输入框结束 -->
 
-    <!-- 链接jquery3.2.1 -->
-    <script src="/static/js/jquery.js"></script>
-    <script src="/static/layer-v3.1.1/layer/layer.js"></script>
-    <script src="/static/js/login.js"></script>
-</body>
+        <!-- 密码输入框开始 -->
+        <div class="form-group">
+            <label for="password">密码：</label>
+            <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password"
+                onblur="checkPassword()" onfocus="passwordOriginal()">
+            <span id="rePassword">
+                <img src="/static/image/close.png" alt="显示密码 " id="passwordEye" onclick="clickEye()">
+            </span>
+            <small class="form-text text-muted" id="passwordTip">
+                <img src="/static/image/mess.png" alt="" id="passwordImg">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码
+            </small>
+        </div>
+        <!-- 密码输入框结束 -->
 
-</html>
+        <button type="reset" class="btn btn-primary">重置</button>
+        <button type="button" class="btn btn-primary" id="login">提交</button>
+    </form>
+    <!-- 表单结束 -->
+</div>
+<!-- 主体内容结束 -->
+{{/block}}
+{{block name=js}}
+<script src="/static/js/jquery.js"></script>
+<script src="/static/layer-v3.1.1/layer/layer.js"></script>
+<script src="/static/js/login.js"></script>
+{{/block}}
