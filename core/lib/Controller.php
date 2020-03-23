@@ -28,12 +28,11 @@ class Controller
         $this->user = Factory::createUser();
         $this->view = Factory::createView();
         $this->categorys = $this->category->getCategory();
-        // if (isset($_SESSION['username'])) {
-        //     $this->username = $_SESSION['username'];
-        // }
-        $this->username = $_SESSION['username'] ? $_SESSION['username'] : null;
+        $this->username = $_SESSION['username'] ?? null;
         $this->view->assign('categorys', $this->categorys);
         $this->view->assign('username', $this->username);
+        date_default_timezone_set('PRC');
+        $this->time = date('Y-m-d H:i:s', time());
     }
 
     // 执行前调用

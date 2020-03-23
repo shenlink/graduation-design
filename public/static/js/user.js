@@ -171,6 +171,45 @@ function delShare(shareId) {
 }
 
 
+// 关注或取消关注
+$('#follow').on('click', function () {
+    let follow = $('#follow');
+    let username = follow.data('username');
+    let author = follow.data('author');
+    if (username == '') {
+        layer.msg('登录才能关注', {
+            time: 2000
+        });
+        return;
+    }
+    $.post("/follow/checkFollow", {
+        author: author
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('关注成功', {
+                time: 1000
+            }, function () {
+                follow.text('已关注');
+            });
+        } else if (data === '11') {
+            layer.msg('关注失败', {
+                time: 1000
+            });
+        } else if (data === '00') {
+            layer.msg('取消失败', {
+                time: 1000
+            });
+        } else {
+            layer.msg('取消关注', {
+                time: 1000
+            }, function () {
+                follow.text('关注');
+            });
+        }
+    });
+});
+
+
 // 分页
 function changePage(page) {
     let temp = page;

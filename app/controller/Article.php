@@ -50,9 +50,7 @@ class Article extends Controller
             $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            date_default_timezone_set('PRC');
-            $updated_at = date('Y-m-d H:i:s', time());
-            $result = $this->article->checkWrite($this->username, $category, $title,  $content,  $updated_at);
+            $result = $this->article->checkWrite($this->username, $category, $title,  $content,  $this->time);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();
@@ -82,9 +80,7 @@ class Article extends Controller
             $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            date_default_timezone_set('PRC');
-            $updated_at = date('Y-m-d H:i:s', time());
-            $result = $this->article->checkEdit($article_id, $category, $title, $content, $updated_at);
+            $result = $this->article->checkEdit($article_id, $category, $title, $content, $this->time);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

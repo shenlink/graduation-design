@@ -50,6 +50,6 @@
 49.把username和categorys挂在了控制器基类里面       1
 50.运用NULL 合并运算符                            1
 51.前端的username尽量不要传到后端                 1
-52.时间的获取也挂到控制器基类
+52.时间的获取也挂在控制器基类上                   1
 53.分页相关函数的页码和pageSize得注意，太冗余了
-54.header("Content-type:text/html;charset=utf-8");这一行得加在ajax里面
+54.header("Content-type:text/html;charset=utf-8");这一行得加在ajax里面   1

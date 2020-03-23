@@ -27,9 +27,7 @@ class Share extends Controller
                 $cancel = $this->share->cancelShare($article_id, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
-                date_default_timezone_set('PRC');
-                $share_at = date('Y-m-d H:i:s', time());
-                $add = $this->share->addShare($article_id, $author, $title, $this->username, $share_at);
+                $add = $this->share->addShare($article_id, $author, $title, $this->username, $this->time);
                 echo $add ? '1' : '11';
             }
         } else {

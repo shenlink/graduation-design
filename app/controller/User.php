@@ -48,7 +48,7 @@ class User extends Controller
 
     public function getIntercept($username)
     {
-        $pattern = '/displayNone|guest|search|checkUsername|getIntercept|register|login|logout|checkRegister|checkLogin|write|checkWrite|change|checkChange|manage|editArticle|checkEdit|__call/i';
+        $pattern = '/displayNone|null|guest|search|checkUsername|getIntercept|register|login|logout|checkRegister|checkLogin|write|checkWrite|change|checkChange|manage|editArticle|checkEdit|__call/i';
         $intercept = preg_match($pattern, $username);
         return $intercept;
     }
@@ -66,9 +66,7 @@ class User extends Controller
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $this->user->checkRegister($username, $password, $created_at);
+            $result = $this->user->checkRegister($username, $password, $this->time);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

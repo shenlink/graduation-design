@@ -27,9 +27,7 @@ class Praise extends Controller
                 $cancel = $this->praise->cancelPraise($article_id, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
-                date_default_timezone_set('PRC');
-                $praise_at = date('Y-m-d H:i:s', time());
-                $add = $this->praise->addPraise($article_id, $author, $title, $this->username, $praise_at);
+                $add = $this->praise->addPraise($article_id, $author, $title, $this->username, $this->time);
                 echo $add ? '1' : '11';
             }
         } else {

@@ -25,9 +25,7 @@ class Follow extends Controller
                 $cancel = $this->follow->cancelFollow($author, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
-                date_default_timezone_set('PRC');
-                $follow_at = date('Y-m-d H:i:s', time());
-                $add = $this->follow->addFollow($author, $this->username, $follow_at);
+                $add = $this->follow->addFollow($author, $this->username, $this->time);
                 echo $add ? '1' : '11';
             }
         } else {

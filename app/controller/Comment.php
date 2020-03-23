@@ -23,9 +23,7 @@ class Comment extends Controller
             $author = $_POST['author'];
             $title = $_POST['title'];
             $content = $_POST['content'];
-            date_default_timezone_set('PRC');
-            $comment_at = date('Y-m-d H:i:s', time());
-            $result = $this->comment->addComment($article_id, $author, $title,  $content, $this->username, $comment_at);
+            $result = $this->comment->addComment($article_id, $author, $title,  $content, $this->username, $this->time);
             echo $result ? $result : '0';
         } else {
             $this->displayNone();

@@ -26,9 +26,7 @@ class Collect extends Controller
                 $cancel = $this->collect->cancelCollect($article_id, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
-                date_default_timezone_set('PRC');
-                $collect_at = date('Y-m-d H:i:s', time());
-                $add = $this->collect->addCollect($article_id, $author, $title, $this->username,$collect_at);
+                $add = $this->collect->addCollect($article_id, $author, $title, $this->username, $this->time);
                 echo $add ? '1' : '11';
             }
         } else {

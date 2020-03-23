@@ -6,7 +6,7 @@ use core\lib\Controller;
 
 class Message extends Controller
 {
-    
+
     // 显示404页面
     public function displayNone()
     {
@@ -33,9 +33,7 @@ class Message extends Controller
         if (isset($_POST['author']) && isset($_POST['content'])) {
             $author = $_POST['author'];
             $content = $_POST['content'];
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $this->message->checkAddMessage($author, $content, $created_at);
+            $result = $this->message->checkAddMessage($author, $content, $this->time);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

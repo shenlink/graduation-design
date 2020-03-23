@@ -23,7 +23,8 @@ class File
         if (!is_dir($this->path . date('Ymd'))) {
             mkdir($this->path . date('Ymd'), 0777, true);
         }
-        $message = date('Y-m-d H:i:s') .' '. $message . "\r\n";
+        date_default_timezone_set('PRC');
+        $message = date('Y-m-d H:i:s', time()) . ' ' . $message . "\r\n";
         return file_put_contents($this->path . date('Ymd') . '/' . $file . '.log', $message, FILE_APPEND);
     }
 }

@@ -48,9 +48,7 @@ class Announcement extends Controller
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
-            date_default_timezone_set('PRC');
-            $created_at = date('Y-m-d H:i:s', time());
-            $result = $this->announcement->checkAddAnnouncement($content, $created_at);
+            $result = $this->announcement->checkAddAnnouncement($content, $this->time);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();
