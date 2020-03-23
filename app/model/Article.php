@@ -41,18 +41,6 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,content,author,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['article_id' => "{$article_id}", 'status' => 1])->select();
     }
 
-    // 获取个人页面的文章数据
-    public function personal($author)
-    {
-        return $this->table('article')->field('article_id,author,title,content,updated_at,category,comment_count,praise_count,collect_count')->where(['author' => "{$author}", 'status' => 1])->order('updated_at desc')->selectAll();
-    }
-
-    // 获取用户管理页面的文章数据
-    public function manage($username)
-    {
-        return $this->table('article')->field('article_id,title,status,updated_at,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['author' => "{$username}"])->order('article_id')->selectAll();
-    }
-
     // 拉黑某篇文章
     public function defriendArticle($article_id)
     {

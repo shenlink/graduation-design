@@ -19,11 +19,6 @@ class Follow extends Model
         }
     }
 
-    public function getAllFollow($author)
-    {
-        return $this->table('follow')->field('username')->where(['author' => "{$author}"])->order('follow_at desc')->selectAll();
-    }
-
     public function getFollow($username, $currentPage = 1, $pageSize = 5)
     {
         return $this->table('follow')->field('author,follow_at')->where(['username' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, 'follow');

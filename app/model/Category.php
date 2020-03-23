@@ -57,9 +57,4 @@ class Category extends Model
     {
         return $this->table('category')->field('category_id,category,status,article_count')->pages($currentPage, $pageSize, 'category');
     }
-
-    public function firstUserPage($username, $currentPage=1, $pageSize=5)
-    {
-        return $this->table('category')->field('category_id,category,status,article_count')->where(['status' => 1, 'username' => "{$username}"])->pages($currentPage, $pageSize,'category');
-    }
 }
