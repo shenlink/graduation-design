@@ -4,7 +4,6 @@ namespace app\controller;
 
 use core\lib\Controller;
 
-
 class Admin extends Controller
 {
 

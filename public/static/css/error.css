@@ -1,8 +1,20 @@
-.vertical-all{
-    position: relative;
+.text {
+    margin-top: 60px;
+    margin-right: 100px;
+    text-align: center;
 }
-.vertical{
-    position: absolute;
-    left: 200px;
-    top: 300px;
+
+.text h1 {
+    color: #1a5dee;
+    font-size: 180px;
+    text-align: center;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.text h3 {
+    color: rgb(9, 10, 15);
+    font-size: 28px;
+    font-family: monospace;
+    font-weight: bold;
 }

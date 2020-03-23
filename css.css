@@ -1,0 +1,19 @@
+.inner {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    margin: 30px auto 0
+}
+
+.m-error .inner .code {
+    font-weight: 200;
+    font-size: 92px;
+    text-align: center
+}
+
+.m-error .inner .message {
+    text-align: center;
+    font-size: 24px
+}
+
+

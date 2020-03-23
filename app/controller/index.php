@@ -6,7 +6,7 @@ use core\lib\Controller;
 
 class Index extends Controller
 {
-    
+
     // 显示首页
     public function index()
     {
