@@ -81,22 +81,15 @@ class Category extends Controller
         $categoryName = $method;
         $realCategory = $this->category->checkCategory($categoryName);
         if (!$realCategory) {
-            $this->view->assign('error','error');
+            $this->view->assign('error', 'error');
             $this->view->display('error.html');
             exit();
         }
-        if (isset($_POST['pageNumber'])) {
-            $pageNumber = $_POST['pageNumber'];
-            $data = $this->article->getCategoryArticle($categoryName, $pageNumber, 5);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-            $this->view->assign('articlePage', $articlePage);
-        }else{
-            $data = $this->article->getCategoryArticle($categoryName);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-            $this->view->assign('articlePage', $articlePage);
-        }
+        $articlePages = $_POST['articlePages'] ?? 1;
+        $data = $this->article->getCategoryArticle($categoryName, $articlePages, 5);
+        $articles = $data['items'];
+        $articlePage = $data['pageHtml'];
+        $this->view->assign('articlePage', $articlePage);
         $recommends = $this->article->recommend();
         $this->view->assign('articles', $articles);
         $this->view->assign('categoryName', $categoryName);
