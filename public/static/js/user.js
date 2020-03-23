@@ -53,6 +53,95 @@ for (let i = 0; i < lis.length; i++) {
 }
 
 
+// 删除评论
+function delComment(commentId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = commentId;
+    let article_id = temp.getAttribute('data-article-id');
+    let comment_id = temp.getAttribute('data-comment-id');
+    $.post("/comment/delComment", {
+        article_id: article_id,
+        comment_id: comment_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr1 = temp.parentNode.parentNode;
+                let tr2 = tr1.nextElementSibling;
+                let table = tr1.parentNode;
+                table.removeChild(tr1);
+                table.removeChild(tr2);
+            });
+        } else {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
+}
+
+
+// 删除点赞
+function delPraise(praiseId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = praiseId;
+    let article_id = temp.getAttribute('data-article-id');
+    let praise_id = temp.getAttribute('data-praise-id');
+    $.post("/praise/delPraise", {
+        article_id: article_id,
+        praise_id: praise_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
+        } else {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
+}
+
+
+// 删除收藏
+function delCollect(collectId) {
+    if (!confirm('确认删除吗？')) {
+        return;
+    }
+    let temp = collectId;
+    let article_id = temp.getAttribute('data-article-id');
+    let collect_id = temp.getAttribute('data-collect-id');
+    $.post("/collect/delCollect", {
+        article_id: article_id,
+        collect_id: collect_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('删除成功', {
+                time: 1000
+            }, function () {
+                let tr = temp.parentNode.parentNode;
+                let tbody = tr.parentNode;
+                tbody.removeChild(tr);
+            });
+        } else {
+            layer.msg('删除失败', {
+                time: 1000
+            });
+        }
+    });
+}
+
+
 // 删除分享
 function delShare(shareId) {
     if (!confirm('确认删除吗？')) {
@@ -82,65 +171,10 @@ function delShare(shareId) {
 }
 
 
-// 关注或取消关注
-$('#follow').on('click', function () {
-    let follow = $('#follow');
-    let username = follow.data('username');
-    let author = follow.data('author');
-    if (username == '') {
-        layer.msg('登录才能关注', {
-            time: 2000
-        });
-        return;
-    }
-    $.post("/follow/checkFollow", {
-        author: author,
-        username: username
-    }, function (data) {
-        if (data === '1') {
-            layer.msg('关注成功', {
-                time: 1000
-            }, function () {
-                follow.text('已关注');
-            });
-        } else if (data === '11') {
-            layer.msg('关注失败', {
-                time: 1000
-            });
-        } else if (data === '00') {
-            layer.msg('取消失败', {
-                time: 1000
-            });
-        } else {
-            layer.msg('取消关注', {
-                time: 1000
-            }, function () {
-                follow.text('关注');
-            });
-        }
-    });
-});
-
-
-// 发私信
-function addMessage() {
-    let message = $('#message');
-    let author = message.data('author');
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('author', author);
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/message/addMessage';
-    form.submit();
-}
-
-
 // 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let author = $('#author').data('author');
     let type = temp.getAttribute('data-type');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
@@ -160,6 +194,15 @@ function changePage(page) {
         case 'article':
             input1 = createInput('articlePages', pagination);
             break;
+        case 'comment':
+            input1 = createInput('commentPages', pagination);
+            break;
+        case 'praise':
+            input1 = createInput('praisePages', pagination);
+            break;
+        case 'collect':
+            input1 = createInput('collectPages', pagination);
+            break;
         case 'share':
             input1 = createInput('sharePages', pagination);
             break;
@@ -168,6 +211,6 @@ function changePage(page) {
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
-    form.action = '/user/' + author;
+    form.action = '/user/personal';
     form.submit();
 }

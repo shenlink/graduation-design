@@ -342,11 +342,30 @@ class User extends Controller
         $articlePage = $data['pageHtml'];
         $this->view->assign('articlePage', $articlePage);
 
+        $collectPages = isset($_POST['collectPages']) ? $_POST['collectPages'] : 1;
+        $data = $this->collect->getCollect($author, $collectPages, 5);
+        $collects = $data['items'];
+        $collectPage = $data['pageHtml'];
+        $this->view->assign('collectPage', $collectPage);
+
+        $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
+        $data = $this->comment->getComment($author, $commentPages, 5);
+        $comments = $data['items'];
+        $commentPage = $data['pageHtml'];
+        $this->view->assign('commentPage', $commentPage);
+
+        $praisePages = isset($_POST['praisePages']) ? $_POST['praisePages'] : 1;
+        $data = $this->praise->getPraise($author, $praisePages, 5);
+        $praises = $data['items'];
+        $praisePage = $data['pageHtml'];
+        $this->view->assign('praisePage', $praisePage);
+
         $sharePages = isset($_POST['sharePages']) ? $_POST['sharePages'] : 1;
         $data = $this->share->getShare($author, $sharePages, 5);
         $shares = $data['items'];
         $sharePage = $data['pageHtml'];
         $this->view->assign('sharePage', $sharePage);
+
         $type = isset($_POST['type']) ? $_POST['type'] : 'article';
         if ($username) {
             $follows = $this->follow->checkFollow($author, $username);
@@ -359,9 +378,12 @@ class User extends Controller
         $this->view->assign('username', $username);
         $this->view->assign('articles', $articles);
         $this->view->assign('categorys', $categorys);
+        $this->view->assign('collects', $collects);
+        $this->view->assign('comments', $comments);
         $this->view->assign('follows', $follows);
         $this->view->assign('praise_count', $praise_count);
         $this->view->assign('comment_count', $comment_count);
+        $this->view->assign('praises', $praises);
         $this->view->assign('recents', $recents);
         $this->view->assign('shares', $shares);
         $this->view->assign('type', $type);
