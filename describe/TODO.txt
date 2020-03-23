@@ -53,3 +53,4 @@
 52.时间的获取也挂在控制器基类上                   1
 53.分页相关函数的页码和pageSize得注意，太冗余了    1
 54.header("Content-type:text/html;charset=utf-8");这一行得加在ajax里面   1
+55.搜索框内容为空时默认是查询全部

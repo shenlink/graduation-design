@@ -1,7 +1,13 @@
 // 搜索
 $('#search').on('click', function () {
     let type = $('#type').val();
-    let searchContent = $('#searchContent').val();
+    let searchContent = $('#searchContent').val;
+    if (searchContent === '') {
+        layer.msg('查询条件不能为空', {
+            time: 1000
+        });
+        return;
+    }
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
@@ -36,14 +42,9 @@ function createInput(name, value) {
 
 // 确认用户名
 function checkUsername() {
-    // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
-    // 获取用户名输入框元素
     let username = $('#username');
-    // 获取输入的用户名的值
     let usernameValue = username.value;
-    // 获取提示用户注意的信息的节点元素
     let userMessage = $('#userMessage');
-    // 用户名输入框为空时
     if (usernameValue.length === 0) {
         username.className = "form-control is-invalid"
         userMessage.innerHTML = `<span style="color:red;">用户名不能为空</span>`;
@@ -88,7 +89,6 @@ function checkUsername() {
 
 
 function checkAjax() {
-    // 获取提示用户注意的信息的节点元素
     let userMessage = $('#userMessage');
     if (userMessage.style.color == 'red') {
         return false;
@@ -100,20 +100,14 @@ function checkAjax() {
 
 // 确认密码是否符合要求
 function checkPassword() {
-    // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
-    // 获取密码输入框元素
     let password = $('#password');
-    // 获取输入的密码的值
     let passwordValue = password.value;
-    // 获取提示用户注意的信息的节点元素
     let passwordTip = $('#passwordTip');
-    // 密码输入框为空时
     if (passwordValue.length === 0) {
         password.className = "form-control is-invalid"
         passwordTip.innerHTML = `<span style="color:red;">密码不能为空</span>`;
         return false;
     } else if (passwordValue.length < 6 || passwordValue.length > 16) {
-        // 密码位数不符合要求
         passwordTip.innerHTML = `<span style="color:red;">密码位数不符合要求,要求6到16位</span>`;
         return false;
     } else {
@@ -132,18 +126,11 @@ function checkPassword() {
 
 // 确认密码
 function checkConPassword() {
-    // 这三个元素得放在函数内，因为每次失去焦点后，都能够重新获得输入框的值内容，方便后面判断
-    // 获取密码输入框元素
     let password = $('#password');
-    // 获取输入的密码的值
     let passwordValue = password.value;
-    // 获取确认密码输入框元素
     let confirmPassword = $('#confirmPassword');
-    // 获取确认密码的值
     let conPasswordValue = confirmPassword.value;
-    // 获取提示用户注意的信息的节点元素
     let conPasswordTip = $('#conPasswordTip');
-    // 确认密码输入框为空时
     if (conPasswordValue.length === 0) {
         confirmPassword.className = "form-control is-invalid"
         conPasswordTip.innerHTML = `<span style="color:red;">确认密码不能为空</span>`;
@@ -161,12 +148,8 @@ function checkConPassword() {
 
 // 用户名输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function userOriginal() {
-    // 其实这两条获取元素的语句是不用加的，但是感觉怪怪的，就加上了
-    // 获取用户名输入框元素
     let username = $('#username');
-    // 获取提示用户注意的信息的节点元素
     let userMessage = $('#userMessage');
-    // 还原输入框的初始样式
     username.className = "form-control"
     userMessage.innerHTML = `<img src="/static/image/mess.png" id="userImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名，用户名至少包含1个字母，可以包含数字，4到16位`;
@@ -175,11 +158,8 @@ function userOriginal() {
 
 // 密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function passwordOriginal() {
-    // 获取密码输入框元素
     let password = $('#password');
-    // 获取提示用户注意的信息的节点元素
     let passwordTip = $('#passwordTip');
-    // 还原输入框的初始样式
     password.className = "form-control"
     passwordTip.innerHTML = `<img src="/static/image/mess.png" id="passwordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`;
@@ -188,12 +168,6 @@ function passwordOriginal() {
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
-    // 获取确认密码输入框元素
-    let confirmPassword = $('#confirmPassword');
-    // 获取提示用户注意的信息的节点元素
-    let conPasswordTip = $('#conPasswordTip');
-    // 还原输入框的初始样式
-    confirmPassword.className = "form-control"
     conPasswordTip.innerHTML = `<img src="/static/image/mess.png" id="conPasswordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     确认密码 `;

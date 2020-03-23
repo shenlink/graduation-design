@@ -2,6 +2,12 @@
 $('#search').on('click', function () {
     let type = $('#type').val();
     let searchContent = $('#searchContent').val;
+    if (searchContent === '') {
+        layer.msg('查询条件不能为空', {
+            time: 1000
+        });
+        return;
+    }
     let form = document.createElement("form");
     document.body.appendChild(form);
     switch (type) {
