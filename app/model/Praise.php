@@ -106,7 +106,7 @@ class Praise extends Model
         }
     }
 
-    public function getPraise($username, $currentPage = 1, $pageSize = 5)
+    public function getPraise($username, $currentPage = 1, $pageSize)
     {
         return $this->table('praise')->field('praise_id,article_id,author,title,praise_at')->where(['username' => "{$username}"])->order('praise_at desc')->pages($currentPage, $pageSize, 'praise');
     }

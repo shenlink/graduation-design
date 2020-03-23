@@ -21,7 +21,6 @@ class Category extends Model
     public function getCategory()
     {
         return $this->table('category')->field('category')->where(['status' => 1])->selectAll();
-        // category_id,category,status,article_count
     }
 
     public function checkCategory($category)
@@ -54,7 +53,7 @@ class Category extends Model
     }
 
 
-    public function getAllCategory($currentPage = 1, $pageSize = 5)
+    public function getAllCategory($currentPage = 1, $pageSize)
     {
         return $this->table('category')->field('category_id,category,status,article_count')->pages($currentPage, $pageSize, 'category');
     }

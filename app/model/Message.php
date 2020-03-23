@@ -53,7 +53,7 @@ class Message extends Model
         return $this->table('message')->where(['message_id'=>"{$message_id}"])->delete();
     }
 
-    public function getAllMessage($currentPage = 1, $pageSize = 5)
+    public function getAllMessage($currentPage = 1, $pageSize)
     {
         return $this->table('message')->order('created_at desc')->pages($currentPage, $pageSize,'message');
     }

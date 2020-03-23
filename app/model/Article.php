@@ -94,22 +94,22 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
-    public function getIndexArticle($currentPage = 1, $pageSize = 5)
+    public function getIndexArticle($currentPage = 1, $pageSize)
     {
         return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
     }
 
-    public function getAllArticle($currentPage = 1, $pageSize = 5)
+    public function getAllArticle($currentPage = 1, $pageSize)
     {
         return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
     }
 
-    public function getManageArticle($username, $currentPage = 1, $pageSize = 5)
+    public function getManageArticle($username, $currentPage = 1, $pageSize)
     {
         return $this->table('article')->field('article_id,title,content,category,updated_at,updated_at,collect_count,praise_count,comment_count,share_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
     }
 
-    public function getUserArticle($username, $currentPage = 1, $pageSize = 5)
+    public function getUserArticle($username, $currentPage = 1, $pageSize)
     {
         return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
     }
@@ -153,7 +153,7 @@ class Article extends Model
         }
     }
 
-    public function getCategoryArticle($category, $currentPage = 1, $pageSize = 5)
+    public function getCategoryArticle($category, $currentPage = 1, $pageSize)
     {
         return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->order('updated_at desc')->pages($currentPage, $pageSize);
     }

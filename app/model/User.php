@@ -23,7 +23,6 @@ class User extends Model
         return $this->table('user')->field('username,introduction,created_at,article_count,follow_count,fans_count')->where("username like \"{$content}\"")->selectAll();
     }
 
-
     // 验证用户名是否被注册
     public function checkUsername($username)
     {
@@ -39,7 +38,7 @@ class User extends Model
     // 确认用户的状态
     public function checkStatus($username)
     {
-        return $this->table('user')->where(['username' => "{$username}", 'status'=>1])->select();
+        return $this->table('user')->where(['username' => "{$username}", 'status' => 1])->select();
     }
 
     // 处理登录操作
@@ -78,8 +77,8 @@ class User extends Model
         return $this->table('user')->where(['user_id' => "{$user_id}"])->delete();
     }
 
-    public function getAllUser($currentPage=1, $pageSize=5)
+    public function getAllUser($currentPage = 1, $pageSize)
     {
-        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize,'user');
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize, 'user');
     }
 }

@@ -83,20 +83,14 @@ class Comment extends Model
         return $this->table('comment')->field('comment_id,content,username,comment_at')->where(['article_id' => "{$article_id}"])->order('comment_at desc')->selectAll();
     }
 
-    public function getAllComment($currentPage = 1, $pageSize = 5)
+    public function getAllComment($currentPage = 1, $pageSize)
     {
         return $this->table('comment')->field('comment_id,content,username,comment_at')->pages($currentPage, $pageSize, 'comment');
     }
 
-
-    public function getComment($username, $currentPage = 1, $pageSize = 5)
+    public function getComment($username, $currentPage = 1, $pageSize)
     {
         return $this->table('comment')->field('comment_id,article_id,author,title,content,username,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
-    }
-
-    public function getShare($username, $currentPage = 1, $pageSize = 5)
-    {
-        return $this->table('share')->field('share_id,article_id,author,title,share_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'share');
     }
 
     public function getCommentCount($username)
@@ -104,7 +98,7 @@ class Comment extends Model
         return $this->table('comment')->where(['username' => "{$username}"])->count();
     }
 
-    public function getManageComment($username, $currentPage = 1, $pageSize = 5)
+    public function getManageComment($username, $currentPage = 1, $pageSize)
     {
         return $this->table('comment')->field('comment_id,content,username,article_id,comment_at')->where(['username' => "{$username}"])->pages($currentPage, $pageSize, 'comment');
     }

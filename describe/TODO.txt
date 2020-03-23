@@ -46,10 +46,10 @@
 45.粉丝-7，有问题                        1
 46.user和personal页面有重复，建议只要一个就行了        1
 47.selectAll有多余的函数，得删除                     1
-48.404页面太丑了
+48.404页面太丑了                                   1
 49.把username和categorys挂在了控制器基类里面       1
 50.运用NULL 合并运算符                            1
 51.前端的username尽量不要传到后端                 1
 52.时间的获取也挂在控制器基类上                   1
-53.分页相关函数的页码和pageSize得注意，太冗余了
+53.分页相关函数的页码和pageSize得注意，太冗余了    1
 54.header("Content-type:text/html;charset=utf-8");这一行得加在ajax里面   1
