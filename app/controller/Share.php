@@ -6,7 +6,7 @@ use core\lib\Controller;
 
 class Share extends Controller
 {
-    
+
     // 显示404页面
     public function displayNone()
     {
@@ -18,7 +18,7 @@ class Share extends Controller
     public function checkShare()
     {
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
+        if (isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
@@ -39,6 +39,7 @@ class Share extends Controller
 
     public function delShare()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['share_id']) && isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $share_id = $_POST['share_id'];

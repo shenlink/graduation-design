@@ -17,7 +17,7 @@ class Collect extends Controller
     public function checkCollect()
     {
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
+        if (isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
@@ -36,8 +36,10 @@ class Collect extends Controller
         }
     }
 
+    // 删除收藏
     public function delCollect()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['collect_id']) && isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $collect_id = $_POST['collect_id'];

@@ -33,7 +33,6 @@
 <!-- 主体内容开始 -->
 <div class="container-fluid">
     <div class="col-md-12">
-        <!-- row类确保两列布局 -->
         <div class="row">
             <!-- 左边文章列表和分页开始 -->
             <div class="col-md-8">
@@ -61,21 +60,21 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span class=" offset-md-8" id="praise" data-praise={{$username}}>
+                            <span class=" offset-md-8" id="praise">
                                 {{if $praised}}
                                 已点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}
                                 点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{/if}}
                             </span>
-                            <span id="collect" data-collect={{$username}}>
+                            <span id="collect">
                                 {{if $collected}}
                                 已收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}
                                 收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{/if}}
                             </span>
-                            <span id="share" data-share={{$username}}>
+                            <span id="share">
                                 {{if $shared}}
                                 已分享({{$articles.share_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}

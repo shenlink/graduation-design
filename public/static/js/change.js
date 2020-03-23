@@ -145,12 +145,10 @@ function check() {
 
 
 $('#change').on('click', function () {
-    let username = $('#username').val();
     let password = $('#password').val();
     let introduction = $('#introduction').val();
     if (check()) {
         $.post("/user/checkChange", {
-            username: username,
             password: password,
             introduction: introduction
         }, function (data) {

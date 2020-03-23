@@ -52,7 +52,6 @@ $('#praise').on('click', function () {
         return;
     }
     $.post("/praise/checkPraise", {
-        username: username,
         article_id: article_id,
         author: author,
         title: title
@@ -100,7 +99,6 @@ $('#collect').on('click', function () {
         return;
     }
     $.post("/collect/checkCollect", {
-        username: username,
         article_id: article_id,
         author: author,
         title: title
@@ -146,7 +144,6 @@ $('#share').on('click', function () {
         return;
     }
     $.post("/share/checkShare", {
-        username: username,
         article_id: article_id,
         author: author,
         title: title
@@ -247,8 +244,7 @@ $('#comment').on('click', function () {
     let article_id = article.data('article-id');
     let author = $('#author').data('author');
     let title = $('#title').text();
-    let comment = $('#comment');
-    let username = comment.data('comment');
+    let username = $('#comment').data('comment');
     let commentContent = $('#comment-content');
     let count = $('#comment-count');
     let comment_count = parseInt(count.text().replace(/[^0-9]/ig, ""));
@@ -268,7 +264,6 @@ $('#comment').on('click', function () {
         return;
     }
     $.post("/comment/addComment", {
-        username: username,
         article_id: article_id,
         author: author,
         title: title,
@@ -342,8 +337,7 @@ $('#follow').on('click', function () {
         return;
     }
     $.post("/follow/checkFollow", {
-        author: author,
-        username: username
+        author: author
     }, function (data) {
         if (data === '1') {
             layer.msg('关注成功', {

@@ -17,6 +17,7 @@ class User extends Controller
     // 搜索相关操作的方法
     public function search()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['type']) && isset($_POST['content'])) {
             $content = $_POST['content'];
             $type = '用户名查询结果';
@@ -140,12 +141,10 @@ class User extends Controller
     public function checkChange()
     {
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['introduction'])) {
-            // 用户名是不能修改的
-            $username = trim($_POST['username']);
+        if (isset($_POST['password']) && isset($_POST['introduction'])) {
             $password = md5(trim($_POST['password']));
             $introduction = trim($_POST['introduction']);
-            $result = $this->user->checkChange($username, $password, $introduction);
+            $result = $this->user->checkChange($this->username, $password, $introduction);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();
@@ -203,6 +202,7 @@ class User extends Controller
     // 拉黑用户
     public function defriendUser()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->defriendUser($user_id);
@@ -215,6 +215,7 @@ class User extends Controller
     // 恢复用户的状态为正常
     public function normalUser()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->normalUser($user_id);
@@ -227,6 +228,7 @@ class User extends Controller
     // 删除用户
     public function delUser()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->delUser($user_id);

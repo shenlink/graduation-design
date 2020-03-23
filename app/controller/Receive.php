@@ -6,7 +6,7 @@ use core\lib\Controller;
 
 class Receive extends Controller
 {
-    
+
     // 显示404页面
     public function displayNone()
     {
@@ -16,6 +16,7 @@ class Receive extends Controller
 
     public function delReceive()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['receive_id'])) {
             $receive_id = $_POST['receive_id'];
             $result = $this->receive->delReceive($receive_id);

@@ -17,6 +17,7 @@ class Category extends Controller
     // 拉黑分类
     public function defriendCategory()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->defriendCategory($categorys);
@@ -29,6 +30,7 @@ class Category extends Controller
     // 恢复分类
     public function normalCategory()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->normalCategory($categorys);
@@ -41,6 +43,7 @@ class Category extends Controller
     // 删除分类
     public function delCategory()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['category'])) {
             $categorys = $_POST['category'];
             $result = $this->category->delCategory($categorys);
@@ -53,6 +56,7 @@ class Category extends Controller
     // 添加页面，共有添加分类，公告功能
     public function addCategory()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['addCategory'])) {
             $addCategory = $_POST['addCategory'];
             $recommends = $this->article->recommend();
@@ -67,6 +71,7 @@ class Category extends Controller
     // 确认添加
     public function checkAddCategory()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['categoryName'])) {
             $categoryName = $_POST['categoryName'];
             $result = $this->category->addCategory($categoryName);

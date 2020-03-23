@@ -129,11 +129,9 @@ function delComment(commentId) {
 // 取消关注
 function delFollow(followName) {
     let temp = followName;
-    let username = temp.getAttribute('data-username');
     let author = temp.getAttribute('data-author');
     $.post("/follow/delFollow", {
         author: author,
-        username: username
     }, function (data) {
         if (data === '1') {
             layer.msg('取消关注', {

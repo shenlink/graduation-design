@@ -17,7 +17,8 @@ class Comment extends Controller
     // 发表评论
     public function addComment()
     {
-        if (isset($_POST['article_id'])  && isset($_POST['author']) && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['username'])) {
+        header("Content-type:text/html;charset=utf-8");
+        if (isset($_POST['article_id'])  && isset($_POST['author']) && isset($_POST['title']) && isset($_POST['content'])) {
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
@@ -34,6 +35,7 @@ class Comment extends Controller
     // 删除评论
     public function delComment()
     {
+        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id']) && isset($_POST['comment_id'])) {
             $comment_id = $_POST['comment_id'];
             $article_id = $_POST['article_id'];
