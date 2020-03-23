@@ -142,7 +142,7 @@ class Db
             $stmt->execute();
         }
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return isset($result) ? $result : false;
+        return $result ?? false;
     }
 
     public function selectAll()

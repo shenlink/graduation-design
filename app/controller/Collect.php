@@ -18,7 +18,6 @@ class Collect extends Controller
     {
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
-            // $username = $_POST['username'];
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];

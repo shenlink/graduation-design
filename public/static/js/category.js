@@ -31,3 +31,30 @@ function createInput(name, value) {
     input.value = value;
     return input;
 }
+
+
+// 分页
+function changePage(page) {
+    let temp = page;
+    let pagination = temp.getAttribute('data-index');
+    let category = $('#category').data('category');
+    if (pagination == 'current_1') {
+        layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_end') {
+        layer.msg('已经是末页了', {
+            time: 1000
+        });
+        return;
+    }
+    let form = document.createElement("form");
+    document.body.appendChild(form);
+    input1 = createInput('articlePages', pagination);
+    form.appendChild(input1);
+    form.method = 'post';
+    form.action = '/category/' + category;
+    form.submit();
+}

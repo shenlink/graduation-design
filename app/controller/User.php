@@ -156,31 +156,31 @@ class User extends Controller
     public function manage()
     {
         if ($this->username) {
-            $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
+            $articlePages = $_POST['articlePages'] ?? 1;
             $data = $this->article->getManageArticle($this->username, $articlePages, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
+            $commentPages = $_POST['commentPages'] ?? 1;
             $data = $this->comment->getManageComment($this->username, $commentPages, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
-            $followPages = isset($_POST['followPages']) ? $_POST['followPages'] : 1;
+            $followPages = $_POST['followPages'] ?? 1;
             $data = $this->follow->getFollow($this->username, $followPages, 5);
             $follows = $data['items'];
             $followPage = $data['pageHtml'];
             $this->view->assign('followPage', $followPage);
 
-            $FansPages = isset($_POST['FansPages']) ? $_POST['FansPages'] : 1;
+            $FansPages = $_POST['FansPages'] ?? 1;
             $data = $this->follow->getFans($this->username, $FansPages, 5);
             $fans = $data['items'];
             $fnasPage = $data['pageHtml'];
             $this->view->assign('fnasPage', $fnasPage);
 
-            $receivePages = isset($_POST['receivePages']) ? $_POST['receivePages'] : 1;
+            $receivePages = $_POST['receivePages'] ?? 1;
             $data = $this->receive->getReceive($this->username, $receivePages, 5);
             $receives = $data['items'];
             $receivePage = $data['pageHtml'];
@@ -250,31 +250,31 @@ class User extends Controller
             $this->view->display('error.html');
             exit();
         }
-        $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
+        $articlePages = $_POST['articlePages'] ?? 1;
         $data = $this->article->getUserArticle($author, $articlePages, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $this->view->assign('articlePage', $articlePage);
 
-        $collectPages = isset($_POST['collectPages']) ? $_POST['collectPages'] : 1;
+        $collectPages = $_POST['collectPages'] ?? 1;
         $data = $this->collect->getCollect($author, $collectPages, 5);
         $collects = $data['items'];
         $collectPage = $data['pageHtml'];
         $this->view->assign('collectPage', $collectPage);
 
-        $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
+        $commentPages = $_POST['commentPages'] ?? 1;
         $data = $this->comment->getComment($author, $commentPages, 5);
         $comments = $data['items'];
         $commentPage = $data['pageHtml'];
         $this->view->assign('commentPage', $commentPage);
 
-        $praisePages = isset($_POST['praisePages']) ? $_POST['praisePages'] : 1;
+        $praisePages = $_POST['praisePages'] ?? 1;
         $data = $this->praise->getPraise($author, $praisePages, 5);
         $praises = $data['items'];
         $praisePage = $data['pageHtml'];
         $this->view->assign('praisePage', $praisePage);
 
-        $sharePages = isset($_POST['sharePages']) ? $_POST['sharePages'] : 1;
+        $sharePages = $_POST['sharePages'] ?? 1;
         $data = $this->share->getShare($author, $sharePages, 5);
         $shares = $data['items'];
         $sharePage = $data['pageHtml'];

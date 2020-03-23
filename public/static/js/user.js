@@ -176,6 +176,7 @@ function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
     let type = temp.getAttribute('data-type');
+    let author = $('#author').data('author');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
             time: 1000
@@ -211,6 +212,6 @@ function changePage(page) {
     form.appendChild(input1);
     form.appendChild(input2);
     form.method = 'post';
-    form.action = '/user/personal';
+    form.action = '/user/' + author;
     form.submit();
 }
