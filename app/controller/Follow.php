@@ -4,7 +4,6 @@ namespace app\controller;
 
 use core\lib\Controller;
 
-
 class Follow extends Controller
 {
 
@@ -21,15 +20,14 @@ class Follow extends Controller
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['author']) && isset($_POST['username'])) {
             $author = $_POST['author'];
-            $username = $_POST['username'];
-            $result =  $this->follow->checkFollow($author, $username);
+            $result =  $this->follow->checkFollow($author, $this->username);
             if ($result) {
-                $cancel = $this->follow->cancelFollow($author, $username);
+                $cancel = $this->follow->cancelFollow($author, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $follow_at = date('Y-m-d H:i:s', time());
-                $add = $this->follow->addFollow($author, $username, $follow_at);
+                $add = $this->follow->addFollow($author, $this->username, $follow_at);
                 echo $add ? '1' : '11';
             }
         } else {
@@ -41,8 +39,7 @@ class Follow extends Controller
     {
         if (isset($_POST['author']) && isset($_POST['username'])) {
             $author = $_POST['author'];
-            $username = $_POST['username'];
-            $result =  $this->follow->cancelFollow($author, $username);
+            $result =  $this->follow->cancelFollow($author, $this->username);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

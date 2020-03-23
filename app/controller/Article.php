@@ -4,6 +4,7 @@ namespace app\controller;
 
 use core\lib\Controller;
 
+
 class Article extends Controller
 {
 
@@ -16,19 +17,12 @@ class Article extends Controller
 
     public function search()
     {
-        $access = Validate::checkAccess();
         if (isset($_POST['type']) && isset($_POST['content'])) {
-            if ($access == 1 || $access == 2) {
-                $username = $_SESSION['username'];
-            }
             $content = $_POST['content'];
-            $categorys = $this->category->getCategory();
             $type = '文章查询结果';
             $articles = $this->article->search($content);
             $recommends = $this->article->recommend();
             $this->view->assign('articles', $articles);
-            $this->view->assign('username', $username);
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('recommends', $recommends);
             $this->view->assign('type', $type);
             $this->view->display('search.html');
@@ -40,12 +34,7 @@ class Article extends Controller
     // 显示写文章页面
     public function write()
     {
-        $access = Validate::checkAccess();
-        if ($access == '1' || $access == '2') {
-            $username = $_SESSION['username'];
-            $categorys = $this->category->getCategory();
-            $this->view->assign('username', $username);
-            $this->view->assign('categorys', $categorys);
+        if ($this->username) {
             $this->view->display('write.html');
         } else {
             $this->view->assign('nologin', 'nologin');
@@ -57,14 +46,12 @@ class Article extends Controller
     public function checkWrite()
     {
         if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
-            session_start();
-            $author = $_SESSION['username'];
             $category = $_POST['category'];
             $title = $_POST['title'];
             $content = $_POST['content'];
             date_default_timezone_set('PRC');
             $updated_at = date('Y-m-d H:i:s', time());
-            $result = $this->article->checkWrite($author, $category, $title,  $content,  $updated_at);
+            $result = $this->article->checkWrite($this->username, $category, $title,  $content,  $updated_at);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();
@@ -77,9 +64,7 @@ class Article extends Controller
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $articles = $this->article->getArticle($article_id);
-            $categorys = $this->category->getCategory();
             $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
             $this->view->display('edit.html');
         } else {
             $this->displayNone();
@@ -129,12 +114,10 @@ class Article extends Controller
     //删除文章
     public function delArticle()
     {
-        session_start();
         if (isset($_POST['article_id']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
-            $author = $_SESSION['username'];
             $category = $_POST['category'];
-            $result = $this->article->delArticle($article_id, $author, $category);
+            $result = $this->article->delArticle($article_id, $this->username, $category);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();
@@ -145,34 +128,27 @@ class Article extends Controller
     {
         $article_id = $method;
         if (!is_numeric($article_id)) {
-            $this->view->assign('error','error');
+            $this->view->assign('error', 'error');
             $this->view->display('error.html');
             exit();
         }
         $realArticle_id = $this->article->checkArticleId($article_id);
         if ($realArticle_id) {
             $articles = $this->article->getArticle($article_id);
-            $categorys = $this->category->getCategory();
             $comments = $this->comment->getArticleComment($article_id);
-            $access = Validate::checkAccess();
-            if ($access == 1 || $access == 2) {
-                $username = $_SESSION['username'];
-            }
             $author = $this->article->getAuthor($article_id);
             $author = $author['author'];
             $users = $this->user->personal($author);
-            if($username){
-                $follows = $this->follow->checkFollow($author, $username);
-                $praised =  $this->praise->checkPraise($article_id, $username);
-                $collected =  $this->collect->checkCollect($article_id, $username);
-                $shared =  $this->share->checkShare($article_id, $username);
+            if ($this->username) {
+                $follows = $this->follow->checkFollow($author, $this->username);
+                $praised =  $this->praise->checkPraise($article_id, $this->username);
+                $collected =  $this->collect->checkCollect($article_id, $this->username);
+                $shared =  $this->share->checkShare($article_id, $this->username);
             }
             $recents = $this->article->getRecentArticle($author);
             $praise_count = $this->praise->getPraiseCount($author);
             $comment_count = $this->comment->getCommentCount($author);
-            $this->view->assign('username', $username);
             $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('collected', $collected);
             $this->view->assign('comments', $comments);
             $this->view->assign('follows', $follows);
@@ -184,7 +160,7 @@ class Article extends Controller
             $this->view->assign('users', $users);
             $this->view->display('article.html');
         } else {
-            $this->view->assign('error','error');
+            $this->view->assign('error', 'error');
             $this->view->display('error.html');
         }
     }

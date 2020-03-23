@@ -6,6 +6,7 @@ use core\lib\Controller;
 
 class Receive extends Controller
 {
+    
     // 显示404页面
     public function displayNone()
     {

@@ -18,6 +18,12 @@ class Announcement extends Model
         }
     }
 
+    // 获取公告信息
+    public function getAnnouncement()
+    {
+        return $this->table('announcement')->field('content')->selectAll();
+    }
+
     // 查询announcement表中的数据
     public function getAllAnnouncement($currentPage=1, $pageSize=5)
     {

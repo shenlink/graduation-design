@@ -3,8 +3,6 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use app\controller\Validate;
-
 
 class User extends Controller
 {
@@ -19,18 +17,11 @@ class User extends Controller
     // 搜索相关操作的方法
     public function search()
     {
-        $access = Validate::checkAccess();
         if (isset($_POST['type']) && isset($_POST['content'])) {
-            if ($access == 1 || $access == 2) {
-                $username = $_SESSION['username'];
-            }
             $content = $_POST['content'];
-            $categorys = $this->category->getCategory();
             $type = '用户名查询结果';
             $users = $this->user->search($content);
             $recommends = $this->article->recommend();
-            $this->view->assign('username', $username);
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('recommends', $recommends);
             $this->view->assign('type', $type);
             $this->view->assign('users', $users);
@@ -64,8 +55,6 @@ class User extends Controller
     // 显示注册页面
     public function register()
     {
-        $categorys = $this->category->getCategory();
-        $this->view->assign('categorys', $categorys);
         $this->view->display('register.html');
     }
 
@@ -88,8 +77,6 @@ class User extends Controller
     // 显示登录页面
     public function login()
     {
-        $categorys = $this->category->getCategory();
-        $this->view->assign('categorys', $categorys);
         $this->view->display('login.html');
     }
 
@@ -121,71 +108,9 @@ class User extends Controller
     // 退出登录功能的实现
     public function logout()
     {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
+        if ($this->username) {
             unset($_SESSION['username']);
             echo "<script>window.location.href='/'</script>";
-        } else {
-            $this->view->assign('nologin', 'nologin');
-            $this->view->display('error.html');
-        }
-    }
-
-    // 显示个人首页
-    public function personal()
-    {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-            $categorys = $this->category->getCategory();
-            $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
-            $data = $this->article->getUserArticle($username, $articlePages, 5);
-            $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
-            $this->view->assign('articlePage', $articlePage);
-
-            $collectPages = isset($_POST['collectPages']) ? $_POST['collectPages'] : 1;
-            $data = $this->collect->getCollect($username, $collectPages, 5);
-            $collects = $data['items'];
-            $collectPage = $data['pageHtml'];
-            $this->view->assign('collectPage', $collectPage);
-
-            $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
-            $data = $this->comment->getComment($username, $commentPages, 5);
-            $comments = $data['items'];
-            $commentPage = $data['pageHtml'];
-            $this->view->assign('commentPage', $commentPage);
-
-            $praisePages = isset($_POST['praisePages']) ? $_POST['praisePages'] : 1;
-            $data = $this->praise->getPraise($username, $praisePages, 5);
-            $praises = $data['items'];
-            $praisePage = $data['pageHtml'];
-            $this->view->assign('praisePage', $praisePage);
-
-            $sharePages = isset($_POST['sharePages']) ? $_POST['sharePages'] : 1;
-            $data = $this->share->getShare($username, $sharePages, 5);
-            $shares = $data['items'];
-            $sharePage = $data['pageHtml'];
-            $this->view->assign('sharePage', $sharePage);
-
-            $type = isset($_POST['type']) ? $_POST['type'] : 'article';
-            $praise_count = $this->praise->getPraiseCount($username);
-            $comment_count = $this->comment->getCommentCount($username);
-            $recents = $this->article->getRecentArticle($username);
-            $users = $this->user->personal($username);
-            $this->view->assign('username', $username);
-            $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
-            $this->view->assign('collects', $collects);
-            $this->view->assign('comments', $comments);
-            $this->view->assign('praise_count', $praise_count);
-            $this->view->assign('comment_count', $comment_count);
-            $this->view->assign('recents', $recents);
-            $this->view->assign('praises', $praises);
-            $this->view->assign('shares', $shares);
-            $this->view->assign('type', $type);
-            $this->view->assign('users', $users);
-            $this->view->display('personal.html');
         } else {
             $this->view->assign('nologin', 'nologin');
             $this->view->display('error.html');
@@ -195,22 +120,17 @@ class User extends Controller
     // 显示用户修稿密码和个人简介的页面
     public function change()
     {
-        $access = Validate::checkAccess();
-        if ($access == '1' || $access == '2') {
-            $username = $_SESSION['username'];
-            $categorys = $this->category->getCategory();
-            $recents = $this->article->getRecentArticle($username);
-            $users = $this->user->personal($username);
-            $praise_count = $this->praise->getPraiseCount($username);
-            $comment_count = $this->comment->getCommentCount($username);
-            $this->view->assign('username', $username);
-            $this->view->assign('categorys', $categorys);
+        if ($this->username) {
+            $recents = $this->article->getRecentArticle($this->username);
+            $users = $this->user->personal($this->username);
+            $praise_count = $this->praise->getPraiseCount($this->username);
+            $comment_count = $this->comment->getCommentCount($this->username);
             $this->view->assign('praise_count', $praise_count);
             $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);
             $this->view->assign('users', $users);
             $this->view->display('change.html');
-        } else if ($access == '3') {
+        } else {
             $this->view->assign('nologin', 'nologin');
             $this->view->display('error.html');
         }
@@ -221,6 +141,7 @@ class User extends Controller
     {
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['introduction'])) {
+            // 用户名是不能修改的
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
             $introduction = trim($_POST['introduction']);
@@ -234,43 +155,39 @@ class User extends Controller
     // 显示用户管理页面
     public function manage()
     {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-            $categorys = $this->category->getCategory();
+        if ($this->username) {
             $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
-            $data = $this->article->getManageArticle($username, $articlePages, 5);
+            $data = $this->article->getManageArticle($this->username, $articlePages, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
             $commentPages = isset($_POST['commentPages']) ? $_POST['commentPages'] : 1;
-            $data = $this->comment->getManageComment($username, $commentPages, 5);
+            $data = $this->comment->getManageComment($this->username, $commentPages, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
             $followPages = isset($_POST['followPages']) ? $_POST['followPages'] : 1;
-            $data = $this->follow->getFollow($username, $followPages, 5);
+            $data = $this->follow->getFollow($this->username, $followPages, 5);
             $follows = $data['items'];
             $followPage = $data['pageHtml'];
             $this->view->assign('followPage', $followPage);
 
             $FansPages = isset($_POST['FansPages']) ? $_POST['FansPages'] : 1;
-            $data = $this->follow->getFans($username, $FansPages, 5);
+            $data = $this->follow->getFans($this->username, $FansPages, 5);
             $fans = $data['items'];
             $fnasPage = $data['pageHtml'];
             $this->view->assign('fnasPage', $fnasPage);
 
             $receivePages = isset($_POST['receivePages']) ? $_POST['receivePages'] : 1;
-            $data = $this->receive->getReceive($username, $receivePages, 5);
+            $data = $this->receive->getReceive($this->username, $receivePages, 5);
             $receives = $data['items'];
             $receivePage = $data['pageHtml'];
             $this->view->assign('receivePage', $receivePage);
             $type = isset($_POST['type']) ? $_POST['type'] : 'article';
-            $this->view->assign('username', $username);
+            $this->view->assign('username', $this->username);
             $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('comments', $comments);
             $this->view->assign('follows', $follows);
             $this->view->assign('fans', $fans);
@@ -333,9 +250,6 @@ class User extends Controller
             $this->view->display('error.html');
             exit();
         }
-        if (isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-        }
         $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
         $data = $this->article->getUserArticle($author, $articlePages, 5);
         $articles = $data['items'];
@@ -365,19 +279,15 @@ class User extends Controller
         $shares = $data['items'];
         $sharePage = $data['pageHtml'];
         $this->view->assign('sharePage', $sharePage);
-
         $type = isset($_POST['type']) ? $_POST['type'] : 'article';
-        if ($username) {
-            $follows = $this->follow->checkFollow($author, $username);
+        if ($this->username) {
+            $follows = $this->follow->checkFollow($author, $this->username);
         }
-        $categorys = $this->category->getCategory();
         $users = $this->user->personal($author);
         $praise_count = $this->praise->getPraiseCount($author);
         $comment_count = $this->comment->getCommentCount($author);
         $recents = $this->article->getRecentArticle($author);
-        $this->view->assign('username', $username);
         $this->view->assign('articles', $articles);
-        $this->view->assign('categorys', $categorys);
         $this->view->assign('collects', $collects);
         $this->view->assign('comments', $comments);
         $this->view->assign('follows', $follows);

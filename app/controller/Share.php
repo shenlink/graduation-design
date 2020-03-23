@@ -6,6 +6,7 @@ use core\lib\Controller;
 
 class Share extends Controller
 {
+    
     // 显示404页面
     public function displayNone()
     {
@@ -18,18 +19,17 @@ class Share extends Controller
     {
         header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
-            $username = $_POST['username'];
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
             $title = $_POST['title'];
-            $result =  $this->share->checkShare($article_id,$username);
+            $result =  $this->share->checkShare($article_id, $this->username);
             if ($result) {
-                $cancel = $this->share->cancelShare($article_id, $username);
+                $cancel = $this->share->cancelShare($article_id, $this->username);
                 echo $cancel ? '0' : '00';
             } else {
                 date_default_timezone_set('PRC');
                 $share_at = date('Y-m-d H:i:s', time());
-                $add = $this->share->addShare($article_id, $author, $title, $username, $share_at);
+                $add = $this->share->addShare($article_id, $author, $title, $this->username, $share_at);
                 echo $add ? '1' : '11';
             }
         } else {

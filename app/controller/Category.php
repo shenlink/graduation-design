@@ -3,10 +3,10 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use app\controller\Validate;
 
 class Category extends Controller
 {
+
     // 显示404页面
     public function displayNone()
     {
@@ -55,13 +55,9 @@ class Category extends Controller
     {
         if (isset($_POST['addCategory'])) {
             $addCategory = $_POST['addCategory'];
-            $username = $_SESSION['username'];
-            $categorys = $this->category->getCategory();
             $recommends = $this->article->recommend();
             $this->view->assign('addCategory', $addCategory);
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('recommends', $recommends);
-            $this->view->assign('username', $username);
             $this->view->display('add.html');
         } else {
             $this->displayNone();
@@ -82,10 +78,6 @@ class Category extends Controller
 
     public function __call($method, $args)
     {
-        $access = Validate::checkAccess();
-        if ($access == 1 || $access == 2) {
-            $username = $_SESSION['username'];
-        }
         $categoryName = $method;
         $realCategory = $this->category->checkCategory($categoryName);
         if (!$realCategory) {
@@ -105,11 +97,8 @@ class Category extends Controller
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
         }
-        $categorys = $this->category->getCategory();
         $recommends = $this->article->recommend();
-        $this->view->assign('username', $username);
         $this->view->assign('articles', $articles);
-        $this->view->assign('categorys', $categorys);
         $this->view->assign('categoryName', $categoryName);
         $this->view->assign('recommends', $recommends);
         $this->view->display('category.html');

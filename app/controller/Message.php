@@ -6,6 +6,7 @@ use core\lib\Controller;
 
 class Message extends Controller
 {
+    
     // 显示404页面
     public function displayNone()
     {
@@ -15,16 +16,11 @@ class Message extends Controller
 
     public function addMessage()
     {
-        session_start();
         if (isset($_POST['author'])) {
-            $username = $_SESSION['username'];
             $author = $_POST['author'];
-            $categorys = $this->category->getCategory();
             $recommends = $this->article->recommend();
-            $this->view->assign('categorys', $categorys);
             $this->view->assign('author', $author);
             $this->view->assign('recommends', $recommends);
-            $this->view->assign('username', $username);
             $this->view->display('add.html');
         } else {
             $this->displayNone();

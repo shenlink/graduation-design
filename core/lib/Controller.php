@@ -14,7 +14,8 @@ class Controller
 
     public function __construct()
     {
-        $this->announcement =  Factory::createAnnouncement();
+        session_start();
+        $this->announcement = Factory::createAnnouncement();
         $this->article = Factory::createArticle();
         $this->category = Factory::createCategory();
         $this->collect = Factory::createCollect();
@@ -26,6 +27,13 @@ class Controller
         $this->share = Factory::createShare();
         $this->user = Factory::createUser();
         $this->view = Factory::createView();
+        $this->categorys = $this->category->getCategory();
+        // if (isset($_SESSION['username'])) {
+        //     $this->username = $_SESSION['username'];
+        // }
+        $this->username = $_SESSION['username'] ? $_SESSION['username'] : null;
+        $this->view->assign('categorys', $this->categorys);
+        $this->view->assign('username', $this->username);
     }
 
     // 执行前调用

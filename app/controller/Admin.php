@@ -3,7 +3,7 @@
 namespace app\controller;
 
 use core\lib\Controller;
-use app\controller\Validate;
+
 
 class Admin extends Controller
 {
@@ -16,9 +16,7 @@ class Admin extends Controller
 
     public function manage()
     {
-        $access = Validate::checkAccess();
-        if ($access == '1') {
-            $username = $_SESSION['username'];
+        if ($this->username === 'shen') {
             $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
             $data = $this->article->getAllArticle($articlePages, 5);
             $articles = $data['items'];
@@ -33,7 +31,7 @@ class Admin extends Controller
 
             $categoryPages = isset($_POST['categoryPages']) ? $_POST['categoryPages'] : 1;
             $data = $this->category->getAllCategory($categoryPages, 5);
-            $categorys = $data['items'];
+            $AllCategorys = $data['items'];
             $categoryPage = $data['pageHtml'];
             $this->view->assign('categoryPage', $categoryPage);
 
@@ -55,16 +53,15 @@ class Admin extends Controller
             $userPage = $data['pageHtml'];
             $this->view->assign('userPage', $userPage);
             $type = isset($_POST['type']) ? $_POST['type'] : 'user';
-            $this->view->assign('username', $username);
             $this->view->assign('announcements', $announcements);
             $this->view->assign('articles', $articles);
-            $this->view->assign('categorys', $categorys);
+            $this->view->assign('AllCategorys', $AllCategorys);
             $this->view->assign('comments', $comments);
             $this->view->assign('messages', $messages);
             $this->view->assign('type', $type);
             $this->view->assign('users', $users);
             $this->view->display('admin.html');
-        } else if ($access == '2') {
+        } else if ($this->username !== 'shen') {
             $this->view->assign('noadmin', 'noadmin');
             $this->view->display('error.html');
         } else {

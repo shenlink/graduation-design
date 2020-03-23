@@ -202,26 +202,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{foreach from=$categorys item=categorysItem}}
+                    {{foreach from=$AllCategorys item=AllCategorysItem}}
                     <tr>
                         <td>
-                            {{$categorysItem.category_id}}
+                            {{$AllCategorysItem.category_id}}
                         </td>
                         <td>
-                            {{$categorysItem.category}}
+                            {{$AllCategorysItem.category}}
                         </td>
                         <td>
-                            {{if $categorysItem.status == 1}}
+                            {{if $AllCategorysItem.status == 1}}
                             正常
                             {{else}}
                             拉黑
                             {{/if}}
                         </td>
                         <td>
-                            {{$categorysItem.article_count}}
+                            {{$AllCategorysItem.article_count}}
                         </td>
                         <td>
-                            {{if $categorysItem.status == 1}}
+                            {{if $AllCategorysItem.status == 1}}
                             <button class="btn btn-primary btn-sm" onclick="defriendCategory(this)"
                                 data-category={{$categorysItem.category}}>
                                 拉黑
