@@ -55,9 +55,9 @@ class Db
             session_start();
             if (isset($_SESSION)) {
                 $username = $_SESSION['username'];
-                Log::log("用户{$username}:" . '数据库连接发生错误:' . $e->getMessage(), 'sql');
+                Log::log("用户{$username}:" . '数据库连接发生错误:' . $e->getMessage(), 'log');
             } else {
-                Log::log('数据库连接发生错误:' . $e->getMessage() . 'sql');
+                Log::log('数据库连接发生错误:' . $e->getMessage() . 'log');
             }
         }
         return $this->pdo;
