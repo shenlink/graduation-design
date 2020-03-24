@@ -11,7 +11,7 @@ class Index extends Controller
     public function index()
     {
         $announcements = $this->announcement->getAnnouncement();
-        $articlePages = isset($_POST['articlePages']) ? $_POST['articlePages'] : 1;
+        $articlePages = $_POST['articlePages'] ?? 1;
         $data = $this->article->getIndexArticle($articlePages, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
