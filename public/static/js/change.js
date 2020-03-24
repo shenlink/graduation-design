@@ -151,6 +151,7 @@ function check() {
 
 
 $('#change').on('click', function () {
+    let username = $(" input[ name='username' ] ").val()
     let password = $('#password').val();
     let introduction = $('#introduction').val();
     if (check()) {
@@ -162,7 +163,7 @@ $('#change').on('click', function () {
                 layer.msg('修改成功', {
                     time: 1000
                 }, function () {
-                    location.href = '/user/personal';
+                    location.href = '/user/'+username;
                 });
             } else {
                 layer.msg('修改失败', {

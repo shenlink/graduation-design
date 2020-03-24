@@ -6,9 +6,8 @@ use core\lib\Log;
 use core\lib\Route;
 use core\lib\Factory;
 
-/**
- * 控制器基类
- */
+
+// 控制器基类
 class Controller
 {
 

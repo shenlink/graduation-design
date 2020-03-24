@@ -6,8 +6,6 @@ class Loader
     public static $classMap = array();
     public static function autoload($class)
     {
-        // require Shen . '/' . str_replace('\\', '/', $class) . '.php';
-
         $class = str_replace('\\', '/', $class);
         $file = SHEN . '/' . $class . '.php';
         if (is_file($file)) {

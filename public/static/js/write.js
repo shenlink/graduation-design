@@ -49,6 +49,7 @@ $('#publish').on('click', function () {
     let html = editor.txt.html();
     let content = filterXSS(html);
     let category = $('#category').val();
+    let username = $("#publish").data('username');
     let content_text = editor.txt.text();
     if (title.match(/^[ ]+$/) || title.length == 0) {
         layer.msg('标题不能为空', {
@@ -71,7 +72,7 @@ $('#publish').on('click', function () {
             layer.msg('发布成功', {
                 time: 1000
             }, function () {
-                window.location.href = '/user/personal';
+                window.location.href = '/user/' + username;
             });
         } else {
             layer.msg('发布失败', {
