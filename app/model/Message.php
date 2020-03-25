@@ -55,6 +55,6 @@ class Message extends Model
 
     public function getAllMessage($currentPage = 1, $pageSize)
     {
-        return $this->table('message')->order('created_at desc')->pages($currentPage, $pageSize,'message');
+        return $this->table('message')->order('created_at desc')->pages($currentPage, $pageSize, '/admin/manage','message');
     }
 }

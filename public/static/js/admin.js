@@ -437,10 +437,14 @@ function delMesssage(messageId) {
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let type = temp.getAttribute('data-type');
-    let token = $('#token').data('token');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_page') {
+        layer.msg('已经是当前页了', {
             time: 1000
         });
         return;
@@ -451,34 +455,4 @@ function changePage(page) {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    switch (type) {
-        case 'user':
-            input1 = createInput('userPages', pagination);
-            break;
-        case 'article':
-            input1 = createInput('articlePages', pagination);
-            break;
-        case 'category':
-            input1 = createInput('categoryPages', pagination);
-            break;
-        case 'comment':
-            input1 = createInput('commentPages', pagination);
-            break;
-        case 'announcement':
-            input1 = createInput('announcementPages', pagination);
-            break;
-        case 'message':
-            input1 = createInput('messagePages', pagination);
-            break;
-    }
-    let input2 = createInput('type', type);
-    let input3 = createInput('token', token);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.appendChild(input3);
-    form.method = 'post';
-    form.action = '/admin/manage';
-    form.submit();
 }

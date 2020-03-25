@@ -8,11 +8,10 @@ class Index extends Controller
 {
 
     // 显示首页
-    public function index()
+    public function index($type = null, $pagination = 1)
     {
         $announcements = $this->announcement->getAnnouncement();
-        $articlePages = $_POST['articlePages'] ?? 1;
-        $data = $this->article->getIndexArticle($articlePages, 5);
+        $data = $this->article->getIndexArticle($pagination, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $recommends = $this->article->recommend();

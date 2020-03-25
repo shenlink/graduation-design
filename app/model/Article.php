@@ -96,22 +96,22 @@ class Article extends Model
 
     public function getIndexArticle($currentPage = 1, $pageSize)
     {
-        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, '/index/index', 'pagination');
     }
 
     public function getAllArticle($currentPage = 1, $pageSize)
     {
-        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->order('updated_at desc')->pages($currentPage, $pageSize, '/admin/manage', 'article');
     }
 
     public function getManageArticle($username, $currentPage = 1, $pageSize)
     {
-        return $this->table('article')->field('article_id,title,content,category,updated_at,updated_at,collect_count,praise_count,comment_count,share_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,title,content,category,updated_at,updated_at,collect_count,praise_count,comment_count,share_count,status')->where(['author' => "{$username}"])->pages($currentPage, $pageSize, '/user/manage', 'article');
     }
 
     public function getUserArticle($username, $currentPage = 1, $pageSize)
     {
-        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->order('updated_at desc')->pages($currentPage, $pageSize, 'article');
+        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count,status')->where(['author' => "{$username}"])->order('updated_at desc')->pages($currentPage, $pageSize, "/user/{$username}", 'article');
     }
 
     public function getRecentArticle($author)
@@ -155,6 +155,6 @@ class Article extends Model
 
     public function getCategoryArticle($category, $currentPage = 1, $pageSize)
     {
-        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->order('updated_at desc')->pages($currentPage, $pageSize);
+        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where(['category' => "{$category}", 'status' => 1])->order('updated_at desc')->pages($currentPage, $pageSize, "/category/{$category}");
     }
 }

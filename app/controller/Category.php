@@ -90,8 +90,8 @@ class Category extends Controller
             $this->view->display('error.html');
             exit();
         }
-        $articlePages = $_POST['articlePages'] ?? 1;
-        $data = $this->article->getCategoryArticle($categoryName, $articlePages, 5);
+        $pagination = $args[1] ?? 1;
+        $data = $this->article->getCategoryArticle($categoryName, $pagination, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $this->view->assign('articlePage', $articlePage);

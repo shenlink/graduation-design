@@ -240,50 +240,54 @@ class Db
     }
 
     // 分页
-    public function pages($currentPage, $pageSize = 5, $type = 'article')
+    public function pages($currentPage, $pageSize = 5, $url, $type = 'pagination')
     {
         $count = $this->count();
         $this->limit = ($currentPage - 1) * $pageSize . ',' . $pageSize;
         $items = $this->selectAll();
-        $pageHtml = $this->createPages($currentPage, $pageSize, $count, $type);
+        $pageHtml = $this->createPages($currentPage, $pageSize, $count, $url, $type);
         return array('items' => $items, 'pageHtml' => $pageHtml);
     }
 
     // 生成分页pageHtml(bootstrap风格)；currentPage：当前第几页，pageSize:每页大小，count:数据总数
-    private function createPages($currentPage, $pageSize, $count, $type)
+    private function createPages($currentPage, $pageSize, $count, $url, $type)
     {
         // 分页数，向上取整
         $pageHtml = '';
+        $separate = '/';
         $pageCount = ceil($count / $pageSize);
         // 生成首页,生成上一页
         if ($pageCount > 0 && $currentPage >= 1) {
             if ($currentPage == 1) {
-                $pageHtml .= "<li data-index='current_1' data-type={$type} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+                $pageHtml .= "<li data-index='current_1' onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
             } else {
-                $pageHtml .= "<li data-index='1' data-type={$type} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+                $pageHtml .= "<li class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}1'>首页</a></li>";
             }
             $prePage = $currentPage - 1;
             if ($prePage < 1) {
                 $prePage = 'current_1';
             }
-            $pageHtml .= "<li data-index={$prePage} data-type={$type} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
+            $pageHtml .= "<li data-index={$prePage} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
         }
         $start = $currentPage - 3 >= 1 ? $currentPage - 3 : 1;
         $end = $currentPage + 3 <= $pageCount ? $currentPage + 3 : $pageCount;
         for ($i = $start; $i <= $end; $i++) {
-            $pageHtml .= $i == $currentPage ? "<li data-index={$i} data-type={$type} onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} data-type={$type} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>";
+            $pageHtml .= $i == $currentPage ? "<li data-index='current_page' onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$i}'>{$i}</a></li>";
         }
         // 生成下一页,生成尾页
         if ($currentPage <= $pageCount) {
             $nextPage = $currentPage + 1;
             if ($nextPage > $pageCount) {
-                $nextPage = 'current_end';
+                $pageHtml .= "<li data-index='current_end' onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
+            }else{
+                $pageHtml .= "<li class='page-item '><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$nextPage}'>下一页</a></li>";
             }
-            $pageHtml .= "<li data-index={$nextPage} data-type={$type} onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
             if ($currentPage == $pageCount) {
                 $pageCount = 'current_end';
+                $pageHtml .= "<li data-index='current_end' onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
+            }else{
+                $pageHtml .= "<li class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$pageCount}'>尾页</a></li>";
             }
-            $pageHtml .= "<li data-index={$pageCount} data-type={$type} onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
         }
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
         return $pageHtml;

@@ -21,12 +21,12 @@ class Follow extends Model
 
     public function getFollow($username, $currentPage = 1, $pageSize)
     {
-        return $this->table('follow')->field('author,follow_at')->where(['username' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, 'follow');
+        return $this->table('follow')->field('author,follow_at')->where(['username' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, '/user/manage','follow');
     }
 
     public function getFans($username,$currentPage = 1, $pageSize)
     {
-        return $this->table('follow')->field('username,follow_at')->where(['author' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, 'fans');
+        return $this->table('follow')->field('username,follow_at')->where(['author' => "{$username}"])->order('follow_at desc')->pages($currentPage, $pageSize, '/user/manage', 'fans');
     }
 
     // 处理确认关注操作

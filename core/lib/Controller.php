@@ -63,13 +63,19 @@ class Controller
         $route = new Route();
         $controller = $route->controller;
         $action = $route->action;
+        $type = $route->type;
+        $pagination = $route->pagination;
         $controllerFile = APP . '/controller/' . $controller . '.php';
         $controllerClass = '\\app' . '\\controller\\' . $controller;
         if (is_file($controllerFile)) {
             include $controllerFile;
             $controller = new $controllerClass();
             $controller->beforeAction($action);
-            $controller->$action();
+            if($type && $pagination){
+                $controller->$action($type, $pagination);
+            }else{
+                $controller->$action();
+            }
             $controller->afterAction($action);
             session_start();
             if (isset($_SESSION['username'])) {

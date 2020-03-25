@@ -27,7 +27,7 @@ class Announcement extends Model
     // 查询announcement表中的数据
     public function getAllAnnouncement($currentPage=1, $pageSize)
     {
-        return $this->table('announcement')->field('announcement_id,content,created_at')-> pages($currentPage, $pageSize, 'announcement');
+        return $this->table('announcement')->field('announcement_id,content,created_at')-> pages($currentPage, $pageSize, '/admin/manage', 'announcement');
     }
 
     // 添加公告

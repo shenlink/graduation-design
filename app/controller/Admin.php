@@ -13,45 +13,44 @@ class Admin extends Controller
         $this->view->display('error.html');
     }
 
-    public function manage()
+    public function manage($type = 'user', $pagination = 1)
     {
         if ($this->username === 'shen') {
-            $articlePages = $_POST['articlePages'] ?? 1;
-            $data = $this->article->getAllArticle($articlePages, 5);
+            $pagination = $type == 'article' ? $pagination : 1;
+            $data = $this->article->getAllArticle($pagination, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            $announcementPages = $_POST['announcementPages'] ?? 1;
-            $data = $this->announcement->getAllAnnouncement($announcementPages, 5);
+            $pagination = $type == 'announcement' ? $pagination : 1;
+            $data = $this->announcement->getAllAnnouncement($pagination, 5);
             $announcements = $data['items'];
             $announcementPage = $data['pageHtml'];
             $this->view->assign('announcementPage', $announcementPage);
 
-            $categoryPages = $_POST['categoryPages'] ?? 1;
-            $data = $this->category->getAllCategory($categoryPages, 5);
+            $pagination = $type == 'category' ? $pagination : 1;
+            $data = $this->category->getAllCategory($pagination, 5);
             $AllCategorys = $data['items'];
             $categoryPage = $data['pageHtml'];
             $this->view->assign('categoryPage', $categoryPage);
 
-            $commentPages = $_POST['commentPages'] ?? 1;
-            $data = $this->comment->getAllComment($commentPages, 5);
+            $pagination = $type == 'comment' ? $pagination : 1;
+            $data = $this->comment->getAllComment($pagination, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
-            $messagePages = $_POST['messagePages'] ?? 1;
-            $data = $this->message->getAllMessage($messagePages, 5);
+            $pagination = $type == 'message' ? $pagination : 1;
+            $data = $this->message->getAllMessage($pagination, 5);
             $messages = $data['items'];
             $messagePage = $data['pageHtml'];
             $this->view->assign('messagePage', $messagePage);
 
-            $userPages = $_POST['userPages'] ?? 1;
-            $data = $this->user->getAllUser($userPages, 5);
+            $pagination = $type == 'user' ? $pagination : 1;
+            $data = $this->user->getAllUser($pagination, 5);
             $users = $data['items'];
             $userPage = $data['pageHtml'];
             $this->view->assign('userPage', $userPage);
-            $type = isset($_POST['type']) ? $_POST['type'] : 'user';
             $this->view->assign('announcements', $announcements);
             $this->view->assign('articles', $articles);
             $this->view->assign('AllCategorys', $AllCategorys);

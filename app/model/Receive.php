@@ -26,6 +26,6 @@ class Receive extends Model
 
     public function getReceive($username,$currentPage=1, $pageSize=5)
     {
-        return $this->table('receive')->field('receive_id,content,receive_at')->where(['username'=>"{$username}"])->pages($currentPage, $pageSize,'receive');
+        return $this->table('receive')->field('receive_id,content,receive_at')->where(['username'=>"{$username}"])->pages($currentPage, $pageSize, '/user/manage','receive');
     }
 }

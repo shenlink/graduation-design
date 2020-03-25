@@ -150,39 +150,38 @@ class User extends Controller
     }
 
     // 显示用户管理页面
-    public function manage()
+    public function manage($type = 'article', $pagination = 1)
     {
         if ($this->username) {
-            $articlePages = $_POST['articlePages'] ?? 1;
-            $data = $this->article->getManageArticle($this->username, $articlePages, 5);
+            $pagination = $type == 'article' ? $pagination : 1;
+            $data = $this->article->getManageArticle($this->username, $pagination, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            $commentPages = $_POST['commentPages'] ?? 1;
-            $data = $this->comment->getManageComment($this->username, $commentPages, 5);
+            $pagination = $type == 'comment' ? $pagination : 1;
+            $data = $this->comment->getManageComment($this->username, $pagination, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
-            $followPages = $_POST['followPages'] ?? 1;
-            $data = $this->follow->getFollow($this->username, $followPages, 5);
+            $pagination = $type == 'follow' ? $pagination : 1;
+            $data = $this->follow->getFollow($this->username, $pagination, 5);
             $follows = $data['items'];
             $followPage = $data['pageHtml'];
             $this->view->assign('followPage', $followPage);
 
-            $FansPages = $_POST['FansPages'] ?? 1;
-            $data = $this->follow->getFans($this->username, $FansPages, 5);
+            $pagination = $type == 'fans' ? $pagination : 1;
+            $data = $this->follow->getFans($this->username, $pagination, 5);
             $fans = $data['items'];
             $fnasPage = $data['pageHtml'];
             $this->view->assign('fnasPage', $fnasPage);
 
-            $receivePages = $_POST['receivePages'] ?? 1;
-            $data = $this->receive->getReceive($this->username, $receivePages, 5);
+            $pagination = $type == 'receive' ? $pagination : 1;
+            $data = $this->receive->getReceive($this->username, $pagination, 5);
             $receives = $data['items'];
             $receivePage = $data['pageHtml'];
             $this->view->assign('receivePage', $receivePage);
-            $type = isset($_POST['type']) ? $_POST['type'] : 'article';
             $this->view->assign('username', $this->username);
             $this->view->assign('articles', $articles);
             $this->view->assign('comments', $comments);
@@ -243,6 +242,7 @@ class User extends Controller
     // 当用户在URL中输入/user/之后的是用户名时，访问该用户
     public function __call($method, $args)
     {
+
         $author = $method;
         $status = $this->user->checkStatus($author);
         if (!$status) {
@@ -250,36 +250,37 @@ class User extends Controller
             $this->view->display('error.html');
             exit();
         }
-        $articlePages = $_POST['articlePages'] ?? 1;
-        $data = $this->article->getUserArticle($author, $articlePages, 5);
+        $type = $args[0] ?? 'article';
+        $pagination = $args[1] ?? 1;
+        $pagination = $type == 'article' ? $pagination : 1;
+        $data = $this->article->getUserArticle($author, $pagination, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $this->view->assign('articlePage', $articlePage);
 
-        $collectPages = $_POST['collectPages'] ?? 1;
-        $data = $this->collect->getCollect($author, $collectPages, 5);
+        $pagination = $type == 'collect' ? $pagination : 1;
+        $data = $this->collect->getCollect($author, $pagination, 5);
         $collects = $data['items'];
         $collectPage = $data['pageHtml'];
         $this->view->assign('collectPage', $collectPage);
 
-        $commentPages = $_POST['commentPages'] ?? 1;
-        $data = $this->comment->getComment($author, $commentPages, 5);
+        $pagination = $type == 'comment' ? $pagination : 1;
+        $data = $this->comment->getComment($author, $pagination, 5);
         $comments = $data['items'];
         $commentPage = $data['pageHtml'];
         $this->view->assign('commentPage', $commentPage);
 
-        $praisePages = $_POST['praisePages'] ?? 1;
-        $data = $this->praise->getPraise($author, $praisePages, 5);
+        $pagination = $type == 'praise' ? $pagination : 1;
+        $data = $this->praise->getPraise($author, $pagination, 5);
         $praises = $data['items'];
         $praisePage = $data['pageHtml'];
         $this->view->assign('praisePage', $praisePage);
 
-        $sharePages = $_POST['sharePages'] ?? 1;
-        $data = $this->share->getShare($author, $sharePages, 5);
+        $pagination = $type == 'share' ? $pagination : 1;
+        $data = $this->share->getShare($author, $pagination, 5);
         $shares = $data['items'];
         $sharePage = $data['pageHtml'];
         $this->view->assign('sharePage', $sharePage);
-        $type = isset($_POST['type']) ? $_POST['type'] : 'article';
         if ($this->username) {
             $follows = $this->follow->checkFollow($author, $this->username);
         }
