@@ -20,9 +20,7 @@ class Route extends Db
             $path = $_SERVER['REQUEST_URI'];
             $pathArray = explode('/', trim($path, '/'));
             if (count($pathArray) > 4) {
-                $view = Factory::createView();
-                $view->assign('error', 'error');
-                $view->display('error.html');
+                $this->displayNone();
                 exit();
             }
             if (isset($pathArray[0])) {
@@ -48,9 +46,7 @@ class Route extends Db
                         $this->pagination = $pathArray[3];
                     }
                     if (isset($pathArray[2]) && $pathArray[2] != 'pagination') {
-                        $view = Factory::createView();
-                        $view->assign('error', 'error');
-                        $view->display('error.html');
+                        $this->displayNone();
                         exit();
                     }
                 }
@@ -60,9 +56,7 @@ class Route extends Db
                     $this->pagination = $pathArray[3];
                 }
                 if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] != 'pagination') {
-                    $view = Factory::createView();
-                    $view->assign('error', 'error');
-                    $view->display('error.html');
+                    $this->displayNone();
                     exit();
                 }
 
@@ -75,10 +69,8 @@ class Route extends Db
                             $this->type = $pathArray[2];
                             $this->pagination = $pathArray[3];
                         }
-                        if(!in_array($pathArray[2], $manageType)){
-                            $view = Factory::createView();
-                            $view->assign('error', 'error');
-                            $view->display('error.html');
+                        if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
+                            $this->displayNone();
                             exit();
                         }
                     }
@@ -87,23 +79,26 @@ class Route extends Db
                             $this->type = $pathArray[2];
                             $this->pagination = $pathArray[3];
                         }
-                        if (!in_array($pathArray[2], $userType)) {
-                            $view = Factory::createView();
-                            $view->assign('error', 'error');
-                            $view->display('error.html');
+                        if (isset($pathArray[2]) && !in_array($pathArray[2], $userType)) {
+                            $this->displayNone();
                             exit();
                         }
                     }
                 }
             } else {
-                $view = Factory::createView();
-                $view->assign('error', 'error');
-                $view->display('error.html');
+                $this->displayNone();
                 exit();
             }
         } else {
             $this->controller = Config::get('DEFAULT_CONTROLLER', 'route');
             $this->action = Config::get('DEFAULT_ACTION', 'route');
         }
+    }
+
+    public function displayNone()
+    {
+        $view = Factory::createView();
+        $view->assign('error', 'error');
+        $view->display('error.html');
     }
 }
