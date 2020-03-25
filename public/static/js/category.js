@@ -43,9 +43,14 @@ function createInput(name, value) {
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let category = $('#category').data('category');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_page') {
+        layer.msg('已经是当前页了', {
             time: 1000
         });
         return;
@@ -56,11 +61,12 @@ function changePage(page) {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    input1 = createInput('articlePages', pagination);
-    form.appendChild(input1);
-    form.method = 'post';
-    form.action = '/category/' + category;
-    form.submit();
+}
+
+function jumpPage(pages) {
+    let temp = pages;
+    let type = temp.getAttribute('data-type');
+    let pagination = $('#paginationJump').val();
+    let category = $('#category').data('category');
+    window.location.href = `/category/${category}/${type}/${pagination}`;
 }

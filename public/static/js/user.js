@@ -220,10 +220,14 @@ $('#follow').on('click', function () {
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let type = temp.getAttribute('data-type');
-    let author = $('#author').data('author');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_page') {
+        layer.msg('已经是当前页了', {
             time: 1000
         });
         return;
@@ -234,29 +238,28 @@ function changePage(page) {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
+}
+
+function jumpPage(pages) {
+    let temp = pages;
+    let type = temp.getAttribute('data-type');
+    let author = $('#author').data('author');
     switch (type) {
         case 'article':
-            input1 = createInput('articlePages', pagination);
+            pagination = $(`#articleJump`).val();
             break;
         case 'comment':
-            input1 = createInput('commentPages', pagination);
+            pagination = $(`#commentJump`).val();
             break;
         case 'praise':
-            input1 = createInput('praisePages', pagination);
+            pagination = $(`#praiseJump`).val();
             break;
         case 'collect':
-            input1 = createInput('collectPages', pagination);
+            pagination = $(`#collectJump`).val();
             break;
         case 'share':
-            input1 = createInput('sharePages', pagination);
+            pagination = $(`#shareJump`).val();
             break;
     }
-    let input2 = createInput('type', type);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.method = 'post';
-    form.action = '/user/' + author;
-    form.submit();
+    window.location.href = `/user/${author}/${type}/${pagination}`;
 }

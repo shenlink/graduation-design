@@ -456,3 +456,29 @@ function changePage(page) {
         return;
     }
 }
+
+function jumpPage(pages) {
+    let temp = pages;
+    let type = temp.getAttribute('data-type');
+    switch (type) {
+        case 'user':
+            pagination = $(`#userJump`).val();
+            break;
+        case 'article':
+            pagination = $(`#articleJump`).val();
+            break;
+        case 'category':
+            pagination = $(`#categoryJump`).val();
+            break;
+        case 'comment':
+            pagination = $(`#commentJump`).val();
+            break;
+        case 'announcement':
+            pagination = $(`#announcementJump`).val();
+            break;
+        case 'message':
+            pagination = $(`#messageJump`).val();
+            break;
+    }
+    window.location.href = `/admin/manage/${type}/${pagination}`;
+}

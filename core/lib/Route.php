@@ -29,10 +29,15 @@ class Route extends Db
             if (isset($pathArray[1])) {
                 $this->action = $pathArray[1];
             }
-            $pathArray[3] = $pathArray[3] ?? 1;
-            if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+            if (isset($pathArray[2]) && !isset($pathArray[3])) {
                 $this->displayNone();
                 exit();
+            }
+            if (isset($pathArray[3])) {
+                if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                    $this->displayNone();
+                    exit();
+                }
             }
             if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
                 $typeArr = ['user', 'article', 'category', 'comment', 'announcement', 'message'];

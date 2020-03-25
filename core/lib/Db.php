@@ -279,16 +279,20 @@ class Db
             $nextPage = $currentPage + 1;
             if ($nextPage > $pageCount) {
                 $pageHtml .= "<li data-index='current_end' onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>下一页</a></li>";
-            }else{
+            } else {
                 $pageHtml .= "<li class='page-item '><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$nextPage}'>下一页</a></li>";
             }
             if ($currentPage == $pageCount) {
-                $pageCount = 'current_end';
                 $pageHtml .= "<li data-index='current_end' onclick='changePage(this)' class='page-item '><a class='page-link' href='javascript:void(0)'>尾页</a></li>";
-            }else{
+            } else {
                 $pageHtml .= "<li class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$pageCount}'>尾页</a></li>";
             }
         }
+        $pageHtml .= "<li class='page-item'><a class='page-link' href='javascript:void(0)'>共{$pageCount}页</a></li>";
+        $pageHtml .= "<form class='form-inline'>
+        <input type='number' class='form-control' id='{$type}Jump' min='1' max='{$pageCount}'>
+        <button type='button' class='btn btn-primary' onclick='jumpPage(this)' data-count={$pageCount} data-type={$type}>跳转</button>
+        </form>";
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
         return $pageHtml;
     }

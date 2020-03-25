@@ -192,7 +192,8 @@
                     <!-- 个人信息列开始 -->
                     <div class="card" style="width: 26rem;">
                         <div class="card-body">
-                            <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
+                            <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info" id="author"
+                                    data-author={{$users.username}}>
                                     {{$users.username}}</a></h5>
                             </h6>
                             <h6>

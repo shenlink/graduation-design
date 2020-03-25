@@ -187,9 +187,14 @@ function delReceive(receiveId) {
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
-    let type = temp.getAttribute('data-type');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_page') {
+        layer.msg('已经是当前页了', {
             time: 1000
         });
         return;
@@ -200,29 +205,24 @@ function changePage(page) {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
+}
+
+function jumpPage(pages) {
+    let temp = pages;
+    let type = temp.getAttribute('data-type');
     switch (type) {
         case 'article':
-            input1 = createInput('articlePages', pagination);
+            pagination = $(`#articleJump`).val();
             break;
         case 'comment':
-            input1 = createInput('commentPages', pagination);
+            pagination = $(`#commentJump`).val();
             break;
         case 'follow':
-            input1 = createInput('followPages', pagination);
+            pagination = $(`#followJump`).val();
             break;
         case 'fans':
-            input1 = createInput('fansPages', pagination);
-            break;
-        case 'receive':
-            input1 = createInput('receivePages', pagination);
+            pagination = $(`#fansJump`).val();
             break;
     }
-    let input2 = createInput('type', type);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.method = 'post';
-    form.action = '/user/manage';
-    form.submit();
+    window.location.href = `/user/manage/${type}/${pagination}`;
 }

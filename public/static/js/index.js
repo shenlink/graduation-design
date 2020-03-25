@@ -39,12 +39,18 @@ function createInput(name, value) {
 }
 
 
-// 如果用户点击当前页，应该禁止
+// 分页
 function changePage(page) {
     let temp = page;
     let pagination = temp.getAttribute('data-index');
     if (pagination == 'current_1') {
         layer.msg('已经是第一页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == 'current_page') {
+        layer.msg('已经是当前页了', {
             time: 1000
         });
         return;
@@ -55,12 +61,12 @@ function changePage(page) {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('articlePages', pagination);
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/';
-    form.submit();
+}
+
+function jumpPage(pages) {
+    let temp = pages;
+    let type = temp.getAttribute('data-type');
+    let pagination = $('#paginationJump').val();
+    window.location.href = `/index/index/${type}/${pagination}`;
 }
 
