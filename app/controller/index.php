@@ -8,7 +8,7 @@ class Index extends Controller
 {
 
     // 显示首页
-    public function index($type = null, $pagination = 1)
+    public function index($type='pagination', $pagination = 1)
     {
         $announcements = $this->announcement->getAnnouncement();
         $data = $this->article->getIndexArticle($pagination, 5);
