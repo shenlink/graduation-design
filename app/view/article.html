@@ -181,7 +181,8 @@
                                 </dl>
                             </div>
                             {{if $users.username !== $username}}
-                            <button type="button" class="btn btn-info card-link" id="follow" data-author={{$users.username}} data-username={{$username}}>
+                            <button type="button" class="btn btn-info card-link" id="follow"
+                                data-author={{$users.username}} data-username={{$username}}>
                                 {{if $follows}}
                                 已关注
                                 {{else}}
@@ -205,7 +206,7 @@
                             <div>
                                 {{foreach from=$recents item=recentsItem}}
                                 <div>
-                                    <a href="/article/{{$recentsItem.article_id}}">
+                                    <a href="/article/{{$recentsItem.article_id}}" title="{{$recentsItem.title}}">
                                         {{$recentsItem.title|truncate_cn:"20":"..."}}
                                     </a>
                                 </div>

@@ -48,7 +48,7 @@
                         <td>
                             {{$usersItem.user_id}}
                         </td>
-                        <td>
+                        <td title="{{$usersItem.username}}">
                             {{$usersItem.username|truncate_cn:"10":"..."}}
                         </td>
                         <td>
@@ -71,7 +71,9 @@
                             {{$usersItem.created_at}}
                         </td>
                         <td>
-                            <a href="/user/{{$usersItem.username}}">{{$usersItem.username}}</a>
+                            <a href="/user/{{$usersItem.username}}"
+                                title="{{$usersItem.username}}">{{$usersItem.username|truncate_cn:"10":"..."}}
+                            </a>
                         </td>
                         <td>
                             {{if $usersItem.status == 1}}
@@ -134,7 +136,7 @@
                         <td>
                             {{$articlesItem.author}}
                         </td>
-                        <td>
+                        <td title="{{$articlesItem.title}}">
                             {{$articlesItem.title|truncate_cn:"10":"..."}}
                         </td>
                         <td>
@@ -270,7 +272,7 @@
                         <td>
                             {{$commentsItem.comment_id}}
                         </td>
-                        <td>
+                        <td title="{{$commentsItem.content}}">
                             {{$commentsItem.content|truncate_cn:"10":"..."}}
                         </td>
                         <td>
@@ -316,7 +318,7 @@
                         <td>
                             {{$announcementsItem.announcement_id}}
                         </td>
-                        <td>
+                        <td title="{{$announcementsItem.content}}">
                             {{$announcementsItem.content|truncate_cn:"10":"..."}}
                         </td>
                         <td>
@@ -363,7 +365,7 @@
                         <td>
                             {{$messagesItem.author}}
                         </td>
-                        <td>
+                            <td title="{{$messagesItem.content}}">
                             {{$messagesItem.content|truncate_cn:"10":"..."}}
                         </td>
                         <td>

@@ -46,7 +46,7 @@
                 <tbody>
                     {{foreach from=$articles item=articlesItem}}
                     <tr>
-                        <td>
+                        <td title="{{$articlesItem.title}}">
                             {{$articlesItem.title|truncate_cn:"10":"..."}}
                         </td>
                         <td>
@@ -109,7 +109,7 @@
                 <tbody>
                     {{foreach from=$comments item=commentsItem}}
                     <tr>
-                        <td>
+                        <td title="{{$commentsItem.content}}">
                             {{$commentsItem.content|truncate_cn:"20":"..."}}
                         </td>
                         <td>

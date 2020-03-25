@@ -76,13 +76,15 @@
                         {{foreach from=$articles item=articlesItem}}
                         <tr>
                             <td>
-                                <a
-                                    href="/article/{{$articlesItem.article_id}}">{{$articlesItem.title|truncate_cn:"30":"..."}}</a>
+                                <a href="/article/{{$articlesItem.article_id}}" title="{{$articlesItem.title}}">
+                                    {{$articlesItem.title|truncate_cn:"30":"..."}}
+                                </a>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p>{{$articlesItem.content|truncate_cn:"30":"..."}}</p>
+                                <p title="{{$articlesItem.content}}">
+                                    {{$articlesItem.content|truncate_cn:"30":"..."}}</p>
                                 <div class="justify-content-start text-dark">
                                     <span>
                                         {{$articlesItem.updated_at}}
@@ -114,8 +116,9 @@
                 {{foreach from=$recommends item=recommendsItem}}
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a
-                            href="/article/{{$recommendsItem.article_id}}">{{$recommendsItem.title|truncate_cn:"20":"..."}}</a>
+                        <a href="/article/{{$recommendsItem.article_id}}" title="{{$recommendsItem.title}}">
+                            {{$recommendsItem.title|truncate_cn:"20":"..."}}
+                        </a>
                         <span class=" badge badge-primary badge-pill">hot</span>
                     </li>
                 </ul>

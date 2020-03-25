@@ -129,7 +129,7 @@
                             <div>
                                 {{foreach from=$recents item=recentsItem}}
                                 <div>
-                                    <a href="/article/{{$recentsItem.article_id}}">
+                                    <a href="/article/{{$recentsItem.article_id}}" title="{{$recentsItem.title}}">
                                         {{$recentsItem.title|truncate_cn:"20":"..."}}
                                     </a>
                                 </div>
