@@ -30,64 +30,67 @@ class Route extends Db
                 $this->action = $pathArray[1];
             }
             $pathArray[3] = $pathArray[3] ?? 1;
-            if (preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
-                if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
-                    $typeArr = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
-                    if (in_array($pathArray[2], $typeArr)) {
+            if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                $this->displayNone();
+                exit();
+            }
+            if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
+                $typeArr = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
+                if (in_array($pathArray[2], $typeArr)) {
+                    $this->type = $pathArray[2];
+                    $this->pagination = $pathArray[3];
+                }
+                if (isset($pathArray[2]) && !in_array($pathArray[2], $typeArr)) {
+                    $this->displayNone();
+                    exit();
+                }
+            }
+
+            if ($pathArray[0] == 'category') {
+                $category = $this->table('category')->field('category')->where(['category' => "{$pathArray[1]}"])->select();
+                if ($category) {
+                    $this->type = 'pagination';
+                    $this->pagination = $pathArray[3];
+                }
+                if (isset($pathArray[2]) && $pathArray[2] != 'pagination') {
+                    $this->displayNone();
+                    exit();
+                }
+            }
+
+            if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] == 'pagination') {
+                $this->type = 'pagination';
+                $this->pagination = $pathArray[3];
+            }
+            if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] != 'pagination') {
+                $this->displayNone();
+                exit();
+            }
+
+            if ($pathArray[0] == 'user') {
+                $manageType = ['article', 'comment', 'follow', 'fans'];
+                $userType = ['article', 'comment', 'praise', 'collect', 'share'];
+                $username = $this->table('user')->where(['username' => "{$pathArray[1]}", 'status' => 1])->select();
+                if ($pathArray[1] == 'manage') {
+                    if (in_array($pathArray[2], $manageType)) {
                         $this->type = $pathArray[2];
                         $this->pagination = $pathArray[3];
                     }
-                }
-
-                if ($pathArray[0] == 'category') {
-                    $category = $this->table('category')->field('category')->where(['category' => "{$pathArray[1]}"])->select();
-                    if ($category) {
-                        $this->type = 'pagination';
-                        $this->pagination = $pathArray[3];
-                    }
-                    if (isset($pathArray[2]) && $pathArray[2] != 'pagination') {
+                    if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
                         $this->displayNone();
                         exit();
                     }
                 }
-
-                if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] == 'pagination') {
-                    $this->type = 'pagination';
-                    $this->pagination = $pathArray[3];
-                }
-                if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] != 'pagination') {
-                    $this->displayNone();
-                    exit();
-                }
-
-                if ($pathArray[0] == 'user') {
-                    $manageType = ['article', 'comment', 'follow', 'fans'];
-                    $userType = ['article', 'comment', 'praise', 'collect', 'share'];
-                    $username = $this->table('user')->where(['username' => "{$pathArray[1]}", 'status' => 1])->select();
-                    if ($pathArray[1] == 'manage') {
-                        if (in_array($pathArray[2], $manageType)) {
-                            $this->type = $pathArray[2];
-                            $this->pagination = $pathArray[3];
-                        }
-                        if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
-                            $this->displayNone();
-                            exit();
-                        }
+                if ($username) {
+                    if (in_array($pathArray[2], $userType)) {
+                        $this->type = $pathArray[2];
+                        $this->pagination = $pathArray[3];
                     }
-                    if ($username) {
-                        if (in_array($pathArray[2], $userType)) {
-                            $this->type = $pathArray[2];
-                            $this->pagination = $pathArray[3];
-                        }
-                        if (isset($pathArray[2]) && !in_array($pathArray[2], $userType)) {
-                            $this->displayNone();
-                            exit();
-                        }
+                    if (isset($pathArray[2]) && !in_array($pathArray[2], $userType)) {
+                        $this->displayNone();
+                        exit();
                     }
                 }
-            } else {
-                $this->displayNone();
-                exit();
             }
         } else {
             $this->controller = Config::get('DEFAULT_CONTROLLER', 'route');
@@ -97,7 +100,13 @@ class Route extends Db
 
     public function displayNone()
     {
+        session_start();
         $view = Factory::createView();
+        $category = Factory::createCategory();
+        $categorys = $category->getCategory();
+        $username = $_SESSION['username'] ?? null;
+        $view->assign('categorys', $categorys);
+        $view->assign('username', $username);
         $view->assign('error', 'error');
         $view->display('error.html');
     }

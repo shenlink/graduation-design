@@ -11,7 +11,7 @@ class Index extends Controller
     public function index($type='pagination', $pagination = 1)
     {
         $announcements = $this->announcement->getAnnouncement();
-        $data = $this->article->getIndexArticle($pagination, 5);
+        $data = $this->article->getIndexArticle($pagination, 5, $type);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $recommends = $this->article->recommend();

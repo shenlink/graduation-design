@@ -94,9 +94,9 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
-    public function getIndexArticle($currentPage = 1, $pageSize)
+    public function getIndexArticle($currentPage = 1, $pageSize,$type)
     {
-        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, '/index/index', 'pagination');
+        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, '/index/index', $type);
     }
 
     public function getAllArticle($currentPage = 1, $pageSize)
