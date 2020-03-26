@@ -8,27 +8,13 @@ $('#search').on('click', function () {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    switch (type) {
-        case '1':
-            input1 = createInput('type', 'user');
-            break;
-        case '2':
-            input1 = createInput('type', 'article');
-            break;
-    }
-    let input2 = createInput('content', searchContent);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.method = 'post';
     if (type == '1') {
-        form.action = '/user/search';
+        window.location.href = '/user/search/username/' + searchContent;
     } else {
-        form.action = '/article/search';
+        window.location.href = '/article/search/condition/' + searchContent;
     }
-    form.submit();
 });
+
 
 
 function createInput(name, value) {
@@ -91,13 +77,13 @@ $('#addMessage').on('click', function () {
         content: content
     }, function (data) {
         if (data === '1') {
-            layer.msg('添加成功', {
+            layer.msg('发送成功', {
                 time: 1000
             }, function () {
                 window.history.back(-1);
             });
         } else {
-            layer.msg('添加失败', {
+            layer.msg('发送失败', {
                 time: 1000
             });
         }

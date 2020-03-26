@@ -8,27 +8,13 @@ $('#search').on('click', function () {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    switch (type) {
-        case '1':
-            input1 = createInput('type', 'user');
-            break;
-        case '2':
-            input1 = createInput('type', 'article');
-            break;
-    }
-    let input2 = createInput('content', searchContent);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.method = 'post';
     if (type == '1') {
-        form.action = '/user/search';
+        window.location.href = '/user/search/username/' + searchContent;
     } else {
-        form.action = '/article/search';
+        window.location.href = '/article/search/condition/' + searchContent;
     }
-    form.submit();
 });
+
 
 
 function createInput(name, value) {
@@ -314,13 +300,7 @@ function delCategory(categoryName) {
 
 // 新增分类
 function addCategory() {
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('addCategory', 'addCategory');
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/category/addCategory';
-    form.submit();
+    window.location.href = '/category/addCategory';
 }
 
 
@@ -382,27 +362,14 @@ function delAnnouncement(announcementId) {
 
 // 新增公告
 function addAnnouncement() {
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('addAnnouncement', 'addAnnouncement');
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/announcement/addAnnouncement';
-    form.submit();
+    window.location.href = '/announcement/addAnnouncement';
 }
 
 
 // 发私信
 function addMessage() {
-    let message = $('#message');
-    let author = message.getAttribute('data-author');
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('author', author);
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/message/addMessage';
-    form.submit();
+    let author = $('#addMessage').data('author');
+    window.location.href = '/message/addMessage/username/' + author;
 }
 
 

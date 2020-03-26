@@ -21,7 +21,6 @@ class Route extends Db
             $pathArray = explode('/', trim($path, '/'));
             if (count($pathArray) > 4) {
                 $this->displayNone();
-                exit();
             }
             if (isset($pathArray[0])) {
                 $this->controller = $pathArray[0];
@@ -31,23 +30,32 @@ class Route extends Db
             }
             if (isset($pathArray[2]) && !isset($pathArray[3])) {
                 $this->displayNone();
-                exit();
             }
             if (isset($pathArray[3])) {
-                if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
-                    $this->displayNone();
-                    exit();
+                $controllerArray = ['admin', 'category', 'index'];
+                if (in_array($pathArray[0], $controllerArray)) {
+                    if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                        $this->displayNone();
+                    }
                 }
             }
             if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
-                $typeArr = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
-                if (in_array($pathArray[2], $typeArr)) {
+                $typeArray = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
+                if (in_array($pathArray[2], $typeArray)) {
                     $this->type = $pathArray[2];
                     $this->pagination = $pathArray[3];
                 }
-                if (isset($pathArray[2]) && !in_array($pathArray[2], $typeArr)) {
+                if (isset($pathArray[2]) && !in_array($pathArray[2], $typeArray)) {
                     $this->displayNone();
-                    exit();
+                }
+            }
+
+            if ($pathArray[0] == 'article' && $pathArray[1] == 'search') {
+                if ($pathArray[2] == 'condition') {
+                    $this->type = $pathArray[2];
+                    $this->pagination = $pathArray[3];
+                } else {
+                    $this->displayNone();
                 }
             }
 
@@ -59,7 +67,6 @@ class Route extends Db
                 }
                 if (isset($pathArray[2]) && $pathArray[2] != 'pagination') {
                     $this->displayNone();
-                    exit();
                 }
             }
 
@@ -69,7 +76,6 @@ class Route extends Db
             }
             if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] != 'pagination') {
                 $this->displayNone();
-                exit();
             }
 
             if ($pathArray[0] == 'user') {
@@ -77,13 +83,22 @@ class Route extends Db
                 $userType = ['article', 'comment', 'praise', 'collect', 'share'];
                 $username = $this->table('user')->where(['username' => "{$pathArray[1]}", 'status' => 1])->select();
                 if ($pathArray[1] == 'manage') {
-                    if (in_array($pathArray[2], $manageType)) {
+                    if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                        if (in_array($pathArray[2], $manageType)) {
+                            $this->type = $pathArray[2];
+                            $this->pagination = $pathArray[3];
+                        }
+                        if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
+                            $this->displayNone();
+                        }
+                    }
+                }
+                if ($pathArray[1] == 'search') {
+                    if ($pathArray[2] == 'username') {
                         $this->type = $pathArray[2];
                         $this->pagination = $pathArray[3];
-                    }
-                    if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
+                    } else {
                         $this->displayNone();
-                        exit();
                     }
                 }
                 if ($username) {
@@ -93,8 +108,20 @@ class Route extends Db
                     }
                     if (isset($pathArray[2]) && !in_array($pathArray[2], $userType)) {
                         $this->displayNone();
-                        exit();
                     }
+                }
+            }
+
+            if ($pathArray[0] == 'message' && $pathArray[1] == 'addMessage') {
+                $username = $this->table('user')->field('username')->where(['username' => "{$pathArray[3]}", 'status' => 1])->select();
+                if (!$username) {
+                    $this->displayNone();
+                }
+                if ($pathArray[2] == 'username') {
+                    $this->type = $pathArray[2];
+                    $this->pagination = $pathArray[3];
+                } else {
+                    $this->displayNone();
                 }
             }
         } else {
@@ -114,5 +141,6 @@ class Route extends Db
         $view->assign('username', $username);
         $view->assign('error', 'error');
         $view->display('error.html');
+        exit();
     }
 }

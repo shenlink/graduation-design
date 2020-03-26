@@ -8,36 +8,13 @@ $('#search').on('click', function () {
         });
         return;
     }
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    switch (type) {
-        case '1':
-            input1 = createInput('type', 'user');
-            break;
-        case '2':
-            input1 = createInput('type', 'article');
-            break;
-    }
-    let input2 = createInput('content', searchContent);
-    form.appendChild(input1);
-    form.appendChild(input2);
-    form.method = 'post';
     if (type == '1') {
-        form.action = '/user/search';
+        window.location.href = '/user/search/username/' + searchContent;
     } else {
-        form.action = '/article/search';
+        window.location.href = '/article/search/condition/' + searchContent;
     }
-    form.submit();
 });
 
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
 
 
 let lis = $('.manage-list');
@@ -214,6 +191,12 @@ $('#follow').on('click', function () {
         }
     });
 });
+
+// 发私信
+function addMessage() {
+    let author = $('#addMessage').data('author');
+    window.location.href = '/message/addMessage/username/' + author;
+}
 
 
 // 分页

@@ -15,20 +15,15 @@ class Article extends Controller
         $this->view->display('error.html');
     }
 
-    public function search()
+    public function search($type,$content)
     {
-        if (isset($_POST['type']) && isset($_POST['content'])) {
-            $content = $_POST['content'];
-            $type = '文章查询结果';
-            $articles = $this->article->search($content);
-            $recommends = $this->article->recommend();
-            $this->view->assign('articles', $articles);
-            $this->view->assign('recommends', $recommends);
-            $this->view->assign('type', $type);
-            $this->view->display('search.html');
-        } else {
-            $this->displayNone();
-        }
+        $type = '文章查询结果';
+        $articles = $this->article->search($content);
+        $recommends = $this->article->recommend();
+        $this->view->assign('articles', $articles);
+        $this->view->assign('recommends', $recommends);
+        $this->view->assign('type', $type);
+        $this->view->display('search.html');
     }
 
     // 显示写文章页面

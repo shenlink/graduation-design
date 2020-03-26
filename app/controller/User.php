@@ -15,21 +15,15 @@ class User extends Controller
     }
 
     // 搜索相关操作的方法
-    public function search()
+    public function search($type,$content)
     {
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['type']) && isset($_POST['content'])) {
-            $content = $_POST['content'];
-            $type = '用户名查询结果';
-            $users = $this->user->search($content);
-            $recommends = $this->article->recommend();
-            $this->view->assign('recommends', $recommends);
-            $this->view->assign('type', $type);
-            $this->view->assign('users', $users);
-            $this->view->display('search.html');
-        } else {
-            $this->displayNone();
-        }
+        $type = '用户名查询结果';
+        $users = $this->user->search($content);
+        $recommends = $this->article->recommend();
+        $this->view->assign('recommends', $recommends);
+        $this->view->assign('type', $type);
+        $this->view->assign('users', $users);
+        $this->view->display('search.html');
     }
 
     // 确认用户名，在用户注册的时候，在用户名输入框输入后失去焦点时触发ajax，访问该方法

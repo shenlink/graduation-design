@@ -14,12 +14,16 @@ class Message extends Controller
         $this->view->display('error.html');
     }
 
-    public function addMessage()
+    public function addMessage($type, $username)
     {
-        if (isset($_POST['author'])) {
-            $author = $_POST['author'];
+        $normalUsername = $this->user->checkStatus($username);
+        if (!$normalUsername) {
+            $this->displayNone();
+            exit();
+        }
+        if ($_SESSION['username'] == 'shen') {
             $recommends = $this->article->recommend();
-            $this->view->assign('author', $author);
+            $this->view->assign('author', $username);
             $this->view->assign('recommends', $recommends);
             $this->view->display('add.html');
         } else {
