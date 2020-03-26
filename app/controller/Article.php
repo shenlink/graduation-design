@@ -53,17 +53,26 @@ class Article extends Controller
     }
 
     // 显示编辑文章页面
-    public function editArticle()
+    public function editArticle($type,$article_id)
     {
-        header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['article_id'])) {
-            $article_id = $_POST['article_id'];
-            $articles = $this->article->getArticle($article_id);
-            $this->view->assign('articles', $articles);
-            $this->view->display('edit.html');
-        } else {
+        $author = $this->article->getAuthor($article_id);
+        $author = $author['author'];
+        if(!($author == $_SESSION['username'])){
             $this->displayNone();
+            exit();
         }
+        $articles = $this->article->getArticle($article_id);
+        $this->view->assign('articles', $articles);
+        $this->view->display('edit.html');
+        // header("Content-type:text/html;charset=utf-8");
+        // if (isset($_POST['article_id'])) {
+        //     $article_id = $_POST['article_id'];
+        //     $articles = $this->article->getArticle($article_id);
+        //     $this->view->assign('articles', $articles);
+        //     $this->view->display('edit.html');
+        // } else {
+        //     $this->displayNone();
+        // }
     }
 
     // 处理文章编辑页面提交的数据

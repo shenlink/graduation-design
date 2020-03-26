@@ -38,13 +38,7 @@ for (let i = 0; i < lis.length; i++) {
 function editArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
-    let form = document.createElement("form");
-    document.body.appendChild(form);
-    let input = createInput('article_id', article_id);
-    form.appendChild(input);
-    form.method = 'post';
-    form.action = '/article/editArticle';
-    form.submit();
+    window.location.href = '/article/editArticle/article/' + article_id;
 }
 
 // 删除文章

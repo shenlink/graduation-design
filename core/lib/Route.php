@@ -59,6 +59,18 @@ class Route extends Db
                 }
             }
 
+            if ($pathArray[0] == 'article' && $pathArray[1] == 'editArticle') {
+                if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                    $this->displayNone();
+                }
+                if ($pathArray[2] == 'article') {
+                    $this->type = $pathArray[2];
+                    $this->pagination = $pathArray[3];
+                } else {
+                    $this->displayNone();
+                }
+            }
+
             if ($pathArray[0] == 'category') {
                 $category = $this->table('category')->field('category')->where(['category' => "{$pathArray[1]}"])->select();
                 if ($category) {
