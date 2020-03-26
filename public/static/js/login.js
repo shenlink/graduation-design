@@ -29,7 +29,6 @@ function checkUsername() {
     }
 }
 
-
 // 确认密码
 function checkPassword() {
     let password = $('#password');
@@ -44,7 +43,6 @@ function checkPassword() {
     }
 }
 
-
 function userOriginal() {
     let username = $('#username');
     let userMessage = $('#userMessage');
@@ -53,7 +51,6 @@ function userOriginal() {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入用户名`);
 }
 
-
 function passwordOriginal() {
     let password = $('#password');
     let passwordTip = $('#passwordTip');
@@ -61,7 +58,6 @@ function passwordOriginal() {
     passwordTip.html(`<img src="/static/image/mess.png" id="passwordImg">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码`);
 }
-
 
 let passwordEye = $('#passwordEye');
 let flag = false;
@@ -80,12 +76,11 @@ function clickEye() {
     }
 }
 
-
 function check() {
     return checkUsername() && checkPassword();
 }
 
-
+// 确认登录
 $('#login').on('click', function () {
     let username = $('#username').val();
     let password = $('#password').val();

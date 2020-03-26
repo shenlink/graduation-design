@@ -15,17 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
-
-
 // 添加分类
 $('#addCategory').on('click', function () {
     let categoryName = $('#categoryName').val();
@@ -46,7 +35,6 @@ $('#addCategory').on('click', function () {
     });
 });
 
-
 // 添加公告
 $('#addAnnouncement').on('click', function () {
     let content = $('#content').val();
@@ -66,7 +54,6 @@ $('#addAnnouncement').on('click', function () {
         }
     });
 });
-
 
 // 发私信
 $('#addMessage').on('click', function () {

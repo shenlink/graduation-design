@@ -15,17 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
-
-
 // 左边的导航栏切换
 let lis = $('.list-group-item');
 let items = document.querySelectorAll('.manage-item');
@@ -45,7 +34,6 @@ for (let i = 0; i < lis.length; i++) {
     }
 }
 
-
 function createHtml(function1, function2, data, value, action) {
     let html = `<button class="btn btn-primary btn-sm" onclick="${function1}(this)" data-${data}=${value}>
         ${action}
@@ -55,7 +43,6 @@ function createHtml(function1, function2, data, value, action) {
     </button>`;
     return html;
 }
-
 
 // 拉黑用户
 function defriendUser(userId) {
@@ -85,7 +72,6 @@ function defriendUser(userId) {
     });
 }
 
-
 // 恢复用户到正常状态
 function normalUser(userId) {
     let temp = userId;
@@ -109,7 +95,6 @@ function normalUser(userId) {
         }
     });
 }
-
 
 // // 删除用户
 function delUser(userId) {
@@ -141,7 +126,6 @@ function delUser(userId) {
     });
 }
 
-
 // 拉黑文章
 function defriendArticle(articleId) {
     let temp = articleId;
@@ -166,7 +150,6 @@ function defriendArticle(articleId) {
     });
 }
 
-
 // 恢复文章到正常状态
 function normalArticle(articleId) {
     let temp = articleId;
@@ -190,7 +173,6 @@ function normalArticle(articleId) {
         }
     });
 }
-
 
 // 删除文章
 function delArticle(articleId) {
@@ -220,7 +202,6 @@ function delArticle(articleId) {
     });
 }
 
-
 // 拉黑分类
 function defriendCategory(categoryName) {
     let temp = categoryName;
@@ -245,7 +226,6 @@ function defriendCategory(categoryName) {
     });
 }
 
-
 // 恢复分类到正常状态
 function normalCategory(categoryName) {
     let temp = categoryName;
@@ -269,7 +249,6 @@ function normalCategory(categoryName) {
         }
     });
 }
-
 
 // 删除分类
 function delCategory(categoryName) {
@@ -297,12 +276,10 @@ function delCategory(categoryName) {
     });
 }
 
-
 // 新增分类
 function addCategory() {
     window.location.href = '/category/addCategory';
 }
-
 
 // 删除评论
 function delComment(commentId) {
@@ -332,7 +309,6 @@ function delComment(commentId) {
     });
 }
 
-
 // 删除公告
 function delAnnouncement(announcementId) {
     if (!confirm('确认删除吗？')) {
@@ -359,7 +335,6 @@ function delAnnouncement(announcementId) {
     });
 }
 
-
 // 新增公告
 function addAnnouncement() {
     window.location.href = '/announcement/addAnnouncement';
@@ -371,7 +346,6 @@ function addMessage() {
     let author = $('#addMessage').data('author');
     window.location.href = '/message/addMessage/username/' + author;
 }
-
 
 // 删除私信
 function delMesssage(messageId) {
@@ -399,7 +373,6 @@ function delMesssage(messageId) {
     });
 }
 
-
 // 分页
 function changePage(page) {
     let temp = page;
@@ -424,6 +397,7 @@ function changePage(page) {
     }
 }
 
+// 页数跳转
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');

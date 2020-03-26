@@ -15,8 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-
 let lis = $('.manage-list');
 let items = $('.manage-item');
 // for循环在页面加载完成之后就已经执行完了，这时候lis的index索引已经赋值完成,然后执行lis[i].click事件注册，待点击之后就触发
@@ -34,7 +32,6 @@ for (let i = 0; i < lis.length; i++) {
         items[index].style.display = 'block';
     }
 }
-
 
 // 删除评论
 function delComment(commentId) {
@@ -66,7 +63,6 @@ function delComment(commentId) {
     });
 }
 
-
 // 删除点赞
 function delPraise(praiseId) {
     if (!confirm('确认删除吗？')) {
@@ -94,7 +90,6 @@ function delPraise(praiseId) {
         }
     });
 }
-
 
 // 删除收藏
 function delCollect(collectId) {
@@ -124,7 +119,6 @@ function delCollect(collectId) {
     });
 }
 
-
 // 删除分享
 function delShare(shareId) {
     if (!confirm('确认删除吗？')) {
@@ -152,7 +146,6 @@ function delShare(shareId) {
         }
     });
 }
-
 
 // 关注或取消关注
 $('#follow').on('click', function () {
@@ -198,7 +191,6 @@ function addMessage() {
     window.location.href = '/message/addMessage/username/' + author;
 }
 
-
 // 分页
 function changePage(page) {
     let temp = page;
@@ -223,6 +215,7 @@ function changePage(page) {
     }
 }
 
+// 页数跳转
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');

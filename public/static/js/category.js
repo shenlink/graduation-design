@@ -15,16 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
-
-
 // 分页
 function changePage(page) {
     let temp = page;
@@ -49,6 +39,7 @@ function changePage(page) {
     }
 }
 
+// 页数跳转
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');

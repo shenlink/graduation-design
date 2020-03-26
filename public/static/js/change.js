@@ -15,16 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
-
-
 // 确认密码是否符合要求
 function checkPassword() {
     let password = $('#password');
@@ -50,7 +40,6 @@ function checkPassword() {
     }
 }
 
-
 // 确认密码
 function checkConPassword() {
     let password = $('#password');
@@ -72,7 +61,6 @@ function checkConPassword() {
     }
 }
 
-
 function passwordOriginal() {
     let password = $('#password');
     let passwordTip = $('#passwordTip');
@@ -80,7 +68,6 @@ function passwordOriginal() {
     passwordTip.html(`<img src="/static/image/mess.png" id="passwordImg">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码为6到16位，且必须包含数字，小写字母，大写字母和特殊字符`);
 }
-
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
@@ -91,7 +78,6 @@ function conPasswordOriginal() {
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     确认密码 `);
 }
-
 
 // 获取眼睛图案
 let passwordEye = $('#passwordEye');
@@ -111,7 +97,6 @@ function clickEye() {
     }
 }
 
-
 // 获取眼睛图案
 let conPasswordEye = $('#conPasswordEye');
 let conFlag = false;
@@ -128,13 +113,12 @@ function clickConEye() {
     }
 }
 
-
 // 表单提交验证
 function check() {
     return checkPassword() && checkConPassword();
 }
 
-
+// 确认修改
 $('#change').on('click', function () {
     let username = $(" input[ name='username' ] ").val()
     let password = $('#password').val();

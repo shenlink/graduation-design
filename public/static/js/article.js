@@ -15,17 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-
-function createInput(name, value) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    return input;
-}
-
-
 // 点赞
 $('#praise').on('click', function () {
     let praise = $('#praise');
@@ -74,7 +63,6 @@ $('#praise').on('click', function () {
     });
 });
 
-
 // 收藏
 $('#collect').on('click', function () {
     let collect = $('#collect');
@@ -118,7 +106,6 @@ $('#collect').on('click', function () {
         }
     });
 });
-
 
 // 分享
 $('#share').on('click', function () {
@@ -164,7 +151,6 @@ $('#share').on('click', function () {
     });
 });
 
-
 // 获取当前时间
 function createTime() {
     let date = new Date();
@@ -194,7 +180,6 @@ function createTime() {
     return RecentTime;
 }
 
-
 // 创建评论的html
 function createComment(username, comment_at, comment_id, content) {
     let comment_html = `<div class="card-body">
@@ -222,7 +207,6 @@ function createComment(username, comment_at, comment_id, content) {
     div.innerHTML = comment_html;
     return div;
 }
-
 
 // 登录后才能评论，评论内容去掉标签，空格后为空的话，不能评论
 let E = window.wangEditor;
@@ -280,7 +264,6 @@ $('#comment').on('click', function () {
     });
 });
 
-
 // 删除评论
 function delComment(commentId) {
     if (!confirm('确认删除吗？')) {
@@ -315,7 +298,6 @@ function delComment(commentId) {
         }
     });
 }
-
 
 // 关注或取消关注
 $('#follow').on('click', function () {

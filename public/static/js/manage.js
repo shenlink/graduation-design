@@ -15,8 +15,6 @@ $('#search').on('click', function () {
     }
 });
 
-
-
 // 左边的导航切换
 let lis = $('.list-group-item');
 let items = $('.manage-item');
@@ -36,7 +34,6 @@ for (let i = 0; i < lis.length; i++) {
     }
 }
 
-
 // 编辑文章
 function editArticle(articleId) {
     let temp = articleId;
@@ -49,7 +46,6 @@ function editArticle(articleId) {
     form.action = '/article/editArticle';
     form.submit();
 }
-
 
 // 删除文章
 function delArticle(articleId) {
@@ -79,7 +75,6 @@ function delArticle(articleId) {
     });
 }
 
-
 // 删除评论
 function delComment(commentId) {
     if (!confirm('确认删除吗？')) {
@@ -108,7 +103,6 @@ function delComment(commentId) {
     });
 }
 
-
 // 取消关注
 function delFollow(followName) {
     let temp = followName;
@@ -131,7 +125,6 @@ function delFollow(followName) {
         }
     });
 }
-
 
 // 删除私信
 function delReceive(receiveId) {
@@ -159,7 +152,6 @@ function delReceive(receiveId) {
     });
 }
 
-
 // 分页
 function changePage(page) {
     let temp = page;
@@ -184,6 +176,7 @@ function changePage(page) {
     }
 }
 
+// 页数跳转
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
