@@ -195,13 +195,7 @@
                             <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info" id="author"
                                     data-author={{$users.username}}>
                                     {{$users.username}}</a></h5>
-                            </h6>
-                            <h6>
-                                个人介绍
-                            </h6>
-                            <div>
-                                {{$users.introduction}}
-                            </div>
+                            <br>
                             <p class="card-text"></p>
                             <div class="text-dark d-flex justify-content-between">
                                 <dl class="text-center">
@@ -251,7 +245,7 @@
                             {{else}}
                             <a href="/user/manage" class="btn btn-primary card-link">管理</a>
                             <a href="/user/change" class="btn btn-danger card-link">
-                                更改信息
+                                更改密码
                             </a>
                             {{/if}}
                         </div>

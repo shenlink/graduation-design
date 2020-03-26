@@ -139,10 +139,9 @@ class User extends Controller
     public function checkChange()
     {
         header("Content-type:text/html;charset=utf-8");
-        if (isset($_POST['password']) && isset($_POST['introduction'])) {
+        if (isset($_POST['password'])) {
             $password = md5(trim($_POST['password']));
-            $introduction = trim($_POST['introduction']);
-            $result = $this->user->checkChange($this->username, $password, $introduction);
+            $result = $this->user->checkChange($this->username, $password);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

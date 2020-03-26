@@ -57,12 +57,6 @@
                         </small>
                     </div>
                     <!-- 确认密码结束 -->
-                    <div class="form-group">
-                        <label for="introduction">个人介绍</label>
-                        <input type="text" class="form-control form-control" id="introduction" name="introduction"
-                            value="{{$users.introduction}}" maxlength="20">
-                        <small class="form-text text-muted">最多20个字</small>
-                    </div>
                     <button type="reset" class="btn btn-primary">重置</button>
                     <button type="button" class="btn btn-primary" id="change">提交</button>
                 </form>
@@ -75,11 +69,7 @@
                         <div class="card-body">
                             <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
                                     {{$users.username}}</a></h5>
-                            个人介绍
-                            </h6>
-                            <div>
-                                {{$users.introduction}}
-                            </div>
+                            <br>
                             <p class="card-text"></p>
                             <div class="text-dark d-flex justify-content-between">
                                 <dl class="text-center">
@@ -119,7 +109,7 @@
                                 管理
                             </a>
                             <a href="/user/change" class="btn btn-danger card-link">
-                                更改信息
+                                更改密码
                             </a>
                         </div>
                     </div>
