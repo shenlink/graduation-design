@@ -47,6 +47,8 @@ class Message extends Controller
             $message_id = $_POST['message_id'];
             $result = $this->message->delMessage($message_id);
             echo $result ? '1' : '0';
+        } else {
+            $this->displayNone();
         }
     }
 
