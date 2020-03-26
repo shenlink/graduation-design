@@ -64,15 +64,6 @@ class Article extends Controller
         $articles = $this->article->getArticle($article_id);
         $this->view->assign('articles', $articles);
         $this->view->display('edit.html');
-        // header("Content-type:text/html;charset=utf-8");
-        // if (isset($_POST['article_id'])) {
-        //     $article_id = $_POST['article_id'];
-        //     $articles = $this->article->getArticle($article_id);
-        //     $this->view->assign('articles', $articles);
-        //     $this->view->display('edit.html');
-        // } else {
-        //     $this->displayNone();
-        // }
     }
 
     // 处理文章编辑页面提交的数据
