@@ -69,13 +69,13 @@ $('#publish').on('click', function () {
         category: category
     }, function (data) {
         if (data === '1') {
-            layer.msg('发布成功', {
+            layer.msg('发表成功', {
                 time: 1000
             }, function () {
                 window.location.href = '/user/' + username;
             });
         } else {
-            layer.msg('发布失败', {
+            layer.msg('发表失败', {
                 time: 1000
             });
         }

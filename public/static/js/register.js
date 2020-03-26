@@ -70,7 +70,7 @@ function checkUsername() {
 
 function checkAjax() {
     let userMessage = $('#userMessage');
-    if (userMessage.style.color == 'red') {
+    if (userMessage.css('color') == 'red') {
         return false;
     } else {
         return true;
@@ -148,6 +148,7 @@ function passwordOriginal() {
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
+    let conPasswordTip = $('#conPasswordTip');
     conPasswordTip.html(`<img src="/static/image/mess.png" id="conPasswordImg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     确认密码`);
 }

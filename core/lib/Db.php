@@ -256,6 +256,9 @@ class Db
         $pageHtml = '';
         $separate = '/';
         $pageCount = ceil($count / $pageSize);
+        if($pageCount == 0){
+            return;
+        }
         // 生成首页,生成上一页
         if ($pageCount > 0 && $currentPage >= 1) {
             if ($currentPage == 1) {
