@@ -41,6 +41,11 @@ class Article extends Model
         return $this->table('article')->field('article_id,title,content,author,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['article_id' => "{$article_id}", 'status' => 1])->select();
     }
 
+    public function getEditArticle($article_id)
+    {
+        return $this->table('article')->field('article_id,title,content,author,updated_at,category,comment_count,praise_count,collect_count,share_count')->where(['article_id' => "{$article_id}"])->select();
+    }
+
     // 拉黑某篇文章
     public function defriendArticle($article_id)
     {

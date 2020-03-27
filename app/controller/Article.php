@@ -61,7 +61,7 @@ class Article extends Controller
             $this->displayNone();
             exit();
         }
-        $articles = $this->article->getArticle($article_id);
+        $articles = $this->article->getEditArticle($article_id);
         $this->view->assign('articles', $articles);
         $this->view->display('edit.html');
     }
