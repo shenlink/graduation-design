@@ -18,7 +18,7 @@ $('#search').on('click', function () {
 // 点赞
 $('#praise').on('click', function () {
     let praise = $('#praise');
-    let username = praise.data('praise');
+    let username = praise.data('username');
     let article = $('#article');
     let article_id = article.data('article-id');
     let author = $('#author').text();
@@ -49,15 +49,15 @@ $('#praise').on('click', function () {
                 time: 1000
             });
         } else if (data === '00') {
-            layer.msg('取消失败', {
-                time: 1000
-            });
-        } else {
             layer.msg('取消点赞', {
                 time: 1000
             }, function () {
                 praise.html(`点赞(${praise_count - 1})&nbsp;&nbsp;&nbsp;&nbsp;`);
                 praise_author.html(praise_all - 1);
+            });
+        } else {
+            layer.msg('取消失败', {
+                time: 1000
             });
         }
     });
@@ -66,7 +66,7 @@ $('#praise').on('click', function () {
 // 收藏
 $('#collect').on('click', function () {
     let collect = $('#collect');
-    let username = collect.data('collect');
+    let username = collect.data('username');
     let article = $('#article');
     let article_id = article.data('article-id');
     let author = $('#author').text();
@@ -93,15 +93,15 @@ $('#collect').on('click', function () {
             layer.msg('收藏失败', {
                 time: 1000
             });
-        } else if (data === '00') {
-            layer.msg('取消失败', {
-                time: 1000
-            });
-        } else {
+        } else if (data === '0') {
             layer.msg('取消收藏', {
                 time: 1000
             }, function () {
                 collect.html(`收藏(${collect_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+            });
+        } else {
+            layer.msg('取消失败', {
+                time: 1000
             });
         }
     });
@@ -110,7 +110,7 @@ $('#collect').on('click', function () {
 // 分享
 $('#share').on('click', function () {
     let share = $('#share');
-    let username = share.data('share');
+    let username = share.data('username');
     let article = $('#article');
     let article_id = article.data('article-id');
     let title = $('#title').text();
@@ -127,6 +127,7 @@ $('#share').on('click', function () {
         author: author,
         title: title
     }, function (data) {
+        console.log(data);
         if (data === '1') {
             layer.msg('分享成功', {
                 time: 1000
@@ -137,15 +138,15 @@ $('#share').on('click', function () {
             layer.msg('分享失败', {
                 time: 1000
             });
-        } else if (data === '00') {
-            layer.msg('取消失败', {
-                time: 1000
-            });
-        } else {
-            layer.msg('分享失败', {
+        } else if (data === '0') {
+            layer.msg('取消分享', {
                 time: 1000
             }, function () {
-                share.html(`分享(${share_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+                share.html(`已分享(${share_count-1})&nbsp;&nbsp;&nbsp;&nbsp;`);
+            });
+        } else {
+            layer.msg('取消失败', {
+                time: 1000
             });
         }
     });

@@ -60,21 +60,21 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span class=" offset-md-8" id="praise">
+                            <span class=" offset-md-8" id="praise" data-username={{$username}}>
                                 {{if $praised}}
                                 已点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}
                                 点赞({{$articles.praise_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{/if}}
                             </span>
-                            <span id="collect">
+                            <span id="collect" data-username={{$username}}>
                                 {{if $collected}}
                                 已收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}
                                 收藏({{$articles.collect_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{/if}}
                             </span>
-                            <span id="share">
+                            <span id="share" data-username={{$username}}>
                                 {{if $shared}}
                                 已分享({{$articles.share_count}})&nbsp;&nbsp;&nbsp;&nbsp;
                                 {{else}}
