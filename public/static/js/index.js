@@ -43,6 +43,13 @@ function changePage(page) {
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
+    let count = temp.getAttribute('data-count');
     let pagination = $('#paginationJump').val();
+    if (parseInt(pagination) > parseInt(count)) {
+        layer.msg('输入页数太大了', {
+            time: 1000
+        });
+        return;
+    }
     window.location.href = `/index/index/${type}/${pagination}`;
 }

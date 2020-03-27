@@ -293,7 +293,7 @@ class Db
         }
         $pageHtml .= "<li class='page-item'><a class='page-link' href='javascript:void(0)'>共{$pageCount}页</a></li>";
         $pageHtml .= "<form class='form-inline'>
-        <input type='number' class='form-control' id='{$type}Jump' min='1' max='{$pageCount}'>
+        <input type='number' class='form-control' id='{$type}Jump' min='1' max='{$pageCount}' onkeyup='this.value=this.value.replace(/\D/g,'')' onafterpaste='this.value=this.value.replace(/\D/g,'')'>
         <button type='button' class='btn btn-primary' onclick='jumpPage(this)' data-count={$pageCount} data-type={$type}>跳转</button>
         </form>";
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';

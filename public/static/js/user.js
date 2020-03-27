@@ -220,6 +220,7 @@ function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
     let author = $('#author').data('author');
+    let count = temp.getAttribute('data-count');
     switch (type) {
         case 'article':
             pagination = $(`#articleJump`).val();
@@ -236,6 +237,12 @@ function jumpPage(pages) {
         case 'share':
             pagination = $(`#shareJump`).val();
             break;
+    }
+    if (parseInt(pagination) > parseInt(count)) {
+        layer.msg('输入页数太大了', {
+            time: 1000
+        });
+        return;
     }
     window.location.href = `/user/${author}/${type}/${pagination}`;
 }

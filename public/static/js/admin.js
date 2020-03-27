@@ -401,6 +401,7 @@ function changePage(page) {
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
+    let count = temp.getAttribute('data-count');
     switch (type) {
         case 'user':
             pagination = $(`#userJump`).val();
@@ -420,6 +421,12 @@ function jumpPage(pages) {
         case 'message':
             pagination = $(`#messageJump`).val();
             break;
+    }
+    if (parseInt(pagination) > parseInt(count)) {
+        layer.msg('输入页数太大了', {
+            time: 1000
+        });
+        return;
     }
     window.location.href = `/admin/manage/${type}/${pagination}`;
 }
