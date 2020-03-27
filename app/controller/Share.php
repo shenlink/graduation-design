@@ -17,7 +17,6 @@ class Share extends Controller
     // 确认分享
     public function checkShare()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
@@ -37,7 +36,6 @@ class Share extends Controller
 
     public function delShare()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['share_id']) && isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $share_id = $_POST['share_id'];

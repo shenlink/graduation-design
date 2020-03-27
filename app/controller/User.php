@@ -29,7 +29,6 @@ class User extends Controller
     // 确认用户名，在用户注册的时候，在用户名输入框输入后失去焦点时触发ajax，访问该方法
     public function checkUsername()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username'])) {
             $username = $_POST['username'];
             $result =  $this->user->checkUsername($username);
@@ -56,7 +55,6 @@ class User extends Controller
     // 处理注册页面提交的数据
     public function checkRegister()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
@@ -76,7 +74,6 @@ class User extends Controller
     // 处理登录页面提交的数据
     public function checkLogin()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = trim($_POST['username']);
             $password = md5(trim($_POST['password']));
@@ -132,7 +129,6 @@ class User extends Controller
     // 处理从修稿页面提交的数据
     public function checkChange()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['password'])) {
             $password = md5(trim($_POST['password']));
             $result = $this->user->checkChange($this->username, $password);
@@ -192,7 +188,6 @@ class User extends Controller
     // 拉黑用户
     public function defriendUser()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->defriendUser($user_id);
@@ -205,7 +200,6 @@ class User extends Controller
     // 恢复用户的状态为正常
     public function normalUser()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->normalUser($user_id);
@@ -218,7 +212,6 @@ class User extends Controller
     // 删除用户
     public function delUser()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['user_id'])) {
             $user_id = $_POST['user_id'];
             $result = $this->user->delUser($user_id);

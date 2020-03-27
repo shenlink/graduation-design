@@ -17,7 +17,6 @@ class Follow extends Controller
     // 确认关注
     public function checkFollow()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['author'])) {
             $author = $_POST['author'];
             $result =  $this->follow->checkFollow($author, $this->username);
@@ -35,7 +34,6 @@ class Follow extends Controller
 
     public function delFollow()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['author'])) {
             $author = $_POST['author'];
             $result =  $this->follow->cancelFollow($author, $this->username);

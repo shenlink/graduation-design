@@ -40,7 +40,6 @@ class Article extends Controller
     // 处理写文章页面提交的数据
     public function checkWrite()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
             $category = $_POST['category'];
             $title = $_POST['title'];
@@ -69,7 +68,6 @@ class Article extends Controller
     // 处理文章编辑页面提交的数据
     public function checkEdit()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id']) && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
             $category = $_POST['category'];
@@ -85,7 +83,6 @@ class Article extends Controller
     // 拉黑文章
     public function defriendArticle()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $result = $this->article->defriendArticle($article_id);
@@ -97,7 +94,6 @@ class Article extends Controller
 
     public function normalArticle()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id'])) {
             $article_id = $_POST['article_id'];
             $result = $this->article->normalArticle($article_id);
@@ -110,7 +106,6 @@ class Article extends Controller
     //删除文章
     public function delArticle()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
             $category = $_POST['category'];

@@ -17,7 +17,6 @@ class Announcement extends Controller
     // 删除公告
     public function delAnnouncement()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['announcement_id'])) {
             $announcement_id = $_POST['announcement_id'];
             $result = $this->announcement->delAnnouncement($announcement_id);
@@ -44,7 +43,6 @@ class Announcement extends Controller
     // 确认添加
     public function checkAddAnnouncement()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
             $result = $this->announcement->checkAddAnnouncement($content, $this->time);

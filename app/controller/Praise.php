@@ -17,7 +17,6 @@ class Praise extends Controller
     // 确认点赞
     public function checkPraise()
     {
-        header("Content-type:text/html;charset=utf-8");
         if (isset($_POST['article_id']) && isset($_POST['author']) && isset($_POST['title'])) {
             $article_id = $_POST['article_id'];
             $author = $_POST['author'];
