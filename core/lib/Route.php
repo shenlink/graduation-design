@@ -94,7 +94,7 @@ class Route extends Db
                 $userType = ['article', 'comment', 'praise', 'collect', 'share'];
                 $username = $this->table('user')->where(['username' => "{$pathArray[1]}", 'status' => 1])->select();
                 if ($pathArray[1] == 'manage') {
-                    if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                    if (isset($pathArray[3]) && !preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
                         $this->displayNone();
                     }
                     if (in_array($pathArray[2], $manageType)) {
