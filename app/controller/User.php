@@ -68,7 +68,11 @@ class User extends Controller
     // 显示登录页面
     public function login()
     {
-        $this->view->display('login.html');
+        if (isset($_SESSION['username'])) {
+            echo '<script>alert("你已经登录了");window.location.href="/";</script>';
+        }else{
+            $this->view->display('login.html');
+        }
     }
 
     // 处理登录页面提交的数据
