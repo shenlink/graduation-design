@@ -263,14 +263,12 @@ class Db
         if ($pageCount > 0 && $currentPage >= 1) {
             if ($currentPage == 1) {
                 $pageHtml .= "<li data-index='current_1' onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>首页</a></li>";
+                $pageHtml .= "<li data-index='current_1' onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
             } else {
                 $pageHtml .= "<li class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}1'>首页</a></li>";
+                $prePage = $currentPage - 1;
+                $pageHtml .= "<li data-index={$prePage} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$prePage}'>上一页</a></li>";
             }
-            $prePage = $currentPage - 1;
-            if ($prePage < 1) {
-                $prePage = 'current_1';
-            }
-            $pageHtml .= "<li data-index={$prePage} onclick='changePage(this)' class='page-item'><a class='page-link' href='javascript:void(0)'>上一页</a></li>";
         }
         $start = $currentPage - 3 >= 1 ? $currentPage - 3 : 1;
         $end = $currentPage + 3 <= $pageCount ? $currentPage + 3 : $pageCount;
