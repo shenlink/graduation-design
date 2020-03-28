@@ -60,5 +60,5 @@
 59.跳转功能限制输入 <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">  1
 60.很多页面不需要表单的，比如文章编辑页面，用分页的思路做     1
 61.跳转页数大于当前最大页数时，得提示错误                    1
-62.搜索结果也要分页
+62.搜索结果也要分页                   改动了Db的Jump id
 63.不能重复登录

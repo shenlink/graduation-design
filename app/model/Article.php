@@ -19,10 +19,10 @@ class Article extends Model
     }
 
     // 处理搜索
-    public function search($content)
+    public function search($condition, $currentPage = 1, $pageSize)
     {
-        $content = '%' . $content . '%';
-        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where("content like \"{$content}\" or title like \"{$content}\"")->selectAll();
+        $content = '%' . $condition . '%';
+        return $this->table('article')->field('article_id,title,content,updated_at,collect_count,comment_count')->where("content like \"{$content}\" or title like \"{$content}\"")->pages($currentPage, $pageSize, "/article/search", $condition);
     }
 
     public function checkArticleId($article_id)
@@ -99,9 +99,9 @@ class Article extends Model
         return $this->table('article')->field('article_id,title')->where(['status' => 1])->order('comment_count desc')->limit(10)->selectAll();
     }
 
-    public function getIndexArticle($currentPage = 1, $pageSize,$type)
+    public function getIndexArticle($currentPage = 1, $pageSize, $type)
     {
-        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status'=>1])->order('updated_at desc')->pages($currentPage, $pageSize, '/index/index', $type);
+        return $this->table('article')->field('article_id,author,category,status,title,content,updated_at,collect_count,comment_count,praise_count')->where(['status' => 1])->order('updated_at desc')->pages($currentPage, $pageSize, '/index/index', $type);
     }
 
     public function getAllArticle($currentPage = 1, $pageSize)

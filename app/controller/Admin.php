@@ -16,38 +16,38 @@ class Admin extends Controller
     public function manage($type = 'user', $pagination = 1)
     {
         if ($this->username === 'shen') {
-            $pagination = $type == 'article' ? $pagination : 1;
-            $data = $this->article->getAllArticle($pagination, 5);
+            $articlePages = $type == 'article' ? $pagination : 1;
+            $data = $this->article->getAllArticle($articlePages, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            $pagination = $type == 'announcement' ? $pagination : 1;
-            $data = $this->announcement->getAllAnnouncement($pagination, 5);
+            $announcementPages = $type == 'announcement' ? $pagination : 1;
+            $data = $this->announcement->getAllAnnouncement($announcementPages, 5);
             $announcements = $data['items'];
             $announcementPage = $data['pageHtml'];
             $this->view->assign('announcementPage', $announcementPage);
 
-            $pagination = $type == 'category' ? $pagination : 1;
-            $data = $this->category->getAllCategory($pagination, 5);
+            $categoryPages = $type == 'category' ? $pagination : 1;
+            $data = $this->category->getAllCategory($categoryPages, 5);
             $AllCategorys = $data['items'];
             $categoryPage = $data['pageHtml'];
             $this->view->assign('categoryPage', $categoryPage);
 
-            $pagination = $type == 'comment' ? $pagination : 1;
-            $data = $this->comment->getAllComment($pagination, 5);
+            $commentPages = $type == 'comment' ? $pagination : 1;
+            $data = $this->comment->getAllComment($commentPages, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
-            $pagination = $type == 'message' ? $pagination : 1;
-            $data = $this->message->getAllMessage($pagination, 5);
+            $messagePages = $type == 'message' ? $pagination : 1;
+            $data = $this->message->getAllMessage($messagePages, 5);
             $messages = $data['items'];
             $messagePage = $data['pageHtml'];
             $this->view->assign('messagePage', $messagePage);
 
-            $pagination = $type == 'user' ? $pagination : 1;
-            $data = $this->user->getAllUser($pagination, 5);
+            $userPages = $type == 'user' ? $pagination : 1;
+            $data = $this->user->getAllUser($userPages, 5);
             $users = $data['items'];
             $userPage = $data['pageHtml'];
             $this->view->assign('userPage', $userPage);

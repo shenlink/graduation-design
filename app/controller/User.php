@@ -15,14 +15,17 @@ class User extends Controller
     }
 
     // 搜索相关操作的方法
-    public function search($type,$content)
+    public function search($username,$pagination)
     {
         $type = '用户名查询结果';
-        $users = $this->user->search($content);
+        $data = $this->user->search($username,$pagination,5);
+        $users = $data['items'];
+        $userPage = $data['pageHtml'];
         $recommends = $this->article->recommend();
         $this->view->assign('recommends', $recommends);
         $this->view->assign('type', $type);
         $this->view->assign('users', $users);
+        $this->view->assign('userPage', $userPage);
         $this->view->display('search.html');
     }
 
@@ -146,32 +149,32 @@ class User extends Controller
     public function manage($type = 'article', $pagination = 1)
     {
         if ($this->username) {
-            $pagination = $type == 'article' ? $pagination : 1;
-            $data = $this->article->getManageArticle($this->username, $pagination, 5);
+            $articlePages = $type == 'article' ? $pagination : 1;
+            $data = $this->article->getManageArticle($this->username, $articlePages, 5);
             $articles = $data['items'];
             $articlePage = $data['pageHtml'];
             $this->view->assign('articlePage', $articlePage);
 
-            $pagination = $type == 'comment' ? $pagination : 1;
-            $data = $this->comment->getManageComment($this->username, $pagination, 5);
+            $commentPages = $type == 'comment' ? $pagination : 1;
+            $data = $this->comment->getManageComment($this->username, $commentPages, 5);
             $comments = $data['items'];
             $commentPage = $data['pageHtml'];
             $this->view->assign('commentPage', $commentPage);
 
-            $pagination = $type == 'follow' ? $pagination : 1;
-            $data = $this->follow->getFollow($this->username, $pagination, 5);
+            $followPages = $type == 'follow' ? $pagination : 1;
+            $data = $this->follow->getFollow($this->username, $followPages, 5);
             $follows = $data['items'];
             $followPage = $data['pageHtml'];
             $this->view->assign('followPage', $followPage);
 
-            $pagination = $type == 'fans' ? $pagination : 1;
-            $data = $this->follow->getFans($this->username, $pagination, 5);
+            $fnasPages = $type == 'fans' ? $pagination : 1;
+            $data = $this->follow->getFans($this->username, $fnasPages, 5);
             $fans = $data['items'];
             $fnasPage = $data['pageHtml'];
             $this->view->assign('fnasPage', $fnasPage);
 
-            $pagination = $type == 'receive' ? $pagination : 1;
-            $data = $this->receive->getReceive($this->username, $pagination, 5);
+            $receivePages = $type == 'receive' ? $pagination : 1;
+            $data = $this->receive->getReceive($this->username, $receivePages, 5);
             $receives = $data['items'];
             $receivePage = $data['pageHtml'];
             $this->view->assign('receivePage', $receivePage);
@@ -242,32 +245,32 @@ class User extends Controller
         }
         $type = $args[0] ?? 'article';
         $pagination = $args[1] ?? 1;
-        $pagination = $type == 'article' ? $pagination : 1;
-        $data = $this->article->getUserArticle($author, $pagination, 5);
+        $articlePages = $type == 'article' ? $pagination : 1;
+        $data = $this->article->getUserArticle($author, $articlePages, 5);
         $articles = $data['items'];
         $articlePage = $data['pageHtml'];
         $this->view->assign('articlePage', $articlePage);
 
-        $pagination = $type == 'collect' ? $pagination : 1;
-        $data = $this->collect->getCollect($author, $pagination, 5);
+        $collectPages = $type == 'collect' ? $pagination : 1;
+        $data = $this->collect->getCollect($author, $collectPages, 5);
         $collects = $data['items'];
         $collectPage = $data['pageHtml'];
         $this->view->assign('collectPage', $collectPage);
 
-        $pagination = $type == 'comment' ? $pagination : 1;
-        $data = $this->comment->getComment($author, $pagination, 5);
+        $commentPages = $type == 'comment' ? $pagination : 1;
+        $data = $this->comment->getComment($author, $commentPages, 5);
         $comments = $data['items'];
         $commentPage = $data['pageHtml'];
         $this->view->assign('commentPage', $commentPage);
 
-        $pagination = $type == 'praise' ? $pagination : 1;
-        $data = $this->praise->getPraise($author, $pagination, 5);
+        $praisePages = $type == 'praise' ? $pagination : 1;
+        $data = $this->praise->getPraise($author, $praisePages, 5);
         $praises = $data['items'];
         $praisePage = $data['pageHtml'];
         $this->view->assign('praisePage', $praisePage);
 
-        $pagination = $type == 'share' ? $pagination : 1;
-        $data = $this->share->getShare($author, $pagination, 5);
+        $sharePages = $type == 'share' ? $pagination : 1;
+        $data = $this->share->getShare($author, $sharePages, 5);
         $shares = $data['items'];
         $sharePage = $data['pageHtml'];
         $this->view->assign('sharePage', $sharePage);

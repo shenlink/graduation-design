@@ -15,12 +15,16 @@ class Article extends Controller
         $this->view->display('error.html');
     }
 
-    public function search($type,$content)
+    public function search($condition, $pagination)
     {
         $type = '文章查询结果';
-        $articles = $this->article->search($content);
+        $condition = urldecode($condition);
+        $data = $this->article->search($condition, $pagination, 5);
+        $articles = $data['items'];
+        $articlePage = $data['pageHtml'];
         $recommends = $this->article->recommend();
         $this->view->assign('articles', $articles);
+        $this->view->assign('articlePage', $articlePage);
         $this->view->assign('recommends', $recommends);
         $this->view->assign('type', $type);
         $this->view->display('search.html');
@@ -52,11 +56,11 @@ class Article extends Controller
     }
 
     // 显示编辑文章页面
-    public function editArticle($type,$article_id)
+    public function editArticle($type, $article_id)
     {
         $author = $this->article->getAuthor($article_id);
         $author = $author['author'];
-        if(!($author == $_SESSION['username'])){
+        if (!($author == $_SESSION['username'])) {
             $this->displayNone();
             exit();
         }

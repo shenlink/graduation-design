@@ -17,10 +17,10 @@ class User extends Model
         }
     }
 
-    public function search($content)
+    public function search($username, $currentPage = 1, $pageSize)
     {
-        $content = '%' . $content . '%';
-        return $this->table('user')->field('username,created_at,article_count,follow_count,fans_count')->where("username like \"{$content}\"")->selectAll();
+        $content = '%' . $username . '%';
+        return $this->table('user')->field('username,created_at,article_count,follow_count,fans_count')->where("username like \"{$content}\"")->pages($currentPage, $pageSize, "/user/search", $username);
     }
 
     // 验证用户名是否被注册

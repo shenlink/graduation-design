@@ -15,7 +15,7 @@
             <!-- 不加这container时,需要在最新博文前面加两个空格 -->
             <div class="container">
                 <div class="navbar-header">
-                    <h2>{{$type}}</h2>
+                    <h2 id="type">{{$type}}</h2>
                 </div>
             </div>
         </div>
@@ -103,7 +103,12 @@
                     <!-- 左边文章列表结束 -->
                 </div>
                 <!-- 分页开始 -->
-
+                {{if $userPage}}
+                {{$userPage}}
+                {{/if}}
+                {{if $articlePage}}
+                {{$articlePage}}
+                {{/if}}
                 <!-- 分页结束 -->
             </div>
             <!-- 左边文章列表和分页结束 -->
@@ -128,5 +133,5 @@
 <!-- 主体内容结束 -->
 {{/block}}
 {{block name=js}}
-<script src="/static/js/category.js"></script>
+<script src="/static/js/search.js"></script>
 {{/block}}

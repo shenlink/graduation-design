@@ -42,21 +42,20 @@ class Route extends Db
             if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
                 $typeArray = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
                 if (in_array($pathArray[2], $typeArray)) {
+                    if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                        $this->displayNone();
+                    }
                     $this->type = $pathArray[2];
                     $this->pagination = $pathArray[3];
-                }
-                if (isset($pathArray[2]) && !in_array($pathArray[2], $typeArray)) {
-                    $this->displayNone();
                 }
             }
 
             if ($pathArray[0] == 'article' && $pathArray[1] == 'search') {
-                if ($pathArray[2] == 'condition') {
-                    $this->type = $pathArray[2];
-                    $this->pagination = $pathArray[3];
-                } else {
+                if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
                     $this->displayNone();
                 }
+                $this->type = $pathArray[2];
+                $this->pagination = $pathArray[3];
             }
 
             if ($pathArray[0] == 'article' && $pathArray[1] == 'editArticle') {
@@ -96,17 +95,21 @@ class Route extends Db
                 $username = $this->table('user')->where(['username' => "{$pathArray[1]}", 'status' => 1])->select();
                 if ($pathArray[1] == 'manage') {
                     if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
-                        if (in_array($pathArray[2], $manageType)) {
-                            $this->type = $pathArray[2];
-                            $this->pagination = $pathArray[3];
-                        }
-                        if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
-                            $this->displayNone();
-                        }
+                        $this->displayNone();
+                    }
+                    if (in_array($pathArray[2], $manageType)) {
+                        $this->type = $pathArray[2];
+                        $this->pagination = $pathArray[3];
+                    }
+                    if (isset($pathArray[2]) && !in_array($pathArray[2], $manageType)) {
+                        $this->displayNone();
                     }
                 }
                 if ($pathArray[1] == 'search') {
-                    if ($pathArray[2] == 'username') {
+                    if (mb_strlen($pathArray[2]) <= 16) {
+                        if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                            $this->displayNone();
+                        }
                         $this->type = $pathArray[2];
                         $this->pagination = $pathArray[3];
                     } else {
