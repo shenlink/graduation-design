@@ -275,7 +275,7 @@ class Db
         $start = $currentPage - 3 >= 1 ? $currentPage - 3 : 1;
         $end = $currentPage + 3 <= $pageCount ? $currentPage + 3 : $pageCount;
         for ($i = $start; $i <= $end; $i++) {
-            $pageHtml .= $i == $currentPage ? "<li data-index='current_page' onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$i}'>{$i}</a></li>";
+            $pageHtml .= $i == $currentPage ? "<li data-index='current_page' id='current' data-pagination={$i} onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$i}'>{$i}</a></li>";
         }
         // 生成下一页,生成尾页
         if ($currentPage <= $pageCount) {

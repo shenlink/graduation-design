@@ -26,7 +26,7 @@ function changePage(page) {
         return;
     }
     if (pagination == 'current_page') {
-        layer.msg('已经是当前页了', {
+        layer.msg('已经是点击页了', {
             time: 1000
         });
         return;
@@ -45,8 +45,15 @@ function jumpPage(pages) {
     let type = temp.getAttribute('data-type');
     let count = temp.getAttribute('data-count');
     let pagination = $('#paginationJump').val();
+    let current_page = $('#current').data('pagination');
     if (parseInt(pagination) > parseInt(count)) {
         layer.msg('输入页数太大了', {
+            time: 1000
+        });
+        return;
+    }
+    if (parseInt(current_page) == parseInt(pagination)) {
+        layer.msg('已经是跳转页了', {
             time: 1000
         });
         return;
