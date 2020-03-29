@@ -135,34 +135,38 @@ function conPasswordOriginal() {
 
 // 获取眼睛图案
 let passwordEye = $('#passwordEye');
+let password = $('#password');
 let flag = false;
 
 function clickEye() {
     if (flag == false) {
         password.type = 'text';
-        passwordEye.src = '/static/image/open.png';
-        passwordEye.alt = '隐藏密码';
+        passwordEye.attr('src', '/static/image/open.png');
+        passwordEye.attr('alt', '隐藏密码');
         flag = true;
     } else {
         password.type = 'password';
-        passwordEye.src = '/static/image/close.png';
-        passwordEye.alt = '显示密码';
+        passwordEye.attr('src', '/static/image/close.png');
+        passwordEye.attr('alt', '显示密码');
         flag = false;
     }
 }
 
 // 获取眼睛图案
 let conPasswordEye = $('#conPasswordEye');
+let confirmPassword = $('#confirmPassword');
 let conFlag = false;
 
 function clickConEye() {
     if (conFlag == false) {
         confirmPassword.type = 'text';
-        conPasswordEye.src = '/static/image/open.png';
+        conPasswordEye.attr('src', '/static/image/open.png');
+        conPasswordEye.attr('alt', '隐藏密码');
         conFlag = true;
     } else {
         confirmPassword.type = 'password';
-        conPasswordEye.src = '/static/image/close.png';
+        conPasswordEye.attr('src', '/static/image/close.png');
+        conPasswordEye.attr('alt', '显示密码');
         conFlag = false;
     }
 }

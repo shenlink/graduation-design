@@ -70,19 +70,21 @@ function passwordOriginal() {
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码`);
 }
 
+// 获取眼睛图案
 let passwordEye = $('#passwordEye');
+let password = $('#password');
 let flag = false;
 
 function clickEye() {
     if (flag == false) {
         password.type = 'text';
-        passwordEye.src = '/static/image/open.png';
-        passwordEye.alt = '隐藏密码';
+        passwordEye.attr('src', '/static/image/open.png');
+        passwordEye.attr('alt', '隐藏密码');
         flag = true;
     } else {
         password.type = 'password';
-        passwordEye.src = '/static/image/close.png';
-        passwordEye.alt = '显示密码';
+        passwordEye.attr('src', '/static/image/close.png');
+        passwordEye.attr('alt', '显示密码');
         flag = false;
     }
 }
