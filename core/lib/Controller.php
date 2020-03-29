@@ -2,6 +2,7 @@
 
 namespace core\lib;
 
+use core\lib\Config;
 use core\lib\Log;
 use core\lib\Route;
 use core\lib\Factory;
@@ -27,11 +28,13 @@ class Controller
         $this->user = Factory::createUser();
         $this->view = Factory::createView();
         $this->categorys = $this->category->getCategory();
+        $this->admin = Config::get('admin','access');
         $this->username = $_SESSION['username'] ?? null;
         $this->view->assign('categorys', $this->categorys);
         $this->view->assign('username', $this->username);
         date_default_timezone_set('PRC');
         $this->time = date('Y-m-d H:i:s', time());
+        $this->view->assign('admin',$this->admin);
     }
 
     // 执行前调用

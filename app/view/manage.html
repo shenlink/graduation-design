@@ -18,7 +18,7 @@
                 <li class="list-group-item">评论管理</li>
                 <li class="list-group-item">关注管理</li>
                 <li class="list-group-item">粉丝管理</li>
-                {{if $username !== 'shen'}}
+                {{if $username !== $admin}}
                 <li class="list-group-item">私信管理</li>
                 {{/if}}
             </ul>
@@ -211,7 +211,7 @@
             {{$fansPage}}
             <!-- 分页结束 -->
         </div>
-        {{if $username !== 'shen'}}
+        {{if $username !== $admin}}
         <div class="col-md-10 manage-item" {{if $type == 'receive'}} style="display: block;" {{/if}}>
             <table class="table table-hover table-bordered text-center">
                 <fieldset>

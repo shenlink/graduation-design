@@ -21,7 +21,7 @@ class Message extends Controller
             $this->displayNone();
             exit();
         }
-        if ($_SESSION['username'] == 'shen') {
+        if ($this->username == $this->admin) {
             $recommends = $this->article->recommend();
             $this->view->assign('author', $username);
             $this->view->assign('recommends', $recommends);

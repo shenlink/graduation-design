@@ -53,7 +53,7 @@ class Category extends Controller
     // 添加页面，共有添加分类，公告功能
     public function addCategory()
     {
-        if ($_SESSION['username'] == 'shen') {
+        if ($this->username == $this->admin) {
             $addCategory = 'addCategory';
             $recommends = $this->article->recommend();
             $this->view->assign('addCategory', $addCategory);

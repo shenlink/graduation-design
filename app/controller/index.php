@@ -22,6 +22,12 @@ class Index extends Controller
         $this->view->display('index.html');
     }
 
+    public function test()
+    {
+        // echo $this->admin;
+        $this->view->display('test.html');
+    }
+
     public function __call($method, $args)
     {
         $this->view->assign('error', 'error');

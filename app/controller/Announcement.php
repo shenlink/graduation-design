@@ -29,7 +29,7 @@ class Announcement extends Controller
     // 添加页面，共有添加分类，公告功能
     public function addAnnouncement()
     {
-        if ($_SESSION['username'] == 'shen') {
+        if ($_SESSION['username'] == $this->admin) {
             $addAnnouncement = $_POST['addAnnouncement'];
             $recommends = $this->article->recommend();
             $this->view->assign('addAnnouncement', $addAnnouncement);

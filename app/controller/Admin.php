@@ -15,7 +15,7 @@ class Admin extends Controller
 
     public function manage($type = 'user', $pagination = 1)
     {
-        if ($this->username === 'shen') {
+        if ($this->username == $this->admin) {
             $articlePages = $type == 'article' ? $pagination : 1;
             $data = $this->article->getAllArticle($articlePages, 5);
             $articles = $data['items'];
@@ -59,7 +59,7 @@ class Admin extends Controller
             $this->view->assign('type', $type);
             $this->view->assign('users', $users);
             $this->view->display('admin.html');
-        } else if ($this->username !== 'shen') {
+        } else if ($this->username != $this->admin) {
             $this->view->assign('noadmin', 'noadmin');
             $this->view->display('error.html');
         } else {
