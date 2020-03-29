@@ -23,7 +23,7 @@ class Message extends Controller
         }
         if ($this->username == $this->admin) {
             $recommends = $this->article->recommend();
-            $this->view->assign('author', $this->username);
+            $this->view->assign('author', $username);
             $this->view->assign('recommends', $recommends);
             $this->view->display('add.html');
         } else {
