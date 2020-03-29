@@ -140,12 +140,12 @@ let flag = false;
 
 function clickEye() {
     if (flag == false) {
-        password.type = 'text';
+        password.attr('type', 'text');
         passwordEye.attr('src', '/static/image/open.png');
         passwordEye.attr('alt', '隐藏密码');
         flag = true;
     } else {
-        password.type = 'password';
+        password.attr('type', 'password');
         passwordEye.attr('src', '/static/image/close.png');
         passwordEye.attr('alt', '显示密码');
         flag = false;
@@ -159,12 +159,12 @@ let conFlag = false;
 
 function clickConEye() {
     if (conFlag == false) {
-        confirmPassword.type = 'text';
+        confirmPassword.attr('type','text');
         conPasswordEye.attr('src', '/static/image/open.png');
         conPasswordEye.attr('alt', '隐藏密码');
         conFlag = true;
     } else {
-        confirmPassword.type = 'password';
+        confirmPassword.attr('type', 'password');
         conPasswordEye.attr('src', '/static/image/close.png');
         conPasswordEye.attr('alt', '显示密码');
         conFlag = false;

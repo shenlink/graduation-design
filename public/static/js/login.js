@@ -77,12 +77,12 @@ let flag = false;
 
 function clickEye() {
     if (flag == false) {
-        password.type = 'text';
+        password.attr('type', 'text');
         passwordEye.attr('src', '/static/image/open.png');
         passwordEye.attr('alt', '隐藏密码');
         flag = true;
     } else {
-        password.type = 'password';
+        password.attr('type', 'password');
         passwordEye.attr('src', '/static/image/close.png');
         passwordEye.attr('alt', '显示密码');
         flag = false;
