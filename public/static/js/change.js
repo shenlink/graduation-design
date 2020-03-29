@@ -60,7 +60,7 @@ function checkPassword() {
 // 确认密码
 function checkConPassword() {
     let password = $('#password');
-    let passwordValue = password.value;
+    let passwordValue = password.val();
     let confirmPassword = $('#confirmPassword');
     let conPasswordValue = confirmPassword.val();
     let conPasswordTip = $('#conPasswordTip');

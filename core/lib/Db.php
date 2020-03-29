@@ -182,25 +182,26 @@ class Db
         $allParams = array_merge($values, $wheres);
         if (is_array($data) && is_array($this->where)) {
             $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute($allParams);
+            $stmt->execute($allParams);
             $realSql = $this->getSql($sql, $allParams);
             $this->writeLog($realSql);
         } else if (is_array($data) && !is_array($this->where)) {
             $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute($values);
+            $stmt->execute($values);
             $realSql = $this->getSql($sql, $values);
             $this->writeLog($realSql);
         } else if (!is_array($data) && is_array($this->where)) {
             $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute($wheres);
+            $stmt->execute($wheres);
             $realSql = $this->getSql($sql, $wheres);
             $this->writeLog($realSql);
         } else {
             $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute();
+            $stmt->execute();
             $realSql = $this->fetchSql($sql);
             $this->writeLog($realSql);
         }
+        $result = $stmt->rowCount();
         return $result;
     }
 
