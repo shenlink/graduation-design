@@ -2,8 +2,8 @@
 
 namespace app\model;
 
+use core\lib\Log;
 use core\lib\Model;
-use core\lib\Factory;
 
 class Category extends Model
 {
@@ -37,13 +37,53 @@ class Category extends Model
     // 处理管理员拉黑分类
     public function defriendCategory($category)
     {
-        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 0]);
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $categorySql = "update category set status = 0 where `category` = ?";
+            $stmt = $pdo->prepare($categorySql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $articleSql = "update article set status = 0 where category=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     // 处理管理员恢复分类的状态到正常
     public function normalCategory($category)
     {
-        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 1]);
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $categorySql = "update category set status = 1 where `category` = ?";
+            $stmt = $pdo->prepare($categorySql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $articleSql = "update article set status = 1 where category=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     // 处理添加分类
@@ -52,9 +92,8 @@ class Category extends Model
         return $this->table('category')->insert(['category' => "{$categoryName}"]);
     }
 
-
     public function getAllCategory($currentPage = 1, $pageSize)
     {
-        return $this->table('category')->field('category_id,category,status,article_count')->pages($currentPage, $pageSize, '/admin/manage', 'category');
+        return $this->table('category')->field('category_id,category,status,article_count')->where('status = 1  or status =0')->pages($currentPage, $pageSize, '/admin/manage', 'category');
     }
 }

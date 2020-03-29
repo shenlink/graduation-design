@@ -34,7 +34,7 @@ $('#search').on('click', function () {
 
 // 左边的导航栏切换
 let lis = $('.list-group-item');
-let items = document.querySelectorAll('.manage-item');
+let items = $('.manage-item');
 // for循环在页面加载完成之后就已经执行完了，这时候lis的index索引已经赋值完成,然后执行lis[i].click事件注册，待点击之后就触发
 for (let i = 0; i < lis.length; i++) {
     lis[i].setAttribute('index', i);
@@ -66,7 +66,9 @@ function defriendUser(userId) {
     let temp = userId;
     let user_id = temp.getAttribute('data-user-id');
     if (user_id == "1") {
-        alert('这是管理员，不能拉黑');
+        layer.msg('这是管理员，不能拉黑', {
+            time: 1000
+        });
         return;
     }
     $.post("/user/defriendUser", {
@@ -118,7 +120,9 @@ function delUser(userId) {
     let temp = userId;
     let user_id = temp.getAttribute('data-user-id');
     if (user_id == "1") {
-        alert('这是管理员，不能删除');
+        layer.msg('这是管理员，不能删除', {
+            time: 1000
+        });
         return;
     }
     if (!confirm('确认删除吗？')) {

@@ -225,17 +225,17 @@
                         <td>
                             {{if $AllCategorysItem.status == 1}}
                             <button class="btn btn-primary btn-sm" onclick="defriendCategory(this)"
-                                data-category={{$categorysItem.category}}>
+                                data-category={{$AllCategorysItem.category}}>
                                 拉黑
                             </button>
                             {{else}}
                             <button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
-                                data-category={{$categorysItem.category}}>
+                                data-category={{$AllCategorysItem.category}}>
                                 恢复
                             </button>
                             {{/if}}
                             <button class="btn btn-primary btn-sm" onclick="delCategory(this)"
-                                data-category={{$categorysItem.category}}>
+                                data-category={{$AllCategorysItem.category}}>
                                 删除
                             </button>
                         </td>

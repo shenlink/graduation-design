@@ -30,9 +30,8 @@ class Announcement extends Controller
     public function addAnnouncement()
     {
         if ($_SESSION['username'] == $this->admin) {
-            $addAnnouncement = $_POST['addAnnouncement'];
             $recommends = $this->article->recommend();
-            $this->view->assign('addAnnouncement', $addAnnouncement);
+            $this->view->assign('addAnnouncement', 'announcement');
             $this->view->assign('recommends', $recommends);
             $this->view->display('add.html');
         } else {
