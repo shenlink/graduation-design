@@ -15,10 +15,10 @@ class User extends Controller
     }
 
     // 搜索相关操作的方法
-    public function search($username,$pagination)
+    public function search($username, $pagination)
     {
         $type = '用户名查询结果';
-        $data = $this->user->search($username,$pagination,5);
+        $data = $this->user->search($username, $pagination, 5);
         $users = $data['items'];
         $userPage = $data['pageHtml'];
         $recommends = $this->article->recommend();
@@ -55,6 +55,27 @@ class User extends Controller
         $this->view->display('register.html');
     }
 
+    public function verify()
+    {
+        session_start();
+        $img = imagecreatetruecolor(150, 60);
+        $white = imagecolorallocate($img, 240, 241, 218);
+        $gray = imagecolorallocate($img, 100, 233, 12);
+        $orange = imagecolorallocate($img, 168, 170, 19);
+        imagefill($img, 0, 0, $white);
+        $arr = array_merge(range(0, 9), range('a', 'z'), range('A', 'Z'));
+        shuffle($arr);
+        $str = join(' ', array_slice($arr, 0, 4));
+        $_SESSION['vcode'] = $str;
+        imagettftext($img, 20, 0, 10, 40, $gray, "my.TTF", $str);
+        for ($i = 0; $i < 100; $i++) {
+            imagearc($img, mt_rand(0, 150), mt_rand(0, 60), mt_rand(0, 30), mt_rand(0, 30), mt_rand(0, 360), mt_rand(0, 360), $orange);
+        }
+        header("content-Type:image/jpeg");
+        imagejpeg($img);
+        imagedestroy($img);
+    }
+
     // 处理注册页面提交的数据
     public function checkRegister()
     {
@@ -73,7 +94,7 @@ class User extends Controller
     {
         if (isset($_SESSION['username'])) {
             echo '<script>alert("你已经登录了");window.location.href="/";</script>';
-        }else{
+        } else {
             $this->view->display('login.html');
         }
     }

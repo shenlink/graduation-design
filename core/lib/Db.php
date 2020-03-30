@@ -46,7 +46,6 @@ class Db
         $charset = $config['charset'];
         $dsn = "{$type}:host={$host};charset={$charset};dbname={$dbname}";
         try {
-            // 初步怀疑是未连接就打印日志了
             $this->pdo = new \PDO($dsn, $username, $password);
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
