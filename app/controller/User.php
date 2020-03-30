@@ -157,9 +157,10 @@ class User extends Controller
     // 处理从修稿页面提交的数据
     public function checkChange()
     {
-        if (isset($_POST['password'])) {
+        if (isset($_POST['password']) && isset($_POST['introduction'])) {
+            $introduction = trim($_POST['introduction']);
             $password = md5(trim($_POST['password']));
-            $result = $this->user->checkChange($this->username, $password);
+            $result = $this->user->checkChange($this->username, $password, $introduction);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

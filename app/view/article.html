@@ -138,7 +138,14 @@
                     <div class="card" style="width: 26rem;">
                         <div class="card-body">
                             <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
-                                    {{$users.username}}</a></h5>
+                                    {{$users.username}}</a>
+                            </h5>
+                            <h6>
+                                个人介绍
+                            </h6>
+                            <div>
+                                {{$users.introduction}}
+                            </div>
                             <br>
                             <p class="card-text"></p>
                             <div class="text-dark d-flex justify-content-between">
@@ -185,8 +192,8 @@
                                 {{/if}}
                             </button>
                             {{if $username == $admin}}
-                            <button type="button" class="btn btn-success card-link" id="addMessage" onclick="addMessage()"
-                                data-author={{$users.username}}>
+                            <button type="button" class="btn btn-success card-link" id="addMessage"
+                                onclick="addMessage()" data-author={{$users.username}}>
                                 私信
                             </button>
                             {{/if}}
