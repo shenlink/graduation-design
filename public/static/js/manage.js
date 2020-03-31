@@ -74,13 +74,18 @@ function delArticle(articleId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let article_tr = parseInt($("#article").children().length);
                 let current_page = parseInt($("#articleCurrent").data('current'));
                 let pageCount = parseInt($("#articleCurrent").data('page-count'));
-                if (current_page > 1 && current_page == pageCount && article_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && article_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && article_tr == 1) {
                     window.location.href = '/user/manage/article/' + (current_page - 1);
                 }
             });
@@ -108,12 +113,17 @@ function delComment(commentId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let comment_tr = parseInt($("#comment").children().length);
                 let current_page = parseInt($("#commentCurrent").data('current'));
                 let pageCount = parseInt($("#commentCurrent").data('page-count'));
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && comment_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
                 if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
                     window.location.href = '/user/manage/comment/' + (current_page - 1);
                 }
@@ -137,13 +147,18 @@ function delFollow(followName) {
             layer.msg('取消关注', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let follow_tr = parseInt($("#follow").children().length);
                 let current_page = parseInt($("#followCurrent").data('current'));
                 let pageCount = parseInt($("#followCurrent").data('page-count'));
-                if (current_page > 1 && current_page == pageCount && follow_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && follow_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && follow_tr == 1) {
                     window.location.href = '/user/manage/follow/' + (current_page - 1);
                 }
             });
@@ -169,13 +184,18 @@ function delReceive(receiveId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let receive_tr = parseInt($("#receive").children().length);
                 let current_page = parseInt($("#receiveCurrent").data('current'));
                 let pageCount = parseInt($("#receiveCurrent").data('page-count'));
-                if (current_page > 1 && current_page == pageCount && receive_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && receive_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && receive_tr == 1) {
                     window.location.href = '/user/manage/receive/' + (current_page - 1);
                 }
             });

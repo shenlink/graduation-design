@@ -67,18 +67,20 @@ function delComment(commentId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let comment_header = temp.parentNode.parentNode.parentNode;
-                let comment_content = comment_header.nextElementSibling;
-                let table = comment_header.parentNode;
-                table.removeChild(comment_header);
-                table.removeChild(comment_content);
                 let comment_tr = parseInt($("#comment").children().length);
-                console.log(comment_tr);
                 let current_page = parseInt($("#commentCurrent").data('current'));
-                console.log(current_page);
                 let pageCount = parseInt($("#commentCurrent").data('page-count'));
-                console.log(pageCount);
-                if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && comment_tr > 1) {
+                    let comment_header = temp.parentNode.parentNode.parentNode;
+                    let comment_content = comment_header.nextElementSibling;
+                    let table = comment_header.parentNode;
+                    table.removeChild(comment_header);
+                    table.removeChild(comment_content);
+                }
+                if (current_page > 1 && current_page == pageCount && comment_tr == 1) {
                     let prePage = current_page - 1;
                     window.location.href = `/user/${author}/comment/${prePage}`;
 
@@ -109,13 +111,18 @@ function delPraise(praiseId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let praise_tr = parseInt($("#praise").children().length);
                 let current_page = parseInt($("#praiseCurrent").data('current'));
                 let pageCount = parseInt($("#praiseCurrent").data('page-count'));
-                if (current_page > 1 && current_page == pageCount && praise_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && praise_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && praise_tr == 1) {
                     let prePage = current_page - 1;
                     window.location.href = `/user/${author}/praise/${prePage}`;
                 }
@@ -145,16 +152,18 @@ function delCollect(collectId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let collect_tr = parseInt($("#collect").children().length);
-                console.log(collect_tr);
                 let current_page = parseInt($("#collectCurrent").data('current'));
-                console.log(current_page);
                 let pageCount = parseInt($("#collectCurrent").data('page-count'));
-                console.log(pageCount);
-                if (current_page > 1 && current_page == pageCount && collect_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && collect_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && collect_tr == 1) {
                     let prePage = current_page - 1;
                     window.location.href = `/user/${author}/collect/${prePage}`;
                 }
@@ -184,13 +193,18 @@ function delShare(shareId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr = temp.parentNode.parentNode;
-                let tbody = tr.parentNode;
-                tbody.removeChild(tr);
                 let share_tr = parseInt($("#share").children().length);
                 let current_page = parseInt($("#shareCurrent").data('current'));
                 let pageCount = parseInt($("#shareCurrent").data('page-count'));
-                if (current_page > 1 && current_page == pageCount && share_tr == 0) {
+                if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == pageCount && share_tr > 1) {
+                    let tr = temp.parentNode.parentNode;
+                    let tbody = tr.parentNode;
+                    tbody.removeChild(tr);
+                }
+                if (current_page > 1 && current_page == pageCount && share_tr == 1) {
                     let prePage = current_page - 1;
                     window.location.href = `/user/${author}/share/${prePage}`;
                 }
