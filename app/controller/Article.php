@@ -112,8 +112,8 @@ class Article extends Controller
     {
         if (isset($_POST['article_id']) && isset($_POST['category'])) {
             $article_id = $_POST['article_id'];
-            $category = $_POST['category'];
-            $result = $this->article->delArticle($article_id, $this->username, $category);
+            // $category = $_POST['category'];
+            $result = $this->article->delArticle($article_id, $this->username);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

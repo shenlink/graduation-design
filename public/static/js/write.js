@@ -60,7 +60,7 @@ $('#publish').on('click', function () {
         content: content,
         category: category
     }, function (data) {
-        if (data === '1') {
+            if (data === '1') {
             layer.msg('发表成功', {
                 time: 1000
             }, function () {

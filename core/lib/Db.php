@@ -300,7 +300,7 @@ class Db
         }
         $pageHtml .= "<form class='form-inline'>
         <input type='number' class='form-control search-type' id='{$type}Jump' min='1' max='{$pageCount}' onkeyup='this.value=this.value.replace(/\D/g,'')' onafterpaste='this.value=this.value.replace(/\D/g,'')'>
-        <button type='button' class='btn btn-primary current' onclick='jumpPage(this)' data-current={$currentPage} data-page-count={$pageCount} data-type={$type}>跳转</button>
+        <button type='button' class='btn btn-light current' onclick='jumpPage(this)' data-current={$currentPage} data-page-count={$pageCount} data-type={$type}>跳转</button>
         </form>";
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
         return $pageHtml;

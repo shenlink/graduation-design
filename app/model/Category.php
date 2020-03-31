@@ -54,6 +54,6 @@ class Category extends Model
 
     public function getAllCategory($currentPage = 1, $pageSize)
     {
-        return $this->table('category')->field('category_id,category,status,article_count')->where('status = 1 or status = 0')->pages($currentPage, $pageSize, '/admin/manage', 'category');
+        return $this->table('category')->field('category_id,category,status')->where('status = 1 or status = 0')->pages($currentPage, $pageSize, '/admin/manage', 'category');
     }
 }
