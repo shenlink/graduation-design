@@ -169,7 +169,7 @@ class User extends Controller
     }
 
     // 显示用户管理页面
-    public function manage($type, $pagination)
+    public function manage($type = 'article', $pagination = 1)
     {
         if ($this->username) {
             $articlePages = $type == 'article' ? $pagination : 1;
@@ -266,8 +266,8 @@ class User extends Controller
             $this->view->display('error.html');
             exit();
         }
-        $type = $args[0];
-        $pagination = $args[1];
+        $type = $args[0] ?? 'article';
+        $pagination = $args[1] ?? 1;
         $articlePages = $type == 'article' ? $pagination : 1;
         $data = $this->article->getUserArticle($author, $articlePages, 5);
         $articles = $data['items'];

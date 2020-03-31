@@ -14,7 +14,7 @@ class Admin extends Controller
         exit();
     }
 
-    public function manage($type, $pagination)
+    public function manage($type = 'article', $pagination = 1)
     {
         if ($this->username == $this->admin) {
             $articlePages = $type == 'article' ? $pagination : 1;
