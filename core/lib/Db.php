@@ -259,6 +259,9 @@ class Db
         if ($pageCount == 0) {
             return;
         }
+        if($currentPage > $pageCount){
+            return 'error';
+        }
         // 生成首页,生成上一页
         if ($pageCount > 0 && $currentPage >= 1) {
             if ($currentPage == 1) {
@@ -272,8 +275,9 @@ class Db
         }
         $start = $currentPage - 3 >= 1 ? $currentPage - 3 : 1;
         $end = $currentPage + 3 <= $pageCount ? $currentPage + 3 : $pageCount;
+        // 生成当前页
         for ($i = $start; $i <= $end; $i++) {
-            $pageHtml .= $i == $currentPage ? "<li data-index='current_page' id='current' data-pagination={$i} onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$i}'>{$i}</a></li>";
+            $pageHtml .= $i == $currentPage ? "<li data-index='current_page' data-current={$i} id='{$type}Current' data-page-count={$pageCount} onclick='changePage(this)' class='page-item active'><a class='page-link' href='javascript:void(0)'>{$i}</a></li>" : "<li data-index={$i} onclick='changePage(this)' class='page-item'><a class='page-link' href='{$url}{$separate}{$type}{$separate}{$i}'>{$i}</a></li>";
         }
         // 生成下一页,生成尾页
         if ($currentPage <= $pageCount) {
@@ -296,7 +300,7 @@ class Db
         }
         $pageHtml .= "<form class='form-inline'>
         <input type='number' class='form-control search-type' id='{$type}Jump' min='1' max='{$pageCount}' onkeyup='this.value=this.value.replace(/\D/g,'')' onafterpaste='this.value=this.value.replace(/\D/g,'')'>
-        <button type='button' class='btn btn-primary' onclick='jumpPage(this)' data-count={$pageCount} data-type={$type}>跳转</button>
+        <button type='button' class='btn btn-primary current' onclick='jumpPage(this)' data-current={$currentPage} data-page-count={$pageCount} data-type={$type}>跳转</button>
         </form>";
         $pageHtml = '<ul class="pagination justify-content-center">' . $pageHtml . '</ul>';
         return $pageHtml;

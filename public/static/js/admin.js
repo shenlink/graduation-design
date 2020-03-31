@@ -138,6 +138,12 @@ function delUser(userId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let user_tr = parseInt($("#user").children().length);
+                let current_page = parseInt($("#userCurrent").data('current'));
+                let pageCount = parseInt($("#userCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && user_tr == 0) {
+                    window.location.href = '/admin/manage/aricle/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -214,6 +220,12 @@ function delArticle(articleId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let article_tr = parseInt($("#article").children().length);
+                let current_page = parseInt($("#articleCurrent").data('current'));
+                let pageCount = parseInt($("#articleCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && article_tr == 0) {
+                    window.location.href = '/admin/manage/aricle/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -288,6 +300,12 @@ function delCategory(categoryName) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let category_tr = parseInt($("#category").children().length);
+                let current_page = parseInt($("#categoryCurrent").data('current'));
+                let pageCount = parseInt($("#categoryCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && category_tr == 0) {
+                    window.location.href = '/admin/manage/category/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -321,6 +339,12 @@ function delComment(commentId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let comment_tr = parseInt($("#comment").children().length);
+                let current_page = parseInt($("#commentCurrent").data('current'));
+                let pageCount = parseInt($("#commentCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
+                    window.location.href = '/admin/manage/comment/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -347,6 +371,12 @@ function delAnnouncement(announcementId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let announcement_tr = parseInt($("#announcement").children().length);
+                let current_page = parseInt($("#announcementCurrent").data('current'));
+                let pageCount = parseInt($("#announcementCurrent").data('page-count'));
+                if (announcement_num > 1 && current_page == pageCount && article_tr == 0) {
+                    window.location.href = '/admin/manage/announcement/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -384,7 +414,13 @@ function delMesssage(messageId) {
             }, function () {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
-                tbody.removeChild(tr);
+                    tbody.removeChild(tr);
+                    let message_tr = parseInt($("#message").children().length);
+                    let current_page = parseInt($("#messageCurrent").data('current'));
+                    let pageCount = parseInt($("#messageCurrent").data('page-count'));
+                    if (current_page > 1 && current_page == pageCount && message_tr == 0) {
+                        window.location.href = '/admin/manage/message/' + (current_page - 1);
+                    }
             });
         } else {
             layer.msg('删除失败', {
@@ -422,8 +458,8 @@ function changePage(page) {
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
-    let count = temp.getAttribute('data-count');
-    let current_page = $('#current').data('pagination');
+    let pageCount = temp.getAttribute('data-page-count');
+    let current_page = temp.getAttribute('data-current');
     switch (type) {
         case 'user':
             pagination = $(`#userJump`).val();
@@ -444,7 +480,7 @@ function jumpPage(pages) {
             pagination = $(`#messageJump`).val();
             break;
     }
-    if (parseInt(pagination) > parseInt(count)) {
+    if (parseInt(pagination) > parseInt(pageCount)) {
         layer.msg('输入页数太大了', {
             time: 1000
         });
@@ -452,6 +488,12 @@ function jumpPage(pages) {
     }
     if (parseInt(current_page) == parseInt(pagination)) {
         layer.msg('已经是跳转页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == '') {
+        layer.msg('输入不能为空', {
             time: 1000
         });
         return;

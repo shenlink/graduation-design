@@ -77,6 +77,12 @@ function delArticle(articleId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let article_tr = parseInt($("#article").children().length);
+                let current_page = parseInt($("#articleCurrent").data('current'));
+                let pageCount = parseInt($("#articleCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && article_tr == 0) {
+                    window.location.href = '/user/manage/article/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -105,6 +111,12 @@ function delComment(commentId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let comment_tr = parseInt($("#comment").children().length);
+                let current_page = parseInt($("#commentCurrent").data('current'));
+                let pageCount = parseInt($("#commentCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
+                    window.location.href = '/user/manage/comment/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -128,6 +140,12 @@ function delFollow(followName) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let follow_tr = parseInt($("#follow").children().length);
+                let current_page = parseInt($("#followCurrent").data('current'));
+                let pageCount = parseInt($("#followCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && follow_tr == 0) {
+                    window.location.href = '/user/manage/follow/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('取消关注失败', {
@@ -154,6 +172,12 @@ function delReceive(receiveId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let receive_tr = parseInt($("#receive").children().length);
+                let current_page = parseInt($("#receiveCurrent").data('current'));
+                let pageCount = parseInt($("#receiveCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && receive_tr == 0) {
+                    window.location.href = '/user/manage/receive/' + (current_page - 1);
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -191,8 +215,8 @@ function changePage(page) {
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
-    let count = temp.getAttribute('data-count');
-    let current_page = $('#current').data('pagination');
+    let pageCount = temp.getAttribute('data-page-count');
+    let current_page = temp.getAttribute('data-current');
     switch (type) {
         case 'article':
             pagination = $(`#articleJump`).val();
@@ -207,7 +231,7 @@ function jumpPage(pages) {
             pagination = $(`#fansJump`).val();
             break;
     }
-    if (parseInt(pagination) > parseInt(count)) {
+    if (parseInt(pagination) > parseInt(pageCount)) {
         layer.msg('输入页数太大了', {
             time: 1000
         });
@@ -215,6 +239,12 @@ function jumpPage(pages) {
     }
     if (parseInt(current_page) == parseInt(pagination)) {
         layer.msg('已经是跳转页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == '') {
+        layer.msg('输入不能为空', {
             time: 1000
         });
         return;

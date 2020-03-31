@@ -12,6 +12,7 @@ class User extends Controller
     {
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
+        exit();
     }
 
     // 搜索相关操作的方法
@@ -174,31 +175,31 @@ class User extends Controller
             $articlePages = $type == 'article' ? $pagination : 1;
             $data = $this->article->getManageArticle($this->username, $articlePages, 5);
             $articles = $data['items'];
-            $articlePage = $data['pageHtml'];
+            $articlePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
             $this->view->assign('articlePage', $articlePage);
 
             $commentPages = $type == 'comment' ? $pagination : 1;
             $data = $this->comment->getManageComment($this->username, $commentPages, 5);
             $comments = $data['items'];
-            $commentPage = $data['pageHtml'];
+            $commentPage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
             $this->view->assign('commentPage', $commentPage);
 
             $followPages = $type == 'follow' ? $pagination : 1;
             $data = $this->follow->getFollow($this->username, $followPages, 5);
             $follows = $data['items'];
-            $followPage = $data['pageHtml'];
+            $followPage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
             $this->view->assign('followPage', $followPage);
 
             $fnasPages = $type == 'fans' ? $pagination : 1;
             $data = $this->follow->getFans($this->username, $fnasPages, 5);
             $fans = $data['items'];
-            $fnasPage = $data['pageHtml'];
+            $fnasPage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
             $this->view->assign('fnasPage', $fnasPage);
 
             $receivePages = $type == 'receive' ? $pagination : 1;
             $data = $this->receive->getReceive($this->username, $receivePages, 5);
             $receives = $data['items'];
-            $receivePage = $data['pageHtml'];
+            $receivePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
             $this->view->assign('receivePage', $receivePage);
             $this->view->assign('username', $this->username);
             $this->view->assign('articles', $articles);
@@ -270,31 +271,31 @@ class User extends Controller
         $articlePages = $type == 'article' ? $pagination : 1;
         $data = $this->article->getUserArticle($author, $articlePages, 5);
         $articles = $data['items'];
-        $articlePage = $data['pageHtml'];
+        $articlePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('articlePage', $articlePage);
 
         $collectPages = $type == 'collect' ? $pagination : 1;
         $data = $this->collect->getCollect($author, $collectPages, 5);
         $collects = $data['items'];
-        $collectPage = $data['pageHtml'];
+        $collectPage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('collectPage', $collectPage);
 
         $commentPages = $type == 'comment' ? $pagination : 1;
         $data = $this->comment->getComment($author, $commentPages, 5);
         $comments = $data['items'];
-        $commentPage = $data['pageHtml'];
+        $commentPage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('commentPage', $commentPage);
 
         $praisePages = $type == 'praise' ? $pagination : 1;
         $data = $this->praise->getPraise($author, $praisePages, 5);
         $praises = $data['items'];
-        $praisePage = $data['pageHtml'];
+        $praisePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('praisePage', $praisePage);
 
         $sharePages = $type == 'share' ? $pagination : 1;
         $data = $this->share->getShare($author, $sharePages, 5);
         $shares = $data['items'];
-        $sharePage = $data['pageHtml'];
+        $sharePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('sharePage', $sharePage);
         if ($this->username) {
             $follows = $this->follow->checkFollow($author, $this->username);

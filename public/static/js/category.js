@@ -60,11 +60,11 @@ function changePage(page) {
 function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
-    let count = temp.getAttribute('data-count');
     let pagination = $('#paginationJump').val();
-    let current_page = $('#current').data('pagination');
+    let pageCount = temp.getAttribute('data-page-count');
+    let current_page = temp.getAttribute('data-current');
     let category = $("#category").data('category');
-    if (parseInt(pagination) > parseInt(count)) {
+    if (parseInt(pagination) > parseInt(pageCount)) {
         layer.msg('输入页数太大了', {
             time: 1000
         });
@@ -72,6 +72,12 @@ function jumpPage(pages) {
     }
     if (parseInt(current_page) == parseInt(pagination)) {
         layer.msg('已经是跳转页了', {
+            time: 1000
+        });
+        return;
+    }
+    if (pagination == '') {
+        layer.msg('输入不能为空', {
             time: 1000
         });
         return;

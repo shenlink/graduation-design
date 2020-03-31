@@ -12,6 +12,7 @@ class Category extends Controller
     {
         $this->view->assign('error', 'error');
         $this->view->display('error.html');
+        exit();
     }
 
     // 拉黑分类
@@ -88,7 +89,7 @@ class Category extends Controller
         $pagination = $args[1] ?? 1;
         $data = $this->article->getCategoryArticle($categoryName, $pagination, 5);
         $articles = $data['items'];
-        $articlePage = $data['pageHtml'];
+        $articlePage = $data['pageHtml'] != 'error' ? $data['pageHtml'] : $this->displayNone();
         $this->view->assign('articlePage', $articlePage);
         $recommends = $this->article->recommend();
         $this->view->assign('articles', $articles);

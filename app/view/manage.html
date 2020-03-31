@@ -43,7 +43,7 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="article">
                     {{foreach from=$articles item=articlesItem}}
                     <tr>
                         <td title="{{$articlesItem.title}}">
@@ -106,7 +106,7 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="comment">
                     {{foreach from=$comments item=commentsItem}}
                     <tr>
                         <td title="{{$commentsItem.content}}">
@@ -149,7 +149,7 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="follow">
                     {{foreach from=$follows item=followsItem}}
                     <tr>
                         <td>
@@ -189,7 +189,7 @@
                         <th scope="col">个人主页</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="fans">
                     {{foreach from=$fans item=fansItem}}
                     <tr>
                         <td>
@@ -224,7 +224,7 @@
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="receive">
                     {{foreach from=$receives item=receivesItem}}
                     <tr>
                         <td>

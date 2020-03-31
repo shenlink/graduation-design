@@ -58,6 +58,7 @@ function delComment(commentId) {
     let temp = commentId;
     let article_id = temp.getAttribute('data-article-id');
     let comment_id = temp.getAttribute('data-comment-id');
+    let author = $('#author').data('author');
     $.post("/comment/delComment", {
         article_id: article_id,
         comment_id: comment_id
@@ -66,11 +67,22 @@ function delComment(commentId) {
             layer.msg('删除成功', {
                 time: 1000
             }, function () {
-                let tr1 = temp.parentNode.parentNode;
-                let tr2 = tr1.nextElementSibling;
-                let table = tr1.parentNode;
-                table.removeChild(tr1);
-                table.removeChild(tr2);
+                let comment_header = temp.parentNode.parentNode.parentNode;
+                let comment_content = comment_header.nextElementSibling;
+                let table = comment_header.parentNode;
+                table.removeChild(comment_header);
+                table.removeChild(comment_content);
+                let comment_tr = parseInt($("#comment").children().length);
+                console.log(comment_tr);
+                let current_page = parseInt($("#commentCurrent").data('current'));
+                console.log(current_page);
+                let pageCount = parseInt($("#commentCurrent").data('page-count'));
+                console.log(pageCount);
+                if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
+                    let prePage = current_page - 1;
+                    window.location.href = `/user/${author}/comment/${prePage}`;
+
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -88,6 +100,7 @@ function delPraise(praiseId) {
     let temp = praiseId;
     let article_id = temp.getAttribute('data-article-id');
     let praise_id = temp.getAttribute('data-praise-id');
+    let author = $('#author').data('author');
     $.post("/praise/delPraise", {
         article_id: article_id,
         praise_id: praise_id
@@ -99,6 +112,13 @@ function delPraise(praiseId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let praise_tr = parseInt($("#praise").children().length);
+                let current_page = parseInt($("#praiseCurrent").data('current'));
+                let pageCount = parseInt($("#praiseCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && praise_tr == 0) {
+                    let prePage = current_page - 1;
+                    window.location.href = `/user/${author}/praise/${prePage}`;
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -116,6 +136,7 @@ function delCollect(collectId) {
     let temp = collectId;
     let article_id = temp.getAttribute('data-article-id');
     let collect_id = temp.getAttribute('data-collect-id');
+    let author = $('#author').data('author');
     $.post("/collect/delCollect", {
         article_id: article_id,
         collect_id: collect_id
@@ -127,6 +148,16 @@ function delCollect(collectId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let collect_tr = parseInt($("#collect").children().length);
+                console.log(collect_tr);
+                let current_page = parseInt($("#collectCurrent").data('current'));
+                console.log(current_page);
+                let pageCount = parseInt($("#collectCurrent").data('page-count'));
+                console.log(pageCount);
+                if (current_page > 1 && current_page == pageCount && collect_tr == 0) {
+                    let prePage = current_page - 1;
+                    window.location.href = `/user/${author}/collect/${prePage}`;
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -144,6 +175,7 @@ function delShare(shareId) {
     let temp = shareId;
     let article_id = temp.getAttribute('data-article-id');
     let share_id = temp.getAttribute('data-share-id');
+    let author = $('#author').data('author');
     $.post("/share/delShare", {
         article_id: article_id,
         share_id: share_id
@@ -155,6 +187,13 @@ function delShare(shareId) {
                 let tr = temp.parentNode.parentNode;
                 let tbody = tr.parentNode;
                 tbody.removeChild(tr);
+                let share_tr = parseInt($("#share").children().length);
+                let current_page = parseInt($("#shareCurrent").data('current'));
+                let pageCount = parseInt($("#shareCurrent").data('page-count'));
+                if (current_page > 1 && current_page == pageCount && share_tr == 0) {
+                    let prePage = current_page - 1;
+                    window.location.href = `/user/${author}/share/${prePage}`;
+                }
             });
         } else {
             layer.msg('删除失败', {
@@ -237,8 +276,8 @@ function jumpPage(pages) {
     let temp = pages;
     let type = temp.getAttribute('data-type');
     let author = $('#author').data('author');
-    let count = temp.getAttribute('data-count');
-    let current_page = $('#current').data('pagination');
+    let pageCount = temp.getAttribute('data-page-count');
+    let current_page = temp.getAttribute('data-current');
     switch (type) {
         case 'article':
             pagination = $(`#articleJump`).val();
@@ -256,7 +295,7 @@ function jumpPage(pages) {
             pagination = $(`#shareJump`).val();
             break;
     }
-    if (parseInt(pagination) > parseInt(count)) {
+    if (parseInt(pagination) > parseInt(pageCount)) {
         layer.msg('输入页数太大了', {
             time: 1000
         });
