@@ -14,6 +14,17 @@ class Announcement extends Controller
         $this->view->display('error.html');
     }
 
+    // 修改公告
+    public function changeAnnouncement($type, $announcement_id)
+    {
+        if($this->username == $this->admin) {
+            $announcements = $this->announcement->getOneAnnouncement($announcement_id);
+            $this->view->assign('announcements', $announcements);
+            $this->view->assign('changeAnnouncement', 'changeAnnouncement');
+            $this->view->display('change.html');
+        }
+    }
+
     // 删除公告
     public function delAnnouncement()
     {
@@ -45,6 +56,19 @@ class Announcement extends Controller
         if (isset($_POST['content'])) {
             $content = $_POST['content'];
             $result = $this->announcement->checkAddAnnouncement($content, $this->time);
+            echo $result ? '1' : '0';
+        } else {
+            $this->displayNone();
+        }
+    }
+
+    // 确认修改
+    public function checkChangeAnnouncement()
+    {
+        if (isset($_POST['content']) && isset($_POST['announcement_id'])) {
+            $content = $_POST['content'];
+            $announcement_id = $_POST['announcement_id'];
+            $result = $this->announcement->checkChangeAnnouncement($content, $announcement_id);
             echo $result ? '1' : '0';
         } else {
             $this->displayNone();

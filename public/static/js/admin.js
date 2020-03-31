@@ -374,6 +374,13 @@ function delComment(commentId) {
     });
 }
 
+// 修改公告
+function changeAnnouncement(announcementId) {
+    let temp = announcementId;
+    let announcement_id = temp.getAttribute('data-announcement-id');
+    window.location.href = '/announcement/changeAnnouncement/id/' + announcement_id;
+}
+
 // 删除公告
 function delAnnouncement(announcementId) {
     if (!confirm('确认删除吗？')) {

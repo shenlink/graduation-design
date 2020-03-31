@@ -141,7 +141,7 @@ function check() {
 
 // 确认修改
 $('#change').on('click', function () {
-    let username = $(" input[ name='username' ] ").val()
+    let username = $("input[ name='username' ] ").val()
     let password = $('#password').val();
     let introduction = $('#introduction').val();
     if (check()) {
@@ -153,7 +153,7 @@ $('#change').on('click', function () {
                 layer.msg('修改成功', {
                     time: 1000
                 }, function () {
-                    location.href = '/user/'+username;
+                    location.href = '/user/' + username;
                 });
             } else {
                 layer.msg('修改失败', {
@@ -162,4 +162,26 @@ $('#change').on('click', function () {
             }
         });
     }
+});
+
+// 修改公告
+$('#changeAnnouncement').on('click', function () {
+    let content = $("input[ name='content' ] ").val()
+    let announcement_id = $('#announcement-id').val();
+    $.post("/announcement/checkChangeAnnouncement", {
+        content: content,
+        announcement_id: announcement_id
+    }, function (data) {
+        if (data === '1') {
+            layer.msg('修改成功', {
+                time: 1000
+            }, function () {
+                window.history.back(-1);
+            });
+        } else {
+            layer.msg('修改失败', {
+                time: 1000
+            });
+        }
+    });
 });

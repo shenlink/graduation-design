@@ -333,6 +333,10 @@
                             {{$announcementsItem.created_at}}
                         </td>
                         <td>
+                            <button class="btn btn-primary btn-sm" onclick="changeAnnouncement(this)"
+                                data-Announcement-id={{$announcementsItem.announcement_id}}>
+                                修改
+                            </button>
                             <button class="btn btn-primary btn-sm" onclick="delAnnouncement(this)"
                                 data-Announcement-id={{$announcementsItem.announcement_id}}>
                                 删除

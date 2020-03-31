@@ -49,6 +49,18 @@ class Route extends Db
             }
         }
 
+        if ($pathArray[0] == 'announcement' && $pathArray[1] == 'changeAnnouncement') {
+            if ($pathArray[2] == 'id') {
+                if (!preg_match('/^([1-9][0-9]*){1,10}$/', $pathArray[3])) {
+                    $this->displayNone();
+                }
+                $this->type = $pathArray[2];
+                $this->pagination = $pathArray[3];
+            }else{
+                $this->displayNone();
+            }
+        }
+
         if ($pathArray[0] == 'admin' && $pathArray[1] == 'manage') {
             $typeArray = ['user', 'article', 'category', 'comment', 'announcement', 'message'];
             if (in_array($pathArray[2], $typeArray)) {
