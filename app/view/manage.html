@@ -14,12 +14,32 @@
         <div class="col-md-2">
             <!-- 列表组开始 -->
             <ul class="list-group manage-list">
-                <li class="list-group-item">文章管理</li>
-                <li class="list-group-item">评论管理</li>
-                <li class="list-group-item">关注管理</li>
-                <li class="list-group-item">粉丝管理</li>
+                <li class="list-group-item">
+                    <a href="/user/manage/article/1" {{if $type == 'article'}} style="color: blue;" {{/if}}>
+                        文章管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/user/manage/comment/1" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
+                        评论管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/user/manage/follow/1" {{if $type == 'follow'}} style="color: blue;" {{/if}}>
+                        关注管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/user/manage/fans/1" {{if $type == 'fans'}} style="color: blue;" {{/if}}>
+                        粉丝管理
+                    </a>
+                </li>
                 {{if $username !== $admin}}
-                <li class="list-group-item">私信管理</li>
+                <li class="list-group-item">
+                    <a href="/user/manage/receive/1" {{if $type == 'receive'}} style="color: blue;" {{/if}}>
+                        私信管理
+                    </a>
+                </li>
                 {{/if}}
             </ul>
             <!-- 列表组结束 -->

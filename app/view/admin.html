@@ -14,12 +14,36 @@
         <div class="col-md-2">
             <!-- 列表组开始 -->
             <ul class="list-group manage-list">
-                <li class="list-group-item">用户管理</li>
-                <li class="list-group-item">文章管理</li>
-                <li class="list-group-item">分类管理</li>
-                <li class="list-group-item">评论管理</li>
-                <li class="list-group-item">公告管理</li>
-                <li class="list-group-item">私信管理</li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/user/1" {{if $type == 'user'}} style="color: blue;" {{/if}}>
+                        用户管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/article/1" {{if $type == 'article'}} style="color: blue;" {{/if}}>
+                        文章管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/category/1" {{if $type == 'category'}} style="color: blue;" {{/if}}>
+                        分类管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/comment/1" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
+                        评论管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/announcement/1" {{if $type == 'announcement'}} style="color: blue;" {{/if}}>
+                        公告管理
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/admin/manage/message/1" {{if $type == 'message'}} style="color: blue;" {{/if}}>
+                        私信管理
+                    </a>
+                </li>
             </ul>
             <!-- 列表组结束 -->
         </div>
@@ -228,7 +252,7 @@
                 </tbody>
             </table>
             <!-- 优化建议：局部刷新 -->
-            <button class="btn btn-primary btn-sm" style="position: relative;left: 857px;" onclick="addCategory()">
+            <button class="btn btn-primary btn-sm" style="position: relative;left: 820px;" onclick="addCategory()">
                 新增
             </button>
             <!-- 分页开始 -->
@@ -349,7 +373,7 @@
                         <td>
                             {{$messagesItem.author}}
                         </td>
-                            <td title="{{$messagesItem.content}}">
+                        <td title="{{$messagesItem.content}}">
                             {{$messagesItem.content|truncate_cn:"10":"..."}}
                         </td>
                         <td>
