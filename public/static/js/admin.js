@@ -39,10 +39,6 @@ let items = $('.manage-item');
 for (let i = 0; i < lis.length; i++) {
     lis[i].setAttribute('index', i);
     lis[i].onclick = function () {
-        for (let i = 0; i < lis.length; i++) {
-            lis[i].className = 'list-group-item';
-        }
-        this.className = 'list-group-item current';
         let index = this.getAttribute('index');
         for (let i = 0; i < items.length; i++) {
             items[i].style.display = 'none';
@@ -228,6 +224,9 @@ function delArticle(articleId) {
                 if (current_page < pageCount) {
                     window.location.reload();
                 }
+                if (current_page == 1 && pageCount == 1 && article_tr == 1) {
+                    window.location.reload();
+                }
                 if (current_page == pageCount && article_tr > 1) {
                     let tr = temp.parentNode.parentNode;
                     let tbody = tr.parentNode;
@@ -272,6 +271,9 @@ function delComment(commentId) {
                 if (current_page < pageCount) {
                     window.location.reload();
                 }
+                if (current_page == 1 && pageCount == 1 && comment_tr == 1) {
+                    window.location.reload();
+                }
                 if (current_page == pageCount && comment_tr > 1) {
                     let tr = temp.parentNode.parentNode;
                     let tbody = tr.parentNode;
@@ -314,6 +316,9 @@ function delAnnouncement(announcementId) {
                 let current_page = parseInt($("#announcementCurrent").data('current'));
                 let pageCount = parseInt($("#announcementCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && announcement_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && announcement_tr > 1) {
@@ -363,6 +368,9 @@ function delMesssage(messageId) {
                 let current_page = parseInt($("#messageCurrent").data('current'));
                 let pageCount = parseInt($("#messageCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && message_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && message_tr > 1) {

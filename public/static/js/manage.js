@@ -39,10 +39,6 @@ let items = $('.manage-item');
 for (let i = 0; i < lis.length; i++) {
     lis[i].setAttribute('data-index', i);
     lis[i].onclick = function () {
-        for (let i = 0; i < lis.length; i++) {
-            lis[i].className = 'list-group-item';
-        }
-        this.className = 'list-group-item current';
         let index = this.getAttribute('data-index');
         for (let i = 0; i < items.length; i++) {
             items[i].style.display = 'none';
@@ -78,6 +74,9 @@ function delArticle(articleId) {
                 let current_page = parseInt($("#articleCurrent").data('current'));
                 let pageCount = parseInt($("#articleCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && article_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && article_tr > 1) {
@@ -119,6 +118,9 @@ function delComment(commentId) {
                 if (current_page < pageCount) {
                     window.location.reload();
                 }
+                if (current_page == 1 && pageCount == 1 && comment_tr == 1) {
+                    window.location.reload();
+                }
                 if (current_page == pageCount && comment_tr > 1) {
                     let tr = temp.parentNode.parentNode;
                     let tbody = tr.parentNode;
@@ -151,6 +153,9 @@ function delFollow(followName) {
                 let current_page = parseInt($("#followCurrent").data('current'));
                 let pageCount = parseInt($("#followCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && follow_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && follow_tr > 1) {
@@ -188,6 +193,9 @@ function delReceive(receiveId) {
                 let current_page = parseInt($("#receiveCurrent").data('current'));
                 let pageCount = parseInt($("#receiveCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && receive_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && receive_tr > 1) {

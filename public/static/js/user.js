@@ -38,10 +38,6 @@ let items = $('.manage-item');
 for (let i = 0; i < lis.length; i++) {
     lis[i].setAttribute('index', i);
     lis[i].onclick = function () {
-        for (let i = 0; i < lis.length; i++) {
-            lis[i].className = 'h4 manage-list';
-        }
-        this.className = 'h4 manage-list current';
         let index = this.getAttribute('index');
         for (let i = 0; i < items.length; i++) {
             items[i].style.display = 'none';
@@ -71,6 +67,9 @@ function delComment(commentId) {
                 let current_page = parseInt($("#commentCurrent").data('current'));
                 let pageCount = parseInt($("#commentCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && comment_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && comment_tr > 1) {
@@ -117,6 +116,9 @@ function delPraise(praiseId) {
                 if (current_page < pageCount) {
                     window.location.reload();
                 }
+                if (current_page == 1 && pageCount == 1 && praise_tr == 1) {
+                    window.location.reload();
+                }
                 if (current_page == pageCount && praise_tr > 1) {
                     let tr = temp.parentNode.parentNode;
                     let tbody = tr.parentNode;
@@ -158,6 +160,9 @@ function delCollect(collectId) {
                 if (current_page < pageCount) {
                     window.location.reload();
                 }
+                if (current_page == 1 && pageCount == 1 && collect_tr == 1) {
+                    window.location.reload();
+                }
                 if (current_page == pageCount && collect_tr > 1) {
                     let tr = temp.parentNode.parentNode;
                     let tbody = tr.parentNode;
@@ -197,6 +202,9 @@ function delShare(shareId) {
                 let current_page = parseInt($("#shareCurrent").data('current'));
                 let pageCount = parseInt($("#shareCurrent").data('page-count'));
                 if (current_page < pageCount) {
+                    window.location.reload();
+                }
+                if (current_page == 1 && pageCount == 1 && share_tr == 1) {
                     window.location.reload();
                 }
                 if (current_page == pageCount && share_tr > 1) {
