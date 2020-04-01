@@ -223,7 +223,6 @@
                         <th scope="col">分类id</th>
                         <th scope="col">分类名称</th>
                         <th scope="col">文章数</th>
-                        <th scope="col">操作</th>
                     </tr>
                 </thead>
                 <tbody id="category">
@@ -238,15 +237,13 @@
                         <td>
                             {{$AllCategorysItem.article_count}}
                         </td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" onclick="addCategory()">
-                                新增
-                            </button>
-                        </td>
                     </tr>
                     {{/foreach}}
                 </tbody>
             </table>
+            <button class="btn btn-primary btn-sm" style="position: relative;left: 857px;" onclick="addCategory()">
+                新增
+            </button>
             <!-- 分页开始 -->
             {{$categoryPage}}
             <!-- 分页结束 -->

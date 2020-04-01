@@ -134,7 +134,9 @@ function passwordOriginal() {
 
 // 确认密码输入框失去焦点后，再次获得焦点时，恢复到初始样式，提示也会恢复到初始值
 function conPasswordOriginal() {
+    let confirmPassword = $('#confirmPassword');
     let conPasswordTip = $('#conPasswordTip');
+    confirmPassword.attr('class', 'form-control');
     conPasswordTip.html(`<img src="/static/image/mess.png" id="conPasswordImg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     确认密码`);
 }
