@@ -144,6 +144,7 @@ class User extends Controller
             $users = $this->user->personal($this->username);
             $praise_count = $this->praise->getPraiseCount($this->username);
             $comment_count = $this->comment->getCommentCount($this->username);
+            $this->view->assign('changeUser', 'changeUser');
             $this->view->assign('praise_count', $praise_count);
             $this->view->assign('comment_count', $comment_count);
             $this->view->assign('recents', $recents);

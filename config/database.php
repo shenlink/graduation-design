@@ -3,8 +3,8 @@
 return array(
     'type'=> 'mysql',
     'host'=> 'localhost',
-    'dbname'=>'shen2',
-    'username' => 'shen2',
-    'password' => 'shen21004',
+    'dbname'=>'shen',
+    'username' => 'shen',
+    'password' => 'shen1004',
     'charset' => 'utf8'
 );
