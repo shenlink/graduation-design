@@ -19,30 +19,12 @@ class Category extends Model
 
     public function getCategory()
     {
-        return $this->table('category')->field('category')->where(['status' => 1])->selectAll();
+        return $this->table('category')->field('category')->selectAll();
     }
 
     public function checkCategory($category)
     {
         return $this->table('category')->field('category')->where(['category' => "{$category}"])->select();
-    }
-
-    //处理删除分类
-    public function delCategory($category)
-    {
-        return $this->table('category')->where(['category' => "{$category}"])->delete();
-    }
-
-    // 处理管理员拉黑分类
-    public function defriendCategory($category)
-    {
-        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 0]);
-    }
-
-    // 处理管理员恢复分类的状态到正常
-    public function normalCategory($category)
-    {
-        return $this->table('category')->where(['category' => "{$category}"])->update(['status' => 1]);
     }
 
     // 处理添加分类
@@ -54,6 +36,6 @@ class Category extends Model
 
     public function getAllCategory($currentPage = 1, $pageSize)
     {
-        return $this->table('category')->field('category_id,category,status')->where('status = 1 or status = 0')->pages($currentPage, $pageSize, '/admin/manage', 'category');
+        return $this->table('category')->field('category_id,category,article_count')->pages($currentPage, $pageSize, '/admin/manage', 'category');
     }
 }

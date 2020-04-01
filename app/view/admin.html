@@ -57,6 +57,9 @@
                         <th scope="col">用户id</th>
                         <th scope="col">用户名</th>
                         <th scope="col">角色</th>
+                        <th scope="col">文章数</th>
+                        <th scope="col">关注数</th>
+                        <th scope="col">粉丝数</th>
                         <th scope="col">注册时间</th>
                         <th scope="col">个人主页</th>
                         <th scope="col">状态</th>
@@ -78,6 +81,15 @@
                             {{else}}
                             普通用户
                             {{/if}}
+                        </td>
+                        <td>
+                            {{$usersItem.article_count}}
+                        </td>
+                        <td>
+                            {{$usersItem.follow_count}}
+                        </td>
+                        <td>
+                            {{$usersItem.fans_count}}
                         </td>
                         <td>
                             {{$usersItem.created_at}}
@@ -210,7 +222,7 @@
                     <tr>
                         <th scope="col">分类id</th>
                         <th scope="col">分类名称</th>
-                        <th scope="col">状态</th>
+                        <th scope="col">文章数</th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
@@ -224,37 +236,17 @@
                             {{$AllCategorysItem.category}}
                         </td>
                         <td>
-                            {{if $AllCategorysItem.status == 1}}
-                            正常
-                            {{else}}
-                            拉黑
-                            {{/if}}
+                            {{$AllCategorysItem.article_count}}
                         </td>
                         <td>
-                            {{if $AllCategorysItem.status == 1}}
-                            <button class="btn btn-primary btn-sm" onclick="defriendCategory(this)"
-                                data-category={{$AllCategorysItem.category}}>
-                                拉黑
-                            </button>
-                            {{else}}
-                            <button class="btn btn-primary btn-sm" onclick="normalCategory(this)"
-                                data-category={{$AllCategorysItem.category}}>
-                                恢复
-                            </button>
-                            {{/if}}
-                            <button class="btn btn-primary btn-sm" onclick="delCategory(this)"
-                                data-category={{$AllCategorysItem.category}}>
-                                删除
+                            <button class="btn btn-primary btn-sm" onclick="addCategory()">
+                                新增
                             </button>
                         </td>
                     </tr>
                     {{/foreach}}
                 </tbody>
             </table>
-            <!-- 优化建议：局部刷新 -->
-            <button class="btn btn-primary btn-sm" style="position: relative;left: 820px;" onclick="addCategory()">
-                新增
-            </button>
             <!-- 分页开始 -->
             {{$categoryPage}}
             <!-- 分页结束 -->

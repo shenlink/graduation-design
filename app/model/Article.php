@@ -66,7 +66,31 @@ class Article extends Model
     // 处理删除文章
     public function delArticle($article_id, $author, $category)
     {
-        return $this->table('article')->where(['article_id' => "{$article_id}", 'author' => "{$author}"])->delete();
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $articleSql = "delete from article where article_id=?";
+            $stmt = $pdo->prepare($articleSql);
+            $stmt->bindParam(1, $article_id);
+            $stmt->execute();
+            $userSql = "update user set article_count=article_count-1 where username=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $author);
+            $stmt->execute();
+            $categorySql = "update category set article_count=article_count-1 where category=?";
+            $stmt = $pdo->prepare($categorySql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     // 获取所有被管理员推荐的文章
@@ -103,7 +127,35 @@ class Article extends Model
     // 处理用户在写文章页面提交的数据
     public function checkWrite($author, $category, $title, $content,   $updated_at)
     {
-        return $this->table('article')->insert(['author' => "{$author}", 'title' => "{$title}", 'content' => "{$content}", 'category' => "{$category}", 'updated_at' => "{$updated_at}"]);
+        $pdo = $this->init();
+        try {
+            $pdo->beginTransaction();
+            $shareSql = "insert into article (author,category,title,content,updated_at) values (?,?,?,?,?)";
+            $stmt = $pdo->prepare($shareSql);
+            $stmt->bindParam(1, $author);
+            $stmt->bindParam(2, $category);
+            $stmt->bindParam(3, $title);
+            $stmt->bindParam(4, $content);
+            $stmt->bindParam(5, $updated_at);
+            $stmt->execute();
+            $userSql = "update user set article_count=article_count+1 where username=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $author);
+            $stmt->execute();
+            $userSql = "update category set article_count=article_count+1 where category=?";
+            $stmt = $pdo->prepare($userSql);
+            $stmt->bindParam(1, $category);
+            $stmt->execute();
+            $pdo->commit();
+            return true;
+        } catch (\PDOException $e) {
+            Log::init();
+            session_start();
+            $username = $_SESSION['username'];
+            Log::log("用户{$username}:" . '执行sql语句发生错误:' . $e->getMessage());
+            $pdo->rollBack();
+            return false;
+        }
     }
 
     public function getCategoryArticle($category, $currentPage = 1, $pageSize)

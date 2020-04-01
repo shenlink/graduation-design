@@ -15,42 +15,6 @@ class Category extends Controller
         exit();
     }
 
-    // 拉黑分类
-    public function defriendCategory()
-    {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $result = $this->category->defriendCategory($categorys);
-            echo $result ? '1' : '0';
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 恢复分类
-    public function normalCategory()
-    {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $result = $this->category->normalCategory($categorys);
-            echo $result ? '1' : '0';
-        } else {
-            $this->displayNone();
-        }
-    }
-
-    // 删除分类
-    public function delCategory()
-    {
-        if (isset($_POST['category'])) {
-            $categorys = $_POST['category'];
-            $result = $this->category->delCategory($categorys);
-            echo $result ? '1' : '0';
-        } else {
-            $this->displayNone();
-        }
-    }
-
     // 添加页面，共有添加分类，公告功能
     public function addCategory()
     {

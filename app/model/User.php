@@ -20,7 +20,8 @@ class User extends Model
     public function search($username, $currentPage = 1, $pageSize)
     {
         $content = '%' . $username . '%';
-        return $this->table('user')->field('username,introduction,created_at')->where("username like \"{$content}\"")->pages($currentPage, $pageSize, "/user/search", $username);
+        return $this->table('user')->field('username,introduction,created_at,article_count,follow_count,fans_count')->where("username like \"{$content}\"")->pages($currentPage, $pageSize, "/user/search", $username);
+
     }
 
     // 验证用户名是否被注册
@@ -50,7 +51,8 @@ class User extends Model
     // 获取个人页面的用户信息
     public function personal($username)
     {
-        return $this->table('user')->field('username,introduction,created_at')->where(['username' => "{$username}"])->select();
+        return $this->table('user')->field('username,introduction,article_count,follow_count,fans_count,created_at')->where(['username' => "{$username}"])->select();
+
     }
 
     // 处理用户在个人信息修改页面提交的数据
@@ -79,6 +81,7 @@ class User extends Model
 
     public function getAllUser($currentPage = 1, $pageSize)
     {
-        return $this->table('user')->field('user_id,username,role,status,created_at')->pages($currentPage, $pageSize, '/admin/manage', 'user');
+        return $this->table('user')->field('user_id,username,role,article_count,follow_count,fans_count,status,created_at')->pages($currentPage, $pageSize, '/admin/manage', 'user');
+
     }
 }
