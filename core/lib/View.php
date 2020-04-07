@@ -41,7 +41,7 @@ class View
             $smarty->cache_lifetime = 60;
             $smarty->left_delimiter = "{";
             $smarty->right_delimiter = "}";
-            if(!$smarty->isCache){
+            if(!$smarty->isCached("$file")){
                 $smarty->assign($this->assign);
             }
             $smarty->display($file);
