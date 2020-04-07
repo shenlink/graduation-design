@@ -1,31 +1,28 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : shen2
+ Source Server         : shen3
  Source Server Type    : MySQL
  Source Server Version : 80012
  Source Host           : localhost:3306
- Source Schema         : shen2
+ Source Schema         : shen3
 
  Target Server Type    : MySQL
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 26/03/2020 15:21:43
- */
-SET
-  NAMES utf8mb4;
+ Date: 07/04/2020 16:42:33
+*/
 
-SET
-  FOREIGN_KEY_CHECKS = 0;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for announcement
 -- ----------------------------
 DROP TABLE IF EXISTS `announcement`;
-
-CREATE TABLE `announcement` (
-  `announcement_id` int(11) NOT NULL,
+CREATE TABLE `announcement`  (
+  `announcement_id` int(11) NOT NULL AUTO_INCREMENT,
   `content` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `created_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`announcement_id`) USING BTREE
@@ -35,8 +32,7 @@ CREATE TABLE `announcement` (
 -- Table structure for article
 -- ----------------------------
 DROP TABLE IF EXISTS `article`;
-
-CREATE TABLE `article` (
+CREATE TABLE `article`  (
   `article_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文章id',
   `author` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文章标题',
@@ -59,11 +55,10 @@ CREATE TABLE `article` (
 -- Table structure for category
 -- ----------------------------
 DROP TABLE IF EXISTS `category`;
-
-CREATE TABLE `category` (
+CREATE TABLE `category`  (
   `category_id` tinyint(1) NOT NULL AUTO_INCREMENT COMMENT '分类id',
   `category` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '分类名称',
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
+  `created_at` datetime(0) NOT NULL COMMENT '状态',
   `article_count` int(11) NULL DEFAULT 0 COMMENT '文章数',
   PRIMARY KEY (`category_id`) USING BTREE,
   INDEX `category`(`category`) USING BTREE
@@ -73,8 +68,7 @@ CREATE TABLE `category` (
 -- Table structure for collect
 -- ----------------------------
 DROP TABLE IF EXISTS `collect`;
-
-CREATE TABLE `collect` (
+CREATE TABLE `collect`  (
   `collect_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户id',
   `article_id` int(11) NOT NULL COMMENT '文章id',
@@ -94,8 +88,7 @@ CREATE TABLE `collect` (
 -- Table structure for comment
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
-
-CREATE TABLE `comment` (
+CREATE TABLE `comment`  (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论id',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论内容',
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -116,8 +109,7 @@ CREATE TABLE `comment` (
 -- Table structure for follow
 -- ----------------------------
 DROP TABLE IF EXISTS `follow`;
-
-CREATE TABLE `follow` (
+CREATE TABLE `follow`  (
   `follow_id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -130,27 +122,10 @@ CREATE TABLE `follow` (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for log
--- ----------------------------
-DROP TABLE IF EXISTS `log`;
-
-CREATE TABLE `log` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'guest',
-  `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'action',
-  `log_at` datetime(0) NOT NULL,
-  PRIMARY KEY (`log_id`) USING BTREE,
-  INDEX `username`(`username`) USING BTREE,
-  CONSTRAINT `log_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
-
-CREATE TABLE `message` (
+CREATE TABLE `message`  (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `content` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -164,8 +139,7 @@ CREATE TABLE `message` (
 -- Table structure for praise
 -- ----------------------------
 DROP TABLE IF EXISTS `praise`;
-
-CREATE TABLE `praise` (
+CREATE TABLE `praise`  (
   `praise_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(10) NOT NULL,
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -185,8 +159,7 @@ CREATE TABLE `praise` (
 -- Table structure for receive
 -- ----------------------------
 DROP TABLE IF EXISTS `receive`;
-
-CREATE TABLE `receive` (
+CREATE TABLE `receive`  (
   `receive_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `content` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -200,8 +173,7 @@ CREATE TABLE `receive` (
 -- Table structure for share
 -- ----------------------------
 DROP TABLE IF EXISTS `share`;
-
-CREATE TABLE `share` (
+CREATE TABLE `share`  (
   `share_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户id',
   `article_id` int(11) NOT NULL COMMENT '文章id',
@@ -221,8 +193,7 @@ CREATE TABLE `share` (
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
+CREATE TABLE `user`  (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
@@ -236,5 +207,4 @@ CREATE TABLE `user` (
   UNIQUE INDEX `username`(`username`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
-SET
-  FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 1;
