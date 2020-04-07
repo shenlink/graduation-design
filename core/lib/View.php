@@ -34,14 +34,16 @@ class View
         $file = APP . '/view/' . $file;
         if (is_file($file)) {
             $smarty = new \Smarty();
-            $smarty->caching = false;
+            $smarty->caching = true;
             $smarty->template_dir = APP.'/view';
             $smarty->compile_dir = SHEN.'/runtime/smarty/templates_c';
             $smarty->cache_dir = SHEN."/runtime/smarty/cache";
             $smarty->cache_lifetime = 60;
             $smarty->left_delimiter = "{";
             $smarty->right_delimiter = "}";
-            $smarty->assign($this->assign);
+            if(!$smarty->isCache){
+                $smarty->assign($this->assign);
+            }
             $smarty->display($file);
         }
     }

@@ -15,7 +15,6 @@ use app\model\Share;
 use app\model\Receive;
 use app\model\User;
 use core\lib\Db;
-use core\lib\driver\log\Mysql;
 use core\lib\View;
 use core\lib\RegisterTree;
 
@@ -152,17 +151,6 @@ class Factory
             RegisterTree::set('shen', $db);
         }
         return $db;
-    }
-
-    public static function createMysql()
-    {
-        $key = 'mysql';
-        $mysql = RegisterTree::get($key);
-        if (!$mysql) {
-            $mysql = Mysql::getInstance();
-            RegisterTree::set('mysql', $mysql);
-        }
-        return $mysql;
     }
 
     public static function createView()

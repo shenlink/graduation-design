@@ -1,3 +1,0 @@
-数据库设计思路
-
-共7张表，分别是：用户表：blog_user,点赞表blog_praise,评论表：blog_comment,文章表：blog_article,公告表：blog_announcement,分类表：blog_category,分享表：blog_share。
