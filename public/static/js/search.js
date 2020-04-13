@@ -59,11 +59,10 @@ function changePage(page) {
 // 页数跳转
 function jumpPage(pages) {
     let temp = pages;
-    let type = decodeURI(temp.getAttribute('data-type'));
+    let search_type = $(".type").text();
     let count = temp.getAttribute('data-count');
     let pagination = $('.search-type').val();
     let current_page = $('#current').data('pagination');
-    let search_type = $("type").text();
     if (parseInt(pagination) > parseInt(count)) {
         layer.msg('输入页数太大了', {
             time: 1000
@@ -77,7 +76,8 @@ function jumpPage(pages) {
         return;
     }
     if (search_type == '文章查询结果') {
-        window.location.href = `/user/search/${type}/${pagination}.html`;
+        let type = decodeURI(temp.getAttribute('data-type'));
+        window.location.href = `/article/search/${type}/${pagination}.html`;
     } else {
         window.location.href = `/user/search/${type}/${pagination}.html`;
     }
