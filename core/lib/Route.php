@@ -18,6 +18,10 @@ class Route extends Db
     {
         if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] != '/') {
             $path = $_SERVER['REQUEST_URI'];
+            $prefix = substr($path, -5);
+            if($prefix == '.html'){
+                $path = trim($path,'.html');
+            }
             $pathArray = explode('/', trim($path, '/'));
             if (count($pathArray) > 4) {
                 $this->displayNone();
@@ -107,8 +111,10 @@ class Route extends Db
             $this->type = 'pagination';
             $this->pagination = $pathArray[3];
         }
-        if ($pathArray[0] == 'index' && $pathArray[1] == 'index' && $pathArray[2] != 'pagination') {
-            $this->displayNone();
+        if ($pathArray[0] == 'index' && $pathArray[1] == 'index') {
+            if(isset($pathArray[2]) && $pathArray[2] != 'pagination'){
+                $this->displayNone();
+            }
         }
 
         if ($pathArray[0] == 'user') {
