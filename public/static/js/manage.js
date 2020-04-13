@@ -51,7 +51,7 @@ for (let i = 0; i < lis.length; i++) {
 function editArticle(articleId) {
     let temp = articleId;
     let article_id = temp.getAttribute('data-article-id');
-    window.location.href = '/article/editArticle/article/' + article_id;
+    window.location.href = '/article/editArticle/article/' + article_id + '.html';
 }
 
 // 删除文章
@@ -85,7 +85,7 @@ function delArticle(articleId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && article_tr == 1) {
-                    window.location.href = '/user/manage/article/' + (current_page - 1);
+                    window.location.href = '/user/manage/article/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -127,7 +127,7 @@ function delComment(commentId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && comment_tr == 0) {
-                    window.location.href = '/user/manage/comment/' + (current_page - 1);
+                    window.location.href = '/user/manage/comment/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -164,7 +164,7 @@ function delFollow(followName) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && follow_tr == 1) {
-                    window.location.href = '/user/manage/follow/' + (current_page - 1);
+                    window.location.href = '/user/manage/follow/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -204,7 +204,7 @@ function delReceive(receiveId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && receive_tr == 1) {
-                    window.location.href = '/user/manage/receive/' + (current_page - 1);
+                    window.location.href = '/user/manage/receive/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -277,5 +277,5 @@ function jumpPage(pages) {
         });
         return;
     }
-    window.location.href = `/user/manage/${type}/${pagination}`;
+    window.location.href = `/user/manage/${type}/${pagination}.html`;
 }

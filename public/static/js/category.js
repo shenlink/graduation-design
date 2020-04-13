@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -82,5 +82,5 @@ function jumpPage(pages) {
         });
         return;
     }
-    window.location.href = `/category/${category}/${type}/${pagination}`;
+    window.location.href = `/category/${category}/${type}/${pagination}.html`;
 }

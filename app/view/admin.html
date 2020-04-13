@@ -15,32 +15,32 @@
             <!-- 列表组开始 -->
             <ul class="list-group manage-list">
                 <li class="list-group-item">
-                    <a href="/admin/manage/user/1" {{if $type == 'user'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/user/1.html" {{if $type == 'user'}} style="color: blue;" {{/if}}>
                         用户管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/admin/manage/article/1" {{if $type == 'article'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/article/1.html" {{if $type == 'article'}} style="color: blue;" {{/if}}>
                         文章管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/admin/manage/category/1" {{if $type == 'category'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/category/1.html" {{if $type == 'category'}} style="color: blue;" {{/if}}>
                         分类管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/admin/manage/comment/1" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/comment/1.html" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
                         评论管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/admin/manage/announcement/1" {{if $type == 'announcement'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/announcement/1.html" {{if $type == 'announcement'}} style="color: blue;" {{/if}}>
                         公告管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/admin/manage/message/1" {{if $type == 'message'}} style="color: blue;" {{/if}}>
+                    <a href="/admin/manage/message/1.html" {{if $type == 'message'}} style="color: blue;" {{/if}}>
                         私信管理
                     </a>
                 </li>
@@ -95,7 +95,7 @@
                             {{$usersItem.created_at}}
                         </td>
                         <td>
-                            <a href="/user/{{$usersItem.username}}"
+                            <a href="/user/{{$usersItem.username}}.html"
                                 title="{{$usersItem.username}}">{{$usersItem.username|truncate_cn:"10":"..."}}
                             </a>
                         </td>
@@ -186,7 +186,7 @@
                             {{$articlesItem.collect_count}}
                         </td>
                         <td>
-                            <a href="/article/{{$articlesItem.article_id}}">文章链接</a>
+                            <a href="/article/{{$articlesItem.article_id}}.html">文章链接</a>
                         </td>
                         <td>
                             {{if $articlesItem.status == 1}}
@@ -276,7 +276,7 @@
                             {{$commentsItem.comment_at}}
                         </td>
                         <td>
-                            <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
+                            <a href="/article/{{$commentsItem.article_id}}.html">文章链接</a>
                         </td>
                         <td>
                             {{$commentsItem.username}}
@@ -373,7 +373,7 @@
                             {{$messagesItem.created_at}}
                         </td>
                         <td>
-                            <a href="/user/{{$messagesItem.author}}">用户主页</a>
+                            <a href="/user/{{$messagesItem.author}}.html">用户主页</a>
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm" id="addMessage" onclick="addMessage()"

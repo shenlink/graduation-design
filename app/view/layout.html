@@ -29,7 +29,7 @@
                                 {{foreach from=$categorys item=categorysItem}}
                                 <li class="nav-item">
                                     <a class="nav-link"
-                                        href="/category/{{$categorysItem.category}}">{{$categorysItem.category}}
+                                        href="/category/{{$categorysItem.category}}.html">{{$categorysItem.category}}
                                     </a>
                                 </li>
                                 {{/foreach}}
@@ -53,36 +53,36 @@
                                 <!-- 搜索框结束 -->
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/article/write">写博客</a>
+                                    <a class="nav-link" href="/article/write.html">写博客</a>
                                 </li>
                                 {{if $username}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/{{$username}}" title="个人中心"><img
+                                    <a class="nav-link" href="/user/{{$username}}.html" title="个人中心"><img
                                             src="/static/image/avatar.jpg" width="25px" height="25px" alt="个人中心"
                                             style="border-radius:50%">
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/logout"
+                                    <a class="nav-link" href="/user/logout.html"
                                         onclick="return confirm('确定退出登录?');">退出登录</a>
                                 </li>
                                 {{else}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/register">注册</a>
+                                    <a class="nav-link" href="/user/register.html">注册</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/login">登录</a>
+                                    <a class="nav-link" href="/user/login.html">登录</a>
                                 </li>
                                 {{/if}}
 
                                 <!-- 管理菜单 -->
                                 {{if $username == $admin}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/manage">管理</a>
+                                    <a class="nav-link" href="/admin/manage.html">管理</a>
                                 </li>
                                 {{else}}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/user/manage">管理</a>
+                                    <a class="nav-link" href="/user/manage.html">管理</a>
                                 </li>
                                 {{/if}}
                                 <!-- 管理菜单结束 -->

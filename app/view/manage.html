@@ -15,28 +15,28 @@
             <!-- 列表组开始 -->
             <ul class="list-group manage-list">
                 <li class="list-group-item">
-                    <a href="/user/manage/article/1" {{if $type == 'article'}} style="color: blue;" {{/if}}>
+                    <a href="/user/manage/article/1.html" {{if $type == 'article'}} style="color: blue;" {{/if}}>
                         文章管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/user/manage/comment/1" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
+                    <a href="/user/manage/comment/1.html" {{if $type == 'comment'}} style="color: blue;" {{/if}}>
                         评论管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/user/manage/follow/1" {{if $type == 'follow'}} style="color: blue;" {{/if}}>
+                    <a href="/user/manage/follow/1.html" {{if $type == 'follow'}} style="color: blue;" {{/if}}>
                         关注管理
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="/user/manage/fans/1" {{if $type == 'fans'}} style="color: blue;" {{/if}}>
+                    <a href="/user/manage/fans/1.html" {{if $type == 'fans'}} style="color: blue;" {{/if}}>
                         粉丝管理
                     </a>
                 </li>
                 {{if $username !== $admin}}
                 <li class="list-group-item">
-                    <a href="/user/manage/receive/1" {{if $type == 'receive'}} style="color: blue;" {{/if}}>
+                    <a href="/user/manage/receive/1.html" {{if $type == 'receive'}} style="color: blue;" {{/if}}>
                         私信管理
                     </a>
                 </li>
@@ -92,7 +92,7 @@
                             {{$articlesItem.collect_count}}
                         </td>
                         <td>{{$articlesItem.share_count}}</td>
-                        <td><a href="/article/{{$articlesItem.article_id}}">文章链接</a>
+                        <td><a href="/article/{{$articlesItem.article_id}}.html">文章链接</a>
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm editArticle" onclick="editArticle(this)"
@@ -139,7 +139,7 @@
                             {{$commentsItem.username}}
                         </td>
                         <td>
-                            <a href="/article/{{$commentsItem.article_id}}">文章链接</a>
+                            <a href="/article/{{$commentsItem.article_id}}.html">文章链接</a>
                         </td>
                         <td>
                             <button class="btn btn-primary btn-sm" onclick="delComment(this)"
@@ -179,7 +179,7 @@
                             {{$followsItem.follow_at}}
                         </td>
                         <td>
-                            <a href="/user/{{$followsItem.author}}">
+                            <a href="/user/{{$followsItem.author}}.html">
                                 个人主页
                             </a>
                         </td>
@@ -219,7 +219,7 @@
                             {{$fansItem.follow_at}}
                         </td>
                         <td>
-                            <a href="/user/{{$fansItem.username}}">
+                            <a href="/user/{{$fansItem.username}}.html">
                                 个人主页
                             </a>
                         </td>

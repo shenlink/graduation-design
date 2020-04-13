@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -358,5 +358,5 @@ $('#follow').on('click', function () {
 // 发私信
 function addMessage() {
     let author = $('#addMessage').data('author');
-    window.location.href = '/message/addMessage/username/' + author;
+    window.location.href = '/message/addMessage/username/' + author + '.html';
 }

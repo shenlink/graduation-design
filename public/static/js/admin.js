@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -143,7 +143,7 @@ function delUser(userId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && user_tr == 1) {
-                    window.location.href = '/admin/manage/aricle/' + (current_page - 1);
+                    window.location.href = '/admin/manage/aricle/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -233,7 +233,7 @@ function delArticle(articleId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && article_tr == 1) {
-                    window.location.href = '/admin/manage/aricle/' + (current_page - 1);
+                    window.location.href = '/admin/manage/aricle/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -246,7 +246,7 @@ function delArticle(articleId) {
 
 // 新增分类
 function addCategory() {
-    window.location.href = '/category/addCategory';
+    window.location.href = '/category/addCategory.html';
 }
 
 // 删除评论
@@ -280,7 +280,7 @@ function delComment(commentId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && comment_tr == 1) {
-                    window.location.href = '/admin/manage/comment/' + (current_page - 1);
+                    window.location.href = '/admin/manage/comment/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -295,7 +295,7 @@ function delComment(commentId) {
 function changeAnnouncement(announcementId) {
     let temp = announcementId;
     let announcement_id = temp.getAttribute('data-announcement-id');
-    window.location.href = '/announcement/changeAnnouncement/id/' + announcement_id;
+    window.location.href = '/announcement/changeAnnouncement/id/' + announcement_id + '.html';
 }
 
 // 删除公告
@@ -327,7 +327,7 @@ function delAnnouncement(announcementId) {
                     tbody.removeChild(tr);
                 }
                 if (announcement_num > 1 && current_page == pageCount && announcement_tr == 1) {
-                    window.location.href = '/admin/manage/announcement/' + (current_page - 1);
+                    window.location.href = '/admin/manage/announcement/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -340,14 +340,14 @@ function delAnnouncement(announcementId) {
 
 // 新增公告
 function addAnnouncement() {
-    window.location.href = '/announcement/addAnnouncement';
+    window.location.href = '/announcement/addAnnouncement.html';
 }
 
 
 // 发私信
 function addMessage() {
     let author = $('#addMessage').data('author');
-    window.location.href = '/message/addMessage/username/' + author;
+    window.location.href = '/message/addMessage/username/' + author + '.html';
 }
 
 // 删除私信
@@ -379,7 +379,7 @@ function delMesssage(messageId) {
                     tbody.removeChild(tr);
                 }
                 if (current_page > 1 && current_page == pageCount && message_tr == 1) {
-                    window.location.href = '/admin/manage/message/' + (current_page - 1);
+                    window.location.href = '/admin/manage/message/' + (current_page - 1) + '.html';
                 }
             });
         } else {
@@ -458,5 +458,5 @@ function jumpPage(pages) {
         });
         return;
     }
-    window.location.href = `/admin/manage/${type}/${pagination}`;
+    window.location.href = `/admin/manage/${type}/${pagination}.html`;
 }

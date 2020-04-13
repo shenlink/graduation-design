@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -61,7 +61,7 @@ $('#edit').on('click', function () {
             layer.msg('更改成功', {
                 time: 1000
             }, function () {
-                location.href = '/user/manage';
+                window.location.href = '/user/manage.html';
             });
         } else {
             layer.msg('更改失败', {

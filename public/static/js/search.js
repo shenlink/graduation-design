@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -77,8 +77,8 @@ function jumpPage(pages) {
         return;
     }
     if (search_type == '文章查询结果') {
-        window.location.href = `/user/search/${type}/${pagination}`;
+        window.location.href = `/user/search/${type}/${pagination}.html`;
     } else {
-        window.location.href = `/user/search/${type}/${pagination}`;
+        window.location.href = `/user/search/${type}/${pagination}.html`;
     }
 }

@@ -41,7 +41,7 @@
                     <div class="card" id="article" data-article-id={{$articles.article_id}}>
                         <div class="card-header">
                             <span>
-                                作者：<a href="/user/{{$articles.author}}" class="text-info" id="author"
+                                作者：<a href="/user/{{$articles.author}}.html" class="text-info" id="author"
                                     data-author={{$articles.author}}>{{$articles.author}}</a>&nbsp;
                             </span>
                             <span>
@@ -137,7 +137,7 @@
                     <!-- 个人信息列开始 -->
                     <div class="card" style="width: 26rem;">
                         <div class="card-body">
-                            <h5 class="card-title">作者：<a href="/user/{{$users.username}}" class="text-info">
+                            <h5 class="card-title">作者：<a href="/user/{{$users.username}}.html" class="text-info">
                                     {{$users.username}}</a>
                             </h5>
                             <h6>
@@ -198,7 +198,7 @@
                             </button>
                             {{/if}}
                             {{else}}
-                            <a href="/user/manage/article/1" class="btn btn-primary card-link">管理</a>
+                            <a href="/user/manage/article/1.html" class="btn btn-primary card-link">管理</a>
                             {{/if}}
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                             <div>
                                 {{foreach from=$recents item=recentsItem}}
                                 <div>
-                                    <a href="/article/{{$recentsItem.article_id}}" title="{{$recentsItem.title}}">
+                                    <a href="/article/{{$recentsItem.article_id}}.html" title="{{$recentsItem.title}}">
                                         {{$recentsItem.title|truncate_cn:"20":"..."}}
                                     </a>
                                 </div>

@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -60,11 +60,11 @@ $('#publish').on('click', function () {
         content: content,
         category: category
     }, function (data) {
-            if (data === '1') {
+        if (data === '1') {
             layer.msg('发表成功', {
                 time: 1000
             }, function () {
-                window.location.href = '/user/' + username;
+                window.location.href = '/user/' + username + '.html';
             });
         } else {
             layer.msg('发表失败', {

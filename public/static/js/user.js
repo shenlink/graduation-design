@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -81,7 +81,7 @@ function delComment(commentId) {
                 }
                 if (current_page > 1 && current_page == pageCount && comment_tr == 1) {
                     let prePage = current_page - 1;
-                    window.location.href = `/user/${author}/comment/${prePage}`;
+                    window.location.href = `/user/${author}/comment/${prePage}.html`;
 
                 }
             });
@@ -126,7 +126,7 @@ function delPraise(praiseId) {
                 }
                 if (current_page > 1 && current_page == pageCount && praise_tr == 1) {
                     let prePage = current_page - 1;
-                    window.location.href = `/user/${author}/praise/${prePage}`;
+                    window.location.href = `/user/${author}/praise/${prePage}.html`;
                 }
             });
         } else {
@@ -170,7 +170,7 @@ function delCollect(collectId) {
                 }
                 if (current_page > 1 && current_page == pageCount && collect_tr == 1) {
                     let prePage = current_page - 1;
-                    window.location.href = `/user/${author}/collect/${prePage}`;
+                    window.location.href = `/user/${author}/collect/${prePage}.html`;
                 }
             });
         } else {
@@ -214,7 +214,7 @@ function delShare(shareId) {
                 }
                 if (current_page > 1 && current_page == pageCount && share_tr == 1) {
                     let prePage = current_page - 1;
-                    window.location.href = `/user/${author}/share/${prePage}`;
+                    window.location.href = `/user/${author}/share/${prePage}.html`;
                 }
             });
         } else {
@@ -266,7 +266,7 @@ $('#follow').on('click', function () {
 // 发私信
 function addMessage() {
     let author = $('#addMessage').data('author');
-    window.location.href = '/message/addMessage/username/' + author;
+    window.location.href = '/message/addMessage/username/' + author + '.html';
 }
 
 // 分页
@@ -329,5 +329,5 @@ function jumpPage(pages) {
         });
         return;
     }
-    window.location.href = `/user/${author}/${type}/${pagination}`;
+    window.location.href = `/user/${author}/${type}/${pagination}.html`;
 }

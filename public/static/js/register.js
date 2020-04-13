@@ -26,9 +26,9 @@ $('#search').on('click', function () {
         }
     }
     if (type == '1') {
-        window.location.href = `/user/search/${searchContent}/1`;
+        window.location.href = `/user/search/${searchContent}/1.html`;
     } else {
-        window.location.href = `/article/search/${searchContent}/1`;
+        window.location.href = `/article/search/${searchContent}/1.html`;
     }
 });
 
@@ -197,7 +197,7 @@ $('#register').on('click', function () {
                 layer.msg('注册成功', {
                     time: 1000
                 }, function () {
-                    location.href = '/user/login';
+                    location.href = '/user/login.html';
                 });
             } else {
                 layer.msg('注册失败', {
