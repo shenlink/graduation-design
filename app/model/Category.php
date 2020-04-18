@@ -19,7 +19,7 @@ class Category extends Model
 
     public function getCategory()
     {
-        return $this->table('category')->field('category')->selectAll();
+        return $this->table('category')->field('category')->order('category_id asc')->selectAll();
     }
 
     public function checkCategory($category)
