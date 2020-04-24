@@ -108,11 +108,12 @@ class User extends Controller
     {
         if ($this->username) {
             unset($_SESSION['username']);
-            echo "<script>window.location.href='/'</script>";
+            echo "<script>window.location.href='/';</script>";
         } else {
             $this->view->assign('nologin', 'nologin');
             $this->view->display('error.html');
         }
+        var_dump($this->username);
     }
 
     // 显示用户修稿密码和个人简介的页面
