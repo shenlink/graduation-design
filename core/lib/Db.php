@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace core\lib;
 
@@ -99,6 +99,7 @@ class Db
     public function table($table)
     {
         $this->init();
+        $this->where = array();
         $this->table = $table;
         return $this;
     }
