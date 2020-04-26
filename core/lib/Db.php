@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace core\lib;
 
@@ -260,7 +260,7 @@ class Db
         if ($pageCount == 0) {
             return;
         }
-        if($currentPage > $pageCount){
+        if ($currentPage > $pageCount) {
             return 'error';
         }
         // 生成首页,生成上一页
