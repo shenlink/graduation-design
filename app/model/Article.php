@@ -130,8 +130,8 @@ class Article extends Model
         $pdo = $this->init();
         try {
             $pdo->beginTransaction();
-            $shareSql = "insert into article (author,category,title,content,updated_at) values (?,?,?,?,?)";
-            $stmt = $pdo->prepare($shareSql);
+            $articleSql = "insert into article (author,category,title,content,updated_at) values (?,?,?,?,?)";
+            $stmt = $pdo->prepare($articleSql);
             $stmt->bindParam(1, $author);
             $stmt->bindParam(2, $category);
             $stmt->bindParam(3, $title);
@@ -142,8 +142,8 @@ class Article extends Model
             $stmt = $pdo->prepare($userSql);
             $stmt->bindParam(1, $author);
             $stmt->execute();
-            $userSql = "update category set article_count=article_count+1 where category=?";
-            $stmt = $pdo->prepare($userSql);
+            $categorySql = "update category set article_count=article_count+1 where category=?";
+            $stmt = $pdo->prepare($categorySql);
             $stmt->bindParam(1, $category);
             $stmt->execute();
             $pdo->commit();
