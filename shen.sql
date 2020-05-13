@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : shen3
+ Source Server         : root
  Source Server Type    : MySQL
  Source Server Version : 80012
  Source Host           : localhost:3306
- Source Schema         : shen3
+ Source Schema         : shen2
 
  Target Server Type    : MySQL
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 07/04/2020 16:42:33
+ Date: 13/05/2020 19:41:48
 */
 
 SET NAMES utf8mb4;
@@ -206,5 +206,10 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0, 0, 0, 1, '2020-05-13 19:41:20');
 
 SET FOREIGN_KEY_CHECKS = 1;

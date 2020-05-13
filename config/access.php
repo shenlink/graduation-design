@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'admin' => 'shen'
+    'admin' => 'admin'
 );
